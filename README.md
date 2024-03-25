@@ -1,3 +1,9 @@
+**Setup env**
+```
+cp .env.example .env
+```
+
+
 **Backend cmd**
 
 ```
@@ -9,6 +15,8 @@ cd backend
 composer install
 
 sail up -d
+
+docker exec -it <container name> bash > php artisan migrate --seed
 
 ```
 

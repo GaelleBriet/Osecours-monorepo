@@ -22,47 +22,32 @@ services:
     networks:
       - sail
     depends_on:
-      - mysql
-
-  mysql:
-    image: 'mysql/mysql-server:8.0'
+      - postgres
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - '${FORWARD_DB_PORT:-3306}:3306'
+        - "8083:8080" 
+    networks:
+        - sail
+  postgres:
+    image: postgres:latest
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: '${DB_DATABASE}'
-      MYSQL_USER: '${DB_USERNAME}'
-      MYSQL_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        POSTGRES_DB: '${DB_DATABASE}'
+        POSTGRES_USER: '${DB_USERNAME}'
+        POSTGRES_PASSWORD: '${DB_PASSWORD}'
+    ports:
+        - "5432:5432"
     volumes:
-      - 'sail-mysql:/var/lib/mysql'
-      - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        - sail-postgres:/var/lib/postgresql/data 
     networks:
-      - sail
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
-      retries: 3
-      timeout: 5s
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin_dev
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: secret 
-    ports:
-      - "8081:80" 
-    depends_on:
-      - mysql
-    networks:
-      - sail
+        - sail
+  
 
 networks:
   sail:
     driver: bridge
 
 volumes:
-  sail-mysql:
-    driver: bridge
+  sail-postgres:
+    driver: local
