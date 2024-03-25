@@ -1,6 +1,7 @@
 **Backend cmd**
 
 ```
+composer install 
 
 alias sail="./vendor/bin/sail"
 
