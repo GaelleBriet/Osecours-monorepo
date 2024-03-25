@@ -5,7 +5,7 @@
 alias sail="./vendor/bin/sail"
 
 cd backend
-
+composer install
 sail up -d
 
 ```
