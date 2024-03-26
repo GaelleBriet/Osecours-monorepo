@@ -3,8 +3,8 @@ import {
 	getUser,
 	getUsers,
 	createUser,
-} from '@/Services/DataLayers/example.ts';
-import { User } from '@/Interfaces/example.ts';
+} from '@/Services/DataLayers/Example.ts';
+import { User } from '@/Interfaces/Example.ts';
 
 export const useUserStore = defineStore('user', {
 	state: (): { user: User | null; users: User[] } => ({

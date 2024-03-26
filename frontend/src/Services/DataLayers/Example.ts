@@ -2,7 +2,7 @@
 // ex: user.ts
 
 import axios from 'axios';
-import { User } from '@/Interfaces/example.ts';
+import { User } from '@/Interfaces/Example.ts';
 
 const API_URL = 'https://api.example.com/users';
 
