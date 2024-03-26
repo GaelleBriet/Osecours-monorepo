@@ -18,6 +18,7 @@ DB_PASSWORD=password
 **Backend cmd**
 
 ```
+docker compose up --build
 
 docker exec -it <container name> bash > php artisan migrate --seed
 
