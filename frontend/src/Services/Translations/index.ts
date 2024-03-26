@@ -7,24 +7,24 @@ import {
 	setToStorage,
 } from '@/Services/Helpers/LocalStorage.ts';
 
-export type AvailableLanguagesInterface = 'fr' | 'en';
+export type AvailableLanguagesInterface = 'fr-FR' | 'en-GB';
 
 if (getFromStorage('locale') === null) {
-	setToStorage('locale', 'fr');
+	setToStorage('locale', 'fr-FR');
 }
 let locale = getFromStorage('locale') as AvailableLanguagesInterface;
 if (!locale) {
-	locale = 'fr';
+	locale = 'fr-FR';
 }
 
 const i18n = createI18n({
-	legacy: true,
+	legacy: false,
 	globalInjection: true,
 	locale,
 	fallbackLocale: 'en',
 	messages: {
-		fr,
-		en,
+		'fr-FR': fr,
+		'en-GB': en,
 	},
 });
 
