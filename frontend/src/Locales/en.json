@@ -1,0 +1,42 @@
+{
+  "common": {
+    "actions": {
+      "next": "next",
+      "cancel": "cancel",
+      "logIn": "log in",
+      "register": "register"
+    },
+    "welcome": "welcome!"
+  },
+  "navigation": {
+    "home": "home",
+    "about": "about",
+    "contact": "contact"
+  },
+  "authentication": {
+    "logIn": {
+      "title": "log in",
+      "description": "log in to access your account."
+    },
+    "register": {
+      "title": "register",
+      "description": "create an account to get started."
+    },
+    "logOut": {
+      "confirmation": "are you sure you want to log out?"
+    }
+  },
+  "pages": {
+    "home": {
+      "welcomeMessage": "welcome to our site!"
+    },
+    "about": {
+      "header": "about us",
+      "content": "here, a description of the company or project."
+    },
+    "contact": {
+      "header": "contact us",
+      "instructions": "fill out the form below to send us a message."
+    }
+  }
+}

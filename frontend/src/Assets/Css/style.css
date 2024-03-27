@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Roboto&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+	--font-primary: 'Roboto', Inter, sans-serif;
+	--font-secondary: 'Lemon', cursive;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	--color-grey: #97a6a6;
+	--color-beige-light: #f2d0a7;
+	--color-beige-dark: #d99962;
+	--color-pink: #f28a80;
+	--color-black: #0d0d0d;
+	--color-withe: #f2f2f2;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body, #app {
+	font-family: var(--font-primary);
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	background-color: var(--color-withe);
+	color: var(--color-black);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-secondary);
+}

@@ -1,0 +1,42 @@
+{
+  "common": {
+    "actions": {
+      "next": "suivant",
+      "cancel": "annuler",
+      "logIn": "connexion",
+      "register": "enregistrement"
+    },
+    "welcome": "bienvenue!"
+  },
+  "navigation": {
+    "home": "accueil",
+    "about": "à propos",
+    "contact": "contact"
+  },
+  "authentication": {
+    "logIn": {
+      "title": "connexion",
+      "description": "connectez-vous pour accéder à votre compte."
+    },
+    "register": {
+      "title": "enregistrement",
+      "description": "créez un compte pour commencer."
+    },
+    "logOut": {
+      "confirmation": "êtes-vous sûr de vouloir vous déconnecter ?"
+    }
+  },
+  "pages": {
+    "home": {
+      "welcomeMessage": "bienvenue sur notre site !"
+    },
+    "about": {
+      "header": "à propos de nous",
+      "content": "ici, une description de l'entreprise ou du projet."
+    },
+    "contact": {
+      "header": "contactez-nous",
+      "instructions": "remplissez le formulaire ci-dessous pour nous envoyer un message."
+    }
+  }
+}
