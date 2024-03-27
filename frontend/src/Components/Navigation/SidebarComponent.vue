@@ -42,10 +42,11 @@
 <template>
 	<div
 		id="sidebar"
-		class="fixed top-0 left-0 flex h-screen flex-col"
+		class="top-0 left-0 flex h-screen flex-col :sm:w-20 max-w-48 transition-width ease-in-out duration-1000"
 	>
+		<!--		class:fixed-->
 		<div
-			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6 w-52"
+			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6"
 		>
 			<div class="flex h-16 shrink-0 items-center">
 				<img
@@ -87,19 +88,23 @@
 										]"
 										aria-hidden="true"
 									/>
-									{{ item.name }}
-									<span
-										v-if="item.count"
-										class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-gray-600 ring-1 ring-inset ring-gray-200"
-										aria-hidden="true"
-										>{{ item.count }}</span
-									>
+									<span class="truncate">
+										{{ item.name }}
+										<span
+											v-if="item.count"
+											class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-gray-600 ring-1 ring-inset ring-gray-200"
+											aria-hidden="true"
+											>{{ item.count }}</span
+										>
+									</span>
 								</a>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<div class="text-xs font-semibold leading-6 text-gray-400">
+						<div
+							class="text-xs font-semibold leading-6 text-gray-400 sm:block hidden"
+						>
 							Your teams
 						</div>
 						<ul
@@ -143,8 +148,12 @@
 								src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
 								alt=""
 							/>
-							<span class="sr-only">Your profile</span>
-							<span aria-hidden="true">Tom Cook</span>
+							<span class="sr-only sm:block hidden">Your profile</span>
+							<span
+								aria-hidden="true"
+								class="sm:block hidden"
+								>Tom Cook</span
+							>
 						</a>
 					</li>
 				</ul>
@@ -156,5 +165,12 @@
 <style lang="css" scoped>
 	ul {
 		list-style-type: none;
+	}
+
+	#sidebar,
+	.truncate {
+		@media (max-width: 640px) {
+			width: 5rem;
+		}
 	}
 </style>

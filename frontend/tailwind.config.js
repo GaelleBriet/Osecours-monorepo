@@ -2,7 +2,11 @@
 export default {
 	content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			transitionProperty: {
+				width: 'width',
+			},
+		},
 		screens: {
 			sm: '640px',
 			// => @media (min-width: 640px) { ... }
