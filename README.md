@@ -1,6 +1,8 @@
 **Setup env**
 ```
 cp ./backend/.env.example ./backend/.env
+cd backend
+composer install
 
 ```
 
