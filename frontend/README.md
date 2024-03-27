@@ -46,3 +46,6 @@
 <template></template>
 <style lang="scss" scoped></style>
 ```
+
+## Bonnes pratiques (à remplir au fur et à mesure)
+- Éviter de surcharger le css sur les différentes vues. Si le css est global et s'applique à tous les éléments du site, préféré l'inscrire dans Assets/css/*
