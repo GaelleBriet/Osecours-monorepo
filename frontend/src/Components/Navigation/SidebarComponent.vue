@@ -42,13 +42,13 @@
 <template>
 	<div class="fixed top-0 left-0 flex h-screen flex-col">
 		<div
-			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6"
+			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6"
 		>
 			<div class="flex h-16 shrink-0 items-center">
 				<img
-					class="h-8 w-auto"
-					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-					alt="Your Company"
+					class="h-20 w-auto"
+					src="@/Assets/Images/logo-osecours.svg"
+					alt="O'Secours"
 				/>
 			</div>
 			<nav class="flex flex-1 flex-col">
