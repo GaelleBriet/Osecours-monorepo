@@ -11,9 +11,4 @@
 		<p>This is the home view.</p>
 	</div>
 </template>
-<style lang="css" scoped>
-	#test {
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<style lang="css" scoped></style>
