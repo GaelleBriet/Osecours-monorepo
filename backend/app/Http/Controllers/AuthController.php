@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -12,7 +13,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken(env("APP_NAME")->plainTextToken;
+            $token = $user->createToken(env("APP_NAME"))->plainTextToken;
 
             return response()->json(['token' => $token]);
         }
