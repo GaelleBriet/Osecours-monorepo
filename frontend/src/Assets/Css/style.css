@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Roboto&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	--font-primary: 'Roboto', Inter, sans-serif;
+	--font-secondary: 'Lemon', cursive;
 	line-height: 1.5;
 	font-weight: 400;
 
@@ -28,9 +31,13 @@
 }
 
 body, #app {
+	font-family: var(--font-primary);
 	height: 100vh;
 	margin: 0;
 	padding: 0;
 	background-color: var(--color-withe);
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-secondary);
+}
