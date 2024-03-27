@@ -1,11 +1,63 @@
 version: '3.8'
 services:
-  
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     container_name: vue_frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     ports:
-      - "8080:80"
-    command: /bin/sh -c "echo 'Now API backend can be reached on port http://localhost:5555 and front end on port http://localhost:8080' && nginx -g 'daemon off;'"
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      
+    container_name: laravel_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - './backend:/var/www/html'
+    networks:
+      - osecours
+    depends_on:
+      - postgres
+    command: "php artisan serve --host=0.0.0.0 --port=8000"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8083:8080"
+    networks:
+      - osecours
+
+  postgres:    
+    image: postgres:latest  
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_DB: '${DB_DATABASE}'
+      POSTGRES_USER: '${DB_USERNAME}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+    ports:
+      - "5432:5432"
+    volumes:
+      - osecours-postgres:/var/lib/postgresql/data
+    networks:
+      - osecours
+
+networks:
+  osecours:
+    driver: bridge
+
 volumes:
-  db_data:
+  osecours-postgres:
+    driver: local

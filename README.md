@@ -1,32 +1,31 @@
 **Setup env**
 ```
-cp .env.example .env
+cp ./backend/.env.example ./backend/.env
+
+```
+
+On root of project create a .env file with the following info: 
+```
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
 ```
 
 
 **Backend cmd**
 
 ```
-composer install 
-
-alias sail="./vendor/bin/sail"
-
-cd backend
-composer install
-
-sail up -d
+docker compose up --build
 
 docker exec -it <container name> bash > php artisan migrate --seed
 
 ```
 
-  
-**Frontend cmd**
 
-back to the root of the project 
-
-    docker-compose up -d
 
   
 
-Now API backend can be reached on port http://localhost:5555 and front end on port http://localhost:8080
+Now API backend can be reached on port http://localhost:8000 and front end on port http://localhost:5173
