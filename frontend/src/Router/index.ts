@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeViewController from '@/Controllers/HomeViewController.vue';
+import HomeViewController from '@/Controllers/HomeController.vue';
+import LoginController from '@/Controllers/LoginController.vue';
+import { useUserStore } from '@/Stores/UserStore.ts';
 
 const routes = [
 	{
@@ -7,11 +9,27 @@ const routes = [
 		name: 'Home',
 		component: HomeViewController,
 	},
+	{
+		path: '/login',
+		name: 'Login',
+		component: LoginController,
+	},
 ];
 
 const router = createRouter({
 	history: createWebHistory(),
 	routes,
+});
+
+router.beforeEach((to, from, next) => {
+	const userStore = useUserStore();
+	// if (to.meta.requiresAuth && !userStore.isLoggedIn)
+	// (to.name !== 'Login' && userStore.totalUsers === 0)
+	if (to.name !== 'Login' && !userStore.isLoggedIn) {
+		next({ name: 'Login' });
+	} else {
+		next();
+	}
 });
 
 export default router;
