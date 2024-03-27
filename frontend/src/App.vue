@@ -3,7 +3,6 @@
 	import { useUserStore } from '@/Stores/UserStore';
 
 	const userStore = useUserStore();
-	userStore.isLoggedIn = false;
 </script>
 
 <template>
@@ -11,7 +10,7 @@
 		<div
 			id="sidebar-container"
 			class="w-full max-w-48 :sm:max-w-20"
-			v-if="!userStore.isLoggedIn"
+			v-if="userStore.isLoggedIn"
 		>
 			<SidebarComponent />
 		</div>
