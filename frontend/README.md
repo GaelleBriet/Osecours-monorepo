@@ -48,4 +48,15 @@
 ```
 
 ## Bonnes pratiques (à remplir au fur et à mesure)
+### CSS
 - Éviter de surcharger le css sur les différentes vues. Si le css est global et s'applique à tous les éléments du site, préféré l'inscrire dans Assets/css/*
+### Locales
+- Utiliser le fichier Locales/fr.json pour les mots/textes/traductions (et si le coeur vous en dit le fichier en.json)
+- Tout inscrire minuscule, sauf les noms propres
+  - Pour afficher le texte d'une traduction, utiliser la fonction t('chemin.de.la.cle') de i18n
+  - Ne pas oublier les imports liés : `import i18n from '@/Services/Translations/index.ts';
+    import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts'; `
+  - Déclarer la const t pour les traductions : `const t = i18n.global.t;`
+  - Utiliser et importer la methode getCapitalizedText pour les majuscules: `import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';`
+  - Example : `<h1>{{ getCapitalizedText(t('pages.home.welcomeMessage')) }}</h1>`
+  
