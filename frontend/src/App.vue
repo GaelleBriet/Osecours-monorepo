@@ -6,7 +6,7 @@
 	<div class="flex h-screen">
 		<div
 			id="sidebar-container"
-			class="w-full max-w-48"
+			class="w-full max-w-48 :sm:max-w-20"
 		>
 			<SidebarComponent />
 		</div>
@@ -19,4 +19,10 @@
 	</div>
 </template>
 
-<style scoped lang="css"></style>
+<style scoped lang="css">
+	#sidebar-container {
+		@media (max-width: 640px) {
+			max-width: 5rem;
+		}
+	}
+</style>
