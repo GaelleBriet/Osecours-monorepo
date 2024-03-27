@@ -40,9 +40,12 @@
 	];
 </script>
 <template>
-	<div class="fixed top-0 left-0 flex h-screen flex-col">
+	<div
+		id="sidebar"
+		class="fixed top-0 left-0 flex h-screen flex-col"
+	>
 		<div
-			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6"
+			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6 w-52"
 		>
 			<div class="flex h-16 shrink-0 items-center">
 				<img
