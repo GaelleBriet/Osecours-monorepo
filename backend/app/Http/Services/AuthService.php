@@ -23,9 +23,9 @@ class AuthService{
             if($role->pivot["role"] == RoleEnum::ADMIN->value){
                 $abilities[] = '*';
                 $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
-            }else{
-                $abilities[] = 'user_abilities';
+            }else{               
                 $status = AccessScopeEnum::USER_ACCESS_SCOPE->value;
+                $abilities[] = AccessScopeEnum::USER_ACCESS_SCOPE->value;
             }
 
             $token = $user->createToken(env("APP_NAME"), $abilities)->plainTextToken;
