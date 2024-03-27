@@ -25,7 +25,29 @@ export const getUser = async (id: number): Promise<User> => {
 
 export const getUsers = async (): Promise<User[]> => {
 	try {
-		const response = await axios.get(API_URL);
+		// const response = await axios.get(API_URL);
+		const response = {
+			data: [
+				{
+					firstName: 'Alice',
+					lastName: 'Doe',
+					phone: '1234567890',
+					existingCatCount: 1,
+					existingChildrenCount: 2,
+					existingDogCount: 0,
+					email: 'alice@example.com',
+				},
+				{
+					firstName: 'Bob',
+					lastName: 'Doe',
+					phone: '0987654321',
+					existingCatCount: 0,
+					existingChildrenCount: 1,
+					existingDogCount: 1,
+					email: 'bob@example.com',
+				},
+			],
+		};
 		return response.data;
 	} catch (error) {
 		console.error(error);
