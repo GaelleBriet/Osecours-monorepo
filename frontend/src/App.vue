@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+	import SidebarComponent from '@/Components/Navigation/SidebarComponent.vue';
+</script>
 
 <template>
-	<h1 class="text-3xl font-bold underline">Test tailwind ok</h1>
+	<SidebarComponent />
 	<RouterView />
 </template>
 
