@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\RoleEnum;
+use App\Http\Services\AuthService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,14 +13,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken(env("APP_NAME"))->plainTextToken;
-
-            return response()->json(['token' => $token]);
+        $currentAssociation = $request->get('association');
+        
+        if(!$currentAssociation){
+            return AuthService::getTokenWithoutAssociation($credentials);
         }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return AuthService::getTokenForSpecificAssociation($credentials,$currentAssociation);
     }
 }

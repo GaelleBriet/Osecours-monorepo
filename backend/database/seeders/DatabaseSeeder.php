@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enum\RoleEnum;
+use App\Models\Association;
+use App\Models\Role;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,12 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+       
+        $assocationsNameList = ["Le refuge des chimères", "l'arche de noé 2.0", "quatres pattes et un toit"];
+       
+        foreach($assocationsNameList as $associationName){
 
-        User::factory()->create([
-            'first_name' => 'Test',
-            'last_name' => 'Test',
-            'email' => 'test@example.com',
-        ]);
+            $associationCreated =  Association::factory()->create(["name" => $associationName]);
+
+            foreach(RoleEnum::cases() as $roleName){
+                $userCreated = User::factory()->create([
+                    'first_name' => ucfirst($roleName->value),
+                    'last_name' => ucfirst($roleName->value),
+                    'email' =>  ucfirst($roleName->value). "_" . $associationName . '@osecours.com',
+                ]);
+
+                $associationCreated->users()->attach($userCreated->id, ["role" => $roleName->value]);
+            }
+           
+          
+
+        }
+
+      
     }
 }
