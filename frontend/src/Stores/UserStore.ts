@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia';
 import { User } from '@/Interfaces/User.ts';
 import { getUsers, login } from '@/Services/DataLayers/User.ts';
+import {
+	getFromStorage,
+	setToStorage,
+} from '@/Services/Helpers/LocalStorage.ts';
 
 export const useUserStore = defineStore({
 	id: 'user',
 	state: (): {
 		users: User[];
 		user: User | null;
-		isLoggedIn: boolean;
+		isLoggedIn: unknown;
 	} => ({
 		users: [],
 		user: null,
-		isLoggedIn: false,
+		isLoggedIn: getFromStorage('userLoggedIn') || false,
 	}),
 
 	getters: {
@@ -32,6 +36,7 @@ export const useUserStore = defineStore({
 			if (user) {
 				this.user = user;
 				this.isLoggedIn = true;
+				setToStorage('userLoggedIn', true);
 			}
 			return user as User;
 		},
