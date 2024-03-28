@@ -23,8 +23,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 	const userStore = useUserStore();
-	// if (to.meta.requiresAuth && !userStore.isLoggedIn)
-	// (to.name !== 'Login' && userStore.totalUsers === 0)
 	if (to.name !== 'Login' && !userStore.isLoggedIn) {
 		next({ name: 'Login' });
 	} else {
