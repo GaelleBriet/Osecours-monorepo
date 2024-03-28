@@ -1,17 +1,7 @@
 <script setup lang="ts">
-	import { submit } from '@formkit/icons';
 	import { defineProps, withDefaults } from 'vue';
 
-	// const props = defineProps<{
-	// 	id: string;
-	// 	submitLabel?: string;
-	// 	actions: {
-	// 		type: boolean;
-	// 		default: false;
-	// 	};
-	// }>();
-
-	const props = withDefaults(
+	withDefaults(
 		defineProps<{
 			id: string;
 			submitLabel?: string;
