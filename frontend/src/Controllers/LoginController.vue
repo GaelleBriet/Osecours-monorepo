@@ -1,16 +1,27 @@
 <script setup lang="ts">
 	import { useUserStore } from '@/Stores/UserStore';
-	import { ref } from 'vue';
+	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { User } from '@/Interfaces/User.ts';
+	import FormText from '@/Components/Forms/FormText.vue';
+	import Form from '@/Components/Forms/Form.vue';
+	import FormPassword from '@/Components/Forms/FormPassword.vue';
+	import FormSubmitButton from '@/Components/Forms/FormSubmitButton.vue';
 
 	const userStore = useUserStore();
 	const router = useRouter();
 
 	const email = ref('');
 	const password = ref('');
+	const rememberMe = ref(localStorage.getItem('rememberMe') === 'true');
+
+	if (rememberMe.value) {
+		email.value = localStorage.getItem('email') ?? '';
+	}
 
 	const onSubmit = async () => {
+		console.log('Email', email.value);
+		console.log('Password', password.value);
 		const user: User = await userStore.loginUser(email.value, password.value);
 
 		if (user) {
@@ -18,6 +29,22 @@
 			router.push({ name: 'Home' });
 		}
 	};
+
+	watch(rememberMe, (newVal) => {
+		if (newVal) {
+			localStorage.setItem('rememberMe', 'true');
+			localStorage.setItem('email', email.value);
+		} else {
+			localStorage.removeItem('rememberMe');
+			localStorage.removeItem('email');
+		}
+	});
+
+	watch(email, (newEmail) => {
+		if (rememberMe.value) {
+			localStorage.setItem('email', newEmail);
+		}
+	});
 </script>
 
 <template>
@@ -28,76 +55,56 @@
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
 					<img
-						class="h-20 w-auto mx-auto"
+						class="h-28 w-auto mx-auto"
 						src="@/Assets/Images/logo-osecours.svg"
 						alt="Your Company"
 					/>
 					<h2
-						class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900"
+						class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center"
 					>
 						Sign in to your account
 					</h2>
-					<p class="mt-2 text-sm leading-6 text-gray-500">
-						Not a member?
-						{{ ' ' }}
-						<a
-							href="#"
-							class="font-semibold text-indigo-600 hover:text-indigo-500"
-							>Start a 14 day free trial</a
-						>
-					</p>
 				</div>
 
 				<div class="mt-10">
 					<div>
-						<form
-							action="#"
-							method="POST"
-							class="space-y-6"
-							@submit.prevent="onSubmit"
+						<Form
+							:id="'loginForm'"
+							@submit="onSubmit"
+							submit-label="login"
+							:actions="false"
 						>
 							<div>
-								<label
-									for="email"
-									class="block text-sm font-medium leading-6 text-gray-900"
-									>Email address</label
-								>
 								<div class="mt-2">
-									<input
-										id="email"
-										v-model="email"
-										name="email"
-										type="email"
-										autocomplete="email"
-										required=""
-										class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									<FormText
+										:model-value="email"
+										:name="email"
+										:id="'email'"
+										:label="'Email address'"
+										:validation="'email|required'"
+										:validation-visibility="'blur'"
+										@update:model-value="email = $event"
 									/>
 								</div>
 							</div>
-
 							<div>
-								<label
-									for="password"
-									class="block text-sm font-medium leading-6 text-gray-900"
-									>Password</label
-								>
 								<div class="mt-2">
-									<input
-										id="password"
-										v-model="password"
-										name="password"
-										type="password"
-										autocomplete="current-password"
-										required=""
-										class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+									<FormPassword
+										:model-value="password"
+										:name="password"
+										:id="'password'"
+										:label="'Password'"
+										:validation="'required'"
+										:validation-visibility="'blur'"
+										@update:model-value="password = $event"
 									/>
 								</div>
 							</div>
-
 							<div class="flex items-center justify-between">
 								<div class="flex items-center">
 									<input
 										id="remember-me"
+										v-model="rememberMe"
 										name="remember-me"
 										type="checkbox"
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
@@ -108,7 +115,6 @@
 										>Remember me</label
 									>
 								</div>
-
 								<div class="text-sm leading-6">
 									<a
 										href="#"
@@ -117,16 +123,14 @@
 									>
 								</div>
 							</div>
-
-							<div>
-								<button
-									type="submit"
-									class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								>
-									Sign in
-								</button>
-							</div>
-						</form>
+						</Form>
+						<div class="mt-2">
+							<FormSubmitButton
+								type="button"
+								@click="onSubmit"
+								label="signin"
+							></FormSubmitButton>
+						</div>
 					</div>
 
 					<!--					<div class="mt-10">-->
