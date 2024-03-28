@@ -10,56 +10,58 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class AuthService{
+class AuthService
+{
 
-    public static function getTokenForSpecificAssociation($credentials,$currentAssociationId){
+    public static function getTokenForSpecificAssociation($credentials, $currentAssociationId)
+    {
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $abilities = [];
             $associations = collect($user->associations);
-            $currentAssociations = $associations->where("id",$currentAssociationId);
-            if(!$currentAssociations->count() > 0){
+            $currentAssociations = $associations->where("id", $currentAssociationId);
+            if (!$currentAssociations->count() > 0) {
                 throw new Exception("Association not found");
             }
             $adminRoleId = Role::where("name", RoleEnum::ADMIN->value)->first()->id;
-            $currentRoleIdList = $currentAssociations->map(function($association){
-                return $association->pivot["role_id"];                
+            $currentRoleIdList = $currentAssociations->map(function ($association) {
+                return $association->pivot["role_id"];
             });
 
             $allScopes = self::getAllScopes($currentRoleIdList);
 
-            if($currentRoleIdList->contains($adminRoleId)){
+            if ($currentRoleIdList->contains($adminRoleId)) {
                 $abilities[] = '*';
                 $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
-            }else{               
+            } else {
                 $status = $allScopes->join(",");
                 $abilities = $allScopes->toArray();
             }
 
             $token = $user->createToken(env("APP_NAME"), $abilities)->plainTextToken;
 
-            return response()->json([
+            return [
                 'token' => $token,
                 'scopes' => $status
-            ]);
+            ];
+        } else {
+            throw new Exception("Unauthorized");
         }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
-
     }
 
-    private static function getAllScopes(Collection $roleList){
-        return $roleList->map(function($id){
+    private static function getAllScopes(Collection $roleList)
+    {
+        return $roleList->map(function ($id) {
             $scope = "";
-            switch(Role::find($id)->name){
+            switch (Role::find($id)->name) {
                 case "user":
                     $scope = AccessScopeEnum::USER_ACCESS_SCOPE->value;
                     break;
                 case "admin":
                     $scope = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
                     break;
-                default: 
+                default:
                     $scope = AccessScopeEnum::OTHER_ACCESS_SCOPE->value;
                     break;
             }
@@ -67,41 +69,43 @@ class AuthService{
         });
     }
 
-    public static function getTokenWithoutAssociation($credentials){
+    public static function getTokenWithoutAssociation($credentials)
+    {
 
         if (Auth::attempt($credentials)) {
 
             $user = Auth::user();
             $status = AccessScopeEnum::OTHER_ACCESS_SCOPE->value;
-            $abilities = [$status];            
+            $abilities = [$status];
 
             $token = $user->createToken(env("APP_NAME"), $abilities)->plainTextToken;
 
-            return response()->json([
+            return [
                 'token' => $token,
                 'scopes' => $status
-            ]);
+            ];
+        } else {
+            throw new Exception("Unauthorized");
         }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
-        
     }
 
-    public static function connectUser($credentials){
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            
-            return response()->json([
-                    "status" => UserStatus::CONNECTED->value,
-                    "associations" => $user->associations->map(function($association){
-                        return [
-                            "id" => $association->id,
-                            "name" => $association->name
-                        ];
-                    })->unique("id"),                   
-            ]);
+    public static function connectUser($credentials)
+    {
 
+        if (Auth::attempt($credentials)) {
+
+            $user = Auth::user();
+            return [
+                "status" => UserStatus::CONNECTED->value,
+                "associations" => $user->associations->map(function ($association) {
+                    return [
+                        "id" => $association->id,
+                        "name" => $association->name
+                    ];
+                })->unique("id"),
+            ];
+        } else {
+            throw new Exception("Unauthorized");
         }
-        return response()->json(['error','Unauthorized'], 401);
     }
 }

@@ -12,17 +12,26 @@ class AuthController extends Controller
 {
     public function getToken(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        $currentAssociationId = $request->get('association_id');
-        
-        if(!$currentAssociationId){
-            return AuthService::getTokenWithoutAssociation($credentials);
+        try {
+            $credentials = $request->only('email', 'password');
+            $currentAssociationId = $request->get('association_id');
+
+            if (!$currentAssociationId) {
+                return response()->json(["data" => AuthService::getTokenWithoutAssociation($credentials)], 201);
+            }
+            return response()->json(["data" => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage(), 500]);
         }
-        return AuthService::getTokenForSpecificAssociation($credentials,$currentAssociationId);
     }
 
-    public function login(Request $request){
-        $credentials = $request->only('email', 'password');
-        return AuthService::connectUser($credentials);
+    public function login(Request $request)
+    {
+        try {
+            $credentials = $request->only('email', 'password');
+            return response()->json(["data" => AuthService::connectUser($credentials)], 200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage(), 500]);
+        }
     }
 }

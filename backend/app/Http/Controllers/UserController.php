@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contract\UserRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,13 +16,24 @@ class UserController extends Controller
         $this->users = $userRepository;
     }
 
-    public function getAll(){
+    public function getAll()
+    {
 
-        return $this->users->all();
+        try {
+            return response()->json(["data" => $this->users->all()],200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage(), 500]);
+        }
     }
 
-    public function getUserByAssociationAndUser(Request $request){
-        $associationId = $request->get("association_id");
-       return $this->users->findByAssociationAndUser($associationId,Auth::user());   
+    public function getUserByAssociationAndUser(Request $request)
+    {
+
+        try {
+            $associationId = $request->get("association_id");
+            return response()->json(["data" => $this->users->findByAssociationAndUser($associationId, Auth::user())],200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage(), 500]);
+        }
     }
 }
