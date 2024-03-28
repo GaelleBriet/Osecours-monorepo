@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function getToken(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        $currentAssociation = $request->get('association');
+        $currentAssociationId = $request->get('association_id');
         
-        if(!$currentAssociation){
+        if(!$currentAssociationId){
             return AuthService::getTokenWithoutAssociation($credentials);
         }
-        return AuthService::getTokenForSpecificAssociation($credentials,$currentAssociation);
+        return AuthService::getTokenForSpecificAssociation($credentials,$currentAssociationId);
+    }
+
+    public function login(Request $request){
+        $credentials = $request->only('email', 'password');
+        return AuthService::connectUser($credentials);
     }
 }

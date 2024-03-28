@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
 ###GENERAL ACCESS ROUTE###
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/token/create', [AuthController::class, 'getToken']);
+Route::post('/login', [AuthController::class,'login']);
 
 ###ADMIN ROUTES###
 Route::middleware(["auth:sanctum","abilities:global_access_scope"])->group(function () {
@@ -20,6 +22,10 @@ Route::middleware(["auth:sanctum","abilities:global_access_scope"])->group(funct
 
    Route::controller(UserController::class)->group(function () {
         Route::get('/users','getAll');
+   });
+
+   Route::controller(RoleController::class)->group(function(){
+        Route::post("/roles/add", "addRoleOnUser");
    });
 
 });
