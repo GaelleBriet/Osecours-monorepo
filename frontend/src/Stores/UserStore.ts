@@ -32,6 +32,7 @@ export const useUserStore = defineStore({
 			const user: Partial<User> = await login(email, password);
 			if (user) {
 				this.user = user as User;
+
 				return this.user;
 			}
 			return {} as User;
@@ -40,13 +41,13 @@ export const useUserStore = defineStore({
 		async loginWithAssociation(
 			email: string,
 			password: string,
-			associationId: number,
+			associationId: string,
 			associationName: string,
 		): Promise<User> {
 			const userTokenScope: UserTokenScope = await loginWithAssociation(
 				email,
 				password,
-				associationId,
+				Number(associationId),
 			);
 			if (userTokenScope.token) {
 				this.user = {

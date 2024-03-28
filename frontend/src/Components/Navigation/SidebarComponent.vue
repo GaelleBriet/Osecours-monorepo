@@ -10,6 +10,8 @@
 	import { useUserStore } from '@/Stores/UserStore.ts';
 
 	const userStore = useUserStore();
+
+	const associationName = userStore.user?.associationName;
 	const logout = () => {
 		userStore.logoutUser();
 	};
@@ -159,7 +161,7 @@
 								aria-hidden="true"
 								class="sm:block hidden"
 								@click="logout"
-								>UserName</span
+								>{{ associationName }}</span
 							>
 						</a>
 					</li>
