@@ -7,16 +7,23 @@
 
 <template>
 	<div class="flex h-screen">
-		<div
-			id="sidebar-container"
-			class="w-full max-w-48 :sm:max-w-20"
-			v-if="userStore.isLoggedIn"
-		>
-			<SidebarComponent />
+		<div v-if="userStore.isLoggedIn">
+			<div
+				id="sidebar-container"
+				class="w-full max-w-48 :sm:max-w-20"
+			>
+				<SidebarComponent />
+			</div>
+			<div
+				id="main-container"
+				class="w-full h-full container mx-auto pt-12 px-12"
+			>
+				<RouterView class="flex-grow" />
+			</div>
 		</div>
 		<div
-			id="main-container"
-			class="w-full h-full container mx-auto pt-12 px-12"
+			v-else
+			class="w-full h-full mx-auto"
 		>
 			<RouterView class="flex-grow" />
 		</div>
