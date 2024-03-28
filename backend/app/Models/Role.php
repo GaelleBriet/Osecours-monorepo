@@ -9,11 +9,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Role extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         "id",
         "name"
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'association_role_user')
+            ->withPivot('association_id')
+            ->withTimestamps();
+    }
 
+    public function associations()
+    {
+        return $this->belongsToMany(Association::class, 'association_role_user')
+            ->withPivot('user_id')
+            ->withTimestamps();
+    }
 }

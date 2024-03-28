@@ -16,11 +16,17 @@ class Association extends Model
         "rib"
     ];
 
-    public function roles(): BelongsToMany{
-        return $this->belongsToMany(Role::class);
-    }
+    public function users()
+{
+    return $this->belongsToMany(User::class, 'association_role_user')
+                ->withPivot('role_id')
+                ->withTimestamps();
+}
 
-    public function users(): BelongsToMany{
-        return $this->belongsToMany(User::class);
-    }
+public function roles()
+{
+    return $this->belongsToMany(Role::class, 'association_role_user')
+                ->withPivot('user_id')
+                ->withTimestamps();
+}
 }

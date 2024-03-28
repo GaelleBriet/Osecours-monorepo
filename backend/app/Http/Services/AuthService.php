@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Enum\AccessScopeEnum;
 use App\Enum\RoleEnum;
+use App\Models\Role;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,8 +20,9 @@ class AuthService{
             if(!$role){
                 throw new Exception("Association not found");
             }
+            $adminRoleId = Role::where("name", RoleEnum::ADMIN->value)->first()->id;
 
-            if($role->pivot["role"] == RoleEnum::ADMIN->value){
+            if($role->pivot["role_id"] == $adminRoleId){
                 $abilities[] = '*';
                 $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
             }else{               

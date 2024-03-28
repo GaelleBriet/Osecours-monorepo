@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
     {
        
         $assocationsNameList = ["Le refuge des chimères", "l'arche de noé 2.0", "quatres pattes et un toit"];
+
        
         foreach($assocationsNameList as $associationName){
 
@@ -29,8 +30,10 @@ class DatabaseSeeder extends Seeder
                     'last_name' => ucfirst($roleName->value),
                     'email' =>  ucfirst($roleName->value). "_" . $associationName . '@osecours.com',
                 ]);
-
-                $associationCreated->users()->attach($userCreated->id, ["role" => $roleName->value]);
+                $roleCreated = Role::firstOrCreate(
+                    ["name" => $roleName->value]
+                );
+                $associationCreated->users()->attach($userCreated->id, ["role_id" => $roleCreated->id]);
             }
            
           

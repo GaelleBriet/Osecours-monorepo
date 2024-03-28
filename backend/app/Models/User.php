@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Traits\RoleAssociation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable,HasApiTokens,RoleAssociation;
 
     /**
      * The attributes that are mass assignable.
@@ -53,9 +55,17 @@ class User extends Authenticatable
     }
 
     
-
-    public function associations(): BelongsToMany{
-        
-        return $this->belongsToMany(Association::class)->withPivot("role");
+    public function associations()
+    {
+        return $this->belongsToMany(Association::class, 'association_role_user')
+                    ->withPivot('role_id')
+                    ->withTimestamps();
+    }
+    
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'association_role_user')
+                    ->withPivot('association_id')
+                    ->withTimestamps();
     }
 }
