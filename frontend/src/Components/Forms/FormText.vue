@@ -1,20 +1,20 @@
 <script setup lang="ts">
 	import { FormKit } from '@formkit/vue';
-	import { defineProps, defineEmits, watch } from 'vue';
-	import { FormKitNode, getNode } from '@formkit/core';
+	import { defineProps, defineEmits } from 'vue';
+	import { getNode } from '@formkit/core';
 
 	const props = defineProps<{
+		classes?: object;
+		disabled?: boolean;
 		id: string;
-		modelValue?: string | undefined;
-		value?: string | number;
 		label?: string;
+		modelValue?: string | undefined;
 		name?: string;
 		placeholder?: string;
 		prefixIcon?: string;
-		validation?: string | any[];
+		validation?: string | never[];
 		validationVisibility?: string;
-		disabled?: boolean;
-		classes?: Object;
+		value?: string | number;
 	}>();
 
 	const emit = defineEmits<{

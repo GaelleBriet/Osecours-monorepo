@@ -11,7 +11,7 @@
 		legendClass?: string;
 		help?: string;
 		value?: string[] | number[];
-		onValue?: any;
+		onValue?: never;
 	}>();
 
 	const emit = defineEmits<{

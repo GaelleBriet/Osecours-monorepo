@@ -12,7 +12,7 @@
 		labelClass?: string;
 		name?: string;
 		prefixIcon?: string;
-		validation?: string | any[];
+		validation?: string | never[];
 		disabled?: boolean;
 		confirmationLabel?: string;
 		validationVisibility?: string;
@@ -26,7 +26,8 @@
 		(e: 'blur', event: Event): void;
 	}>();
 
-	const handleIconClick = (node: any, e) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleIconClick = (node: any) => {
 		node.props.suffixIcon =
 			node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye';
 		node.props.type = node.props.type === 'password' ? 'text' : 'password';
