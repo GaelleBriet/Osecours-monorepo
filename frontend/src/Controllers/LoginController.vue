@@ -9,6 +9,7 @@
 	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { Association } from '@/Interfaces/User.ts';
 	import i18n from '@/Services/Translations/index.ts';
 
 	const t = i18n.global.t;
@@ -17,6 +18,8 @@
 
 	const email = ref('');
 	const password = ref('');
+	const selectedAssociation = ref(null);
+	const associations = ref<Association[]>([]);
 	const rememberMe = ref(localStorage.getItem('rememberMe') === 'true');
 
 	if (rememberMe.value) {
@@ -24,13 +27,28 @@
 	}
 
 	const onSubmit = async () => {
-		console.log('Email', email.value);
-		console.log('Password', password.value);
 		const user: User = await userStore.loginUser(email.value, password.value);
+		if (!user || user.associations?.length === 0) {
+			await router.push({ name: 'Login' });
+		}
+		if (user && user.associations) {
+			associations.value = user.associations;
+		}
+	};
 
-		if (user) {
-			console.log('User', user);
-			router.push({ name: 'Home' });
+	const onAssociationChange = async () => {
+		const associationName = associations.value.find(
+			(association) => association.id === selectedAssociation.value,
+		);
+
+		if (selectedAssociation.value) {
+			await userStore.loginWithAssociation(
+				email.value,
+				password.value,
+				selectedAssociation.value,
+				associationName ? associationName.name : '',
+			);
+			await router.push({ name: 'Home' });
 		}
 	};
 
@@ -54,7 +72,7 @@
 <template>
 	<div class="flex min-h-full flex-1 ps-16">
 		<div
-			class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
 		>
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
@@ -123,7 +141,30 @@
 								</div>
 							</div>
 						</Form>
+						<!-- Association select input -->
+						<!--						v-if="associations.length > 0"-->
 						<div class="mt-2">
+							<select
+								v-model="selectedAssociation"
+								@change="onAssociationChange"
+								style="width: 100%"
+							>
+								<option
+									disabled
+									value=""
+								>
+									Please select an association
+								</option>
+								<option
+									v-for="association in associations"
+									:key="association.id"
+									:value="association.id"
+								>
+									{{ association.name }}
+								</option>
+							</select>
+						</div>
+						<div class="mt-6">
 							<FormSubmitButton
 								type="button"
 								@click="onSubmit"

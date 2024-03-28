@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeViewController from '@/Controllers/HomeController.vue';
 import LoginController from '@/Controllers/LoginController.vue';
-import { useUserStore } from '@/Stores/UserStore.ts';
+import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 
 const routes = [
 	{
@@ -22,8 +22,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const userStore = useUserStore();
-	if (to.name !== 'Login' && !userStore.isLoggedIn) {
+	if (to.name !== 'Login' && getFromStorage('token') === null) {
 		next({ name: 'Login' });
 	} else {
 		next();
