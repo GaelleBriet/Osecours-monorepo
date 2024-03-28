@@ -1,11 +1,9 @@
 {
 	"common": {
-		"actions": {
-			"next": "next",
-			"cancel": "cancel",
-			"logIn": "log in",
-			"register": "register"
-		},
+		"next": "next",
+		"cancel": "cancel",
+		"logIn": "log in",
+		"register": "register",
 		"welcome": "welcome!"
 	},
 	"navigation": {
@@ -13,18 +11,23 @@
 		"about": "about",
 		"contact": "contact"
 	},
-	"authentication": {
-		"logIn": {
-			"title": "log in",
-			"description": "log in to access your account."
-		},
-		"register": {
-			"title": "register",
-			"description": "create an account to get started."
-		},
-		"logOut": {
-			"confirmation": "are you sure you want to log out?"
-		}
+	"form": {
+		"email": "email",
+		"password": "password",
+		"rememberMe": "remember me"
+	},
+	"login": {
+		"title": "log in",
+		"description": "log in to access your account.",
+		"forgotPassword": "forgot your password?",
+		"singIn": "sign in"
+	},
+	"register": {
+		"title": "register",
+		"description": "create an account to get started."
+	},
+	"logout": {
+		"confirmation": "are you sure you want to log out?"
 	},
 	"pages": {
 		"home": {
