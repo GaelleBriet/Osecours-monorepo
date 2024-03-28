@@ -1,11 +1,9 @@
 {
 	"common": {
-		"actions": {
-			"next": "suivant",
-			"cancel": "annuler",
-			"logIn": "connexion",
-			"register": "enregistrement"
-		},
+		"next": "suivant",
+		"cancel": "annuler",
+		"logIn": "connexion",
+		"register": "enregistrement",
 		"welcome": "bienvenue!"
 	},
 	"navigation": {
@@ -13,18 +11,23 @@
 		"about": "à propos",
 		"contact": "contact"
 	},
-	"authentication": {
-		"logIn": {
-			"title": "connexion",
-			"description": "connectez-vous pour accéder à votre compte."
-		},
-		"register": {
-			"title": "enregistrement",
-			"description": "créez un compte pour commencer."
-		},
-		"logOut": {
-			"confirmation": "êtes-vous sûr de vouloir vous déconnecter ?"
-		}
+	"form": {
+		"email": "email",
+		"password": "mot de passe",
+		"rememberMe": "Se souvenir de moi"
+	},
+	"login": {
+		"title": "connection",
+		"description": "connectez-vous pour accéder à votre compte.",
+		"forgotPassword": "mot de passe oublié ?",
+		"signIn": "se connecter"
+	},
+	"register": {
+		"title": "enregistrement",
+		"description": "créez un compte pour commencer."
+	},
+	"logout": {
+		"confirmation": "êtes-vous sûr de vouloir vous déconnecter ?"
 	},
 	"pages": {
 		"home": {

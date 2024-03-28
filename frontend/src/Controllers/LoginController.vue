@@ -1,13 +1,17 @@
 <script setup lang="ts">
-	import { useUserStore } from '@/Stores/UserStore';
-	import { ref, watch } from 'vue';
-	import { useRouter } from 'vue-router';
-	import { User } from '@/Interfaces/User.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import Form from '@/Components/Forms/Form.vue';
 	import FormPassword from '@/Components/Forms/FormPassword.vue';
 	import FormSubmitButton from '@/Components/Forms/FormSubmitButton.vue';
+	import FormCheckbox from '@/Components/Forms/FormCheckbox.vue';
+	import { User } from '@/Interfaces/User.ts';
+	import { useUserStore } from '@/Stores/UserStore';
+	import { ref, watch } from 'vue';
+	import { useRouter } from 'vue-router';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations/index.ts';
 
+	const t = i18n.global.t;
 	const userStore = useUserStore();
 	const router = useRouter();
 
@@ -57,12 +61,12 @@
 					<img
 						class="h-28 w-auto mx-auto"
 						src="@/Assets/Images/logo-osecours.svg"
-						alt="Your Company"
+						alt="logo-osecours"
 					/>
 					<h2
 						class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center"
 					>
-						Sign in to your account
+						{{ getCapitalizedText(t('login.description')) }}
 					</h2>
 				</div>
 
@@ -80,7 +84,7 @@
 										:model-value="email"
 										:name="email"
 										:id="'email'"
-										:label="'Email address'"
+										:label="getCapitalizedText(t('form.email'))"
 										:validation="'email|required'"
 										:validation-visibility="'blur'"
 										@update:model-value="email = $event"
@@ -93,7 +97,7 @@
 										:model-value="password"
 										:name="password"
 										:id="'password'"
-										:label="'Password'"
+										:label="getCapitalizedText(t('form.password'))"
 										:validation="'required'"
 										:validation-visibility="'blur'"
 										@update:model-value="password = $event"
@@ -102,24 +106,19 @@
 							</div>
 							<div class="flex items-center justify-between">
 								<div class="flex items-center">
-									<input
+									<FormCheckbox
 										id="remember-me"
-										v-model="rememberMe"
 										name="remember-me"
-										type="checkbox"
-										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-									/>
-									<label
-										for="remember-me"
-										class="ml-3 block text-sm leading-6 text-gray-700"
-										>Remember me</label
-									>
+										:label="getCapitalizedText(t('form.rememberMe'))"
+										:model-value="rememberMe"
+										@update:model-value="rememberMe = $event"
+									></FormCheckbox>
 								</div>
 								<div class="text-sm leading-6">
 									<a
 										href="#"
 										class="font-semibold text-indigo-600 hover:text-indigo-500"
-										>Forgot password?</a
+										>{{ getCapitalizedText(t('login.forgotPassword')) }}</a
 									>
 								</div>
 							</div>
@@ -128,7 +127,7 @@
 							<FormSubmitButton
 								type="button"
 								@click="onSubmit"
-								label="signin"
+								:label="getCapitalizedText(t('login.signIn'))"
 							></FormSubmitButton>
 						</div>
 					</div>
