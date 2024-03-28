@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '@/Interfaces/User.ts';
 
-const API_URL: string = 'https://localhost/api/user';
+const API_URL: string = 'http://localhost/api/login';
 
 export const login = async (email: string, password: string): Promise<User> => {
 	try {
