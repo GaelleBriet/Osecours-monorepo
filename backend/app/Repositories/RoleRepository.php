@@ -7,7 +7,7 @@ use App\Models\Association;
 use App\Models\Role;
 use App\Models\User;
 
-class RoleRepository extends BaseRepository implements RoleRepositoryInterface
+class RoleRepository extends BaseRepository implements  RoleRepositoryInterface
 {
     public function __construct(Role $role)
     {
