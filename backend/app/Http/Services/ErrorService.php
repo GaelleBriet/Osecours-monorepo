@@ -11,12 +11,13 @@ class ErrorService{
 
         $message = "";
         $statusCode = 500;
-        
+
         switch($e::class){
             case CustomException::UNAUTHORIZED->value:
-                $message = "Unauthorized";
                 $statusCode = 401;
                 break;
+            case CustomException::ROLE_ALREADY_EXIST->value: 
+                $statusCode = 422;
             default: 
                 $message = $e->getMessage();
                 break;
