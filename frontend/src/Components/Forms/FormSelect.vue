@@ -49,3 +49,9 @@
 		@change="onChange"
 	></FormKit>
 </template>
+
+<style lang="postcss" scoped>
+	.formkit-outer .formkit-icon {
+		padding-top: 10px;
+	}
+</style>
