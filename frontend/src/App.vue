@@ -1,14 +1,13 @@
 <script setup lang="ts">
 	import SidebarComponent from '@/Components/Navigation/SidebarComponent.vue';
-	import { useUserStore } from '@/Stores/UserStore';
 	import LoginController from '@/Controllers/LoginController.vue';
-	import router from '@/Router';
-
-	const userStore = useUserStore();
 </script>
 
 <template>
-	<div v-if="$route.name === 'Login'">
+	<div
+		v-if="$route.name === 'Login'"
+		class="h-full"
+	>
 		<LoginController />
 	</div>
 	<div
@@ -17,7 +16,7 @@
 	>
 		<div
 			id="sidebar-container"
-			class="w-full max-w-48 :sm:max-w-20"
+			class="w-full max-w-56 :sm:max-w-20"
 		>
 			<SidebarComponent />
 		</div>

@@ -13,7 +13,12 @@ const routes = [
 		path: '/login',
 		name: 'Login',
 		component: LoginController,
-		props: { default: true },
+		// props: { default: true },
+	},
+	{
+		path: '/animals',
+		name: 'Animals',
+		component: HomeViewController,
 	},
 	{
 		path: '/:pathMatch(.*)*',
@@ -33,10 +38,13 @@ router.beforeEach((to) => {
 
 	if (token !== null) {
 		// si le token est présent on laisse passer
+		console.log('1- token is present');
 		return true;
-	} else if (to.name !== 'Login') {
+	}
+	if (to.name !== 'Login') {
 		// si le token est absent et que la route n'est pas Login
 		// on redirige vers la page de login
+		console.log('2- token is not present');
 		return { name: 'Login' };
 	}
 });

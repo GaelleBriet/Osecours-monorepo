@@ -14,9 +14,9 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations/index.ts';
 
-	const t = i18n.global.t;
 	const userStore = useUserStore();
 	const router = useRouter();
+	const t = i18n.global.t;
 
 	const email = ref('');
 	const password = ref('');
@@ -96,9 +96,9 @@
 </script>
 
 <template>
-	<div class="flex min-h-full flex-1 ps-16">
+	<div class="flex min-h-full flex-1 ps-16 flex-row">
 		<div
-			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none xl:px-48"
 		>
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
