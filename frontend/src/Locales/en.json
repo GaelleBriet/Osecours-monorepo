@@ -20,7 +20,8 @@
 		"title": "log in",
 		"description": "log in to access your account.",
 		"forgotPassword": "forgot your password?",
-		"singIn": "sign in"
+		"singIn": "sign in",
+		"error": "Invalid credentials. Please try again."
 	},
 	"register": {
 		"title": "register",

@@ -20,7 +20,8 @@
 		"title": "connection",
 		"description": "connectez-vous pour accéder à votre compte.",
 		"forgotPassword": "mot de passe oublié ?",
-		"signIn": "se connecter"
+		"signIn": "se connecter",
+		"error": "identifiants incorrects. Veuillez réessayer"
 	},
 	"register": {
 		"title": "enregistrement",
