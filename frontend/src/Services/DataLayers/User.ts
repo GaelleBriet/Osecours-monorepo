@@ -1,13 +1,9 @@
 import axios from 'axios';
 import { User, UserTokenScope } from '@/Interfaces/User.ts';
+import { AxiosError } from '@/Interfaces/Requests.ts';
+import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 
 const API_URL: string = 'http://localhost:8000/api';
-
-interface AxiosError {
-	response?: {
-		status?: number;
-	};
-}
 
 export interface UserWithError extends User {
 	error?: string;
@@ -16,7 +12,7 @@ export interface UserWithError extends User {
 export const login = async (
 	email: string,
 	password: string,
-): Promise<{ error: string }> => {
+): Promise<User | { error: string }> => {
 	try {
 		if (!email || !password)
 			throw new Error('Email and password are required.');
@@ -24,14 +20,10 @@ export const login = async (
 		const {
 			data: { data },
 		} = await axios.post(`${API_URL}/login`, { email, password });
-
 		return data;
 	} catch (error) {
-		const axiosError = error as AxiosError;
-		if (axiosError.response && axiosError.response.status === 500) {
-			return { error: 'Invalid email or password.' };
-		}
-		throw error;
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
 	}
 };
 

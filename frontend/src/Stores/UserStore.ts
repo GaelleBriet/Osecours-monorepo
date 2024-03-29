@@ -29,7 +29,10 @@ export const useUserStore = defineStore({
 	},
 	actions: {
 		async loginUser(email: string, password: string): Promise<User> {
-			const user: { error: string } = await login(email, password);
+			const user: Partial<User> | { error: string } = await login(
+				email,
+				password,
+			);
 			if (user) {
 				this.user = user as User;
 				setToStorage('user', this.user);
