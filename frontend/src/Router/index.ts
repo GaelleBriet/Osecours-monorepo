@@ -21,6 +21,26 @@ const routes = [
 		component: HomeViewController,
 	},
 	{
+		path: '/organization',
+		name: 'Organization',
+		component: HomeViewController,
+	},
+	{
+		path: '/shelters',
+		name: 'Shelters',
+		component: HomeViewController,
+	},
+	{
+		path: '/members',
+		name: 'Members',
+		component: HomeViewController,
+	},
+	{
+		path: '/documents',
+		name: 'Documents',
+		component: HomeViewController,
+	},
+	{
 		path: '/:pathMatch(.*)*',
 		redirect: '/login',
 	},
