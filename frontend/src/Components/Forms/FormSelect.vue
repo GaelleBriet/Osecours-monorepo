@@ -2,7 +2,7 @@
 	import { FormKitOptionsLoader } from '@formkit/pro';
 	import { getNode } from '@formkit/core';
 
-	const props = defineProps<{
+	defineProps<{
 		id: string;
 		modelValue?: string | boolean | number;
 		value?: number;

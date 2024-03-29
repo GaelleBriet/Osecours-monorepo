@@ -16,7 +16,10 @@
 		"users": "utilisateurs",
 		"calendar": "calendrier",
 		"settings": "paramètres",
-		"documents": "documents"
+		"documents": "documents",
+		"organization": "association",
+		"members": "membres",
+		"shelters": "refuges"
 	},
 	"form": {
 		"email": "email",

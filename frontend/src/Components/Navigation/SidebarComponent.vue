@@ -1,13 +1,13 @@
 <script setup lang="ts">
 	import {
-		CalendarIcon,
 		ChartPieIcon,
 		DocumentDuplicateIcon,
-		FolderIcon,
-		HomeIcon,
 		UsersIcon,
 		UserIcon,
 		ArrowLeftStartOnRectangleIcon,
+		ClipboardIcon,
+		BuildingStorefrontIcon,
+		HeartIcon,
 	} from '@heroicons/vue/24/outline';
 
 	import { useUserStore } from '@/Stores/UserStore.ts';
@@ -41,38 +41,38 @@
 		{
 			name: getCapitalizedText(t('navigation.dashboard')),
 			to: '/',
-			icon: HomeIcon,
+			icon: ChartPieIcon,
 			count: '5',
 			current: currentActiveRoute,
 		},
 		{
-			name: getCapitalizedText(t('navigation.users')),
-			to: '/team',
+			name: getCapitalizedText(t('navigation.organization')),
+			to: '/organization',
+			icon: ClipboardIcon,
+			current: currentActiveRoute,
+		},
+		{
+			name: getCapitalizedText(t('navigation.shelters')),
+			to: '/shelters',
+			icon: BuildingStorefrontIcon,
+			current: currentActiveRoute,
+		},
+		{
+			name: getCapitalizedText(t('navigation.members')),
+			to: '/members',
 			icon: UsersIcon,
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.animals')),
 			to: '/animals',
-			icon: FolderIcon,
-			current: currentActiveRoute,
-		},
-		{
-			name: getCapitalizedText(t('navigation.calendar')),
-			to: '/calendar',
-			icon: CalendarIcon,
+			icon: HeartIcon,
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.documents')),
 			to: '/documents',
 			icon: DocumentDuplicateIcon,
-			current: currentActiveRoute,
-		},
-		{
-			name: getCapitalizedText(t('navigation.settings')),
-			to: '/reports',
-			icon: ChartPieIcon,
 			current: currentActiveRoute,
 		},
 	];
