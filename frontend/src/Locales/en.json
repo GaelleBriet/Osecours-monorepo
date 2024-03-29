@@ -31,7 +31,8 @@
 		"description": "log in to access your account.",
 		"forgotPassword": "forgot your password?",
 		"singIn": "sign in",
-		"error": "Invalid credentials. Please try again."
+		"error": "Invalid credentials. Please try again.",
+		"selectAssociation": "select your organization"
 	},
 	"register": {
 		"title": "register",

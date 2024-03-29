@@ -31,7 +31,8 @@
 		"description": "connectez-vous pour accéder à votre compte.",
 		"forgotPassword": "mot de passe oublié ?",
 		"signIn": "se connecter",
-		"error": "identifiants incorrects. Veuillez réessayer"
+		"error": "identifiants incorrects. Veuillez réessayer",
+		"selectAssociation": "sélectionnez votre association"
 	},
 	"register": {
 		"title": "enregistrement",

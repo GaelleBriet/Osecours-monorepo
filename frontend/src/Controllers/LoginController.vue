@@ -63,7 +63,7 @@
 		return [
 			{
 				value: 0,
-				label: 'Sélectionnez votre association',
+				label: getCapitalizedText(t('login.selectAssociation')),
 			},
 			...associations.value.map((association) => {
 				return {
