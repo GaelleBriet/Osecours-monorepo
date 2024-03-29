@@ -76,12 +76,34 @@
 	[data-type='checkbox'] .formkit-input:checked ~ .formkit-decorator,
 	[data-type='radio'] .formkit-input:checked ~ .formkit-decorator {
 		box-shadow: none;
-		background-color: rgb(79, 70, 229);
+		background-color: #d99962;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 	[data-type='checkbox']
 		.formkit-input:checked
 		~ .formkit-decorator
 		.formkit-icon {
 		color: white;
+	}
+	[data-type='checkbox'] .formkit-input:focus ~ .formkit-decorator,
+	[data-type='radio'] .formkit-input:focus ~ .formkit-decorator {
+		outline: none;
+		box-shadow: 0px 0px 0px 1px #d99962;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	[data-type='checkbox'] .formkit-input ~ .formkit-decorator,
+	[data-type='radio'] .formkit-input ~ .formkit-decorator {
+		outline: none;
+		&:hover {
+			cursor: pointer;
+		}
+		//box-shadow: none;
+	}
+	.dark\:ring-offset-blue-500 {
+		--tw-ring-offset-color: white;
 	}
 </style>

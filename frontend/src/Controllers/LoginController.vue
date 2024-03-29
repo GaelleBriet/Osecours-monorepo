@@ -161,7 +161,7 @@
 								<div class="text-sm leading-6">
 									<a
 										href="#"
-										class="font-semibold text-indigo-600 hover:text-indigo-500"
+										class="font-semibold text-osecours-beige-dark hover:text-osecours-pink"
 										>{{ getCapitalizedText(t('login.forgotPassword')) }}</a
 									>
 								</div>
@@ -300,3 +300,11 @@
 		</div>
 	</div>
 </template>
+<style lang="postcss" scoped>
+	button {
+		background-color: #d99962;
+		&:hover {
+			background-color: #f28a80;
+		}
+	}
+</style>

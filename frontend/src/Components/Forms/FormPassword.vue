@@ -71,7 +71,7 @@
 		:disabled="disabled"
 		suffix-icon="eyeClosed"
 		@suffix-icon-click="handleIconClick"
-		suffix-icon-class="hover:text-blue-500"
+		suffix-icon-class="hover:text-osecours-beige-dark"
 		type="password"
 		@blur="onBlur"
 	/>

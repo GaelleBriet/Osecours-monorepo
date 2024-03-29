@@ -54,4 +54,9 @@
 	.formkit-outer .formkit-icon {
 		padding-top: 10px;
 	}
+	[data-type='checkbox'] .formkit-input:focus ~ .formkit-decorator,
+	[data-type='radio'] .formkit-input:focus ~ .formkit-decorator {
+		outline: none;
+	}
 </style>
+<style></style>

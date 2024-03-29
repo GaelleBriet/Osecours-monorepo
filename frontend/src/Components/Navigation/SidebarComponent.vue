@@ -111,7 +111,7 @@
 									:to="item.to"
 									:class="[
 										currentActiveRoute(item.to)
-											? 'text-osecours-black'
+											? 'text-osecours-beige-dark'
 											: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
 										'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 									]"
