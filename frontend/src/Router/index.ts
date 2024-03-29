@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeViewController from '@/Controllers/HomeController.vue';
 import LoginController from '@/Controllers/LoginController.vue';
 import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
+import AnimalsController from '@/Controllers/AnimalsController.vue';
 
 const routes = [
 	{
@@ -18,7 +19,7 @@ const routes = [
 	{
 		path: '/animals',
 		name: 'Animals',
-		component: HomeViewController,
+		component: AnimalsController,
 	},
 	{
 		path: '/organization',
