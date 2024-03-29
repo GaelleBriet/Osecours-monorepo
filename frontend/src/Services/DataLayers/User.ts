@@ -3,7 +3,20 @@ import { User, UserTokenScope } from '@/Interfaces/User.ts';
 
 const API_URL: string = 'http://localhost:8000/api';
 
-export const login = async (email: string, password: string): Promise<User> => {
+interface AxiosError {
+	response?: {
+		status?: number;
+	};
+}
+
+export interface UserWithError extends User {
+	error?: string;
+}
+
+export const login = async (
+	email: string,
+	password: string,
+): Promise<{ error: string }> => {
 	try {
 		if (!email || !password)
 			throw new Error('Email and password are required.');
@@ -14,7 +27,10 @@ export const login = async (email: string, password: string): Promise<User> => {
 
 		return data;
 	} catch (error) {
-		console.error(error);
+		const axiosError = error as AxiosError;
+		if (axiosError.response && axiosError.response.status === 500) {
+			return { error: 'Invalid email or password.' };
+		}
 		throw error;
 	}
 };

@@ -15,7 +15,7 @@ export const useUserStore = defineStore({
 		isLoggedIn: boolean;
 	} => ({
 		users: [],
-		user: null,
+		user: getFromStorage('user') as User | null,
 		isLoggedIn: Boolean(getFromStorage('userLoggedIn')),
 	}),
 
@@ -29,10 +29,10 @@ export const useUserStore = defineStore({
 	},
 	actions: {
 		async loginUser(email: string, password: string): Promise<User> {
-			const user: Partial<User> = await login(email, password);
+			const user: { error: string } = await login(email, password);
 			if (user) {
 				this.user = user as User;
-
+				setToStorage('user', this.user);
 				return this.user;
 			}
 			return {} as User;
@@ -56,8 +56,8 @@ export const useUserStore = defineStore({
 					scopes: userTokenScope.scopes,
 					associationName: associationName ? associationName : '',
 				};
-
 				setToStorage('token', this.user.token);
+				setToStorage('user', this.user);
 				setToStorage('userLoggedIn', true);
 				this.isLoggedIn = true;
 			} else {
@@ -69,6 +69,7 @@ export const useUserStore = defineStore({
 		async logoutUser(): Promise<void> {
 			this.user = null;
 			removeFromStorage('token');
+			removeFromStorage('user');
 			removeFromStorage('userLoggedIn');
 			this.isLoggedIn = false;
 		},

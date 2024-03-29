@@ -21,7 +21,7 @@ class AuthController extends Controller
             }
             return response()->json(["data" => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage(), 500]);
+            return response()->json(["error" => $e->getMessage()], 500);
         }
     }
 
@@ -31,7 +31,7 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
             return response()->json(["data" => AuthService::connectUser($credentials)], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage(), 500]);
+            return response()->json(["error" => $e->getMessage()], 500);
         }
     }
 }

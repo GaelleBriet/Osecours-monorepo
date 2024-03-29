@@ -32,7 +32,7 @@
 
 	const onSubmit = async () => {
 		const user: User = await userStore.loginUser(email.value, password.value);
-		if (Object.keys(user).length === 0) {
+		if (user.error) {
 			errorMessages.value = getCapitalizedText(t('login.error'));
 		}
 		if (!user || user.associations?.length === 0) {
@@ -172,6 +172,7 @@
 								v-if="errorMessages"
 								:message="errorMessages"
 								:error="true"
+								@close="errorMessages = ''"
 							/>
 							<!-- Association select input -->
 							<div v-if="associations.length > 0">
