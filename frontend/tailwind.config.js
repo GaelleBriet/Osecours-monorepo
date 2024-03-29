@@ -11,6 +11,14 @@ export default {
 			transitionProperty: {
 				width: 'width',
 			},
+			colors: {
+				'osecours-grey': '#97a6a6',
+				'osecours-beige_light': '#f2d0a7',
+				'osecours-beige-dark': '#d99962',
+				'osecours-pink': '#f28a80',
+				'osecours-black': '#0d0d0d',
+				'osecours-white': '#f2f2f2',
+			},
 		},
 		screens: {
 			sm: '640px',
