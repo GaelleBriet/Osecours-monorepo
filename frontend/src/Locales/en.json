@@ -4,12 +4,19 @@
 		"cancel": "cancel",
 		"logIn": "log in",
 		"register": "register",
-		"welcome": "welcome!"
+		"welcome": "welcome!",
+		"profile": "profile"
 	},
 	"navigation": {
 		"home": "home",
 		"about": "about",
-		"contact": "contact"
+		"contact": "contact",
+		"dashboard": "dashboard",
+		"animals": "animals",
+		"users": "users",
+		"calendar": "calendar",
+		"settings": "settings",
+		"documents": "documents"
 	},
 	"form": {
 		"email": "email",
