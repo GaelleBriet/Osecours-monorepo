@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
-import { User } from '@/Interfaces/User.ts';
-import { getUsers, login } from '@/Services/DataLayers/User.ts';
+import { User, UserTokenScope } from '@/Interfaces/User.ts';
+import { login, loginWithAssociation } from '@/Services/DataLayers/User.ts';
 import {
 	getFromStorage,
+	removeFromStorage,
 	setToStorage,
 } from '@/Services/Helpers/LocalStorage.ts';
 
@@ -11,11 +12,11 @@ export const useUserStore = defineStore({
 	state: (): {
 		users: User[];
 		user: User | null;
-		isLoggedIn: unknown;
+		isLoggedIn: boolean;
 	} => ({
 		users: [],
-		user: null,
-		isLoggedIn: getFromStorage('userLoggedIn') || false,
+		user: getFromStorage('user') as User | null,
+		isLoggedIn: Boolean(getFromStorage('userLoggedIn')),
 	}),
 
 	getters: {
@@ -27,18 +28,50 @@ export const useUserStore = defineStore({
 		},
 	},
 	actions: {
-		async getAllUsers(): Promise<User[]> {
-			this.users = await getUsers();
-			return this.users;
-		},
 		async loginUser(email: string, password: string): Promise<User> {
-			const user: Partial<User> = await login(email, password);
+			const user: { error: string } = await login(email, password);
 			if (user) {
-				this.user = user;
-				this.isLoggedIn = true;
-				setToStorage('userLoggedIn', true);
+				this.user = user as User;
+				setToStorage('user', this.user);
+				return this.user;
 			}
-			return user as User;
+			return {} as User;
+		},
+
+		async loginWithAssociation(
+			email: string,
+			password: string,
+			associationId: string,
+			associationName: string,
+		): Promise<User> {
+			const userTokenScope: UserTokenScope = await loginWithAssociation(
+				email,
+				password,
+				Number(associationId),
+			);
+			if (userTokenScope.token) {
+				this.user = {
+					...this.user,
+					token: userTokenScope.token,
+					scopes: userTokenScope.scopes,
+					associationName: associationName ? associationName : '',
+				};
+				setToStorage('token', this.user.token);
+				setToStorage('user', this.user);
+				setToStorage('userLoggedIn', true);
+				this.isLoggedIn = true;
+			} else {
+				throw new Error('No user found.');
+			}
+			return this.user;
+		},
+
+		async logoutUser(): Promise<void> {
+			this.user = null;
+			removeFromStorage('token');
+			removeFromStorage('user');
+			removeFromStorage('userLoggedIn');
+			this.isLoggedIn = false;
 		},
 	},
 });

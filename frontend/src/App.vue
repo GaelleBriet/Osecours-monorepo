@@ -1,29 +1,29 @@
 <script setup lang="ts">
 	import SidebarComponent from '@/Components/Navigation/SidebarComponent.vue';
 	import { useUserStore } from '@/Stores/UserStore';
+	import LoginController from '@/Controllers/LoginController.vue';
+	import router from '@/Router';
 
 	const userStore = useUserStore();
 </script>
 
 <template>
-	<div class="flex h-screen">
-		<div v-if="userStore.isLoggedIn">
-			<div
-				id="sidebar-container"
-				class="w-full max-w-48 :sm:max-w-20"
-			>
-				<SidebarComponent />
-			</div>
-			<div
-				id="main-container"
-				class="w-full h-full container mx-auto pt-12 px-12"
-			>
-				<RouterView class="flex-grow" />
-			</div>
+	<div v-if="$route.name === 'Login'">
+		<LoginController />
+	</div>
+	<div
+		class="flex h-screen"
+		v-else
+	>
+		<div
+			id="sidebar-container"
+			class="w-full max-w-48 :sm:max-w-20"
+		>
+			<SidebarComponent />
 		</div>
 		<div
-			v-else
-			class="w-full h-full mx-auto"
+			id="main-container"
+			class="w-full h-full container mx-auto pt-12 px-12"
 		>
 			<RouterView class="flex-grow" />
 		</div>

@@ -7,6 +7,14 @@
 		HomeIcon,
 		UsersIcon,
 	} from '@heroicons/vue/24/outline';
+	import { useUserStore } from '@/Stores/UserStore.ts';
+
+	const userStore = useUserStore();
+
+	const associationName = userStore.user?.associationName;
+	const logout = () => {
+		userStore.logoutUser();
+	};
 
 	const navigation = [
 		{ name: 'Dashboard', href: '#', icon: HomeIcon, count: '5', current: true },
@@ -152,7 +160,8 @@
 							<span
 								aria-hidden="true"
 								class="sm:block hidden"
-								>Tom Cook</span
+								@click="logout"
+								>{{ associationName }}</span
 							>
 						</a>
 					</li>

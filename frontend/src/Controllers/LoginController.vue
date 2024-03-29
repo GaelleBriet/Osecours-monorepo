@@ -4,7 +4,10 @@
 	import FormPassword from '@/Components/Forms/FormPassword.vue';
 	import FormSubmitButton from '@/Components/Forms/FormSubmitButton.vue';
 	import FormCheckbox from '@/Components/Forms/FormCheckbox.vue';
+	import FormSelect from '@/Components/Forms/FormSelect.vue';
+	import AlertComponent from '@/Components/AlertComponent.vue';
 	import { User } from '@/Interfaces/User.ts';
+	import { Association } from '@/Interfaces/User.ts';
 	import { useUserStore } from '@/Stores/UserStore';
 	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
@@ -17,21 +20,58 @@
 
 	const email = ref('');
 	const password = ref('');
+	const selectedAssociation = ref('');
+	const selectOptions = ref([]);
+	const associations = ref<Association[]>([]);
 	const rememberMe = ref(localStorage.getItem('rememberMe') === 'true');
+	const errorMessages = ref('');
 
 	if (rememberMe.value) {
 		email.value = localStorage.getItem('email') ?? '';
 	}
 
 	const onSubmit = async () => {
-		console.log('Email', email.value);
-		console.log('Password', password.value);
 		const user: User = await userStore.loginUser(email.value, password.value);
-
-		if (user) {
-			console.log('User', user);
-			router.push({ name: 'Home' });
+		if (user.error) {
+			errorMessages.value = getCapitalizedText(t('login.error'));
 		}
+		if (!user || user.associations?.length === 0) {
+			await router.push({ name: 'Login' });
+		}
+		if (user && user.associations) {
+			associations.value = user.associations;
+		}
+	};
+
+	const onAssociationChange = async () => {
+		const associationName = associations.value.find(
+			(association) => association.id === Number(selectedAssociation.value),
+		);
+
+		if (selectedAssociation.value) {
+			await userStore.loginWithAssociation(
+				email.value,
+				password.value,
+				selectedAssociation.value,
+				associationName ? associationName.name : '',
+			);
+			await router.push({ name: 'Home' });
+		}
+	};
+
+	const getAssociations = () => {
+		return [
+			{
+				value: 0,
+				label: 'Sélectionnez votre association',
+			},
+			...associations.value.map((association) => {
+				return {
+					value: association.id,
+					label: association.name,
+				};
+			}),
+		];
 	};
 
 	watch(rememberMe, (newVal) => {
@@ -49,12 +89,16 @@
 			localStorage.setItem('email', newEmail);
 		}
 	});
+
+	watch(associations, () => {
+		selectOptions.value = getAssociations();
+	});
 </script>
 
 <template>
 	<div class="flex min-h-full flex-1 ps-16">
 		<div
-			class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
 		>
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
@@ -123,6 +167,31 @@
 								</div>
 							</div>
 						</Form>
+						<div class="min-h-[100px]">
+							<AlertComponent
+								v-if="errorMessages"
+								:message="errorMessages"
+								:error="true"
+								@close="errorMessages = ''"
+							/>
+							<!-- Association select input -->
+							<div v-if="associations.length > 0">
+								<div
+									v-for="association in associations"
+									:key="association.id"
+								>
+									<FormSelect
+										:id="association.id.toString()"
+										:name="'selectAssociation'"
+										:options="selectOptions"
+										v-model="selectedAssociation"
+										placeholder="Please select an association"
+										@update:model-value="selectedAssociation = $event"
+										@input="onAssociationChange"
+									/>
+								</div>
+							</div>
+						</div>
 						<div class="mt-2">
 							<FormSubmitButton
 								type="button"
@@ -131,6 +200,26 @@
 							></FormSubmitButton>
 						</div>
 					</div>
+
+					<!--					<select-->
+					<!--						v-model="selectedAssociation"-->
+					<!--						@change="onAssociationChange"-->
+					<!--						style="width: 100%"-->
+					<!--					>-->
+					<!--						<option-->
+					<!--							disabled-->
+					<!--							value=""-->
+					<!--						>-->
+					<!--							Please select an association-->
+					<!--						</option>-->
+					<!--						<option-->
+					<!--							v-for="association in associations"-->
+					<!--							:key="association.id"-->
+					<!--							:value="association.id"-->
+					<!--						>-->
+					<!--							{{ association.name }}-->
+					<!--						</option>-->
+					<!--					</select>-->
 
 					<!--					<div class="mt-10">-->
 					<!--						<div class="relative">-->
