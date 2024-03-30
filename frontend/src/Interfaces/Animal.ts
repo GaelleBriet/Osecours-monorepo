@@ -10,4 +10,8 @@ export interface Animal {
 	behavioralComment: string;
 	sterilized: boolean;
 	deceased: boolean;
+	species: string;
+	breed: string;
+	status: string;
+	icad: string;
 }

@@ -7,7 +7,7 @@ import {
 } from '@/Services/DataLayers/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
-export const useAnimalStore = defineStore('animal', {
+export const useAnimalsStore = defineStore('animals', {
 	state: (): {
 		animals: Animal[];
 		animal: Animal | null;

@@ -22,6 +22,10 @@ export const getAnimal = async (
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
+				species: 'Dog',
+				breed: 'Golden Retriever',
+				status: 'Adoptable',
+				icad: '123456789123458',
 			};
 			return animal;
 		} else if (id === 2) {
@@ -37,6 +41,10 @@ export const getAnimal = async (
 				behavioralComment: "Very friendly and playful, don't like cats",
 				sterilized: true,
 				deceased: false,
+				species: 'Dog',
+				breed: 'Labrador',
+				status: 'Adoptable',
+				icad: '2547896541235845',
 			};
 			return animal;
 		}
@@ -64,6 +72,10 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
+				species: 'Dog',
+				breed: 'Golden Retriever',
+				status: 'Adoptable',
+				icad: '123456789123458',
 			},
 			{
 				id: 2,
@@ -77,6 +89,10 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				behavioralComment: "Very friendly and playful, don't like cats",
 				sterilized: true,
 				deceased: false,
+				species: 'Dog',
+				breed: 'Labrador',
+				status: 'Adoptable',
+				icad: '2547896541235845',
 			},
 		];
 		return animals;
