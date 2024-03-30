@@ -19,7 +19,9 @@
 		"documents": "documents",
 		"organization": "association",
 		"members": "membres",
-		"shelters": "refuges"
+		"shelters": "refuges",
+		"dogs": "chiens",
+		"cats": "chats"
 	},
 	"form": {
 		"email": "email",

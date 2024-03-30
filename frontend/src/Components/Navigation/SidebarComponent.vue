@@ -8,12 +8,12 @@
 		ClipboardIcon,
 		BuildingStorefrontIcon,
 		HeartIcon,
+		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
+	import { computed, ref } from 'vue';
 
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useRouter } from 'vue-router';
-
-	import { computed, ref } from 'vue';
 
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
@@ -24,13 +24,27 @@
 	const t = i18n.global.t;
 
 	const currentActiveRoute = computed(() => {
-		return (routePath: string) => route.value.path === routePath;
+		return (routePath: string) => route.value && route.value.path === routePath;
 	});
 
+	const subMenuOpen = ref(false);
 	const dropdownOpen = ref(false);
 	const associationName = userStore.user?.associationName;
 	const logout = () => {
 		userStore.logoutUser();
+	};
+
+	const toggleSubMenu = () => {
+		subMenuOpen.value = !subMenuOpen.value;
+		console.log('SubMenu Open?', subMenuOpen.value);
+		// Ajouter un console.log pour vérifier les chemins des sous-menus
+		navigation.forEach((item) => {
+			if (item.subMenu) {
+				item.subMenu.forEach((subItem) => {
+					console.log('SubMenu route:', subItem.to);
+				});
+			}
+		});
 	};
 
 	const toggleDropdown = () => {
@@ -68,6 +82,18 @@
 			to: '/animals',
 			icon: HeartIcon,
 			current: currentActiveRoute,
+			subMenu: [
+				{
+					name: getCapitalizedText(t('navigation.dogs')),
+					to: '/animals/dogs',
+					current: currentActiveRoute,
+				},
+				{
+					name: getCapitalizedText(t('navigation.cats')),
+					to: '/animals/cats',
+					current: currentActiveRoute,
+				},
+			],
 		},
 		{
 			name: getCapitalizedText(t('navigation.documents')),
@@ -115,6 +141,7 @@
 											: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
 										'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 									]"
+									@click="toggleSubMenu"
 								>
 									<component
 										:is="item.icon"
@@ -135,7 +162,50 @@
 											>{{ item.count }}</span
 										>
 									</span>
+									<!--			arrow icon for subMenus						-->
+									<span
+										class="ml-auto sm:block hidden"
+										v-if="item.subMenu"
+									>
+										<ChevronRightIcon
+											:class="[
+												subMenuOpen
+													? 'rotate-90 text-gray-500'
+													: 'text-gray-400',
+												'ml-auto h-5 w-5 shrink-0',
+											]"
+											aria-hidden="true"
+										/>
+									</span>
 								</router-link>
+								<!--			subMenu					-->
+								<ul
+									v-if="subMenuOpen && item.subMenu"
+									class="pl-4"
+								>
+									<li
+										v-for="subItem in item.subMenu"
+										:key="subItem.name"
+									>
+										<router-link
+											:to="subItem.to"
+											:class="[
+												subItem.current
+													? 'text-osecours-pink block ps-10 py-2 text-sm hover:bg-gray-50'
+													: 'flex items-center ps-5 py-2 text-sm text-gray-600 hover:bg-gray-50',
+											]"
+										>
+											<!-- icon if small screens -->
+											<span class="sm:hidden">
+												<UserIcon class="h-5 w-5 -ml-10" />
+											</span>
+											<!-- else name -->
+											<span class="hidden sm:block">
+												{{ subItem.name }}
+											</span>
+										</router-link>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>

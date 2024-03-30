@@ -22,6 +22,16 @@ const routes = [
 		component: AnimalsController,
 	},
 	{
+		path: '/animals/cats',
+		name: 'Cats',
+		component: HomeViewController,
+	},
+	{
+		path: '/animals/dogs',
+		name: 'Dogs',
+		component: AnimalsController,
+	},
+	{
 		path: '/organization',
 		name: 'Organization',
 		component: HomeViewController,
