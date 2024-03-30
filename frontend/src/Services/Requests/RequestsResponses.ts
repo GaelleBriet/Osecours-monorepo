@@ -1,6 +1,6 @@
-import { AxiosError } from '@/Interfaces/Requests.ts';
+import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 
-export const errorResponse = (error: AxiosError): { error: string } => {
+export const errorResponse = (error: AxiosError): ErrorResponse => {
 	if (error.response) {
 		switch (error.response.status) {
 			case 400:

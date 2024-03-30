@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { User, UserTokenScope } from '@/Interfaces/User.ts';
-import { AxiosError } from '@/Interfaces/Requests.ts';
+import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 
 const API_URL: string = 'http://localhost:8000/api';
@@ -12,7 +12,7 @@ export interface UserWithError extends User {
 export const login = async (
 	email: string,
 	password: string,
-): Promise<User | { error: string }> => {
+): Promise<User | ErrorResponse> => {
 	try {
 		if (!email || !password)
 			throw new Error('Email and password are required.');

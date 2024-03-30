@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	import i18n from '@/Services/Translations/index.ts';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 
 	const t = i18n.global.t;

@@ -1,7 +1,8 @@
 export interface Animal {
+	id: number;
 	name: string;
 	description: string;
-	birthdate: Date;
+	birthdate: Date | string;
 	catsFriendly: boolean;
 	dogsFriendly: boolean;
 	childrenFriendly: boolean;

@@ -3,3 +3,7 @@ export interface AxiosError {
 		status?: number;
 	};
 }
+
+export interface ErrorResponse {
+	error: string;
+}
