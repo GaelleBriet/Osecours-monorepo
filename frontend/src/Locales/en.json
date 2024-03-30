@@ -5,7 +5,10 @@
 		"logIn": "log in",
 		"register": "register",
 		"welcome": "welcome!",
-		"profile": "profile"
+		"profile": "profile",
+		"edit": "edit",
+		"add": "add",
+		"actions": "action | actions"
 	},
 	"navigation": {
 		"home": "home",
@@ -54,6 +57,9 @@
 		"contact": {
 			"header": "contact us",
 			"instructions": "fill out the form below to send us a message."
+		},
+		"animals": {
+			"title": "List of animals under the association's responsibility."
 		}
 	}
 }

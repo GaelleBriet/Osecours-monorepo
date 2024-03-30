@@ -19,6 +19,13 @@ export default {
 				'osecours-black': '#0d0d0d',
 				'osecours-white': '#f2f2f2',
 			},
+			fontWeight: {
+				light: 300,
+				normal: 400,
+				medium: 500,
+				semibold: 600,
+				bold: 700,
+			},
 		},
 		screens: {
 			sm: '640px',
@@ -35,6 +42,9 @@ export default {
 
 			'2xl': '1536px',
 			// => @media (min-width: 1536px) { ... }
+			customMd: '876px',
+			customSm: '784px',
+			custonmXs: '714px',
 		},
 		container: {
 			padding: '2rem',

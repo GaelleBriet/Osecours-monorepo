@@ -5,7 +5,10 @@
 		"logIn": "connexion",
 		"register": "enregistrement",
 		"welcome": "bienvenue!",
-		"profile": "profil"
+		"profile": "profil",
+		"edit": "modifier",
+		"add": "ajouter",
+		"actions": "action | actions"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -54,6 +57,9 @@
 		"contact": {
 			"header": "contactez-nous",
 			"instructions": "remplissez le formulaire ci-dessous pour nous envoyer un message."
+		},
+		"animals": {
+			"title": "Liste des animaux sous la responsabilité de l'association."
 		}
 	}
 }
