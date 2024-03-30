@@ -1,106 +1,139 @@
 <script setup lang="ts">
-	const people = [
-		{
-			name: 'Lindsay Walton',
-			title: 'Front-end Developer',
-			email: 'lindsay.walton@example.com',
-			role: 'Member',
-		},
-		// More people...
-	];
+	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
+
+	const t = i18n.global.t;
+
+	const props = defineProps<{
+		store: object;
+		modelValue: object[];
+		title: string;
+		description: string;
+		columns: {
+			label: string;
+			key: string;
+			visibility?: {
+				sm?: boolean;
+				md?: boolean;
+				lg?: boolean;
+			};
+		}[];
+	}>();
 </script>
 
 <template>
-	<!--	heading  -->
-	<div class="px-1 sm:px-2 lg:px-4">
+	<div>
 		<div class="sm:flex sm:items-center">
 			<div class="sm:flex-auto">
-				<h1 class="text-base font-semibold leading-6 text-gray-900">Animaux</h1>
+				<h1 class="text-base leading-6 text-gray-900">
+					{{ props.title }}
+				</h1>
 				<p class="mt-2 text-sm text-gray-700">
-					Liste des animaux dont vous avez la responsabilité
+					{{ props.description }}
 				</p>
 			</div>
 			<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
 				<button
 					type="button"
-					class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					class="block rounded-md bg-osecours-beige-dark px-3 py-2 text-center text-sm text-white shadow-sm hover:bg-osecours-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 				>
-					Ajouter un animal
+					{{ getCapitalizedText(t('common.add')) }}
 				</button>
 			</div>
 		</div>
-		<!-- 	table  -->
-		<div class="-mx-4 mt-8 sm:-mx-0">
-			<table class="min-w-full divide-y divide-gray-300">
-				<thead>
-					<tr>
-						<th
-							scope="col"
-							class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-2"
-						>
-							Name
-						</th>
-						<th
-							scope="col"
-							class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
-						>
-							I-Cad
-						</th>
-						<th
-							scope="col"
-							class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
-						>
-							Espèce
-						</th>
-						<th
-							scope="col"
-							class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-						>
-							Race
-						</th>
-						<th
-							scope="col"
-							class="relative py-3.5 pl-3 pr-4 sm:pr-2"
-						>
-							<span class="sr-only">Edit</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody class="divide-y divide-gray-200 bg-white">
-					<tr
-						v-for="person in people"
-						:key="person.email"
+
+		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
+			<!-- view cards for smartphones -->
+			<div class="custonmXs:hidden">
+				<div
+					v-for="item in modelValue"
+					:key="item.id"
+					class="p-4 bg-white mb-4 shadow rounded-lg"
+				>
+					<template
+						v-for="column in props.columns"
+						:key="column.key"
 					>
-						<td
-							class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-2"
+						<ul>
+							<li class="flex flex-row space-x-2 items-baseline">
+								<span class="text-l text-osecours-black"
+									>{{ column.label }}:
+								</span>
+								<span class="text-sm text-osecours-black">{{
+									item[column.key]
+								}}</span>
+							</li>
+						</ul>
+					</template>
+					<div class="pt-4">
+						<router-link
+							to="#"
+							class="text-osecours-beige-dark hover:text-indigo-900"
+							>{{ getCapitalizedText(t('common.edit')) }}</router-link
 						>
-							{{ person.name }}
-							<dl class="font-normal lg:hidden">
-								<dt class="sr-only">Title</dt>
-								<dd class="mt-1 truncate text-gray-700">{{ person.title }}</dd>
-								<dt class="sr-only sm:hidden">Email</dt>
-								<dd class="mt-1 truncate text-gray-500 sm:hidden">
-									{{ person.email }}
-								</dd>
-							</dl>
-						</td>
-						<td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">
-							{{ person.title }}
-						</td>
-						<td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">
-							{{ person.email }}
-						</td>
-						<td class="px-3 py-4 text-sm text-gray-500">{{ person.role }}</td>
-						<td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-2">
-							<a
-								href="#"
-								class="text-indigo-600 hover:text-indigo-900"
-								>Edit<span class="sr-only">, {{ person.name }}</span></a
+					</div>
+				</div>
+			</div>
+			<!-- vie table for screens -->
+			<div class="hidden custonmXs:block overflow-x-auto">
+				<table class="min-w-full divide-y divide-gray-300">
+					<thead class="bg-gray-50">
+						<tr>
+							<template
+								v-for="column in props.columns"
+								:key="column.key"
 							>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+								<th
+									scope="col"
+									:class="[
+										'py-3.5 pl-4 pr-3 text-left text-sm text-gray-900',
+										column.visibility?.md ? 'hidden customMd:block' : '',
+										column.visibility?.sm ? 'hidden customSm:block' : '',
+									]"
+								>
+									{{ column.label }}
+								</th>
+							</template>
+							<th
+								scope="col"
+								class="relative py-3.5 pl-3 pr-4 sm:pr-2 text-gray-900 text-left text-sm"
+							>
+								{{ getCapitalizedText(t('common.actions', 1)) }}
+							</th>
+						</tr>
+					</thead>
+					<tbody class="bg-white divide-y divide-gray-200">
+						<tr
+							v-for="item in modelValue"
+							:key="`large-${item.id}`"
+						>
+							<template
+								v-for="column in props.columns"
+								:key="column.key"
+							>
+								<td
+									:class="[
+										'whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500',
+										column.visibility?.md ? 'hidden customMd:block' : '',
+										column.visibility?.sm ? 'hidden customSm:block' : '',
+									]"
+								>
+									{{ item[column.key] }}
+								</td>
+							</template>
+							<td
+								class="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm sm:pr-2"
+							>
+								<router-link
+									to="#"
+									class="text-indigo-600 hover:text-indigo-900"
+									>{{ getCapitalizedText(t('common.edit')) }}</router-link
+								>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>
