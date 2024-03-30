@@ -11,8 +11,12 @@ export const useAnimalsStore = defineStore('animals', {
 	state: (): {
 		animals: Animal[];
 		animal: Animal | null;
+		dogs: Animal[];
+		cats: Animal[];
 	} => ({
 		animals: [],
+		dogs: [],
+		cats: [],
 		animal: null,
 	}),
 	getters: {
@@ -36,6 +40,30 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				this.animals = animals;
+				return animals;
+			}
+		},
+		async getDogs(): Promise<Animal[]> {
+			const animals: Animal[] | ErrorResponse = await getAnimals();
+			if ('error' in animals) {
+				return [];
+			} else {
+				const dogs: Animal[] = animals.filter(
+					(animal: Animal) => animal.species === 'Dog',
+				);
+				this.animals = dogs;
+				return animals;
+			}
+		},
+		async getCats(): Promise<Animal[]> {
+			const animals: Animal[] | ErrorResponse = await getAnimals();
+			if ('error' in animals) {
+				return [];
+			} else {
+				const cats: Animal[] = animals.filter(
+					(animal: Animal) => animal.species === 'Cat',
+				);
+				this.animals = cats;
 				return animals;
 			}
 		},

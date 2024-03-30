@@ -3,6 +3,8 @@ import HomeViewController from '@/Controllers/HomeController.vue';
 import LoginController from '@/Controllers/LoginController.vue';
 import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 import AnimalsController from '@/Controllers/AnimalsController.vue';
+import DogsController from '@/Controllers/DogsController.vue';
+import CatsController from '@/Controllers/CatsController.vue';
 
 const routes = [
 	{
@@ -24,12 +26,12 @@ const routes = [
 	{
 		path: '/animals/cats',
 		name: 'Cats',
-		component: HomeViewController,
+		component: CatsController,
 	},
 	{
 		path: '/animals/dogs',
 		name: 'Dogs',
-		component: AnimalsController,
+		component: DogsController,
 	},
 	{
 		path: '/organization',

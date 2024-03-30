@@ -59,7 +59,9 @@
 			"instructions": "fill out the form below to send us a message."
 		},
 		"animals": {
-			"title": "List of animals under the association's responsibility."
+			"title": "list of animals under the association's responsibility.",
+			"dogsTitle": "list of dogs under the association's responsibility.",
+			"catsTitle": "list of cats under the association's responsibility."
 		}
 	}
 }

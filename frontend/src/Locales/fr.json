@@ -59,7 +59,9 @@
 			"instructions": "remplissez le formulaire ci-dessous pour nous envoyer un message."
 		},
 		"animals": {
-			"title": "Liste des animaux sous la responsabilité de l'association."
+			"title": "liste des animaux sous la responsabilité de l'association.",
+			"dogsTitle": "liste des chien sous la responsabilité de l'association.",
+			"catsTitle": "liste des chats sous la responsabilité de l'association."
 		}
 	}
 }

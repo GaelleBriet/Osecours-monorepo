@@ -37,14 +37,6 @@
 	const toggleSubMenu = () => {
 		subMenuOpen.value = !subMenuOpen.value;
 		console.log('SubMenu Open?', subMenuOpen.value);
-		// Ajouter un console.log pour vérifier les chemins des sous-menus
-		navigation.forEach((item) => {
-			if (item.subMenu) {
-				item.subMenu.forEach((subItem) => {
-					console.log('SubMenu route:', subItem.to);
-				});
-			}
-		});
 	};
 
 	const toggleDropdown = () => {
@@ -132,39 +124,41 @@
 							<li
 								v-for="item in navigation"
 								:key="item.name"
+								class="flex flex-col"
 							>
-								<router-link
-									:to="item.to"
-									:class="[
-										currentActiveRoute(item.to)
-											? 'text-osecours-beige-dark'
-											: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
-										'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
-									]"
-									@click="toggleSubMenu"
-								>
-									<component
-										:is="item.icon"
+								<div class="flex items-center">
+									<router-link
+										:to="item.to"
 										:class="[
-											item.current
+											currentActiveRoute(item.to)
 												? 'text-osecours-beige-dark'
-												: 'text-gray-400 group-hover:text-osecours-beige-dark',
-											'h-5 w-5 shrink-0',
+												: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
+											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
 										]"
-										aria-hidden="true"
-									/>
-									<span class="truncate">
-										{{ item.name }}
-										<span
-											v-if="item.count"
-											class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-osecours-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-osecours-beige-darkring-1 ring-inset ring-gray-200"
+									>
+										<component
+											:is="item.icon"
+											:class="[
+												item.current
+													? 'text-osecours-beige-dark'
+													: 'text-gray-400 group-hover:text-osecours-beige-dark',
+												'h-5 w-5 shrink-0',
+											]"
 											aria-hidden="true"
-											>{{ item.count }}</span
-										>
-									</span>
+										/>
+										<span class="truncate hidden sm:block">
+											{{ item.name }}
+											<span
+												v-if="item.count"
+												class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-osecours-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-osecours-beige-darkring-1 ring-inset ring-gray-200"
+												aria-hidden="true"
+												>{{ item.count }}</span
+											>
+										</span>
+									</router-link>
 									<!--			arrow icon for subMenus						-->
 									<span
-										class="ml-auto sm:block hidden"
+										class="ml-auto"
 										v-if="item.subMenu"
 									>
 										<ChevronRightIcon
@@ -172,12 +166,13 @@
 												subMenuOpen
 													? 'rotate-90 text-gray-500'
 													: 'text-gray-400',
-												'ml-auto h-5 w-5 shrink-0',
+												'ml-auto h-5 w-5 shrink-0 cursor-pointer',
 											]"
 											aria-hidden="true"
+											@click="toggleSubMenu"
 										/>
 									</span>
-								</router-link>
+								</div>
 								<!--			subMenu					-->
 								<ul
 									v-if="subMenuOpen && item.subMenu"
