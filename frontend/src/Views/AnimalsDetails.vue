@@ -1,18 +1,21 @@
 <script setup lang="ts">
-	// Importez ou définissez les données des photos ici
-	import { computed, onMounted, ref } from 'vue';
-	import { useRoute } from 'vue-router';
-	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormDate from '@/Components/Forms/FormDate.vue';
 	import Form from '@/Components/Forms/Form.vue';
+	import { onMounted, ref } from 'vue';
+	import { useRoute } from 'vue-router';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations/index.ts';
+	import { number } from '@formkit/icons';
 
+	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
 	const animalId = route.params.id;
-	// const animal = computed(() => animalsStore.getCurrentAnimal);
+
 	const animal = ref({
 		id: 1,
 		name: 'Bobby',
@@ -29,8 +32,9 @@
 		breed: 'Golden Retriever',
 		status: 'Adoptable',
 		icad: '123456789123458',
+		gender: 1,
 	});
-	console.log(animal.value);
+
 	const photos = ref([
 		{
 			id: 1,
@@ -91,7 +95,7 @@
 					class="col-span-2 row-span-1 col-start-1 row-start-1 lg:col-start-1 lg:row-start-1 lg:col-span-6 lg:row-span-1 flex flex-col"
 				>
 					<div class="ps-1.5 text-2xl mb-1">
-						Fiche Animal: {{ animal.name }}
+						{{ getCapitalizedText(t('pages.animals.card')) }}: {{ animal.name }}
 					</div>
 				</div>
 				<div
@@ -100,49 +104,61 @@
 					<div class="mb-1 flex flex-col lg:flex-row justify-around">
 						<div class="px-2 w-full lg:w-1/2">
 							<FormText
-								:id="'animal-icad-number'"
-								:label="'Numéro I-CAD'"
+								id="animal-icad-number"
+								:model-value="animal.icad"
+								:name="'animal-icad-number'"
+								:label="getCapitalizedText(t('pages.animals.icad'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'ABCDEF123456789'"
+								:placeholder="'123456123456789'"
+								@update:model-value="animal.icad = $event"
+								:validation="'number'"
 							/>
 						</div>
 						<div class="px-2 w-full lg:w-1/2">
 							<FormText
-								:id="'animal-name'"
-								:label="'Nom'"
+								id="animal-name"
+								:model-value="animal.name"
+								:label="getCapitalizedText(t('common.name'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Nom de l\'animal'"
+								@update:model-value="animal.name = $event"
 							/>
 						</div>
 					</div>
 					<div class="mb-1 flex flex-col lg:flex-row justify-around">
 						<div class="w-full px-2 lg:w-1/2">
 							<FormSelect
-								:id="'animal-species'"
+								id="animal-species"
+								:model-value="animal.species"
 								:name="'animal-species'"
-								:label="'Espèce'"
+								:label="getCapitalizedText(t('pages.animals.species'))"
 								:options="[
 									{ value: 1, label: 'Chien' },
 									{ value: 2, label: 'Chat' },
 								]"
+								@update:model-value="animal.species = $event"
 							/>
 						</div>
 						<div class="px-2 w-full lg:w-1/2">
 							<FormText
-								:id="'animal-breed'"
-								:label="'Race'"
+								id="animal-breed"
+								:model-value="animal.breed"
+								:label="getCapitalizedText(t('pages.animals.breed'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'Race'"
+								:placeholder="'Boxer, Berger Allemand ...'"
+								@update:model-value="animal.breed = $event"
 							/>
 						</div>
 					</div>
 					<div class="mb-1 flex flex-col justify-around">
 						<div class="p-2">
 							<FormTextArea
-								:id="'animal-description'"
-								:label="'Description'"
+								id="animal-description"
+								:model-value="animal.description"
+								:label="getCapitalizedText(t('pages.animals.description'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Description de l\'animal'"
+								@update:model-value="animal.description = $event"
 							/>
 						</div>
 					</div>
@@ -154,21 +170,24 @@
 						<div class="mb-1 flex flex-col justify-around">
 							<div class="px-2">
 								<FormSelect
-									:id="'animal-status'"
+									id="animal-status"
+									:model-value="animal.status"
 									:name="'animal-status'"
-									:label="'Statut de l\'animal'"
+									:label="getCapitalizedText(t('pages.animals.status'))"
 									:options="[
 										{ value: 1, label: 'Adopté' },
 										{ value: 2, label: 'En famille d\'accueil' },
 										{ value: 3, label: 'En refuge' },
 									]"
+									@update:model-value="animal.status = $event"
 								/>
 							</div>
 							<div class="px-2">
 								<FormSelect
-									:id="'animal-gender'"
+									id="animal-gender"
+									:model-value="animal.gender"
 									:name="'animal-gender'"
-									:label="'Genre'"
+									:label="getCapitalizedText(t('pages.animals.gender'))"
 									:options="[
 										{ value: 1, label: 'Mâle' },
 										{ value: 2, label: 'Femelle' },
@@ -177,53 +196,59 @@
 							</div>
 							<div class="px-2">
 								<FormText
-									:id="'animal-coat'"
-									:label="'Robe'"
+									id="animal-coat"
+									:model-value="animal.coat"
+									:label="getCapitalizedText(t('pages.animals.coat'))"
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Robe de l\'animal (type de poils)'"
+									@update:model-value="animal.coat = $event"
 								/>
 							</div>
 							<div class="px-2">
 								<FormText
-									:id="'animal-color'"
-									:label="'Couleur'"
+									id="animal-color"
+									:model-value="animal.color"
+									:label="getCapitalizedText(t('pages.animals.color'))"
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Couleur de l\'animal'"
+									@update:model-value="animal.color = $event"
 								/>
 							</div>
 							<div class="px-2">
 								<FormSelect
-									:id="'animal-size'"
-									:name="'animal-size'"
-									:label="'Taille'"
+									id="animal-size"
+									:model-value="animal.size"
+									:name="getCapitalizedText(t('pages.animals.size'))"
+									:label="getCapitalizedText(t('pages.animals.size'))"
 									:options="[
 										{ value: 1, label: 'Petit' },
 										{ value: 2, label: 'Moyen' },
 										{ value: 3, label: 'Grand' },
 									]"
+									@update:model-value="animal.size = $event"
 								/>
 							</div>
 							<div class="px-2">
 								<FormSelect
-									:id="'animal-age-range'"
+									id="animal-age-range"
+									:model-value="animal.age"
 									:name="'animal-age-range'"
-									:label="'Tranche d\'âge'"
+									:label="getCapitalizedText(t('pages.animals.ageRange'))"
 									:options="[
 										{ value: 1, label: 'Chiot/Chaton' },
 										{ value: 2, label: 'Jeune' },
 										{ value: 3, label: 'Adulte' },
 										{ value: 4, label: 'Senior' },
 									]"
+									@update:model-value="animal.age = $event"
 								/>
 							</div>
 							<div class="p-2">
 								<FormDate
-									:id="'animal-date'"
+									id="animal-date"
 									:model-value="animal.birthdate"
 									:name="'animal-date'"
-									:label="'Date de naissance'"
-									:placeholder="'Sélectionner une date'"
-									:overlay="true"
+									:label="getCapitalizedText(t('pages.animals.birthdate'))"
 									@update:modelValue="animal.birthdate = $event"
 								/>
 							</div>

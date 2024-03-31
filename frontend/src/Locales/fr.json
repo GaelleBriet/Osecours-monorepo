@@ -8,7 +8,8 @@
 		"profile": "profil",
 		"edit": "modifier",
 		"add": "ajouter",
-		"actions": "action | actions"
+		"actions": "action | actions",
+		"name": "nom"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -61,7 +62,19 @@
 		"animals": {
 			"title": "liste des animaux sous la responsabilité de l'association.",
 			"dogsTitle": "liste des chien sous la responsabilité de l'association.",
-			"catsTitle": "liste des chats sous la responsabilité de l'association."
+			"catsTitle": "liste des chats sous la responsabilité de l'association.",
+			"card": "fiche animal",
+			"icad": "numéro I-CAD",
+			"species": "espèce",
+			"breed": "race",
+			"description": "description",
+			"status": "statut",
+			"gender": "genre",
+			"coat": "robe",
+			"color": "couleur",
+			"size": "taille",
+			"ageRange": "tranche d'âge",
+			"birthdate": "date de naissance"
 		}
 	}
 }

@@ -8,7 +8,8 @@
 		"profile": "profile",
 		"edit": "edit",
 		"add": "add",
-		"actions": "action | actions"
+		"actions": "action | actions",
+		"name": "name"
 	},
 	"navigation": {
 		"home": "home",
@@ -61,7 +62,19 @@
 		"animals": {
 			"title": "list of animals under the association's responsibility.",
 			"dogsTitle": "list of dogs under the association's responsibility.",
-			"catsTitle": "list of cats under the association's responsibility."
+			"catsTitle": "list of cats under the association's responsibility.",
+			"card": "animal card",
+			"icad": "ICAD number",
+			"species": "species",
+			"breed": "breed",
+			"description": "description",
+			"status": "status",
+			"gender": "gender",
+			"coat": "coat",
+			"color": "color",
+			"size": "size",
+			"ageRange": "age range",
+			"birthdate": "birthdate"
 		}
 	}
 }
