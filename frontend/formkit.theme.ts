@@ -6,7 +6,7 @@ import type { FormKitNode } from '@formkit/core';
  * edited unless you’d like to "eject" from the CLI’s ability to update it.
  *
  * @checksum - 0d82d9ac4326325e6e0ea69c40f223319190d1e97ba39e4dd4f5119e2008ad81
- * @variables - radius=rounded-lg,accentColor=blue,colorTemperature=neutral,spacing=2,scale=base,inputShadow=shadow,baseColorShade=600,borderShadeLightMode=400,borderShadeDarkMode=500,inputMaxWidth=max-w-[24em],tagRadius=rounded,swatchRadius=rounded
+ * @variables - radius=rounded-lg,accentColor=blue,colorTemperature=neutral,spacing=2,scale=base,inputShadow=shadow,baseColorShade=600,borderShadeLightMode=400,borderShadeDarkMode=500,inputMaxWidth=max-w-[40em],tagRadius=rounded,swatchRadius=rounded
  * @theme - regenesis
  **/
 
@@ -988,7 +988,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	submit__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -1189,7 +1189,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	colorpicker__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -2280,7 +2280,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	slider__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -3293,7 +3293,7 @@ const classes: Record<string, Record<string, boolean>> = {
 const globals: Record<string, Record<string, boolean>> = {
 	outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,

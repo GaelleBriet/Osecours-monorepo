@@ -1,20 +1,15 @@
 <script setup lang="ts">
-	import { FormKit } from '@formkit/vue';
-	import { defineProps, defineEmits } from 'vue';
-	import { getNode } from '@formkit/core';
-
 	const props = defineProps<{
-		classes?: object;
-		disabled?: boolean;
 		id: string;
-		label?: string;
 		modelValue?: string | undefined;
+		value?: string | number;
 		name?: string;
+		label?: string;
 		placeholder?: string;
-		prefixIcon?: string;
+		help?: string;
 		validation?: string | never[];
 		validationVisibility?: string;
-		value?: string | number;
+		disabled?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -42,21 +37,19 @@
 		emit('blur', e);
 	};
 </script>
+
 <template>
 	<FormKit
 		:id="id"
-		:model-value="modelValue"
-		:value="modelValue"
 		:name="name"
-		:placeholder="placeholder"
-		:prefix-icon="prefixIcon"
 		:label="label"
+		:placeholder="placeholder"
+		:help="help"
 		:validation="validation"
 		:validation-visibility="validationVisibility"
-		:disabled="disabled"
-		type="text"
+		type="textarea"
 		@blur="onBlur"
 	/>
 </template>
+
 <style scoped></style>
-<!--		@update:model-value="emit('update:modelValue', $event as string)"-->

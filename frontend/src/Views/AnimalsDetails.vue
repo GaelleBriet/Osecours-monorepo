@@ -5,6 +5,8 @@
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
+	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
+	import FormDate from '@/Components/Forms/FormDate.vue';
 
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
@@ -125,15 +127,14 @@
 						/>
 					</div>
 				</div>
-				<div class="mb-4 flex flex-col justify-around">
+				<div class="mb-1 flex flex-col justify-around">
 					<div class="p-2">
-						<label class="block text-sm font-medium text-gray-700 mb-1"
-							>Description</label
-						>
-						<textarea
+						<FormTextArea
+							:id="'animal-description'"
+							:label="'Description'"
 							class="w-full border border-gray-300 rounded shadow-sm"
-							rows="4"
-						></textarea>
+							:placeholder="'Description de l\'animal'"
+						/>
 					</div>
 				</div>
 			</div>
@@ -197,7 +198,7 @@
 							<FormSelect
 								:id="'animal-age-range'"
 								:name="'animal-age-range'"
-								:label="'Trance d\'âge'"
+								:label="'Tranche d\'âge'"
 								:options="[
 									{ value: 1, label: 'Chiot/Chaton' },
 									{ value: 2, label: 'Jeune' },
@@ -207,13 +208,14 @@
 							/>
 						</div>
 						<div class="p-2">
-							<label class="block text-sm font-medium text-gray-700 mb-1"
-								>Date de naissance</label
-							>
-							<input
-								type="date"
-								class="w-full p-2 border border-gray-300 rounded shadow-sm"
-								placeholder="Date de naissance de l'animal"
+							<FormDate
+								:id="'animal-date'"
+								:model-value="animal.birthdate"
+								:name="'animal-date'"
+								:label="'Date de naissance'"
+								:placeholder="'Sélectionner une date'"
+								:overlay="true"
+								@update:modelValue="animal.birthdate = $event"
 							/>
 						</div>
 					</div>
@@ -254,7 +256,7 @@
 			<div
 				class="col-span-2 row-span-1 col-start-1 row-start-16 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-8"
 			>
-				<div class="flex flex-row justify-between p-2">
+				<div class="flex flex-row justify-between">
 					<button
 						class="w-1/2 me-1.5 px-4 py-2 bg-blue-500 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
 					>
@@ -271,4 +273,4 @@
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped lang="postcss"></style>
