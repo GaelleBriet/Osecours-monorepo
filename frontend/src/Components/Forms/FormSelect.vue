@@ -3,7 +3,6 @@
 	import { getNode } from '@formkit/core';
 
 	defineProps<{
-		id: string;
 		modelValue?: string | boolean | number;
 		value?: number;
 		name: string;

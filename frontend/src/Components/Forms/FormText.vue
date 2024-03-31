@@ -6,7 +6,7 @@
 	const props = defineProps<{
 		classes?: object;
 		disabled?: boolean;
-		id: string;
+		id?: string;
 		label?: string;
 		modelValue?: string | undefined;
 		name?: string;

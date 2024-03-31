@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	const props = defineProps<{
-		id: string;
 		modelValue?: string | undefined;
 		value?: string | number;
 		name?: string;
