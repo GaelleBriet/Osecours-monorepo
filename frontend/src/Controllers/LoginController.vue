@@ -161,7 +161,7 @@
 								<div class="text-sm leading-6">
 									<a
 										href="#"
-										class="font-semibold text-osecours-beige-dark hover:text-osecours-pink"
+										class="font-normal text-osecours-beige-dark hover:text-osecours-pink"
 										>{{ getCapitalizedText(t('login.forgotPassword')) }}</a
 									>
 								</div>
@@ -241,7 +241,7 @@
 					<!--						<div class="mt-6 grid grid-cols-2 gap-4">-->
 					<!--							<a-->
 					<!--								href="#"-->
-					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
+					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-normal text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
 					<!--							>-->
 					<!--								<svg-->
 					<!--									class="h-5 w-5"-->
@@ -265,12 +265,12 @@
 					<!--										fill="#34A853"-->
 					<!--									/>-->
 					<!--								</svg>-->
-					<!--								<span class="text-sm font-semibold leading-6">Google</span>-->
+					<!--								<span class="text-sm font-normal leading-6">Google</span>-->
 					<!--							</a>-->
 
 					<!--							<a-->
 					<!--								href="#"-->
-					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
+					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-normal text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
 					<!--							>-->
 					<!--								<svg-->
 					<!--									class="h-5 w-5 fill-[#24292F]"-->
@@ -284,7 +284,7 @@
 					<!--										clip-rule="evenodd"-->
 					<!--									/>-->
 					<!--								</svg>-->
-					<!--								<span class="text-sm font-semibold leading-6">GitHub</span>-->
+					<!--								<span class="text-sm font-normal leading-6">GitHub</span>-->
 					<!--							</a>-->
 					<!--						</div>-->
 					<!--					</div>-->
@@ -302,9 +302,12 @@
 </template>
 <style lang="postcss" scoped>
 	button {
-		background-color: #d99962;
+		background-color: rgba(217, 153, 98);
+		color: #fff;
 		&:hover {
-			background-color: #f28a80;
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
 		}
 	}
 </style>

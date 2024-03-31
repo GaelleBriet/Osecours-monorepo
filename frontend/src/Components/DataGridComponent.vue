@@ -47,8 +47,9 @@
 			</div>
 			<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
 				<button
+					id="add-animal-btn"
 					type="button"
-					class="block rounded-md bg-osecours-beige-dark px-3 py-2 text-center text-sm text-white shadow-sm hover:bg-osecours-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					class=" rounded-md px-3 py-2 text-center text-sm"
 				>
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
@@ -154,4 +155,15 @@
 			</div>
 		</div>
 	</div>
-</template>
+</template scoped>
+<style lang="postcss" scoped>
+	#add-animal-btn {
+		background-color: rgba(217, 153, 98);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
+	}
+</style>

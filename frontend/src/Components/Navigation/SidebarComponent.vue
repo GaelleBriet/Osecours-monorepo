@@ -133,7 +133,7 @@
 											currentActiveRoute(item.to)
 												? 'text-osecours-beige-dark'
 												: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
-											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
+											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normla',
 										]"
 									>
 										<component
@@ -207,7 +207,7 @@
 					<li class="relative -mx-6 mt-auto">
 						<a
 							href="#"
-							class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-osecours-black hover:bg-gray-50"
+							class="flex items-center gap-x-4 px-6 py-3 text-sm font-normal leading-6 text-osecours-black hover:bg-gray-50"
 							@click.prevent="toggleDropdown"
 						>
 							<img
