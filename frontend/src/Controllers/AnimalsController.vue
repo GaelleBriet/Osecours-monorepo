@@ -1,22 +1,30 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
-	import { computed, onMounted, watch } from 'vue';
+	import { computed, onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import { useRouter } from 'vue-router';
 
 	const t = i18n.global.t;
+	const router = useRouter();
 	const animalsStore = useAnimalsStore();
 	const animals = computed(() => animalsStore.animals);
+
+	const editItem = (item) => {
+		router.push({
+			name: 'EditAnimal',
+			params: { id: item.id },
+		});
+	};
 
 	onMounted(async () => {
 		await animalsStore.getAnimals();
 	});
-	watch(animals, (newAnimals) => {});
 </script>
 
 <template>
-	<div class="container w-full p-0">
+	<div class="w-full p-0">
 		<DataGridComponent
 			:store="animalsStore"
 			:model-value="animals"
@@ -29,6 +37,7 @@
 				{ label: 'Race', key: 'breed' },
 				{ label: 'Statut', key: 'status', visibility: { md: true } },
 			]"
+			@edit="editItem"
 		/>
 	</div>
 </template>

@@ -16,13 +16,13 @@
 	>
 		<div
 			id="sidebar-container"
-			class="w-full max-w-56 :sm:max-w-20"
+			class="w-full max-w-56 :sm:max-w-20 flex"
 		>
 			<SidebarComponent />
 		</div>
 		<div
 			id="main-container"
-			class="w-full h-full container mx-auto pt-12 px-12"
+			class="w-full h-full mx-auto pt-6 px-6"
 		>
 			<RouterView class="flex-grow" />
 		</div>

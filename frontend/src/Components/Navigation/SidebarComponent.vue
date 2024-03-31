@@ -98,7 +98,7 @@
 <template>
 	<div
 		id="sidebar"
-		class="top-0 left-0 flex h-screen flex-col :sm:w-20 max-w-56 transition-width ease-in-out duration-1000"
+		class="fixed top-0 left-0 flex h-screen flex-col :sm:w-20 max-w-56 transition-width ease-in-out duration-1000"
 	>
 		<!--		class:fixed-->
 		<div

@@ -5,6 +5,7 @@ import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 import AnimalsController from '@/Controllers/AnimalsController.vue';
 import DogsController from '@/Controllers/DogsController.vue';
 import CatsController from '@/Controllers/CatsController.vue';
+import AnimalsDetails from '@/Views/AnimalsDetails.vue';
 
 const routes = [
 	{
@@ -22,6 +23,11 @@ const routes = [
 		path: '/animals',
 		name: 'Animals',
 		component: AnimalsController,
+	},
+	{
+		path: '/animals/:id',
+		name: 'EditAnimal',
+		component: AnimalsDetails,
 	},
 	{
 		path: '/animals/cats',

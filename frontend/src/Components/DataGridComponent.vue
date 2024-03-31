@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import router from '@/Router';
 
 	const t = i18n.global.t;
 
@@ -19,6 +20,18 @@
 			};
 		}[];
 	}>();
+
+	const emit = defineEmits<{
+		(event: 'edit', item: object): void;
+	}>();
+
+	const editItem = (item: object) => {
+		emit('edit', item);
+		// router.push({
+		// 	name: props.route,
+		// 	params: { id: item.id },
+		// });
+	};
 </script>
 
 <template>
@@ -124,10 +137,15 @@
 							<td
 								class="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm sm:pr-2"
 							>
-								<router-link
-									to="#"
-									class="text-indigo-600 hover:text-indigo-900"
-									>{{ getCapitalizedText(t('common.edit')) }}</router-link
+								<!--								<router-link-->
+								<!--									:to="`${props.route}/${item.id}`"-->
+								<!--									class="text-indigo-600 hover:text-indigo-900"-->
+								<!--									>{{ getCapitalizedText(t('common.edit')) }}</router-link-->
+								<!--								>-->
+								<a
+									class="text-indigo-600 hover:text-indigo-900 cursor-pointer"
+									@click="editItem(item)"
+									>{{ getCapitalizedText(t('common.edit')) }}</a
 								>
 							</td>
 						</tr>

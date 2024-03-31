@@ -15,7 +15,7 @@
 </script>
 
 <template>
-	<div class="container w-full p-0">
+	<div class="w-full p-0">
 		<DataGridComponent
 			:store="animalsStore"
 			:model-value="animals"
