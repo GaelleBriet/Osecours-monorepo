@@ -39,7 +39,9 @@
 
 <template>
 	<FormKit
-		:id="id"
+		id="id"
+		:model-value="modelValue"
+		:value="modelValue"
 		:name="name"
 		:label="label"
 		:placeholder="placeholder"
