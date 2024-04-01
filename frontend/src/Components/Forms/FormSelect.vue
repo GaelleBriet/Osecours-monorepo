@@ -34,7 +34,6 @@
 
 			node.input(selectElement.value);
 			let value: any = props.value ?? props.modelValue;
-			console.log(props.modelValue);
 			switch (typeof value) {
 				case 'boolean':
 					value = selectElement.value === 'true';
@@ -45,6 +44,7 @@
 				default:
 					value = selectElement.value;
 			}
+			console.log('value', value);
 			emit('update:modelValue', value);
 		}
 	};

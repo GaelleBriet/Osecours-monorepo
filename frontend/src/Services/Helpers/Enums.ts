@@ -3,6 +3,9 @@ import i18n from '@/Services/Translations/index.ts';
 
 const t = i18n.global.t;
 
+// prends en paramètre un enum
+// retourne un tableau d'objets avec une valeur et un label
+// la valeur est la clé de l'enum et le label est la clé
 export function enumToOptions<T extends Record<string, any>>(
 	enumeration: T,
 ): { value: number; label: string }[] {
@@ -14,6 +17,9 @@ export function enumToOptions<T extends Record<string, any>>(
 		}));
 }
 
+// prends en paramètre un enum et un chemin de traduction
+// retourne un tableau d'objets avec une valeur et un label
+// la valeur est la clé de l'enum et le label est la traduction de la clé
 export function generateOptionsFromEnum<T>(
 	enumType: T,
 	translationPath: string,
