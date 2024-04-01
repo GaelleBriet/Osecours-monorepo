@@ -76,5 +76,35 @@
 			"ageRange": "tranche d'âge",
 			"birthdate": "date de naissance"
 		}
+	},
+	"enums": {
+		"animalSpecies": {
+			"dog": "chien",
+			"cat": "chat"
+		},
+		"animalStatus": {
+			"available": "disponible",
+			"adopted": "adopté",
+			"lost": "perdu",
+			"found": "trouvé",
+			"deceased": "décédé",
+			"underObservation": "sous observation",
+			"fosterFamily": "en famille d'accueil"
+		},
+		"animalGenders": {
+			"male": "mâle",
+			"female": "femelle"
+		},
+		"animalSizes": {
+			"small": "petit",
+			"medium": "moyen",
+			"large": "grand"
+		},
+		"animalAges": {
+			"baby": "bébé",
+			"young": "jeune",
+			"adult": "adulte",
+			"senior": "sénior"
+		}
 	}
 }
