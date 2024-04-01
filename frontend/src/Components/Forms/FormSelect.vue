@@ -18,6 +18,7 @@
 		placeholder?: string;
 		validation?: string;
 		validationVisibility?: string;
+		disabled?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -59,6 +60,7 @@
 		:placeholder="placeholder"
 		:validation="validation"
 		:validation-visibility="validationVisibility"
+		:disabled="disabled"
 		type="select"
 		@change="onChange"
 	></FormKit>

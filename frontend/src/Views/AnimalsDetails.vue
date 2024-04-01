@@ -19,12 +19,12 @@
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import i18n from '@/Services/Translations/index.ts';
-	import { Animal } from '@/Interfaces/Animal.ts';
 
 	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
 	const animalId = route.params.id;
+	const isEditMode = ref(false);
 
 	const animalSpeciesOptions = generateOptionsFromEnum(
 		AnimalSpecies,
@@ -154,8 +154,9 @@
 								:label="getCapitalizedText(t('pages.animals.icad'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'123456123456789'"
-								@update:model-value="animal.icad = $event"
 								:validation="'number'"
+								:disabled="!isEditMode"
+								@update:model-value="animal.icad = $event"
 							/>
 						</div>
 						<div class="px-2 w-full lg:w-1/2">
@@ -165,6 +166,7 @@
 								:label="getCapitalizedText(t('common.name'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Nom de l\'animal'"
+								:disabled="!isEditMode"
 								@update:model-value="animal.name = $event"
 							/>
 						</div>
@@ -177,6 +179,7 @@
 								:name="'animal-species'"
 								:label="getCapitalizedText(t('pages.animals.species'))"
 								:options="animalSpeciesOptions"
+								:disabled="!isEditMode"
 								@update:model-value="animal.species = $event"
 							/>
 						</div>
@@ -187,6 +190,7 @@
 								:label="getCapitalizedText(t('pages.animals.breed'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Boxer, Berger Allemand ...'"
+								:disabled="!isEditMode"
 								@update:model-value="animal.breed = $event"
 							/>
 						</div>
@@ -199,6 +203,7 @@
 								:label="getCapitalizedText(t('pages.animals.description'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Description de l\'animal'"
+								:disabled="!isEditMode"
 								@update:model-value="animal.description = $event"
 							/>
 						</div>
@@ -216,6 +221,7 @@
 									:name="'animal-status'"
 									:label="getCapitalizedText(t('pages.animals.status'))"
 									:options="animalStatusOptions"
+									:disabled="!isEditMode"
 									@update:model-value="animal.status = $event"
 								/>
 							</div>
@@ -226,6 +232,7 @@
 									:name="'animal-gender'"
 									:label="getCapitalizedText(t('pages.animals.gender'))"
 									:options="animalGendersOptions"
+									:disabled="!isEditMode"
 									@update:model-value="animal.gender = $event"
 								/>
 							</div>
@@ -236,6 +243,7 @@
 									:label="getCapitalizedText(t('pages.animals.coat'))"
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Robe de l\'animal (type de poils)'"
+									:disabled="!isEditMode"
 									@update:model-value="animal.coat = $event"
 								/>
 							</div>
@@ -246,6 +254,7 @@
 									:label="getCapitalizedText(t('pages.animals.color'))"
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Couleur de l\'animal'"
+									:disabled="!isEditMode"
 									@update:model-value="animal.color = $event"
 								/>
 							</div>
@@ -256,6 +265,7 @@
 									:name="getCapitalizedText(t('pages.animals.size'))"
 									:label="getCapitalizedText(t('pages.animals.size'))"
 									:options="animalSizeOptions"
+									:disabled="!isEditMode"
 									@update:model-value="animal.size = $event"
 								/>
 							</div>
@@ -266,6 +276,7 @@
 									:name="getCapitalizedText(t('pages.animals.ageRange'))"
 									:label="getCapitalizedText(t('pages.animals.ageRange'))"
 									:options="animalAgeRangeOptions"
+									:disabled="!isEditMode"
 									@update:model-value="animal.ageRange = $event"
 								/>
 							</div>
@@ -275,6 +286,7 @@
 									:model-value="animal.birthdate"
 									:name="'animal-date'"
 									:label="getCapitalizedText(t('pages.animals.birthdate'))"
+									:disabled="!isEditMode"
 									@update:modelValue="animal.birthdate = $event"
 								/>
 							</div>
@@ -320,13 +332,19 @@
 						<button
 							id="edit-mode"
 							class="w-1/2 me-1.5 px-4 py-2 bg-blue-500 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
+							@click.prevent="isEditMode = !isEditMode"
 						>
-							Mode édition
+							{{
+								isEditMode
+									? getCapitalizedText(t('common.cancel'))
+									: getCapitalizedText(t('common.edit'))
+							}}
 						</button>
 						<button
 							id="save-changes"
+							class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							:disabled="!isEditMode"
 							@click.prevent="onSubmit"
-							class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors"
 						>
 							Enregistrer
 						</button>

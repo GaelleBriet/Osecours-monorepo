@@ -48,6 +48,7 @@
 		:help="help"
 		:validation="validation"
 		:validation-visibility="validationVisibility"
+		:disabled="disabled"
 		type="textarea"
 		@blur="onBlur"
 	/>
