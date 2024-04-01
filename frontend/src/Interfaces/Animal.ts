@@ -6,7 +6,8 @@ export interface Animal {
 	catsFriendly: boolean;
 	dogsFriendly: boolean;
 	childrenFriendly: boolean;
-	age: number;
+	age?: number;
+	ageRange: string;
 	behavioralComment: string;
 	sterilized: boolean;
 	deceased: boolean;
@@ -14,4 +15,5 @@ export interface Animal {
 	breed: string;
 	status: string;
 	icad: string;
+	size: string;
 }

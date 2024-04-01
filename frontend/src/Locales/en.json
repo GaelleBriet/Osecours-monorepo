@@ -76,5 +76,35 @@
 			"ageRange": "age range",
 			"birthdate": "birthdate"
 		}
+	},
+	"enums": {
+		"animalSpecies": {
+			"dog": "dog",
+			"cat": "cat"
+		},
+		"animalStatus": {
+			"available": "available",
+			"adopted": "adopted",
+			"lost": "lost",
+			"found": "found",
+			"deceased": "deceased",
+			"underObservation": "under observation",
+			"fosterFamily": "foster family"
+		},
+		"animalGenders": {
+			"male": "male",
+			"female": "female"
+		},
+		"animalSizes": {
+			"small": "small",
+			"medium": "medium",
+			"large": "large"
+		},
+		"animalAges": {
+			"baby": "baby",
+			"young": "young",
+			"adult": "adult",
+			"senior": "senior"
+		}
 	}
 }
