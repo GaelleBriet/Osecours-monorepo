@@ -16,7 +16,7 @@ composer install
 
 sail up -d
 
-docker exec -it <container name> bash > php artisan migrate --seed
+docker exec -it <container name> bash puis php artisan migrate:fresh --seed
 
 ```
 
