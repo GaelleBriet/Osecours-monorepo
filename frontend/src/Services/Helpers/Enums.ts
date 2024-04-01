@@ -1,3 +1,8 @@
+import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+import i18n from '@/Services/Translations/index.ts';
+
+const t = i18n.global.t;
+
 export function enumToOptions(
 	enumeration: any,
 ): { value: number; label: string }[] {
@@ -7,4 +12,11 @@ export function enumToOptions(
 			value: enumeration[key],
 			label: key,
 		}));
+}
+
+export function generateOptionsFromEnum(enumType, translationPath) {
+	return enumToOptions(enumType).map((option) => ({
+		value: option.value.toString(),
+		label: getCapitalizedText(t(`${translationPath}.${option.label}`)),
+	}));
 }
