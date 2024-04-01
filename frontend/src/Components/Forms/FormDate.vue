@@ -19,8 +19,9 @@
 	}>();
 
 	const onInput = (value: string) => {
-		const date = value ? new Date(value.replace('T', '')) : null;
-		emit('update:modelValue', date);
+		// const date = value ? new Date(value.replace('T', '')) : null;
+		// console.log('date', date);
+		emit('update:modelValue', value);
 	};
 
 	// const onSuffixIconClick = () => {
@@ -54,7 +55,7 @@
 		:placeholder="placeholder"
 		:help="help"
 		:validation="validation"
-		type="datetime-local"
+		type="date"
 		@input="onInput($event)"
 	/>
 </template>

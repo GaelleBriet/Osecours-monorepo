@@ -1,8 +1,10 @@
 <script setup lang="ts">
 	import { FormKitOptionsLoader } from '@formkit/pro';
 	import { getNode } from '@formkit/core';
+	import { computed } from 'vue';
 
-	defineProps<{
+	const props = defineProps<{
+		id: string;
 		modelValue?: string | boolean | number;
 		value?: number;
 		name: string;
@@ -22,21 +24,34 @@
 		(e: 'update:modelValue', value: number | string | boolean): void;
 	}>();
 
+	const stringId = computed(() => props.id.toString());
 	const onChange = (e: Event) => {
 		const selectElement = e.target as HTMLSelectElement;
 		if (selectElement.id) {
 			const node = getNode(selectElement.id);
 			if (!node) return;
-			node.input(selectElement.value);
 
-			emit('update:modelValue', selectElement.id);
+			node.input(selectElement.value);
+			let value: any = props.value ?? props.modelValue;
+			console.log(props.modelValue);
+			switch (typeof value) {
+				case 'boolean':
+					value = selectElement.value === 'true';
+					break;
+				case 'number':
+					value = +selectElement.value;
+					break;
+				default:
+					value = selectElement.value;
+			}
+			emit('update:modelValue', value);
 		}
 	};
 </script>
 <template>
 	<FormKit
-		:id="id"
-		model-value="modelValue"
+		:id="stringId"
+		:model-value="modelValue"
 		:value="modelValue"
 		:name="name"
 		:label="label"
