@@ -7,13 +7,16 @@ export interface Animal {
 	dogsFriendly: boolean;
 	childrenFriendly: boolean;
 	age?: number;
-	ageRange: string;
-	behavioralComment: string;
+	ageRange: number;
+	behavioralComment?: string;
 	sterilized: boolean;
 	deceased: boolean;
-	species: string;
+	species: number;
 	breed: string;
-	status: string;
+	status: number;
 	icad: string;
-	size: string;
+	size: number;
+	color: string;
+	coat: string;
+	gender: number;
 }

@@ -4,17 +4,48 @@
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormDate from '@/Components/Forms/FormDate.vue';
 	import Form from '@/Components/Forms/Form.vue';
+
+	import {
+		AnimalStatus,
+		AnimalSpecies,
+		AnimalGenders,
+		AnimalSizes,
+		AnimalAges,
+	} from '@/Enums/Animals.ts';
+
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
+	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import i18n from '@/Services/Translations/index.ts';
-	import { number } from '@formkit/icons';
+	import { Animal } from '@/Interfaces/Animal.ts';
 
 	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
 	const animalId = route.params.id;
+
+	const animalSpeciesOptions = generateOptionsFromEnum(
+		AnimalSpecies,
+		'enums.animalSpecies',
+	);
+	const animalStatusOptions = generateOptionsFromEnum(
+		AnimalStatus,
+		'enums.animalStatus',
+	);
+	const animalGendersOptions = generateOptionsFromEnum(
+		AnimalGenders,
+		'enums.animalGenders',
+	);
+	const animalSizeOptions = generateOptionsFromEnum(
+		AnimalSizes,
+		'enums.animalSizes',
+	);
+	const animalAgeRangeOptions = generateOptionsFromEnum(
+		AnimalAges,
+		'enums.animalAges',
+	);
 
 	const animal = ref({
 		id: 1,
@@ -24,15 +55,18 @@
 		catsFriendly: true,
 		dogsFriendly: true,
 		childrenFriendly: true,
-		age: 4,
+		ageRange: 3,
 		behavioralComment: 'Very friendly and playful',
 		sterilized: true,
 		deceased: false,
-		species: 'Dog',
+		species: 1,
 		breed: 'Golden Retriever',
-		status: 'Adoptable',
+		status: 2,
 		icad: '123456789123458',
-		gender: 1,
+		gender: 2,
+		size: 1,
+		color: 'Golden',
+		coat: 'Long',
 	});
 
 	const photos = ref([
@@ -74,6 +108,16 @@
 		// Logique pour supprimer une photo
 	};
 
+	const onSubmit = async () => {
+		// Logique pour soumettre le formulaire
+		// const animalToUpdate: Animal | null = await animalsStore.updateAnimal(
+		// 	animal.value,
+		// );
+		const animalToUpdate = animal.value;
+		console.log('animal updated', animalToUpdate);
+		console.log('animal gender', animal.value);
+	};
+
 	onMounted(async () => {
 		// Logique pour récupérer les données de l'animal
 		await animalsStore.getAnimal(animalId);
@@ -84,10 +128,10 @@
 	<div class="pb-6 flex flex-col">
 		<Form
 			:id="`edit-animal${animal.id}`"
-			@submit="onSubmit"
 			:submit-label="'edit-animal'"
 			:actions="false"
 		>
+			<!--			@submit="onSubmit"-->
 			<div
 				class="h-full lg:h-full grid grid-cols-2 grid-rows-none lg:grid-cols-6 lg:grid-rows-17 gap-1 mt-3 flex-grow bg-osecours-beige_light bg-opacity-10 rounded-lg shadow-md p-2"
 			>
@@ -132,10 +176,7 @@
 								:model-value="animal.species"
 								:name="'animal-species'"
 								:label="getCapitalizedText(t('pages.animals.species'))"
-								:options="[
-									{ value: 1, label: 'Chien' },
-									{ value: 2, label: 'Chat' },
-								]"
+								:options="animalSpeciesOptions"
 								@update:model-value="animal.species = $event"
 							/>
 						</div>
@@ -174,11 +215,7 @@
 									:model-value="animal.status"
 									:name="'animal-status'"
 									:label="getCapitalizedText(t('pages.animals.status'))"
-									:options="[
-										{ value: 1, label: 'Adopté' },
-										{ value: 2, label: 'En famille d\'accueil' },
-										{ value: 3, label: 'En refuge' },
-									]"
+									:options="animalStatusOptions"
 									@update:model-value="animal.status = $event"
 								/>
 							</div>
@@ -188,10 +225,8 @@
 									:model-value="animal.gender"
 									:name="'animal-gender'"
 									:label="getCapitalizedText(t('pages.animals.gender'))"
-									:options="[
-										{ value: 1, label: 'Mâle' },
-										{ value: 2, label: 'Femelle' },
-									]"
+									:options="animalGendersOptions"
+									@update:model-value="animal.gender = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -220,27 +255,18 @@
 									:model-value="animal.size"
 									:name="getCapitalizedText(t('pages.animals.size'))"
 									:label="getCapitalizedText(t('pages.animals.size'))"
-									:options="[
-										{ value: 1, label: 'Petit' },
-										{ value: 2, label: 'Moyen' },
-										{ value: 3, label: 'Grand' },
-									]"
+									:options="animalSizeOptions"
 									@update:model-value="animal.size = $event"
 								/>
 							</div>
 							<div class="px-2">
 								<FormSelect
 									id="animal-age-range"
-									:model-value="animal.age"
-									:name="'animal-age-range'"
+									:model-value="animal.ageRange"
+									:name="getCapitalizedText(t('pages.animals.ageRange'))"
 									:label="getCapitalizedText(t('pages.animals.ageRange'))"
-									:options="[
-										{ value: 1, label: 'Chiot/Chaton' },
-										{ value: 2, label: 'Jeune' },
-										{ value: 3, label: 'Adulte' },
-										{ value: 4, label: 'Senior' },
-									]"
-									@update:model-value="animal.age = $event"
+									:options="animalAgeRangeOptions"
+									@update:model-value="animal.ageRange = $event"
 								/>
 							</div>
 							<div class="p-2">
@@ -299,6 +325,7 @@
 						</button>
 						<button
 							id="save-changes"
+							@click.prevent="onSubmit"
 							class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors"
 						>
 							Enregistrer

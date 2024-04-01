@@ -18,14 +18,18 @@ export const getAnimal = async (
 				catsFriendly: true,
 				dogsFriendly: true,
 				childrenFriendly: true,
-				age: 4,
+				ageRange: 3,
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
-				species: 'Dog',
+				species: 1,
 				breed: 'Golden Retriever',
-				status: 'Adoptable',
+				status: 1,
 				icad: '123456789123458',
+				gender: 1,
+				size: 3,
+				color: 'Golden',
+				coat: 'Long',
 			};
 			return animal;
 		} else if (id === 2) {
@@ -37,14 +41,18 @@ export const getAnimal = async (
 				catsFriendly: false,
 				dogsFriendly: true,
 				childrenFriendly: true,
-				age: 6,
+				ageRange: 3,
 				behavioralComment: "Very friendly and playful, don't like cats",
 				sterilized: true,
 				deceased: false,
-				species: 'Dog',
+				species: 1,
 				breed: 'Labrador',
-				status: 'Adoptable',
-				icad: '2547896541235845',
+				status: 3,
+				icad: '254789654123584',
+				gender: 1,
+				size: 3,
+				color: 'Black',
+				coat: 'Short',
 			};
 			return animal;
 		}
@@ -68,14 +76,18 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				catsFriendly: true,
 				dogsFriendly: true,
 				childrenFriendly: true,
-				age: 4,
+				ageRange: 3,
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
-				species: 'Dog',
+				species: 1,
 				breed: 'Golden Retriever',
-				status: 'Adoptable',
+				status: 1,
 				icad: '123456789123458',
+				gender: 1,
+				size: 3,
+				color: 'Golden',
+				coat: 'Long',
 			},
 			{
 				id: 2,
@@ -85,14 +97,18 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				catsFriendly: false,
 				dogsFriendly: true,
 				childrenFriendly: true,
-				age: 6,
+				ageRange: 3,
 				behavioralComment: "Very friendly and playful, don't like cats",
 				sterilized: true,
 				deceased: false,
-				species: 'Dog',
+				species: 1,
 				breed: 'Labrador',
-				status: 'Adoptable',
+				status: 3,
 				icad: '254789654123584',
+				gender: 1,
+				size: 3,
+				color: 'Black',
+				coat: 'Short',
 			},
 			{
 				id: 3,
@@ -102,14 +118,18 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				catsFriendly: true,
 				dogsFriendly: true,
 				childrenFriendly: true,
-				age: 5,
+				ageRange: 4,
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
-				species: 'Cat',
+				species: 2,
 				breed: 'Persian',
-				status: 'Adoptable',
+				status: 3,
 				icad: '123456789123458',
+				gender: 2,
+				size: 2,
+				color: 'White',
+				coat: 'Long',
 			},
 		];
 		return animals;
@@ -127,6 +147,21 @@ export const createAnimal = async (
 	try {
 		const response: AxiosResponse = await axios.post(
 			`${API_URL}/animals`,
+			animal,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
+export const updateAnimal = async (
+	animal: Animal,
+): Promise<Animal | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axios.put(
+			`${API_URL}/animals/${animal.id}`,
 			animal,
 		);
 		return response.data;

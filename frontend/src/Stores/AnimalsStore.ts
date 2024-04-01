@@ -4,6 +4,7 @@ import {
 	createAnimal,
 	getAnimal,
 	getAnimals,
+	updateAnimal,
 } from '@/Services/DataLayers/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
@@ -49,7 +50,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const dogs: Animal[] = animals.filter(
-					(animal: Animal) => animal.species === 'Dog',
+					(animal: Animal) => animal.species === 1,
 				);
 				this.animals = dogs;
 				return animals;
@@ -61,7 +62,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const cats: Animal[] = animals.filter(
-					(animal: Animal) => animal.species === 'Cat',
+					(animal: Animal) => animal.species === 2,
 				);
 				this.animals = cats;
 				return animals;
@@ -74,6 +75,15 @@ export const useAnimalsStore = defineStore('animals', {
 			} else {
 				this.animals.push(newAnimal);
 				return newAnimal;
+			}
+		},
+		async updateAnimal(animal: Animal): Promise<Animal | null> {
+			const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
+			if ('error' in updatedAnimal) {
+				return null;
+			} else {
+				this.animals.push(updatedAnimal);
+				return updatedAnimal;
 			}
 		},
 	},

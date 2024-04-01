@@ -3,8 +3,8 @@ import i18n from '@/Services/Translations/index.ts';
 
 const t = i18n.global.t;
 
-export function enumToOptions(
-	enumeration: any,
+export function enumToOptions<T extends Record<string, any>>(
+	enumeration: T,
 ): { value: number; label: string }[] {
 	return Object.keys(enumeration)
 		.filter((key) => isNaN(Number(key))) // Filtre les clés pour ne garder que les chaînes
@@ -14,7 +14,10 @@ export function enumToOptions(
 		}));
 }
 
-export function generateOptionsFromEnum(enumType, translationPath) {
+export function generateOptionsFromEnum<T>(
+	enumType: T,
+	translationPath: string,
+): { value: string; label: string }[] {
 	return enumToOptions(enumType).map((option) => ({
 		value: option.value.toString(),
 		label: getCapitalizedText(t(`${translationPath}.${option.label}`)),
