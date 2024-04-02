@@ -32,4 +32,9 @@ class Animal extends Model
     {
         return $this->hasOne(Gender::class);
     }
+
+    public function specie(): HasOne
+    {
+        return $this->hasOne(Specie::class);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,34 +12,35 @@ use Illuminate\Support\Facades\Route;
 
 ###GENERAL ACCESS ROUTE###
 Route::post('/token/create', [AuthController::class, 'getToken']);
-Route::post('/login', [AuthController::class,'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
 ###ADMIN ROUTES###
-Route::middleware(["auth:sanctum","abilities:global_access_scope"])->group(function () {
+Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(function () {
 
-   Route::controller(AnimalController::class)->group(function () {
-       Route::get('/animals/{id}', 'show');
-       Route::post('/animals', 'store');
-       Route::put('/animals/{id}/gender', 'updateGender');
-   });
+     Route::controller(AnimalController::class)->group(function () {
+          Route::get('/animals/{id}', 'show');
+          Route::post('/animals', 'store');
+          Route::put('/animals/{id}/gender', 'updateGender');
+     });
 
-   Route::controller(UserController::class)->group(function () {
-        Route::get('/users','getAll');
-   });
+     Route::controller(UserController::class)->group(function () {
+          Route::get('/users', 'getAll');
+     });
 
-   Route::controller(RoleController::class)->group(function(){
-        Route::post("/roles/add", "addRoleOnUser");
-   });
+     Route::controller(RoleController::class)->group(function () {
+          Route::post("/roles/add", "addRoleOnUser");
+     });
 
-   Route::controller(GenderController::class)->group(function(){
-     Route::get("/genders/all", "getAll");
-});
+     Route::controller(GenderController::class)->group(function () {
+          Route::get("/genders/all", "getAll");
+     });
+
+     Route::controller(SpecieController::class)->group(function () {
+          Route::get("/species/all", "getAll");
+     });
 
 });
 
 ###VISITOR ROUTES###
 
 ###USER ROUTES###
-
-
-

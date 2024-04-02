@@ -23,8 +23,10 @@ return new class extends Migration
             $table->text("behavioral_comment")->nullable();
             $table->boolean("sterilized")->nullable();
             $table->boolean("deceased")->default(0);
-            $table->timestamps();
+
+            $table->foreignId('specie_id');
             $table->foreignId('gender_id')->nullable();
+            $table->timestamps();
         });
     }
 
