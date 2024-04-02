@@ -32,6 +32,7 @@
 		type: 'info',
 	});
 
+	//@todo: à supprimer quand l'api sera prête (on utilisera un appel api à la place des enums)
 	const animalSpeciesOptions = generateOptionsFromEnum(
 		AnimalSpecies,
 		'enums.animalSpecies',
@@ -115,7 +116,7 @@
 	};
 
 	const onSubmit = async () => {
-		// Logique pour soumettre le formulairequand l'api sera fonctionnelle
+		// Logique pour soumettre le formulaire quand l'api sera fonctionnelle
 		// const animalToUpdate: Animal | null = await animalsStore.updateAnimal(
 		// 	animal.value,
 		// );
@@ -135,6 +136,21 @@
 		// Logique pour récupérer les données de l'animal à afficher
 		await animalsStore.getAnimal(animalId);
 	});
+
+	// @todo: à compléter et décommenter quand l'api sera prête, et insérer les données dans les selects :options="speciesOptions"
+	// const speciesOptions = ref<{ value: number; label: string }[]>([]);
+	// const coatsOptions = ref([]);
+	// onMounted(async () => {
+	// 	const results = await Promise.all([getAllSpecies(), getAllCoats()]);
+	// 	[speciesOptions.value, coatsOptions.value] = results.map((result) =>
+	// 		Array.isArray(result)
+	// 			? result.map((item) => ({
+	// 					value: item.id,
+	// 					label: item.name,
+	// 				}))
+	// 			: [],
+	// 	);
+	// });
 </script>
 
 <template>

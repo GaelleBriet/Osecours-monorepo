@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { Animal } from '@/Interfaces/Animal.ts';
 import {
 	createAnimal,
-	getAnimal,
+	getAnimalById,
 	getAnimals,
 	updateAnimal,
 } from '@/Services/DataLayers/Animal.ts';
@@ -27,7 +27,7 @@ export const useAnimalsStore = defineStore('animals', {
 	},
 	actions: {
 		async getAnimal(id: number): Promise<Animal | null> {
-			const animal: Animal | ErrorResponse = await getAnimal(id);
+			const animal: Animal | ErrorResponse = await getAnimalById(id);
 			if ('error' in animal) {
 				return null;
 			} else {
