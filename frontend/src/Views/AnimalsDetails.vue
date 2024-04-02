@@ -4,6 +4,7 @@
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormDate from '@/Components/Forms/FormDate.vue';
 	import Form from '@/Components/Forms/Form.vue';
+	import NotificationComponent from '@/Components/NotificationComponent.vue';
 
 	import {
 		AnimalStatus,
@@ -13,7 +14,7 @@
 		AnimalAges,
 	} from '@/Enums/Animals.ts';
 
-	import { onMounted, ref } from 'vue';
+	import { defineEmits, onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
@@ -25,6 +26,15 @@
 	const animalsStore = useAnimalsStore();
 	const animalId = route.params.id;
 	const isEditMode = ref(false);
+	const notificationConfig = ref({
+		show: false,
+		message: '',
+		type: 'info',
+	});
+
+	const emit = defineEmits<{
+		(event: 'show-notification', value: boolean): void;
+	}>();
 
 	const animalSpeciesOptions = generateOptionsFromEnum(
 		AnimalSpecies,
@@ -101,25 +111,32 @@
 	]);
 
 	const addPhoto = () => {
-		// Logique pour ajouter une photo
+		// @todo Logique pour ajouter une photo
 	};
 
 	const removePhoto = (index) => {
-		// Logique pour supprimer une photo
+		// @todo  Logique pour supprimer une photo
 	};
 
 	const onSubmit = async () => {
-		// Logique pour soumettre le formulaire
+		// Logique pour soumettre le formulairequand l'api sera fonctionnelle
 		// const animalToUpdate: Animal | null = await animalsStore.updateAnimal(
 		// 	animal.value,
 		// );
 		const animalToUpdate = animal.value;
-		console.log('animal updated', animalToUpdate);
-		console.log('animal gender', animal.value);
+		// Si l'api à bien répondu, on affiche la notification
+		// et on stop le mode edition
+		//@todo: adapter le message suivant la réponse de l'api
+		notificationConfig.value = {
+			show: true,
+			message: `L'animal ${animalToUpdate.name} a bien été mis à jour`,
+			type: 'success',
+		};
+		isEditMode.value = false;
 	};
 
 	onMounted(async () => {
-		// Logique pour récupérer les données de l'animal
+		// Logique pour récupérer les données de l'animal à afficher
 		await animalsStore.getAnimal(animalId);
 	});
 </script>
@@ -142,6 +159,10 @@
 						{{ getCapitalizedText(t('pages.animals.card')) }}: {{ animal.name }}
 					</div>
 				</div>
+				<NotificationComponent
+					:config="notificationConfig"
+					@close="notificationConfig.show = false"
+				/>
 				<div
 					class="col-span-2 row-span-3 col-start-1 row-start-2 lg:col-span-4 lg:row-span-4 lg:row-start-2 lg:col-start-1"
 				>
@@ -373,5 +394,9 @@
 			color: #d99962;
 			outline: 1px solid #d99962;
 		}
+	}
+	.formkit-outer[data-disabled] {
+		opacity: 0.8;
+		pointer-events: none;
 	}
 </style>
