@@ -14,6 +14,11 @@ class SpecieController extends Controller
         return Specie::all();
     }
 
+    public function show(Specie $specie)
+    {
+        return $specie;
+    }
+
     public function create(Request $request)
     {
         $request->validate([
@@ -38,7 +43,7 @@ class SpecieController extends Controller
         ]);
     }
 
-    public function delete(Request $request, Specie $specie)
+    public function delete(Specie $specie)
     {
         return $specie->delete();
     }

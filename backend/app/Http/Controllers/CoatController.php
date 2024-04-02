@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Color;
+use App\Models\Coat;
 use Illuminate\Http\Request;
 
-class ColorController extends Controller
+class CoatController extends Controller
 {
     //
     public function getAll()
     {
-        return Color::all();
+        return Coat::all();
     }
 
-    public function show(Color $color)
+    public function show(Coat $coat)
     {
-        return $color;
+        return $coat;
     }
 
     public function create(Request $request)
@@ -24,26 +24,26 @@ class ColorController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return Color::create([
+        return Coat::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function update(Request $request, Color $color)
+    public function update(Request $request, Coat $coat)
     {
         $request->validate([
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return $color->update([
+        return $coat->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function delete(Request $request, Color $color)
+    public function delete(Request $request, Coat $coat)
     {
-        return $color->delete();
+        return $coat->delete();
     }
 }
