@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean("sterilized")->nullable();
             $table->boolean("deceased")->default(0);
             $table->timestamps();
+            $table->foreignId('gender_id')->nullable();
         });
     }
 
