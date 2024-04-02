@@ -1,4 +1,6 @@
 <script setup lang="ts">
+	import { getNode } from '@formkit/core';
+
 	const props = defineProps<{
 		modelValue?: string | undefined;
 		value?: string | number;

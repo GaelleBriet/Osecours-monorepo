@@ -1,9 +1,8 @@
 <script setup lang="ts">
 	import { FormKit } from '@formkit/vue';
 	import { defineProps, defineEmits } from 'vue';
-	import { getNode } from '@formkit/core';
 
-	const props = defineProps<{
+	defineProps<{
 		id: string;
 		modelValue?: string | undefined;
 		value?: string | number;

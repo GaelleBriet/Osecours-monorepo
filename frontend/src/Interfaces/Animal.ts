@@ -1,10 +1,4 @@
-import {
-	AnimalAges,
-	AnimalGenders,
-	AnimalSizes,
-	AnimalSpecies,
-	AnimalStatus,
-} from '@/Enums/Animals.ts';
+import { AnimalGenders } from '@/Enums/Animals.ts';
 
 export interface AnimalIdentification {
 	id: number;

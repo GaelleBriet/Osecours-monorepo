@@ -33,7 +33,8 @@
 			if (!node) return;
 
 			node.input(selectElement.value);
-			let value: any = props.value ?? props.modelValue;
+			let value: string | boolean | number | undefined =
+				props.value ?? props.modelValue;
 			switch (typeof value) {
 				case 'boolean':
 					value = selectElement.value === 'true';

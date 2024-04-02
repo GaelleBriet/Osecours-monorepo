@@ -22,19 +22,16 @@
 	--color-black: #0d0d0d;
 	--color-withe: #f2f2f2;
 
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-
 *,
 *::before,
 *::after {
 	box-sizing: border-box;
-
 }
 
 body,
@@ -56,7 +53,8 @@ h6 {
 	font-family: var(--font-secondary);
 }
 
-.formkit-wrapper, .formkit-fieldset {
+.formkit-wrapper,
+.formkit-fieldset {
 	max-width: 48em; /* ou toute autre valeur souhaitée */
 }
 

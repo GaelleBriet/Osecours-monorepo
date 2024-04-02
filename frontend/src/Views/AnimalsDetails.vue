@@ -14,7 +14,7 @@
 		AnimalAges,
 	} from '@/Enums/Animals.ts';
 
-	import { defineEmits, onMounted, ref } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
@@ -31,10 +31,6 @@
 		message: '',
 		type: 'info',
 	});
-
-	const emit = defineEmits<{
-		(event: 'show-notification', value: boolean): void;
-	}>();
 
 	const animalSpeciesOptions = generateOptionsFromEnum(
 		AnimalSpecies,
@@ -114,7 +110,7 @@
 		// @todo Logique pour ajouter une photo
 	};
 
-	const removePhoto = (index) => {
+	const removePhoto = () => {
 		// @todo  Logique pour supprimer une photo
 	};
 

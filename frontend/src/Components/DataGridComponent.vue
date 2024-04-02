@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-	import router from '@/Router';
 
 	const t = i18n.global.t;
 
@@ -49,7 +48,7 @@
 				<button
 					id="add-animal-btn"
 					type="button"
-					class=" rounded-md px-3 py-2 text-center text-sm"
+					class="rounded-md px-3 py-2 text-center text-sm"
 				>
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
@@ -155,7 +154,7 @@
 			</div>
 		</div>
 	</div>
-</template scoped>
+</template>
 <style lang="postcss" scoped>
 	#add-animal-btn {
 		background-color: rgba(217, 153, 98);

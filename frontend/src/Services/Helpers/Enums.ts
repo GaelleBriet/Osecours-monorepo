@@ -6,13 +6,13 @@ const t = i18n.global.t;
 // prends en paramètre un enum
 // retourne un tableau d'objets avec une valeur et un label
 // la valeur est la clé de l'enum et le label est la clé
-export function enumToOptions<T extends Record<string, any>>(
+export function enumToOptions<T extends Record<string, unknown>>(
 	enumeration: T,
 ): { value: number; label: string }[] {
 	return Object.keys(enumeration)
 		.filter((key) => isNaN(Number(key))) // Filtre les clés pour ne garder que les chaînes
 		.map((key) => ({
-			value: enumeration[key],
+			value: enumeration[key] as number,
 			label: key,
 		}));
 }
