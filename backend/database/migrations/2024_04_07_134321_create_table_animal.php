@@ -24,8 +24,10 @@ return new class extends Migration
             $table->boolean("sterilized")->nullable();
             $table->boolean("deceased")->default(0);
 
+
             $table->foreignId('specie_id');
             $table->foreignId('gender_id')->nullable();
+            $table->foreignId('color_id')->nullable(); 
             $table->timestamps();
         });
     }

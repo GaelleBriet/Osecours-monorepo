@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Specie;
+use App\Models\Color;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
-class SpecieController extends Controller
+class ColorController extends Controller
 {
     //
     public function getAll()
     {
-        return Specie::all();
+        return Color::all();
     }
 
     public function create(Request $request)
@@ -20,26 +19,27 @@ class SpecieController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return Specie::create([
+        return Color::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function update(Request $request, Specie $specie)
+    public function update(Request $request, Color $color)
     {
         $request->validate([
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return $specie->update([
+        return $color->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function delete(Request $request, Specie $specie)
+    public function delete(Request $request, Color $color)
     {
-        return $specie->delete();
+        return $color->delete();
     }
+}
 }
