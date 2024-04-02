@@ -20,7 +20,7 @@ export function enumToOptions<T extends Record<string, unknown>>(
 // prends en paramètre un enum et un chemin de traduction
 // retourne un tableau d'objets avec une valeur et un label
 // la valeur est la clé de l'enum et le label est la traduction de la clé
-export function generateOptionsFromEnum<T>(
+export function generateOptionsFromEnum<T extends Record<string, unknown>>(
 	enumType: T,
 	translationPath: string,
 ): { value: string; label: string }[] {
