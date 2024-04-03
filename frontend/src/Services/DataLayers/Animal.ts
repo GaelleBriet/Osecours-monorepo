@@ -1,15 +1,16 @@
 import { Animal } from '@/Interfaces/Animal.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-import axios, { AxiosResponse } from 'axios';
-
-const API_URL: string = 'http://localhost:8000/api';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getAnimalById = async (
 	id: number,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.get(`${API_URL}/animals/${id}`);
+		const response: AxiosResponse<Animal> = await axiosInstance.get<Animal>(
+			`${import.meta.env.VITE_ANIMALS_API_URL}/${id}`,
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -86,7 +87,7 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 		];
 		return animals;
 		// @todo: Uncomment this code when the backend is ready
-		// const response: AxiosResponse = await axios.get(`${API_URL}/animals`);
+		// const response: AxiosResponse = await axiosInstance.get(`${import.meta.env.VITE_ANIMALS_API_URL}`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -98,8 +99,8 @@ export const createAnimal = async (
 	animal: Animal,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.post(
-			`${API_URL}/animals`,
+		const response: AxiosResponse = await axiosInstance.post(
+			`${import.meta.env.VITE_ANIMALS_API_URL}`,
 			animal,
 		);
 		return response.data;
@@ -113,8 +114,8 @@ export const updateAnimal = async (
 	animal: Animal,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.put(
-			`${API_URL}/animals/${animal.id}`,
+		const response: AxiosResponse = await axiosInstance.put(
+			`${import.meta.env.VITE_ANIMALS_API_URL}/${animal.id}`,
 			animal,
 		);
 		return response.data;
@@ -128,8 +129,8 @@ export const deleteAnimal = async (
 	id: number,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.delete(
-			`${API_URL}/animals/${id}`,
+		const response: AxiosResponse = await axiosInstance.delete(
+			`${import.meta.env.VITE_ANIMALS_API_URL}/${id}`,
 		);
 		return response.data;
 	} catch (error) {

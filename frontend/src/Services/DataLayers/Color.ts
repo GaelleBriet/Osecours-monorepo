@@ -1,13 +1,14 @@
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { Color } from '@/Interfaces/Color.ts';
-
-const API_URL: string = 'http://localhost:8000/api';
+import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getColor = async (id: number): Promise<Color | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.get(`${API_URL}/colors/${id}`);
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_COLORS_API_URL}/${id}`,
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -17,7 +18,9 @@ export const getColor = async (id: number): Promise<Color | ErrorResponse> => {
 
 export const getColors = async (): Promise<Color[] | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.get(`${API_URL}/colors/all`);
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_COLORS_API_URL}/all`,
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -29,9 +32,12 @@ export const createColor = async (
 	name: string,
 ): Promise<Color | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.post(`${API_URL}/colors`, {
-			name: name,
-		});
+		const response: AxiosResponse = await axiosInstance.post(
+			`${import.meta.env.VITE_COLORS_API_URL}`,
+			{
+				name: name,
+			},
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -44,9 +50,12 @@ export const updateColor = async (
 	name: string,
 ): Promise<Color | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.put(`${API_URL}/colors/${id}`, {
-			name: name,
-		});
+		const response: AxiosResponse = await axiosInstance.put(
+			`${import.meta.env.VITE_COLORS_API_URL}/${id}`,
+			{
+				name: name,
+			},
+		);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -56,8 +65,8 @@ export const updateColor = async (
 
 export const deleteColor = async (id: number): Promise<ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.delete(
-			`${API_URL}/colors/${id}`,
+		const response: AxiosResponse = await axiosInstance.delete(
+			`${import.meta.env.VITE_COLORS_API_URL}${id}`,
 		);
 		return response.data;
 	} catch (error) {

@@ -1,9 +1,8 @@
-import axios from 'axios';
+import { AxiosResponse } from 'axios';
 import { User, UserTokenScope } from '@/Interfaces/User.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-
-const API_URL: string = 'http://localhost:8000/api';
+import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export interface UserWithError extends User {
 	error?: string;
@@ -14,12 +13,12 @@ export const login = async (
 	password: string,
 ): Promise<User | ErrorResponse> => {
 	try {
-		if (!email || !password)
-			throw new Error('Email and password are required.');
-
 		const {
 			data: { data },
-		} = await axios.post(`${API_URL}/login`, { email, password });
+		} = await axiosInstance.post(`${import.meta.env.VITE_LOGIN_API_URL}`, {
+			email,
+			password,
+		});
 		return data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -35,7 +34,7 @@ export const loginWithAssociation = async (
 	try {
 		const {
 			data: { data },
-		} = await axios.post(`${API_URL}/token/create`, {
+		} = await axiosInstance.post(`${import.meta.env.VITE_TOKEN_API_URL}`, {
 			email,
 			password,
 			associationId,
@@ -48,54 +47,26 @@ export const loginWithAssociation = async (
 	}
 };
 
-export const getUser = async (id: number): Promise<User> => {
+export const getUser = async (id: number): Promise<User | ErrorResponse> => {
 	try {
-		const response = await axios.get(`${API_URL}/${id}`);
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_USERS_API_URL}/${id}`,
+		);
 		return response.data;
 	} catch (error) {
-		console.error(error);
-		throw error;
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
 	}
 };
 
-// export const getUsers = async (): Promise<User[]> => {
-// 	try {
-// 		// const response = await axios.get(API_URL);
-// 		const response = {
-// 			data: [
-// 				{
-// 					firstName: 'Alice',
-// 					lastName: 'Doe',
-// 					phone: '1234567890',
-// 					existingCatCount: 1,
-// 					existingChildrenCount: 2,
-// 					existingDogCount: 0,
-// 					email: 'alice@example.com',
-// 				},
-// 				{
-// 					firstName: 'Bob',
-// 					lastName: 'Doe',
-// 					phone: '0987654321',
-// 					existingCatCount: 0,
-// 					existingChildrenCount: 1,
-// 					existingDogCount: 1,
-// 					email: 'bob@example.com',
-// 				},
-// 			],
-// 		};
-// 		return response.data;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw error;
-// 	}
-// };
-//
-// export const createUser = async (userData: User): Promise<User> => {
-// 	try {
-// 		const response = await axios.post(API_URL, userData);
-// 		return response.data;
-// 	} catch (error) {
-// 		console.error(error);
-// 		throw error;
-// 	}
-// };
+export const getUsers = async (): Promise<User[] | ErrorResponse> => {
+	try {
+		const users: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_USERS_API_URL}`,
+		);
+		return users.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
