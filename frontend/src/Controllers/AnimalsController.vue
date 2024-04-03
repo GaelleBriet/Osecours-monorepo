@@ -14,7 +14,7 @@
 	// const animals = computed(() => animalsStore.animals);
 
 	// on récupère les animaux depuis le store
-	// et on les transforme les enums pour afficher leurs labels traduits
+	// on les transforme pour afficher les labels des enums
 	const animalsTransformed = computed(() => {
 		return animalsStore.animals.map((animal) => ({
 			...animal,

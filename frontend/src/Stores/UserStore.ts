@@ -29,6 +29,8 @@ export const useUserStore = defineStore({
 	},
 	actions: {
 		async loginUser(email: string, password: string): Promise<User> {
+			if (!email || !password)
+				throw new Error('Email and password are required.');
 			const user: Partial<User> | { error: string } = await login(
 				email,
 				password,
