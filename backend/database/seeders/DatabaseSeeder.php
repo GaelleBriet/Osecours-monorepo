@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $assocationsNameList = ["Le refuge des chimères", "l'arche de noé 2.0", "quatres pattes et un toit"];
+        $assocationsNameList = ["Le refuge des chimères", "larche de noé 2.0", "quatres pattes et un toit"];
 
 
         foreach ($assocationsNameList as $associationName) {
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                 $userCreated = User::factory()->create([
                     'first_name' => ucfirst($roleName->value),
                     'last_name' => ucfirst($roleName->value),
-                    'email' =>  $roleName->value . "-" . $emailReadyString . '@osecours.com',
+                    'email' =>  $roleName->value . "-" . $emailReadyString . '@osecours.org',
                 ]);
                 $roleCreated = Role::firstOrCreate(
                     ["name" => $roleName->value]
@@ -38,5 +38,11 @@ class DatabaseSeeder extends Seeder
                 $associationCreated->users()->attach($userCreated->id, ["role_id" => $roleCreated->id]);
             }
         }
+
+        $colors = [];
+
+        $coats = [];
+
+        
     }
 }
