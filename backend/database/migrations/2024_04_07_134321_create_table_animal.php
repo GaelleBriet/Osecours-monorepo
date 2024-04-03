@@ -29,6 +29,8 @@ return new class extends Migration
             $table->foreignId('gender_id')->nullable();
             $table->foreignId('color_id')->nullable(); 
             $table->foreignId('coat_id')->nullable();
+            $table->foreignId('sizerange_id')->nullable();
+            $table->foreignId('agerange_id')->nullable();
             $table->timestamps();
         });
     }

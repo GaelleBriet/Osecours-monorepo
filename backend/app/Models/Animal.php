@@ -37,4 +37,24 @@ class Animal extends Model
     {
         return $this->hasOne(Specie::class);
     }
+
+    public function coat(): HasOne
+    {
+        return $this->hasOne(Coat::class);
+    }
+
+    public function color(): HasOne
+    {
+        return $this->hasOne(Color::class);
+    }
+
+    public function size_range(): HasOne
+    {
+        return $this->hasOne(Size_range::class);
+    }
+
+    public function age_range(): HasOne
+    {
+        return $this->hasOne(Age_range::class);
+    }
 }
