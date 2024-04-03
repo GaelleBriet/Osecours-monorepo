@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Breed extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    public function animals(): HasMany
+    {
+        return $this->hasMany(Animal::class);
+    }
 }

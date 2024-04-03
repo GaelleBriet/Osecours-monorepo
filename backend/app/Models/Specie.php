@@ -19,4 +19,9 @@ class Specie extends Model
     {
         return $this->hasMany(Animal::class);
     }
+
+    public function breeds(): HasMany
+    {
+        return $this->hasMany(Breed::class);
+    }
 }
