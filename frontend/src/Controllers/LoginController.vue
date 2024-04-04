@@ -68,10 +68,6 @@
 
 	const getAssociations = () => {
 		return [
-			{
-				value: '0',
-				label: getCapitalizedText(t('login.selectAssociation')),
-			},
 			...associations.value.map((association) => {
 				return {
 					value: association.id.toString(),
@@ -192,7 +188,9 @@
 										:name="'selectAssociation'"
 										:options="selectOptions"
 										:model-value="selectedAssociation"
-										placeholder="Please select an association"
+										:placeholder="
+											getCapitalizedText(t('login.selectAssociation'))
+										"
 										@update:model-value="handleAssociationChange"
 									/>
 									<!--										@input="onAssociationChange"-->
