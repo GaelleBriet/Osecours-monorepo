@@ -1,5 +1,5 @@
 export interface Association {
-	id: number;
+	id: number | string;
 	name: string;
 }
 
