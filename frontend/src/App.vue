@@ -22,7 +22,7 @@
 		</div>
 		<div
 			id="main-container"
-			class="w-full h-full mx-auto pt-6 px-6"
+			class="w-full h-full mx-auto py-4 px-5"
 		>
 			<RouterView class="flex-grow" />
 		</div>
