@@ -17,9 +17,9 @@
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
-	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
-	import i18n from '@/Services/Translations/index.ts';
+	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -37,6 +37,7 @@
 		AnimalSpecies,
 		'enums.animalSpecies',
 	);
+	console.log('animalSpeciesOptions', animalSpeciesOptions);
 	const animalStatusOptions = generateOptionsFromEnum(
 		AnimalStatus,
 		'enums.animalStatus',

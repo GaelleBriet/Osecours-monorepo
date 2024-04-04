@@ -20,7 +20,7 @@
 
 	const email = ref('');
 	const password = ref('');
-	const selectedAssociation = ref('');
+	const selectedAssociation = ref(null);
 	const selectOptions = ref([]);
 	const associations = ref<Association[]>([]);
 	const rememberMe = ref(localStorage.getItem('rememberMe') === 'true');
@@ -39,8 +39,15 @@
 			await router.push({ name: 'Login' });
 		}
 		if (user && user.associations) {
+			console.log(user.associations);
 			associations.value = user.associations;
 		}
+	};
+
+	const handleAssociationChange = async (value) => {
+		selectedAssociation.value = value;
+		console.log(selectedAssociation.value);
+		await onAssociationChange();
 	};
 
 	const onAssociationChange = async () => {
@@ -62,12 +69,12 @@
 	const getAssociations = () => {
 		return [
 			{
-				value: 0,
+				value: '0',
 				label: getCapitalizedText(t('login.selectAssociation')),
 			},
 			...associations.value.map((association) => {
 				return {
-					value: association.id,
+					value: association.id.toString(),
 					label: association.name,
 				};
 			}),
@@ -184,11 +191,11 @@
 										:id="association.id.toString()"
 										:name="'selectAssociation'"
 										:options="selectOptions"
-										v-model="selectedAssociation"
+										:model-value="selectedAssociation"
 										placeholder="Please select an association"
-										@update:model-value="selectedAssociation = $event"
-										@input="onAssociationChange"
+										@update:model-value="handleAssociationChange"
 									/>
+									<!--										@input="onAssociationChange"-->
 								</div>
 							</div>
 						</div>

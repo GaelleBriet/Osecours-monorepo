@@ -4,9 +4,9 @@
 	import { computed } from 'vue';
 
 	const props = defineProps<{
-		id: string;
+		id: string | number;
 		modelValue?: string | boolean | number;
-		value?: number;
+		value?: number | string;
 		name: string;
 		label?: string;
 		options:
@@ -31,7 +31,6 @@
 		if (selectElement.id) {
 			const node = getNode(selectElement.id);
 			if (!node) return;
-
 			node.input(selectElement.value);
 			let value: string | boolean | number | undefined =
 				props.value ?? props.modelValue;

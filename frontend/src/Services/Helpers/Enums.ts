@@ -4,7 +4,7 @@ import i18n from '@/Services/Translations/index.ts';
 const t = i18n.global.t;
 
 // prends en paramètre un enum
-// retourne un tableau d'objets avec une valeur et un label
+// retourne un tableau d'objets avec une valeur(number) et un label
 // la valeur est la clé de l'enum et le label est la clé
 export function enumToOptions<T extends Record<string, unknown>>(
 	enumeration: T,
@@ -18,14 +18,19 @@ export function enumToOptions<T extends Record<string, unknown>>(
 }
 
 // prends en paramètre un enum et un chemin de traduction
-// retourne un tableau d'objets avec une valeur et un label
+// retourne un tableau d'objets avec une valeur(string) et un label
 // la valeur est la clé de l'enum et le label est la traduction de la clé
 export function generateOptionsFromEnum<T extends Record<string, unknown>>(
 	enumType: T,
 	translationPath: string,
 ): { value: string; label: string }[] {
-	return enumToOptions(enumType).map((option) => ({
-		value: option.value.toString(),
-		label: getCapitalizedText(t(`${translationPath}.${option.label}`)),
-	}));
+	return enumToOptions(enumType).map(
+		(option: {
+			value: number;
+			label: string;
+		}): { value: string; label: string } => ({
+			value: option.value.toString(),
+			label: getCapitalizedText(t(`${translationPath}.${option.label}`)),
+		}),
+	);
 }
