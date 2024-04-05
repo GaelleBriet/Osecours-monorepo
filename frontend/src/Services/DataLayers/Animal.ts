@@ -8,10 +8,32 @@ export const getAnimalById = async (
 	id: number,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		const response: AxiosResponse<Animal> = await axiosInstance.get<Animal>(
-			`${import.meta.env.VITE_ANIMALS_API_URL}/${id}`,
-		);
-		return response.data;
+		const response = {
+			id: 1,
+			name: 'Bobby',
+			description: 'A very good friend',
+			birthdate: '2020-01-01',
+			catsFriendly: true,
+			dogsFriendly: true,
+			childrenFriendly: true,
+			ageRange: 3,
+			behavioralComment: 'Very friendly and playful',
+			sterilized: true,
+			deceased: false,
+			species: 1,
+			breed: 'Golden Retriever',
+			status: 2,
+			icad: '123456789123458',
+			gender: 2,
+			size: 1,
+			color: 'Golden',
+			coat: 'Long',
+		};
+		return response;
+		// const response: AxiosResponse<Animal> = await axiosInstance.get<Animal>(
+		// 	`${import.meta.env.VITE_ANIMALS_API_URL}/${id}`,
+		// );
+		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);

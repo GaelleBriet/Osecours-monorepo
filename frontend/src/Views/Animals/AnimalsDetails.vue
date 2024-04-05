@@ -2,17 +2,19 @@
 	import TabsComponent from '@/Components/TabsComponent.vue';
 	import GeneralInformations from '@/Views/Animals/GeneralInformations.vue';
 
-	import { nextTick, onMounted, ref } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import i18n from '@/Services/Translations';
+	import { Animal } from '@/Interfaces/Animal.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
 	const animalId = route.params.id;
-
 	const currentTab = ref(0);
+	const currentAnimal = ref<Animal | null>(null);
 
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
@@ -20,12 +22,17 @@
 
 	onMounted(async () => {
 		// Logique pour récupérer les données de l'animal à afficher
-		await animalsStore.getAnimal(animalId);
+		currentAnimal.value = await animalsStore.getAnimal(animalId);
+		// console.log(currentAnimal.value);
 	});
 </script>
 
 <template>
-	<div class="h-full">
+	<div class="container">
+		<div class="ps-1.5 text-2xl mb-1">
+			{{ getCapitalizedText(t('pages.animals.card')) }}:
+			{{ currentAnimal?.name }}
+		</div>
 		<TabsComponent
 			id="animalsTabsComponent"
 			:tabs="[
@@ -36,10 +43,24 @@
 			]"
 			@update:current-tab="updateCurrentTab"
 		/>
-		<template v-if="currentTab === 0">
-			<GeneralInformations />
-		</template>
-		<template v-if="currentTab === 1"></template>
+		<div class="content">
+			<template v-if="currentTab === 0 && currentAnimal">
+				<GeneralInformations :animal="currentAnimal" />
+			</template>
+			<template v-if="currentTab === 1 && currentAnimal"></template>
+		</div>
 	</div>
 </template>
-<style scoped lang="postcss"></style>
+<style scoped lang="postcss">
+	.container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 0;
+	}
+
+	.content {
+		flex-grow: 1;
+		overflow-y: auto;
+	}
+</style>

@@ -19,9 +19,16 @@
 	import { useRoute } from 'vue-router';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import i18n from '@/Services/Translations';
+	import { Animal } from '@/Interfaces/Animal.ts';
+
+	const route = useRoute();
+
+	const props = defineProps<{
+		animal: Animal;
+	}>();
+	console.log(props.animal);
 
 	const t = i18n.global.t;
-	const route = useRoute();
 	const isEditMode = ref(false);
 
 	const notificationConfig = ref({
@@ -52,27 +59,27 @@
 		'enums.animalAges',
 	);
 
-	const animal = ref({
-		id: 1,
-		name: 'Bobby',
-		description: 'A very good friend',
-		birthdate: '2020-01-01',
-		catsFriendly: true,
-		dogsFriendly: true,
-		childrenFriendly: true,
-		ageRange: 3,
-		behavioralComment: 'Very friendly and playful',
-		sterilized: true,
-		deceased: false,
-		species: 1,
-		breed: 'Golden Retriever',
-		status: 2,
-		icad: '123456789123458',
-		gender: 2,
-		size: 1,
-		color: 'Golden',
-		coat: 'Long',
-	});
+	// const animal = ref({
+	// 	id: 1,
+	// 	name: 'Bobby',
+	// 	description: 'A very good friend',
+	// 	birthdate: '2020-01-01',
+	// 	catsFriendly: true,
+	// 	dogsFriendly: true,
+	// 	childrenFriendly: true,
+	// 	ageRange: 3,
+	// 	behavioralComment: 'Very friendly and playful',
+	// 	sterilized: true,
+	// 	deceased: false,
+	// 	species: 1,
+	// 	breed: 'Golden Retriever',
+	// 	status: 2,
+	// 	icad: '123456789123458',
+	// 	gender: 2,
+	// 	size: 1,
+	// 	color: 'Golden',
+	// 	coat: 'Long',
+	// });
 
 	const photos = ref([
 		{
@@ -156,13 +163,13 @@
 			<div
 				class="h-full lg:h-full grid grid-cols-2 grid-rows-none lg:grid-cols-6 lg:grid-rows-17 gap-1 mt-3 flex-grow bg-osecours-beige_light bg-opacity-10 rounded-lg shadow-md p-2"
 			>
-				<div
-					class="col-span-2 row-span-1 col-start-1 row-start-1 lg:col-start-1 lg:row-start-1 lg:col-span-6 lg:row-span-1 flex flex-col"
-				>
-					<div class="ps-1.5 text-2xl mb-1">
-						{{ getCapitalizedText(t('pages.animals.card')) }}: {{ animal.name }}
-					</div>
-				</div>
+				<!--				<div-->
+				<!--					class="col-span-2 row-span-1 col-start-1 row-start-1 lg:col-start-1 lg:row-start-1 lg:col-span-6 lg:row-span-1 flex flex-col"-->
+				<!--				>-->
+				<!--					<div class="ps-1.5 text-2xl mb-1">-->
+				<!--						{{ getCapitalizedText(t('pages.animals.card')) }}: {{ animal.name }}-->
+				<!--					</div>-->
+				<!--				</div>-->
 				<NotificationComponent
 					:config="notificationConfig"
 					@close="notificationConfig.show = false"
@@ -402,7 +409,18 @@
 		opacity: 0.8;
 		pointer-events: none;
 	}
+
 	.general-informations {
+		//max-height: calc(100% - 4rem);
+		display: flex;
+		flex-direction: column;
+		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
+	}
+
+	form {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
 	}
 </style>

@@ -16,6 +16,7 @@ export default {
 				'osecours-beige_light': '#f2d0a7',
 				'osecours-beige-dark': '#d99962',
 				'osecours-pink': '#f28a80',
+				'osecours-pink-fade': 'rgba(242,138,128,0.2)',
 				'osecours-black': '#0d0d0d',
 				'osecours-white': '#f2f2f2',
 			},
