@@ -9,7 +9,8 @@
 		"edit": "edit",
 		"add": "add",
 		"actions": "action | actions",
-		"name": "name"
+		"name": "name",
+		"other": "other"
 	},
 	"navigation": {
 		"home": "home",
@@ -74,7 +75,10 @@
 			"color": "color",
 			"size": "size",
 			"ageRange": "age range",
-			"birthdate": "birthdate"
+			"birthdate": "birthdate",
+			"details": "details",
+			"health": "health",
+			"docs": "documents"
 		}
 	},
 	"enums": {

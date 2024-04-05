@@ -17,6 +17,7 @@
 		confirmationLabel?: string;
 		validationVisibility?: string;
 		validationMessages?: object;
+		classes?: object;
 	}>();
 
 	const emit = defineEmits<{
@@ -72,8 +73,16 @@
 		suffix-icon="eyeClosed"
 		@suffix-icon-click="handleIconClick"
 		suffix-icon-class="hover:text-osecours-beige-dark"
+		:classes="{
+			inner: 'max-h-10',
+			input: 'text-sm',
+		}"
 		type="password"
 		@blur="onBlur"
 	/>
 </template>
-<style scoped></style>
+<style scoped>
+	.group {
+		margin-bottom: 4px !important;
+	}
+</style>

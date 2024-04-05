@@ -11,6 +11,7 @@
 		placeholder?: string;
 		help?: string;
 		validation?: string | never[];
+		classes?: object;
 	}>();
 
 	const emit = defineEmits<{
@@ -54,11 +55,19 @@
 		:placeholder="placeholder"
 		:help="help"
 		:validation="validation"
+		:classes="{
+			inner: 'max-h-10',
+			input: 'text-sm',
+		}"
 		type="date"
 		@input="onInput($event)"
 	/>
 </template>
-<style scoped></style>
+<style scoped>
+	.group {
+		margin-bottom: 4px !important;
+	}
+</style>
 
 <!--		@update:model-value="emit('update:modelValue', $event as string)"-->
 <!--:disabled="disabled"-->

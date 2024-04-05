@@ -54,9 +54,17 @@
 		:validation="validation"
 		:validation-visibility="validationVisibility"
 		:disabled="disabled"
+		:classes="{
+			inner: 'max-h-10',
+			input: 'text-sm',
+		}"
 		type="text"
 		@blur="onBlur"
 	/>
 </template>
-<style scoped></style>
+<style scoped>
+	.group {
+		margin-bottom: 4px !important;
+	}
+</style>
 <!--		@update:model-value="emit('update:modelValue', $event as string)"-->

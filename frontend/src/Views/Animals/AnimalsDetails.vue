@@ -29,17 +29,17 @@
 
 <template>
 	<div class="container">
-		<div class="ps-1.5 text-2xl mb-1">
+		<div class="text-2xl mb-1">
 			{{ getCapitalizedText(t('pages.animals.card')) }}:
 			{{ currentAnimal?.name }}
 		</div>
 		<TabsComponent
 			id="animalsTabsComponent"
 			:tabs="[
-				{ name: 'caractéristiques' },
-				{ name: 'documents' },
-				{ name: 'santé' },
-				{ name: 'famille' },
+				{ name: getCapitalizedText(t('pages.animals.details')) },
+				{ name: getCapitalizedText(t('pages.animals.health')) },
+				{ name: getCapitalizedText(t('pages.animals.docs')) },
+				{ name: getCapitalizedText(t('common.other')) },
 			]"
 			@update:current-tab="updateCurrentTab"
 		/>

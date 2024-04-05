@@ -56,4 +56,8 @@
 	/>
 </template>
 
-<style scoped></style>
+<style scoped>
+	.group {
+		margin-bottom: 4px !important;
+	}
+</style>

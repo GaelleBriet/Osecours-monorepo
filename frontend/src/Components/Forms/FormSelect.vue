@@ -2,6 +2,7 @@
 	import { FormKitOptionsLoader } from '@formkit/pro';
 	import { getNode } from '@formkit/core';
 	import { computed } from 'vue';
+	import { FormKit } from '@formkit/vue';
 
 	const props = defineProps<{
 		id: string | number;
@@ -19,6 +20,7 @@
 		validation?: string;
 		validationVisibility?: string;
 		disabled?: boolean;
+		classes?: object;
 	}>();
 
 	const emit = defineEmits<{
@@ -61,6 +63,10 @@
 		:validation="validation"
 		:validation-visibility="validationVisibility"
 		:disabled="disabled"
+		:classes="{
+			inner: 'max-h-10',
+			input: 'text-sm',
+		}"
 		type="select"
 		@change="onChange"
 	></FormKit>
@@ -74,5 +80,7 @@
 	[data-type='radio'] .formkit-input:focus ~ .formkit-decorator {
 		outline: none;
 	}
+	.group {
+		margin-bottom: 4px !important;
+	}
 </style>
-<style></style>

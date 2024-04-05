@@ -78,13 +78,16 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
-			const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
-			if ('error' in updatedAnimal) {
-				return null;
-			} else {
-				this.animals.push(updatedAnimal);
-				return updatedAnimal;
-			}
+			const updatedAnimal = animal;
+			return updatedAnimal;
+			// @todo: Uncomment this code when the backend is ready
+			// const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
+			// if ('error' in updatedAnimal) {
+			// 	return null;
+			// } else {
+			// 	this.animals.push(updatedAnimal);
+			// 	return updatedAnimal;
+			// }
 		},
 	},
 });

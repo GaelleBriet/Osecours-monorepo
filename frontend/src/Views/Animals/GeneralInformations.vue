@@ -20,13 +20,14 @@
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animal.ts';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
 	const route = useRoute();
+	const animalsStore = useAnimalsStore();
 
 	const props = defineProps<{
 		animal: Animal;
 	}>();
-	console.log(props.animal);
 
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
@@ -58,28 +59,6 @@
 		AnimalAges,
 		'enums.animalAges',
 	);
-
-	// const animal = ref({
-	// 	id: 1,
-	// 	name: 'Bobby',
-	// 	description: 'A very good friend',
-	// 	birthdate: '2020-01-01',
-	// 	catsFriendly: true,
-	// 	dogsFriendly: true,
-	// 	childrenFriendly: true,
-	// 	ageRange: 3,
-	// 	behavioralComment: 'Very friendly and playful',
-	// 	sterilized: true,
-	// 	deceased: false,
-	// 	species: 1,
-	// 	breed: 'Golden Retriever',
-	// 	status: 2,
-	// 	icad: '123456789123458',
-	// 	gender: 2,
-	// 	size: 1,
-	// 	color: 'Golden',
-	// 	coat: 'Long',
-	// });
 
 	const photos = ref([
 		{
@@ -122,16 +101,15 @@
 
 	const onSubmit = async () => {
 		// Logique pour soumettre le formulaire quand l'api sera fonctionnelle
-		// const animalToUpdate: Animal | null = await animalsStore.updateAnimal(
-		// 	animal.value,
-		// );
-		const animalToUpdate = animal.value;
+		const animalToUpdate = await animalsStore.updateAnimal(props.animal);
+		// const animalToUpdate = props.animal;
+
 		// Si l'api à bien répondu, on affiche la notification
 		// et on stop le mode edition
 		//@todo: adapter le message suivant la réponse de l'api
 		notificationConfig.value = {
 			show: true,
-			message: `L'animal ${animalToUpdate.name} a bien été mis à jour`,
+			message: `L'animal ${animalToUpdate?.name} a bien été mis à jour`,
 			type: 'success',
 		};
 		isEditMode.value = false;
@@ -161,15 +139,8 @@
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid grid-cols-2 grid-rows-none lg:grid-cols-6 lg:grid-rows-17 gap-1 mt-3 flex-grow bg-osecours-beige_light bg-opacity-10 rounded-lg shadow-md p-2"
+				class="h-full lg:h-full grid grid-cols-2 grid-rows-none lg:grid-cols-6 lg:grid-rows-17 gap-1 flex-grow bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
-				<!--				<div-->
-				<!--					class="col-span-2 row-span-1 col-start-1 row-start-1 lg:col-start-1 lg:row-start-1 lg:col-span-6 lg:row-span-1 flex flex-col"-->
-				<!--				>-->
-				<!--					<div class="ps-1.5 text-2xl mb-1">-->
-				<!--						{{ getCapitalizedText(t('pages.animals.card')) }}: {{ animal.name }}-->
-				<!--					</div>-->
-				<!--				</div>-->
 				<NotificationComponent
 					:config="notificationConfig"
 					@close="notificationConfig.show = false"
@@ -397,14 +368,15 @@
 		}
 	}
 	#save-changes {
-		background-color: rgba(217, 153, 98);
+		background-color: rgb(199, 123, 51);
 		color: #fff;
 		&:hover {
 			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
 		}
 	}
+
 	.formkit-outer[data-disabled] {
 		opacity: 0.8;
 		pointer-events: none;

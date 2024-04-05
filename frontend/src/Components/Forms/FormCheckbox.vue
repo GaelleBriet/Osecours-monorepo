@@ -106,4 +106,7 @@
 	.dark\:ring-offset-blue-500 {
 		--tw-ring-offset-color: white;
 	}
+	.group {
+		margin-bottom: 4px !important;
+	}
 </style>
