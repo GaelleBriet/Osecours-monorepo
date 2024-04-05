@@ -4,9 +4,8 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-export const getAnimalById = async (
-	id: number,
-): Promise<Animal | ErrorResponse> => {
+export const getAnimalById = async () // id: number,
+: Promise<Animal | ErrorResponse> => {
 	try {
 		const response = {
 			id: 1,

@@ -1,11 +1,7 @@
 <script setup lang="ts">
 	import { ref } from 'vue';
-	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations';
 
-	const t = i18n.global.t;
-
-	const props = defineProps({
+	defineProps({
 		tabs: {
 			type: Array,
 			default: () => [],
@@ -14,7 +10,7 @@
 	});
 
 	const emit = defineEmits<{
-		(event: 'update:currentTab', index: any): void;
+		(event: 'update:currentTab', index): void;
 	}>();
 
 	const currentTab = ref(0);

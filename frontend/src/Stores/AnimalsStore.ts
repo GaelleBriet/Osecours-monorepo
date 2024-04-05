@@ -4,7 +4,6 @@ import {
 	createAnimal,
 	getAnimalById,
 	getAnimals,
-	updateAnimal,
 } from '@/Services/DataLayers/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 

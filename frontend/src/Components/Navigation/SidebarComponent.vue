@@ -36,7 +36,6 @@
 
 	const toggleSubMenu = () => {
 		subMenuOpen.value = !subMenuOpen.value;
-		console.log('SubMenu Open?', subMenuOpen.value);
 	};
 
 	const toggleDropdown = () => {

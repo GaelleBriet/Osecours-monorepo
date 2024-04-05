@@ -16,18 +16,18 @@
 	} from '@/Enums/Animals.ts';
 
 	import { ref } from 'vue';
-	import { useRoute } from 'vue-router';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animal.ts';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
-	const route = useRoute();
 	const animalsStore = useAnimalsStore();
 
 	const props = defineProps<{
 		animal: Animal;
 	}>();
+
+	let localAnimal = ref({ ...props.animal });
 
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
@@ -101,9 +101,8 @@
 
 	const onSubmit = async () => {
 		// Logique pour soumettre le formulaire quand l'api sera fonctionnelle
-		const animalToUpdate = await animalsStore.updateAnimal(props.animal);
+		const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
 		// const animalToUpdate = props.animal;
-
 		// Si l'api à bien répondu, on affiche la notification
 		// et on stop le mode edition
 		//@todo: adapter le message suivant la réponse de l'api
@@ -134,7 +133,7 @@
 <template>
 	<div class="general-informations">
 		<Form
-			:id="`edit-animal${animal.id}`"
+			:id="`edit-animal${localAnimal.id}`"
 			:submit-label="'edit-animal'"
 			:actions="false"
 		>
@@ -159,7 +158,7 @@
 								:placeholder="'123456123456789'"
 								:validation="'number'"
 								:disabled="!isEditMode"
-								@update:model-value="animal.icad = $event"
+								@update:model-value="localAnimal.icad = $event"
 							/>
 						</div>
 						<div class="px-2 w-full lg:w-1/2">
@@ -170,7 +169,7 @@
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Nom de l\'animal'"
 								:disabled="!isEditMode"
-								@update:model-value="animal.name = $event"
+								@update:model-value="localAnimal.name = $event"
 							/>
 						</div>
 					</div>
@@ -183,7 +182,7 @@
 								:label="getCapitalizedText(t('pages.animals.species'))"
 								:options="animalSpeciesOptions"
 								:disabled="!isEditMode"
-								@update:model-value="animal.species = $event"
+								@update:model-value="localAnimal.species = $event"
 							/>
 						</div>
 						<div class="px-2 w-full lg:w-1/2">
@@ -194,7 +193,7 @@
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Boxer, Berger Allemand ...'"
 								:disabled="!isEditMode"
-								@update:model-value="animal.breed = $event"
+								@update:model-value="localAnimal.breed = $event"
 							/>
 						</div>
 					</div>
@@ -207,7 +206,7 @@
 								class="w-full border border-gray-300 rounded shadow-sm"
 								:placeholder="'Description de l\'animal'"
 								:disabled="!isEditMode"
-								@update:model-value="animal.description = $event"
+								@update:model-value="localAnimal.description = $event"
 							/>
 						</div>
 					</div>
@@ -225,7 +224,7 @@
 									:label="getCapitalizedText(t('pages.animals.status'))"
 									:options="animalStatusOptions"
 									:disabled="!isEditMode"
-									@update:model-value="animal.status = $event"
+									@update:model-value="localAnimal.status = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -236,7 +235,7 @@
 									:label="getCapitalizedText(t('pages.animals.gender'))"
 									:options="animalGendersOptions"
 									:disabled="!isEditMode"
-									@update:model-value="animal.gender = $event"
+									@update:model-value="localAnimal.gender = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -247,7 +246,7 @@
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Robe de l\'animal (type de poils)'"
 									:disabled="!isEditMode"
-									@update:model-value="animal.coat = $event"
+									@update:model-value="localAnimal.coat = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -258,7 +257,7 @@
 									class="w-full border border-gray-300 rounded shadow-sm"
 									:placeholder="'Couleur de l\'animal'"
 									:disabled="!isEditMode"
-									@update:model-value="animal.color = $event"
+									@update:model-value="localAnimal.color = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -269,7 +268,7 @@
 									:label="getCapitalizedText(t('pages.animals.size'))"
 									:options="animalSizeOptions"
 									:disabled="!isEditMode"
-									@update:model-value="animal.size = $event"
+									@update:model-value="localAnimal.size = $event"
 								/>
 							</div>
 							<div class="px-2">
@@ -280,7 +279,7 @@
 									:label="getCapitalizedText(t('pages.animals.ageRange'))"
 									:options="animalAgeRangeOptions"
 									:disabled="!isEditMode"
-									@update:model-value="animal.ageRange = $event"
+									@update:model-value="localAnimal.ageRange = $event"
 								/>
 							</div>
 							<div class="p-2">
@@ -290,7 +289,7 @@
 									:name="'animal-date'"
 									:label="getCapitalizedText(t('pages.animals.birthdate'))"
 									:disabled="!isEditMode"
-									@update:modelValue="animal.birthdate = $event"
+									@update:modelValue="localAnimal.birthdate = $event"
 								/>
 							</div>
 						</div>
