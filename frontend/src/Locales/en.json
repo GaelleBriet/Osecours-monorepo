@@ -27,7 +27,8 @@
 		"members": "membres",
 		"shelters": "shelters",
 		"dogs": "dogs",
-		"cats": "cats"
+		"cats": "cats",
+		"families": "families"
 	},
 	"form": {
 		"email": "email",
@@ -97,7 +98,12 @@
 			"country": "country",
 			"details": "details",
 			"personal": "personal information",
-			"profileUpdated": "your profile has been updated"
+			"profileUpdated": "your profile has been updated",
+			"catCount": "number of cats",
+			"dogCount": "number of dogs",
+			"childrenCount": "number of children",
+			"adoptFamily": "adopt family",
+			"fosterFamily": "foster family"
 		}
 	},
 	"enums": {

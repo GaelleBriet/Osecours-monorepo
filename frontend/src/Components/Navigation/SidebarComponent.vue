@@ -9,6 +9,7 @@
 		BuildingStorefrontIcon,
 		HeartIcon,
 		ChevronRightIcon,
+		UserGroupIcon,
 	} from '@heroicons/vue/24/outline';
 	import { computed, ref } from 'vue';
 
@@ -93,6 +94,12 @@
 			name: getCapitalizedText(t('navigation.documents')),
 			to: '/documents',
 			icon: DocumentDuplicateIcon,
+			current: currentActiveRoute,
+		},
+		{
+			name: getCapitalizedText(t('navigation.families')),
+			to: '/families',
+			icon: UserGroupIcon,
 			current: currentActiveRoute,
 		},
 	];

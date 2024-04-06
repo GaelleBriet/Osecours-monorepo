@@ -27,7 +27,8 @@
 		"members": "membres",
 		"shelters": "refuges",
 		"dogs": "chiens",
-		"cats": "chats"
+		"cats": "chats",
+		"families": "familles"
 	},
 	"form": {
 		"email": "email",
@@ -97,7 +98,12 @@
 			"country": "pays",
 			"details": "détails",
 			"personal": "informations personnelles",
-			"profileUpdated": "votre profil à bien été mis à jour"
+			"profileUpdated": "votre profil à bien été mis à jour",
+			"catCount": "nombre de chats",
+			"dogCount": "nombre de chiens",
+			"childrenCount": "nombre d'enfants",
+			"adoptFamily": "famille adoptante",
+			"fosterFamily": "famille d'accueil"
 		}
 	},
 	"enums": {

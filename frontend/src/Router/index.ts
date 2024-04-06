@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeViewController from '@/Controllers/HomeController.vue';
-import LoginController from '@/Controllers/LoginController.vue';
+import HomeViewController from '@/Controllers/Dashboard/HomeController.vue';
+import LoginController from '@/Controllers/Login/LoginController.vue';
 import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
-import AnimalsController from '@/Controllers/AnimalsController.vue';
-import DogsController from '@/Controllers/DogsController.vue';
-import CatsController from '@/Controllers/CatsController.vue';
+import AnimalsController from '@/Controllers/Animals/AnimalsController.vue';
+import DogsController from '@/Controllers/Animals/DogsController.vue';
+import CatsController from '@/Controllers/Animals/CatsController.vue';
 import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
-import SheltersController from '@/Controllers/SheltersController.vue';
-import ProfileController from '@/Controllers/ProfileController.vue';
+import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
+import ProfileController from '@/Controllers/Profile/ProfileController.vue';
+import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 
 const routes = [
 	{
@@ -60,6 +61,11 @@ const routes = [
 		path: '/documents',
 		name: 'Documents',
 		component: HomeViewController,
+	},
+	{
+		path: '/families',
+		name: 'Families',
+		component: FamiliesController,
 	},
 	{
 		path: '/profile',
