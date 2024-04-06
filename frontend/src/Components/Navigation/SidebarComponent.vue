@@ -99,6 +99,7 @@
 
 	const openProfile = () => {
 		router.push('/profile');
+		dropdownOpen.value = false;
 	};
 </script>
 <template>
@@ -222,7 +223,7 @@
 							<img
 								class="h-8 w-8 rounded-full bg-gray-50"
 								src="@/Assets/Images/logo-osecours.svg"
-								alt=""
+								alt="association-logo"
 							/>
 							<span
 								aria-hidden="true"

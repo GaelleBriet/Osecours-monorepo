@@ -57,6 +57,7 @@ export const useUserStore = defineStore({
 					...this.user,
 					token: userTokenScope.token,
 					scopes: userTokenScope.scopes,
+					email: email,
 					associationName: associationName ? associationName : '',
 				};
 				setToStorage('token', this.user.token);

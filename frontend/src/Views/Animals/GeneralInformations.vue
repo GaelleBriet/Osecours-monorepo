@@ -5,7 +5,6 @@
 	import FormDate from '@/Components/Forms/FormDate.vue';
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	import {
 		AnimalStatus,
@@ -14,12 +13,13 @@
 		AnimalSizes,
 		AnimalAges,
 	} from '@/Enums/Animals.ts';
-
-	import { ref } from 'vue';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
-	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animal.ts';
+
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import { ref } from 'vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 
 	const animalsStore = useAnimalsStore();
 
@@ -333,22 +333,22 @@
 					<div class="flex flex-row justify-between">
 						<button
 							id="edit-mode"
-							class="w-1/2 me-1.5 px-4 py-2 bg-blue-500 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
+							class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
 							@click.prevent="isEditMode = !isEditMode"
 						>
 							{{
 								isEditMode
 									? getCapitalizedText(t('common.cancel'))
-									: getCapitalizedText(t('common.edit'))
+									: getCapitalizedText(t('common.editMode'))
 							}}
 						</button>
 						<button
 							id="save-changes"
-							class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 							:disabled="!isEditMode"
 							@click.prevent="onSubmit"
 						>
-							Enregistrer
+							{{ getCapitalizedText(t('common.register')) }}
 						</button>
 					</div>
 				</div>
@@ -367,12 +367,12 @@
 		}
 	}
 	#save-changes {
-		background-color: rgb(199, 123, 51);
+		background-color: #d99962;
 		color: #fff;
 		&:hover {
 			background-color: var(--color-withe);
-			color: rgb(199, 123, 51);
-			outline: 1px solid rgb(199, 123, 51);
+			color: #d99962;
+			outline: 1px solid #d99962;
 		}
 	}
 
