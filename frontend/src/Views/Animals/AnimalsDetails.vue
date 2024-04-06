@@ -8,6 +8,7 @@
 	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -49,7 +50,9 @@
 			<template v-if="currentTab === 0 && currentAnimal">
 				<GeneralInformations :animal="currentAnimal" />
 			</template>
-			<template v-if="currentTab === 1 && currentAnimal"></template>
+			<template v-if="currentTab === 2 && currentAnimal">
+				<AnimalDocuments :animal="currentAnimal" />
+			</template>
 		</div>
 	</div>
 </template>

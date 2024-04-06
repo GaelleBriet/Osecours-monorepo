@@ -60,45 +60,6 @@
 		'enums.animalAges',
 	);
 
-	const photos = ref([
-		{
-			id: 1,
-			url: 'https://picsum.photos/id/237/200/300',
-		},
-		{
-			id: 2,
-			url: 'https://picsum.photos/id/200/200/300',
-		},
-		{
-			id: 3,
-			url: 'https://picsum.photos/id/219/200/300',
-		},
-		{
-			id: 4,
-			url: 'https://picsum.photos/id/275/200/300',
-		},
-		{
-			id: 5,
-			url: 'https://picsum.photos/id/237/200/300',
-		},
-		{
-			id: 6,
-			url: 'https://picsum.photos/id/200/200/300',
-		},
-		{
-			id: 7,
-			url: 'https://picsum.photos/id/219/200/300',
-		},
-	]);
-
-	const addPhoto = () => {
-		// @todo Logique pour ajouter une photo
-	};
-
-	const removePhoto = () => {
-		// @todo  Logique pour supprimer une photo
-	};
-
 	const onSubmit = async () => {
 		// Logique pour soumettre le formulaire quand l'api sera fonctionnelle
 		const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
@@ -293,38 +254,6 @@
 								/>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div
-					class="col-span-2 row-span-3 col-start-1 row-start-13 bg-opacity-10 lg:col-span-4 lg:row-span-3 lg:col-start-1 lg:row-start-6"
-				>
-					<div class="grid grid-cols-3 lg:grid-rows-2 lg:grid-cols-4 gap-4 p-2">
-						<!-- Miniatures des photos -->
-						<div
-							v-for="(photo, index) in photos"
-							:key="index"
-							class="relative"
-						>
-							<img
-								:src="photo.url"
-								alt="Photo de l'animal"
-								class="w-full h-28 object-cover rounded-lg shadow-md"
-							/>
-							<button
-								class="absolute top-1 right-1 bg-osecours-pink text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
-								@click="removePhoto(index)"
-							>
-								&times;
-								<!-- Symbole de multiplication utilisé pour l'icône de suppression -->
-							</button>
-						</div>
-						<!-- Bouton pour ajouter une photo -->
-						<button
-							class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
-							@click="addPhoto"
-						>
-							<span>+</span>
-						</button>
 					</div>
 				</div>
 				<div
