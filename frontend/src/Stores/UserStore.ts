@@ -6,6 +6,7 @@ import {
 	removeFromStorage,
 	setToStorage,
 } from '@/Services/Helpers/LocalStorage.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
 export const useUserStore = defineStore({
 	id: 'user',
@@ -31,10 +32,7 @@ export const useUserStore = defineStore({
 		async loginUser(email: string, password: string): Promise<User> {
 			if (!email || !password)
 				throw new Error('Email and password are required.');
-			const user: Partial<User> | { error: string } = await login(
-				email,
-				password,
-			);
+			const user: Partial<User> | ErrorResponse = await login(email, password);
 			if (user) {
 				this.user = user as User;
 				setToStorage('user', this.user);

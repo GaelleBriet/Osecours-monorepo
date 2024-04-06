@@ -7,6 +7,7 @@ import DogsController from '@/Controllers/DogsController.vue';
 import CatsController from '@/Controllers/CatsController.vue';
 import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
 import SheltersController from '@/Controllers/SheltersController.vue';
+import ProfileController from '@/Controllers/ProfileController.vue';
 
 const routes = [
 	{
@@ -59,6 +60,11 @@ const routes = [
 		path: '/documents',
 		name: 'Documents',
 		component: HomeViewController,
+	},
+	{
+		path: '/profile',
+		name: 'Profile',
+		component: ProfileController,
 	},
 	{
 		path: '/:pathMatch(.*)*',

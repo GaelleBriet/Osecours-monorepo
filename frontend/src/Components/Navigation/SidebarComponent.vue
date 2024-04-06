@@ -17,6 +17,7 @@
 
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 
 	const userStore = useUserStore();
 	const router = useRouter();
@@ -30,6 +31,8 @@
 	const subMenuOpen = ref(false);
 	const dropdownOpen = ref(false);
 	const associationName = userStore.user?.associationName;
+	const userEmail = getFromStorage('email');
+
 	const logout = () => {
 		userStore.logoutUser();
 	};
@@ -93,6 +96,10 @@
 			current: currentActiveRoute,
 		},
 	];
+
+	const openProfile = () => {
+		router.push('/profile');
+	};
 </script>
 <template>
 	<div
@@ -125,14 +132,16 @@
 								:key="item.name"
 								class="flex flex-col"
 							>
-								<div class="flex items-center">
+								<div
+									class="flex items-center hover:bg-osecours-white rounded-md"
+								>
 									<router-link
 										:to="item.to"
 										:class="[
 											currentActiveRoute(item.to)
 												? 'text-osecours-beige-dark'
-												: 'text-osecours-black hover:text-osecours-beige-dark hover:bg-osecours-white',
-											'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal',
+												: 'text-osecours-black hover:text-osecours-beige-dark ',
+											'group flex gap-x-3 p-2 text-sm leading-6 font-normal',
 										]"
 									>
 										<component
@@ -203,10 +212,11 @@
 							</li>
 						</ul>
 					</li>
-					<li class="relative -mx-6 mt-auto">
-						<a
+					<li class="relative -mx-3 mt-auto">
+						<div
+							v-tooltip="userEmail"
 							href="#"
-							class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-osecours-black hover:bg-gray-50"
+							class="flex items-center gap-x-4 px-2 py-3 leading-6 text-osecours-black hover:bg-osecours-white rounded-md cursor-pointer"
 							@click.prevent="toggleDropdown"
 						>
 							<img
@@ -216,10 +226,10 @@
 							/>
 							<span
 								aria-hidden="true"
-								class="sm:block hidden text-osecours-black"
+								class="sm:block hidden text-osecours-black hover:text-osecours-beige-dark text-sm leading-6 font-normal"
 								>{{ associationName }}</span
 							>
-						</a>
+						</div>
 
 						<!--			dropdwon menu  hidden on small screens   -->
 						<div
@@ -303,12 +313,14 @@
 
 	.dropdown_menu {
 		background-color: #f1f1f1;
+		padding-left: 5px;
+		padding-right: 5px;
 		margin: auto;
 		bottom: 100%;
 		left: 0;
 	}
 	.dropdown_menu a:hover {
-		background-color: #eae8e8;
+		color: #d99962;
 	}
 	.dropdown_menu__separator {
 		background-color: var(--color-beige-light);
