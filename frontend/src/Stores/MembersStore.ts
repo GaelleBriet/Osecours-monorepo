@@ -34,7 +34,8 @@ export const UseMembersStore = defineStore({
 				return [];
 			} else {
 				this.members = members;
-				return this.members;
+				console.log(members);
+				return members;
 			}
 		},
 		async getMemberById(id: string): Promise<User | null> {
@@ -54,6 +55,18 @@ export const UseMembersStore = defineStore({
 			} else {
 				this.members = families;
 				return families;
+			}
+		},
+		async getAllFamilies(): Promise<User[]> {
+			const families: User[] | ErrorResponse = await getMembers();
+			if ('error' in families) {
+				return [];
+			} else {
+				const filteredFamilies: User[] = families.filter(
+					(family) => family.adoptFamily || family.fosterFamily,
+				);
+				this.members = filteredFamilies;
+				return filteredFamilies;
 			}
 		},
 		async createMember(member: User): Promise<User> {

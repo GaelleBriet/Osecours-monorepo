@@ -86,7 +86,18 @@
 			"details": "détails",
 			"health": "santé",
 			"docs": "documents"
-
+		},
+		"families": {
+			"title": "liste des familles d'accueil et adoptantes de l'association.",
+			"card": "fiche famille",
+			"address": "adresse",
+			"city": "ville",
+			"zip": "code postal",
+			"country": "pays",
+			"phone": "téléphone",
+			"email": "email",
+			"details": "détails",
+			"personal": "informations personnelles"
 		},
 		"users": {
 			"title": "liste des utilisateurs de l'association.",

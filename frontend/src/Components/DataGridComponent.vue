@@ -11,7 +11,7 @@
 		description: string;
 		columns: {
 			label: string;
-			key: string;
+			key: string | ((item: object) => string);
 			visibility?: {
 				sm?: boolean;
 				md?: boolean;

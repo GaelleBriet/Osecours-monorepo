@@ -87,6 +87,18 @@
 			"health": "health",
 			"docs": "documents"
 		},
+		"families": {
+			"title": "list of families",
+			"card": "family card",
+			"address": "address",
+			"city": "city",
+			"zip": "zip code",
+			"country": "country",
+			"phone": "phone",
+			"email": "email",
+			"details": "details",
+			"personal": "personal information"
+		},
 		"users": {
 			"title": "list of users",
 			"card": "user card",

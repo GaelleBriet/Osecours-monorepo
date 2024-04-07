@@ -9,6 +9,7 @@ import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
 import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
+import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 
 const routes = [
 	{
@@ -66,6 +67,11 @@ const routes = [
 		path: '/families',
 		name: 'Families',
 		component: FamiliesController,
+	},
+	{
+		path: '/families/:id',
+		name: 'EditFamilies',
+		component: FamiliesDetails,
 	},
 	{
 		path: '/profile',
