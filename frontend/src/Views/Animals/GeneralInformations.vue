@@ -257,7 +257,7 @@
 					</div>
 				</div>
 				<div
-					class="px-2 col-span-2 row-span-1 col-start-1 row-start-16 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-8"
+					class="px-2 col-span-2 row-span-1 col-start-1 row-start-13 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-8"
 				>
 					<div class="flex flex-row justify-between">
 						<button
