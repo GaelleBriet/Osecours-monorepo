@@ -12,7 +12,7 @@
 // }
 
 export interface Animal {
-	id: number;
+	id?: number;
 	name?: string;
 	description?: string;
 	birthdate?: Date | string;
@@ -25,15 +25,15 @@ export interface Animal {
 	deceased?: boolean;
 	breed?: string;
 
-	icad: string;
+	icad?: string;
 	//@todo waiting for the backend to be ready
 	color?: string;
 	coat?: string;
 	gender?: number;
-	ageRange: number;
-	species: number;
-	status: number;
-	size: number;
+	ageRange?: number;
+	species?: number;
+	status?: number;
+	size?: number;
 }
 
 //

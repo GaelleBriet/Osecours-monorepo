@@ -22,14 +22,15 @@
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
+		(event: 'add'): void;
 	}>();
 
 	const editItem = (item: object) => {
 		emit('edit', item);
-		// router.push({
-		// 	name: props.route,
-		// 	params: { id: item.id },
-		// });
+	};
+
+	const addItem = () => {
+		emit('add');
 	};
 </script>
 
@@ -49,6 +50,7 @@
 					id="add-animal-btn"
 					type="button"
 					class="rounded-md px-3 py-2 text-center text-sm"
+					@click="addItem"
 				>
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
