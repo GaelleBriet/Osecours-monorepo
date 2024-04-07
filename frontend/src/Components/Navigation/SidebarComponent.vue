@@ -1,15 +1,8 @@
 <script setup lang="ts">
 	import {
-		ChartPieIcon,
-		DocumentDuplicateIcon,
-		UsersIcon,
 		UserIcon,
 		ArrowLeftStartOnRectangleIcon,
-		ClipboardIcon,
-		BuildingStorefrontIcon,
-		HeartIcon,
 		ChevronRightIcon,
-		UserGroupIcon,
 	} from '@heroicons/vue/24/outline';
 	import { computed, ref } from 'vue';
 
@@ -19,6 +12,7 @@
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
+	import { gt } from 'semver';
 
 	const userStore = useUserStore();
 	const router = useRouter();
@@ -50,42 +44,44 @@
 		{
 			name: getCapitalizedText(t('navigation.dashboard')),
 			to: '/',
-			icon: ChartPieIcon,
+			icon: 'icon-chart-bar',
 			count: '5',
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.organization')),
 			to: '/organization',
-			icon: ClipboardIcon,
+			icon: 'icon-refuge',
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.shelters')),
 			to: '/shelters',
-			icon: BuildingStorefrontIcon,
+			icon: 'icon-coeur-mains',
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.members')),
 			to: '/members',
-			icon: UsersIcon,
+			icon: 'icon-user',
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.animals')),
 			to: '/animals',
-			icon: HeartIcon,
+			icon: 'icon-animaux-domestiques',
 			current: currentActiveRoute,
 			subMenu: [
 				{
 					name: getCapitalizedText(t('navigation.dogs')),
 					to: '/animals/dogs',
+					icon: 'icon-chien',
 					current: currentActiveRoute,
 				},
 				{
 					name: getCapitalizedText(t('navigation.cats')),
 					to: '/animals/cats',
+					icon: 'icon-chat',
 					current: currentActiveRoute,
 				},
 			],
@@ -93,13 +89,13 @@
 		{
 			name: getCapitalizedText(t('navigation.documents')),
 			to: '/documents',
-			icon: DocumentDuplicateIcon,
+			icon: 'icon-fiche',
 			current: currentActiveRoute,
 		},
 		{
 			name: getCapitalizedText(t('navigation.families')),
 			to: '/families',
-			icon: UserGroupIcon,
+			icon: 'icon-famille',
 			current: currentActiveRoute,
 		},
 	];
@@ -149,18 +145,11 @@
 											currentActiveRoute(item.to)
 												? 'text-osecours-beige-dark'
 												: 'text-osecours-black hover:text-osecours-beige-dark ',
-											'group flex gap-x-3 p-2 text-sm leading-6 font-normal',
+											'group flex gap-x-3 p-2 text-sm leading-6 font-normal items-center',
 										]"
 									>
-										<component
-											:is="item.icon"
-											:class="[
-												item.current
-													? 'text-osecours-beige-dark'
-													: 'text-gray-400 group-hover:text-osecours-beige-dark',
-												'h-5 w-5 shrink-0',
-											]"
-											aria-hidden="true"
+										<i
+											:class="[item.icon, 'text-osecours-beige-dark text-lg']"
 										/>
 										<span class="truncate hidden sm:block">
 											{{ item.name }}
@@ -202,18 +191,29 @@
 											:to="subItem.to"
 											:class="[
 												subItem.current
-													? 'text-osecours-pink block ps-10 py-2 text-sm hover:bg-gray-50'
+													? 'flex flex-row items-center ps-10 py-2 text-sm hover:bg-gray-50'
 													: 'flex items-center ps-5 py-2 text-sm text-gray-600 hover:bg-gray-50',
 											]"
 										>
+											<i
+												:class="[
+													subItem.icon,
+													'text-osecours-pink text-lg hidden sm:block me-2',
+												]"
+											/>
 											<!-- icon if small screens -->
-											<span class="sm:hidden">
-												<UserIcon class="h-5 w-5 -ml-10" />
-											</span>
+											<div class="sm:hidden">
+												<i
+													:class="[
+														subItem.icon,
+														'text-osecours-pink text-lg -ml-10',
+													]"
+												></i>
+											</div>
 											<!-- else name -->
-											<span class="hidden sm:block">
+											<div class="hidden sm:block">
 												{{ subItem.name }}
-											</span>
+											</div>
 										</router-link>
 									</li>
 								</ul>
@@ -260,7 +260,7 @@
 									id="options-menu-item-0"
 									@click="openProfile"
 								>
-									Profil
+									{{ getCapitalizedText(t('common.profile')) }}
 								</a>
 								<hr class="dropdown_menu__separator my-1 border-0 h-0.5" />
 								<a
@@ -271,33 +271,33 @@
 									id="options-menu-item-2"
 									@click="logout"
 								>
-									Déconnexion
+									{{ getCapitalizedText(t('logout.title')) }}
 								</a>
 							</div>
 						</div>
 						<!--						icons visibles on small screens     -->
 						<div
 							v-if="dropdownOpen"
-							class="absolute right-0 -top-20 z-20 w-auto sm:hidden h-20 flex flex-col items-center justify-center"
-							style="bottom: 100%; transform: translateX(-50%)"
+							class="absolute flex flex-col items-center justify-center"
+							style="bottom: 100%; transform: translateY(-20%)"
 						>
 							<!-- Icone Profil -->
 							<a
 								href="#"
-								class="block p-2 text-gray-700 hover:bg-gray-100"
+								class="block p-2 text-gray-700 hover:bg-gray-100 hover:rounded hover:text-osecours-beige-dark sm:hidden"
 								role="menuitem"
 								@click="openProfile"
 							>
-								<UserIcon class="h-6 w-6" />
+								<i class="icon-user text-xl"></i>
 							</a>
 							<!-- Icone Déconnexion -->
 							<a
 								href="#"
-								class="block p-2 text-gray-700 hover:bg-gray-100"
+								class="block p-2 text-gray-700 hover:bg-gray-100 hover:rounded hover:text-osecours-beige-dark sm:hidden"
 								role="menuitem"
 								@click="logout"
 							>
-								<ArrowLeftStartOnRectangleIcon class="h-6 w-6" />
+								<i class="icon-chevron-droit text-xl"></i>
 							</a>
 						</div>
 					</li>

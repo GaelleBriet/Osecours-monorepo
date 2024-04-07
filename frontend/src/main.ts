@@ -1,3 +1,4 @@
+import '@/Assets/Icons/css/icons-osecours.css';
 import '@formkit/themes/genesis';
 import '@formkit/pro/genesis';
 import '@/Assets/Css/style.css';

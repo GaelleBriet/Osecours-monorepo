@@ -79,15 +79,15 @@
 						</ul>
 					</template>
 					<div class="pt-4">
-						<router-link
-							to="#"
-							class="text-osecours-beige-dark hover:text-indigo-900"
-							>{{ getCapitalizedText(t('common.edit')) }}</router-link
+						<a
+							class="text-osecours-beige-dark hover:text-indigo-900 cursor-pointer"
+							@click="editItem(item)"
+							>{{ getCapitalizedText(t('common.edit')) }}</a
 						>
 					</div>
 				</div>
 			</div>
-			<!-- vie table for screens -->
+			<!-- vue table for screens -->
 			<div class="hidden custonmXs:block overflow-x-auto">
 				<table class="min-w-full divide-y divide-gray-300">
 					<thead class="bg-gray-50">

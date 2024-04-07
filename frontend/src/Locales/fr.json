@@ -52,6 +52,7 @@
 		"description": "créez un compte pour commencer."
 	},
 	"logout": {
+		"title": "déconnexion",
 		"confirmation": "êtes-vous sûr de vouloir vous déconnecter ?"
 	},
 	"pages": {

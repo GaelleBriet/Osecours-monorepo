@@ -24,7 +24,7 @@
 		"settings": "settings",
 		"documents": "documents",
 		"organization": "organization",
-		"members": "membres",
+		"members": "members",
 		"shelters": "shelters",
 		"dogs": "dogs",
 		"cats": "cats",
@@ -52,6 +52,7 @@
 		"description": "create an account to get started."
 	},
 	"logout": {
+		"title": "log out",
 		"confirmation": "are you sure you want to log out?"
 	},
 	"pages": {
