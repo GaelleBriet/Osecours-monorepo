@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	import {
-		UserIcon,
 		ArrowLeftStartOnRectangleIcon,
 		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
@@ -12,7 +11,6 @@
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
-	import { gt } from 'semver';
 
 	const userStore = useUserStore();
 	const router = useRouter();
@@ -297,7 +295,7 @@
 								role="menuitem"
 								@click="logout"
 							>
-								<i class="icon-chevron-droit text-xl"></i>
+								<ArrowLeftStartOnRectangleIcon class="h-6 w-6" />
 							</a>
 						</div>
 					</li>
