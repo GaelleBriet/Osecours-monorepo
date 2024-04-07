@@ -99,187 +99,168 @@
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid grid-cols-2 grid-rows-none lg:grid-cols-6 lg:grid-rows-17 gap-1 flex-grow bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
+				class="h-full lg:h-full grid grid-cols-1 grid-rows-none md:grid-cols-2 md:grid-rows-none gap-1 flex-grow bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
 					@close="notificationConfig.show = false"
 				/>
-				<div
-					class="col-span-2 row-span-3 col-start-1 row-start-2 lg:col-span-4 lg:row-span-4 lg:row-start-2 lg:col-start-1"
-				>
-					<div class="mb-1 flex flex-col lg:flex-row justify-around">
-						<div class="px-2 w-full lg:w-1/2">
-							<FormText
-								id="animal-icad-number"
-								:model-value="animal.icad"
-								:name="'animal-icad-number'"
-								:label="getCapitalizedText(t('pages.animals.icad'))"
-								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'123456123456789'"
-								:validation="'number'"
-								:disabled="!isEditMode"
-								@update:model-value="localAnimal.icad = $event"
-							/>
-						</div>
-						<div class="px-2 w-full lg:w-1/2">
-							<FormText
-								id="animal-name"
-								:model-value="animal.name"
-								:label="getCapitalizedText(t('common.name'))"
-								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'Nom de l\'animal'"
-								:disabled="!isEditMode"
-								@update:model-value="localAnimal.name = $event"
-							/>
-						</div>
-					</div>
-					<div class="mb-1 flex flex-col lg:flex-row justify-around">
-						<div class="w-full px-2 lg:w-1/2">
-							<FormSelect
-								id="animal-species"
-								:model-value="animal.species"
-								:name="'animal-species'"
-								:label="getCapitalizedText(t('pages.animals.species'))"
-								:options="animalSpeciesOptions"
-								:disabled="!isEditMode"
-								@update:model-value="localAnimal.species = $event"
-							/>
-						</div>
-						<div class="px-2 w-full lg:w-1/2">
-							<FormText
-								id="animal-breed"
-								:model-value="animal.breed"
-								:label="getCapitalizedText(t('pages.animals.breed'))"
-								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'Boxer, Berger Allemand ...'"
-								:disabled="!isEditMode"
-								@update:model-value="localAnimal.breed = $event"
-							/>
-						</div>
-					</div>
-					<div class="mb-1 flex flex-col justify-around">
-						<div class="p-2">
-							<FormTextArea
-								id="animal-description"
-								:model-value="animal.description"
-								:label="getCapitalizedText(t('pages.animals.description'))"
-								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="'Description de l\'animal'"
-								:disabled="!isEditMode"
-								@update:model-value="localAnimal.description = $event"
-							/>
-						</div>
-					</div>
+				<div class="px-2 w-full md:col-start-1">
+					<FormText
+						id="animal-name"
+						:model-value="animal.name"
+						:label="getCapitalizedText(t('common.name'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'Nom de l\'animal'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.name = $event"
+					/>
+				</div>
+				<div class="px-2 w-full md:col-start-2">
+					<FormText
+						id="animal-icad-number"
+						:model-value="animal.icad"
+						:name="'animal-icad-number'"
+						:label="getCapitalizedText(t('pages.animals.icad'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'123456123456789'"
+						:validation="'number'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.icad = $event"
+					/>
+				</div>
+
+				<div class="w-full px-2 md:col-start-1 md:row-start-2">
+					<FormSelect
+						id="animal-species"
+						:model-value="animal.species"
+						:name="'animal-species'"
+						:label="getCapitalizedText(t('pages.animals.species'))"
+						:options="animalSpeciesOptions"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.species = $event"
+					/>
+				</div>
+				<div class="px-2 w-full md:col-start-2 md:row-start-2">
+					<FormText
+						id="animal-breed"
+						:model-value="animal.breed"
+						:label="getCapitalizedText(t('pages.animals.breed'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'Boxer, Berger Allemand ...'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.breed = $event"
+					/>
+				</div>
+				<div class="p-2 md:col-start-1 md:row-start-7 md:flex md:items-end">
+					<FormTextArea
+						id="animal-description"
+						:model-value="animal.description"
+						:label="getCapitalizedText(t('pages.animals.description'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'Description de l\'animal'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.description = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-1 md:row-start-3">
+					<FormSelect
+						id="animal-status"
+						:model-value="animal.status"
+						:name="'animal-status'"
+						:label="getCapitalizedText(t('pages.animals.status'))"
+						:options="animalStatusOptions"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.status = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-1 md:row-start-4">
+					<FormSelect
+						id="animal-gender"
+						:model-value="animal.gender"
+						:name="'animal-gender'"
+						:label="getCapitalizedText(t('pages.animals.gender'))"
+						:options="animalGendersOptions"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.gender = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-2 md:row-start-4">
+					<FormSelect
+						id="animal-size"
+						:model-value="animal.size"
+						:name="getCapitalizedText(t('pages.animals.size'))"
+						:label="getCapitalizedText(t('pages.animals.size'))"
+						:options="animalSizeOptions"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.size = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-1 md:row-start-5">
+					<FormText
+						id="animal-coat"
+						:model-value="animal.coat"
+						:label="getCapitalizedText(t('pages.animals.coat'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'Robe de l\'animal (type de poils)'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.coat = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-2 md:row-start-5">
+					<FormText
+						id="animal-color"
+						:model-value="animal.color"
+						:label="getCapitalizedText(t('pages.animals.color'))"
+						class="w-full border border-gray-300 rounded shadow-sm"
+						:placeholder="'Couleur de l\'animal'"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.color = $event"
+					/>
+				</div>
+				<div class="px-2 md:col-start-1 md:row-start-6">
+					<FormSelect
+						id="animal-age-range"
+						:model-value="animal.ageRange"
+						:name="getCapitalizedText(t('pages.animals.ageRange'))"
+						:label="getCapitalizedText(t('pages.animals.ageRange'))"
+						:options="animalAgeRangeOptions"
+						:disabled="!isEditMode"
+						@update:model-value="localAnimal.ageRange = $event"
+					/>
+				</div>
+				<div class="p-2 md:col-start-2 md:row-start-6">
+					<FormDate
+						id="animal-date"
+						:model-value="animal.birthdate"
+						:name="'animal-date'"
+						:label="getCapitalizedText(t('pages.animals.birthdate'))"
+						:disabled="!isEditMode"
+						@update:modelValue="localAnimal.birthdate = $event"
+					/>
 				</div>
 				<div
-					class="col-span-2 row-span-8 col-start-1 row-start-5 lg:col-span-2 lg:row-span-6 lg:row-start-2 lg:col-start-5"
+					class="flex flex-row justify-between p-2 md:pb-4 md:col-start-2 md:row-start-7 md:items-end"
 				>
-					<div class="flex flex-col h-full justify-between">
-						<div class="mb-1 flex flex-col justify-around">
-							<div class="px-2">
-								<FormSelect
-									id="animal-status"
-									:model-value="animal.status"
-									:name="'animal-status'"
-									:label="getCapitalizedText(t('pages.animals.status'))"
-									:options="animalStatusOptions"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.status = $event"
-								/>
-							</div>
-							<div class="px-2">
-								<FormSelect
-									id="animal-gender"
-									:model-value="animal.gender"
-									:name="'animal-gender'"
-									:label="getCapitalizedText(t('pages.animals.gender'))"
-									:options="animalGendersOptions"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.gender = $event"
-								/>
-							</div>
-							<div class="px-2">
-								<FormText
-									id="animal-coat"
-									:model-value="animal.coat"
-									:label="getCapitalizedText(t('pages.animals.coat'))"
-									class="w-full border border-gray-300 rounded shadow-sm"
-									:placeholder="'Robe de l\'animal (type de poils)'"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.coat = $event"
-								/>
-							</div>
-							<div class="px-2">
-								<FormText
-									id="animal-color"
-									:model-value="animal.color"
-									:label="getCapitalizedText(t('pages.animals.color'))"
-									class="w-full border border-gray-300 rounded shadow-sm"
-									:placeholder="'Couleur de l\'animal'"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.color = $event"
-								/>
-							</div>
-							<div class="px-2">
-								<FormSelect
-									id="animal-size"
-									:model-value="animal.size"
-									:name="getCapitalizedText(t('pages.animals.size'))"
-									:label="getCapitalizedText(t('pages.animals.size'))"
-									:options="animalSizeOptions"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.size = $event"
-								/>
-							</div>
-							<div class="px-2">
-								<FormSelect
-									id="animal-age-range"
-									:model-value="animal.ageRange"
-									:name="getCapitalizedText(t('pages.animals.ageRange'))"
-									:label="getCapitalizedText(t('pages.animals.ageRange'))"
-									:options="animalAgeRangeOptions"
-									:disabled="!isEditMode"
-									@update:model-value="localAnimal.ageRange = $event"
-								/>
-							</div>
-							<div class="p-2">
-								<FormDate
-									id="animal-date"
-									:model-value="animal.birthdate"
-									:name="'animal-date'"
-									:label="getCapitalizedText(t('pages.animals.birthdate'))"
-									:disabled="!isEditMode"
-									@update:modelValue="localAnimal.birthdate = $event"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div
-					class="px-2 col-span-2 row-span-1 col-start-1 row-start-13 lg:col-span-2 lg:row-span-1 lg:col-start-5 lg:row-start-8"
-				>
-					<div class="flex flex-row justify-between">
-						<button
-							id="edit-mode"
-							class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
-							@click.prevent="isEditMode = !isEditMode"
-						>
-							{{
-								isEditMode
-									? getCapitalizedText(t('common.cancel'))
-									: getCapitalizedText(t('common.editMode'))
-							}}
-						</button>
-						<button
-							id="save-changes"
-							class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-							:disabled="!isEditMode"
-							@click.prevent="onSubmit"
-						>
-							{{ getCapitalizedText(t('common.register')) }}
-						</button>
-					</div>
+					<button
+						id="edit-mode"
+						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
+						@click.prevent="isEditMode = !isEditMode"
+					>
+						{{
+							isEditMode
+								? getCapitalizedText(t('common.cancel'))
+								: getCapitalizedText(t('common.editMode'))
+						}}
+					</button>
+					<button
+						id="save-changes"
+						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						:disabled="!isEditMode"
+						@click.prevent="onSubmit"
+					>
+						{{ getCapitalizedText(t('common.register')) }}
+					</button>
 				</div>
 			</div>
 		</Form>
