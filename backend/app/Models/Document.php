@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Document extends Model
 {
@@ -16,11 +16,15 @@ class Document extends Model
         'size',
         'url',
         'date',
-
     ];
 
-    public function type(): HasOne
+    public function doctype(): BelongsTo
     {
-        return $this->hasOne(Document_type::class);
+        return $this->belongsTo(Doctype::class);
+    }
+
+    public function mimetype(): BelongsTo
+    {
+        return $this->belongsTo(Mimetype::class);
     }
 }

@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Animal extends Model
 {
@@ -28,33 +29,33 @@ class Animal extends Model
         "deceased"
     ];
 
-    public function gender(): HasOne
+    public function gender(): BelongsTo
     {
-        return $this->hasOne(Gender::class);
+        return $this->belongsTo(Gender::class);
     }
 
-    public function specie(): HasOne
+    public function specie(): BelongsTo
     {
-        return $this->hasOne(Specie::class);
+        return $this->belongsTo(Specie::class);
     }
 
-    public function coat(): HasOne
+    public function coat(): BelongsTo
     {
-        return $this->hasOne(Coat::class);
+        return $this->belongsTo(Coat::class);
     }
 
-    public function color(): HasOne
+    public function color(): BelongsTo
     {
-        return $this->hasOne(Color::class);
+        return $this->belongsTo(Color::class);
     }
 
-    public function size_range(): HasOne
+    public function size_range(): BelongsTo
     {
-        return $this->hasOne(Size_range::class);
+        return $this->belongsTo(Size_range::class);
     }
 
-    public function age_range(): HasOne
+    public function age_range(): BelongsTo
     {
-        return $this->hasOne(Age_range::class);
+        return $this->belongsTo(Age_range::class);
     }
 }
