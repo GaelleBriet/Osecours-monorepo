@@ -54,6 +54,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function person() {
+        return $this->morphOne(Person::class, 'personable');
+    }
     
     public function associations()
     {

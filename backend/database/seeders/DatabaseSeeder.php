@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use App\Enum\RoleEnum;
+use App\Models\Address;
 use App\Models\Association;
 use App\Models\Breed;
+use App\Models\City;
 use App\Models\Coat;
 use App\Models\Color;
+use App\Models\Person;
 use App\Models\Role;
 use App\Models\Specie;
 use App\Models\User;
@@ -20,16 +23,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $cityCreated = City::create(['name' => 'Dijon', 'zipcode' => '21000']);
 
-        $assocationsNameList = ["Le refuge des chimères", "larche de noé 2.0", "quatres pattes et un toit"];
+        $assocationsList = [['name' => "Le refuge des chimères", 'address' => '123 rue des fantaisies' ],
+                            ['name' => "larche de noé 2.0", 'address' => '10 place du désert'],
+                            ['name' => "quatres pattes et un toit", 'address' => '1 place de la tour Eiffel']];
 
 
-        foreach ($assocationsNameList as $associationName) {
+        foreach ($assocationsList as $association) {
 
-            $associationCreated =  Association::factory()->create(["name" => $associationName]);
+            $associationCreated =  Association::factory()->create(["name" => $association['name']]);
 
+            $personCreated = Person::create(['personable_id' => $associationCreated->id, 'personable_type' => get_class($associationCreated)]);
+            $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id ]);
+            $personCreated->addresses()->attach($addressCreated);
+
+            $associationCreated->person()->save($personCreated);
             foreach (RoleEnum::cases() as $roleName) {
-                $emailReadyString = strtolower(Str::ascii($associationName));
+                $emailReadyString = strtolower(Str::ascii($association['name']));
                 $emailReadyString = str_replace(' ', '', $emailReadyString);
                 $userCreated = User::factory()->create([
                     'first_name' => ucfirst($roleName->value),

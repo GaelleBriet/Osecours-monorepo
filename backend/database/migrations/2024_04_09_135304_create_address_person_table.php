@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('associations', function (Blueprint $table) {
+        Schema::create('address_person', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("siret");
-            $table->string("rib")->nullable();
-//            $table->bigInteger('person_id');
+            $table->foreignId('address_id')->constrained();
+            $table->foreignId('person_id')->constrained('person');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('associations');
+        Schema::dropIfExists('address_person');
     }
 };

@@ -17,6 +17,10 @@ class Shelter extends Model
         'siret',
     ];
 
+    public function person() {
+        return $this->morphOne(Person::class, 'personable');
+    }
+
     public function associations()
     {
         return $this->belongsToMany(Association::class, 'association_shelter')
