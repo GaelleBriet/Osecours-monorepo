@@ -76,4 +76,9 @@ class Animal extends Model
         ->withTimestamps();
     }
 
+    public function documents(): BelongsToMany
+    {
+        return $this->belongsToMany(Document::class);
+    }
+
 }
