@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enum\RoleEnum;
 use App\Models\Address;
+use App\Models\Age_range;
 use App\Models\Association;
 use App\Models\Breed;
 use App\Models\City;
@@ -11,6 +12,7 @@ use App\Models\Coat;
 use App\Models\Color;
 use App\Models\Person;
 use App\Models\Role;
+use App\Models\Size_range;
 use App\Models\Specie;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -47,6 +49,7 @@ class DatabaseSeeder extends Seeder
                     'last_name' => ucfirst($roleName->value),
                     'email' =>  $roleName->value . "-" . $emailReadyString . '@osecours.org',
                 ]);
+                Person::create(['personable_id' => $userCreated->id, 'personable_type' => get_class($userCreated)]);
                 $roleCreated = Role::firstOrCreate(
                     ["name" => $roleName->value]
                 );
@@ -484,6 +487,34 @@ class DatabaseSeeder extends Seeder
         foreach ($coats as $coat) {
             $coatCreated = Coat::factory()->create([
                 'name' => ucfirst($coat),
+                'description' => '',
+            ]);
+        }
+
+        $sizeRanges = [
+            'Small',
+            'Average',
+            'Big',
+            'Molosse'
+        ];
+
+        foreach ($sizeRanges as $size) {
+            $sizeCreated = Size_range::factory()->create([
+                'name' => ucfirst($size),
+                'description' => '',
+            ]);
+        }
+
+        $ageRanges = [
+            'Baby',
+            'Junior',
+            'Adult',
+            'Senior'
+        ];
+
+        foreach ($ageRanges as $age) {
+            $ageCreated = Age_range::factory()->create([
+                'name' => ucfirst($age),
                 'description' => '',
             ]);
         }
