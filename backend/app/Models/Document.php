@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Document extends Model
 {
@@ -29,8 +30,8 @@ class Document extends Model
         return $this->belongsTo(Mimetype::class);
     }
 
-    public function healthcares(): HasMany
+    public function healthcare(): HasOne
     {
-        return $this->hasMany(Healthcare::class);
+        return $this->hasOne(Healthcare::class);
     }
 }

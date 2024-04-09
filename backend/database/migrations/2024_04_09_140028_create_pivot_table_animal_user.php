@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('healthcares', function (Blueprint $table) {
+        Schema::create('animal_user', function (Blueprint $table) {
             $table->id();
+            $table->text('comment');
             $table->date('date');
-            $table->text('report');
-            $table->decimal('weight')->nullable();
-            $table->decimal('size')->nullable();
-            $table->foreignId('animal_id');
-            $table->foreignId('document_id')->nullable();
+            $table->foreignId('animal_id')->constrained();
+            $table->foreignId('user_id')->constrained();            
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('healthcares');
+        Schema::dropIfExists('animal_user');
     }
 };

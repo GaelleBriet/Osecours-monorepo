@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Specie extends Model
@@ -25,8 +26,8 @@ class Specie extends Model
         return $this->hasMany(Breed::class);
     }
 
-    public function vaccines(): HasMany
+    public function vaccines(): BelongsToMany
     {
-        return $this->hasMany(Vaccine::class);
+        return $this->belongsToMany(Vaccine::class);
     }
 }

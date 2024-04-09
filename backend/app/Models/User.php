@@ -71,4 +71,11 @@ class User extends Authenticatable
                     ->withPivot('association_id')
                     ->withTimestamps();
     }
+
+    public function animals(): BelongsToMany
+    {
+        return $this->belongsToMany(Animal::class, 'animal_user')
+        ->withPivot('comment')
+        ->withTimestamps();
+    }
 }

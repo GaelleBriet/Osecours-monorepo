@@ -11,6 +11,7 @@ class Association extends Model
 
     protected $fillable = [
         'name',
+        'description',
         'siret',
         'rib'
     ];

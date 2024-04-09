@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('address_person', function (Blueprint $table) {
             $table->id();
             $table->foreignId('address_id')->constrained();
-            $table->foreignId('person_id')->constrained('person');
+            $table->foreignId('person_id')->constrained('persons');
             $table->timestamps();
         });
     }
