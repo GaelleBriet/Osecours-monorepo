@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Animal extends Model
 {
@@ -15,7 +16,6 @@ class Animal extends Model
      * @var array<string>
      */
     protected $fillable = [
-        "id",
         "name",
         "description",
         "birth_date",
@@ -56,5 +56,15 @@ class Animal extends Model
     public function age_range(): BelongsTo
     {
         return $this->belongsTo(Age_range::class);
+    }
+
+    public function vaccines(): HasMany
+    {
+        return $this->hasMany(Vaccine::class);
+    }
+
+    public function healthcares(): HasMany
+    {
+        return $this->hasMany(Healthcare::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Document extends Model
 {
@@ -26,5 +27,10 @@ class Document extends Model
     public function mimetype(): BelongsTo
     {
         return $this->belongsTo(Mimetype::class);
+    }
+
+    public function healthcares(): HasMany
+    {
+        return $this->hasMany(Healthcare::class);
     }
 }

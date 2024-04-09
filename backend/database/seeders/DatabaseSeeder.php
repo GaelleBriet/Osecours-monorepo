@@ -15,6 +15,7 @@ use App\Models\Role;
 use App\Models\Size_range;
 use App\Models\Specie;
 use App\Models\User;
+use App\Models\Vaccine;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -517,6 +518,21 @@ class DatabaseSeeder extends Seeder
                 'name' => ucfirst($age),
                 'description' => '',
             ]);
+        }
+
+        $vaccines = [
+            ['name' => 'CHPPiL4/DHPP', 'description' => 'Distemper, Hépatite, Parvovirus, Parainfluenza, Leptospirose (CHPPiL4 inclut la Leptospirose)'],
+            ['name' => 'LEPTOSPIROSIS', 'description' => 'Leptospirose (si pas inclus dans CHPPiL4)'],
+            ['name' => 'BORDETELLA/INFLUENZA', 'description' => 'Bordetella bronchiseptica (agent principal de la toux du chenil), Influenza Canine (grippe canine)'],
+            ['name' => 'LYME', 'description' => 'Maladie de Lyme'],
+            ['name' => 'RABIES', 'description' => 'Rage'],
+            ['name' => 'FVRCP/RCP', 'description' => 'Rhinotrachéite (herpès type1, coryza), Calicivirus, Panleucopénie'],
+            ['name' => 'FeLV', 'description' => 'Leucose Féline (immunodéficience, cancers…)'],
+            ['name' => 'CHLAMYDOPHILA', 'description' => 'Chlamydophila felis (bactérie, conjonctivite, symptômes respiratoires)'],
+        ];
+
+        foreach ($vaccines as $vaccineData) {
+            Vaccine::create($vaccineData);
         }
 
     }
