@@ -22,7 +22,7 @@ class Vaccine extends Model
         return $this->hasMany(Animal::class);
     }
 
-    public function specie(): BelongsToMany
+    public function species(): BelongsToMany
     {
         return $this->belongsToMany(Specie::class);
     }

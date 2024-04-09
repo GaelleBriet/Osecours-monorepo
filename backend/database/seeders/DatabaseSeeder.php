@@ -521,18 +521,22 @@ class DatabaseSeeder extends Seeder
         }
 
         $vaccines = [
-            ['name' => 'CHPPiL4/DHPP', 'description' => 'Distemper, Hépatite, Parvovirus, Parainfluenza, Leptospirose (CHPPiL4 inclut la Leptospirose)'],
-            ['name' => 'LEPTOSPIROSIS', 'description' => 'Leptospirose (si pas inclus dans CHPPiL4)'],
-            ['name' => 'BORDETELLA/INFLUENZA', 'description' => 'Bordetella bronchiseptica (agent principal de la toux du chenil), Influenza Canine (grippe canine)'],
-            ['name' => 'LYME', 'description' => 'Maladie de Lyme'],
-            ['name' => 'RABIES', 'description' => 'Rage'],
-            ['name' => 'FVRCP/RCP', 'description' => 'Rhinotrachéite (herpès type1, coryza), Calicivirus, Panleucopénie'],
-            ['name' => 'FeLV', 'description' => 'Leucose Féline (immunodéficience, cancers…)'],
-            ['name' => 'CHLAMYDOPHILA', 'description' => 'Chlamydophila felis (bactérie, conjonctivite, symptômes respiratoires)'],
+            ['specie' => 'Dog', 'name' => 'CHPPiL4/DHPP', 'description' => 'Distemper, Hépatite, Parvovirus, Parainfluenza, Leptospirose (CHPPiL4 inclut la Leptospirose)'],
+            ['specie' => 'Dog', 'name' => 'LEPTOSPIROSIS', 'description' => 'Leptospirose (si pas inclus dans CHPPiL4)'],
+            ['specie' => 'Dog', 'name' => 'BORDETELLA/INFLUENZA', 'description' => 'Bordetella bronchiseptica (agent principal de la toux du chenil), Influenza Canine (grippe canine)'],
+            ['specie' => 'Cat', 'name' => 'BORDETELLA/INFLUENZA', 'description' => 'Bordetella bronchiseptica (agent principal de la toux du chenil), Influenza Canine (grippe canine)'],
+            ['specie' => 'Dog', 'name' => 'LYME', 'description' => 'Maladie de Lyme'],
+            ['specie' => 'Dog', 'name' => 'RABIES', 'description' => 'Rage'],
+            ['specie' => 'Cat', 'name' => 'RABIES', 'description' => 'Rage'],
+            ['specie' => 'Cat', 'name' => 'FVRCP/RCP', 'description' => 'Rhinotrachéite (herpès type1, coryza), Calicivirus, Panleucopénie'],
+            ['specie' => 'Cat', 'name' => 'FeLV', 'description' => 'Leucose Féline (immunodéficience, cancers…)'],
+            ['specie' => 'Cat', 'name' => 'CHLAMYDOPHILA', 'description' => 'Chlamydophila felis (bactérie, conjonctivite, symptômes respiratoires)'],
         ];
 
         foreach ($vaccines as $vaccineData) {
-            Vaccine::create($vaccineData);
+            $vaccineCreated = Vaccine::firstOrCreate(collect($vaccineData)->only(['name', 'description'])->toArray());
+            $specieBounded = Specie::where('name',$vaccineData['specie'])->first();
+            $vaccineCreated->species()->attach($specieBounded);
         }
 
     }
