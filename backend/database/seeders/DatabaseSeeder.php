@@ -14,6 +14,7 @@ use App\Models\Person;
 use App\Models\Role;
 use App\Models\Size_range;
 use App\Models\Specie;
+use App\Models\Status;
 use App\Models\User;
 use App\Models\Vaccine;
 use Illuminate\Support\Str;
@@ -539,5 +540,20 @@ class DatabaseSeeder extends Seeder
             $vaccineCreated->species()->attach($specieBounded);
         }
 
+        $statuses = [
+            'Found',
+            'Adoptable',
+            'Hosted',
+            'Adopted',
+            'Dead'
+        ];
+
+
+        foreach ($statuses as $status) {
+            $statusCreated = Status::factory()->create([
+                'name' => ucfirst($status),
+                'description' => '',
+            ]);
+        }
     }
 }
