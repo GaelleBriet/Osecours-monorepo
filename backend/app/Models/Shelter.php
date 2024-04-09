@@ -27,4 +27,18 @@ class Shelter extends Model
             ->withPivot('association_id')
             ->withTimestamps();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'animal_shelter_user')
+            ->withPivot('user_id')
+            ->withTimestamps();
+    }
+
+    public function animals()
+    {
+        return $this->belongsToMany(Animal::class, 'animal_shelter_user')
+            ->withPivot('animal_id')
+            ->withTimestamps();
+    }
 }

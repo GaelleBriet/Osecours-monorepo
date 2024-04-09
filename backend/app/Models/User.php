@@ -72,10 +72,24 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    public function animals(): BelongsToMany
+    public function animals1(): BelongsToMany
     {
         return $this->belongsToMany(Animal::class, 'animal_user')
         ->withPivot('comment')
         ->withTimestamps();
+    }
+
+    public function animals()
+    {
+        return $this->belongsToMany(Animal::class, 'animal_shelter_user')
+            ->withPivot('animal_id')
+            ->withTimestamps();
+    }
+
+    public function shelters()
+    {
+        return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
+            ->withPivot('shelter_id')
+            ->withTimestamps();
     }
 }

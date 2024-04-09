@@ -69,11 +69,11 @@ class Animal extends Model
         return $this->hasMany(Healthcare::class);
     }
 
-    public function users(): BelongsToMany
+    public function users1(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'animal_user')
-        ->withPivot('comment')
-        ->withTimestamps();
+            ->withPivot('comment')
+            ->withTimestamps();
     }
 
     public function documents(): BelongsToMany
@@ -81,4 +81,22 @@ class Animal extends Model
         return $this->belongsToMany(Document::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'animal_shelter_user')
+            ->withPivot('user_id')
+            ->withTimestamps();
+    }
+
+    public function shelters()
+    {
+        return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
+            ->withPivot('shelter_id')
+            ->withTimestamps();
+    }
+
+    public function statuses(): BelongsToMany
+    {
+        return $this->belongsToMany(Status::class);
+    }
 }
