@@ -28,7 +28,8 @@
 		"shelters": "refuges",
 		"dogs": "chiens",
 		"cats": "chats",
-		"families": "familles"
+		"families": "familles",
+		"animalsSettings": "paramètres"
 	},
 	"form": {
 		"email": "email",

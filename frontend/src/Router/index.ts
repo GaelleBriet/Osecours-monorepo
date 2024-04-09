@@ -10,6 +10,7 @@ import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
+import SettingsController from '@/Controllers/Animals/SettingsController.vue';
 
 const routes = [
 	{
@@ -42,6 +43,11 @@ const routes = [
 		path: '/animals/dogs',
 		name: 'Dogs',
 		component: DogsController,
+	},
+	{
+		path: '/animals/settings',
+		name: 'AnimalsSettings',
+		component: SettingsController,
 	},
 	{
 		path: '/organization',

@@ -86,44 +86,55 @@
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
 					/>
-					<FormNumber
-						:label="getCapitalizedText(t('pages.users.catCount'))"
-						v-model="user.cats"
-						:placeholder="getCapitalizedText(t('pages.users.catCount'))"
+					<FormText
+						:label="getCapitalizedText(t('form.phone'))"
+						v-model="user.phoneNumber"
+						:placeholder="getCapitalizedText(t('form.phone'))"
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
-						step="1"
 					/>
-					<FormNumber
-						:label="getCapitalizedText(t('pages.users.dogCount'))"
-						v-model="user.dogs"
-						:placeholder="getCapitalizedText(t('pages.users.dogCount'))"
-						:disabled="!isEditMode"
-						class="min-w-[110px]"
-						step="1"
-					/>
-					<FormNumber
-						:label="getCapitalizedText(t('pages.users.childrenCount'))"
-						v-model="user.children"
-						:placeholder="getCapitalizedText(t('pages.users.childrenCount'))"
-						:disabled="!isEditMode"
-						class="min-w-[110px]"
-						step="1"
-					/>
-					<div class="flex flex-col md:flex-row mt-5">
-						<FormToggle
-							:label="getCapitalizedText(t('pages.users.fosterFamily'))"
-							v-model="user.fosterFamily"
-							:disabled="!isEditMode"
-							class="min-w-[110px]"
-						/>
-						<FormToggle
-							:label="getCapitalizedText(t('pages.users.adoptFamily'))"
-							v-model="user.adoptFamily"
-							:disabled="!isEditMode"
-							class="min-w-[110px]"
-						/>
-					</div>
+
+					@todo: add address
+
+					<!--					<FormNumber-->
+					<!--						:label="getCapitalizedText(t('pages.users.catCount'))"-->
+					<!--						v-model="user.cats"-->
+					<!--						:placeholder="getCapitalizedText(t('pages.users.catCount'))"-->
+					<!--						:disabled="!isEditMode"-->
+					<!--						class="min-w-[110px]"-->
+					<!--						step="1"-->
+					<!--					/>-->
+					<!--					<FormNumber-->
+					<!--						:label="getCapitalizedText(t('pages.users.dogCount'))"-->
+					<!--						v-model="user.dogs"-->
+					<!--						:placeholder="getCapitalizedText(t('pages.users.dogCount'))"-->
+					<!--						:disabled="!isEditMode"-->
+					<!--						class="min-w-[110px]"-->
+					<!--						step="1"-->
+					<!--					/>-->
+					<!--					<FormNumber-->
+					<!--						:label="getCapitalizedText(t('pages.users.childrenCount'))"-->
+					<!--						v-model="user.children"-->
+					<!--						:placeholder="getCapitalizedText(t('pages.users.childrenCount'))"-->
+					<!--						:disabled="!isEditMode"-->
+					<!--						class="min-w-[110px]"-->
+					<!--						step="1"-->
+					<!--					/>-->
+
+					<!--					<div class="flex flex-col md:flex-row mt-5">-->
+					<!--						<FormToggle-->
+					<!--							:label="getCapitalizedText(t('pages.users.fosterFamily'))"-->
+					<!--							v-model="user.fosterFamily"-->
+					<!--							:disabled="!isEditMode"-->
+					<!--							class="min-w-[110px]"-->
+					<!--						/>-->
+					<!--						<FormToggle-->
+					<!--							:label="getCapitalizedText(t('pages.users.adoptFamily'))"-->
+					<!--							v-model="user.adoptFamily"-->
+					<!--							:disabled="!isEditMode"-->
+					<!--							class="min-w-[110px]"-->
+					<!--						/>-->
+					<!--					</div>-->
 				</div>
 				<div class="">
 					<div

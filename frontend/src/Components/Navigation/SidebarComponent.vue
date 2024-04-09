@@ -82,6 +82,12 @@
 					icon: 'icon-chat',
 					current: currentActiveRoute,
 				},
+				{
+					name: getCapitalizedText(t('navigation.animalsSettings')),
+					to: '/animals/settings',
+					icon: 'icon-reglages',
+					current: currentActiveRoute,
+				},
 			],
 		},
 		{

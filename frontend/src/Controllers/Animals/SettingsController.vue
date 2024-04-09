@@ -1,0 +1,45 @@
+<script setup lang="ts">
+	import TabsComponent from '@/Components/TabsComponent.vue';
+	import Species from '@/Views/Animals/Settings/Species.vue';
+	import Coats from '@/Views/Animals/Settings/Coats.vue';
+	import Breeds from '@/Views/Animals/Settings/Breeds.vue';
+	import Colors from '@/Views/Animals/Settings/Colors.vue';
+	import { ref } from 'vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+
+	const t = i18n.global.t;
+	const currentTab = ref(0);
+	const updateCurrentTab = (index) => {
+		currentTab.value = index;
+	};
+</script>
+
+<template>
+	<div class="container">
+		<div class="text-2xl mb-1">
+			{{ getCapitalizedText(t('gestion des caractéristiques')) }}
+		</div>
+		<TabsComponent
+			id="animalsTabsComponent"
+			:tabs="[
+				{ name: getCapitalizedText(t('espèces')) },
+				{ name: getCapitalizedText(t('races')) },
+				{ name: getCapitalizedText(t('robes')) },
+				{ name: getCapitalizedText(t('couleurs')) },
+			]"
+			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
+			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
+			@update:current-tab="updateCurrentTab"
+		/>
+
+		<div class="content">
+			<template v-if="currentTab === 0"><Species /></template>
+			<template v-if="currentTab === 1"><Breeds /></template>
+			<template v-if="currentTab === 2"><Coats /></template>
+			<template v-if="currentTab === 3"><Colors /></template>
+		</div>
+	</div>
+</template>
+
+<style scoped lang="postcss"></style>
