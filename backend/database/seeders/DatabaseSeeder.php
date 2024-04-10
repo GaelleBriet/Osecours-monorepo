@@ -10,6 +10,7 @@ use App\Models\Breed;
 use App\Models\City;
 use App\Models\Coat;
 use App\Models\Color;
+use App\Models\Gender;
 use App\Models\Person;
 use App\Models\Role;
 use App\Models\Size_range;
@@ -552,6 +553,19 @@ class DatabaseSeeder extends Seeder
         foreach ($statuses as $status) {
             $statusCreated = Status::factory()->create([
                 'name' => ucfirst($status),
+                'description' => '',
+            ]);
+        }
+
+        $genders = [
+            'Male',
+            'Female',
+            'Unknown'
+        ]; 
+
+        foreach ($genders as $gender) {
+            $genderCreated = Gender::factory()->create([
+                'name' => ucfirst($gender),
                 'description' => '',
             ]);
         }
