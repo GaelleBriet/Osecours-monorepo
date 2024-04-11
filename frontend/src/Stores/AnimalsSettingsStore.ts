@@ -43,7 +43,7 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		},
 		async createSpecies(
 			name: string,
-			description: string,
+			description?: string,
 		): Promise<Species | null> {
 			const species: Species | ErrorResponse = await createSpecies(
 				name,

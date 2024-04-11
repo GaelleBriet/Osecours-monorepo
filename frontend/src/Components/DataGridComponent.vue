@@ -7,7 +7,7 @@
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
-		title: string;
+		title?: string;
 		description: string;
 		columns: {
 			label: string;
