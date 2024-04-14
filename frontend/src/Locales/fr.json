@@ -79,7 +79,22 @@
 			"details": "détails",
 			"health": "santé",
 			"docs": "documents"
-
+		},
+		"associations": {
+			"card": "détails de votre association",
+			"siret": "numéro de SIRET",	
+			"rib": "relevé d'identité bancaire (RIB)",
+			"address": "adresse",
+			"zipcode": "code postal",
+			"city": "ville",
+			"shelters": "toutes mes refuges"
+		},
+		"shelters": {
+			"title": "liste des refuges sous la responsabilité de l'association.",
+			"card": "refuge details",
+			"siret": "numéro de SIRET",		
+			"phone": "numéro de téléphone",
+			"quantity": "nombre d'animaux"		
 		}
 	},
 	"enums": {
@@ -110,6 +125,17 @@
 			"young": "jeune",
 			"adult": "adulte",
 			"senior": "sénior"
+		},
+		"associationStatus": {
+			"pending": "pending",
+			"in_progress": "en cours",
+			"cancelled": "cancelled",
+			"on_hold": "en pause",
+			"completed": "complété",
+			"archived": "archivé",
+			"draft": "brouillon",
+			"accepted": "accepté",
+			"rejected": "rejeté"
 		}
 	}
 }
