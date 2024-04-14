@@ -7,6 +7,8 @@ import DogsController from '@/Controllers/DogsController.vue';
 import CatsController from '@/Controllers/CatsController.vue';
 import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
 import SheltersController from '@/Controllers/SheltersController.vue';
+import ShelterDetails from '@/Views/Shelters/ShelterDetails.vue';
+import AssociationController from '@/Controllers/AssociationController.vue';
 
 const routes = [
 	{
@@ -43,12 +45,17 @@ const routes = [
 	{
 		path: '/organization',
 		name: 'Organization',
-		component: HomeViewController,
+		component: AssociationController,
 	},
 	{
 		path: '/shelters',
 		name: 'Shelters',
 		component: SheltersController,
+	},
+	{
+		path: '/shelters/:id',
+		name: 'EditShelter',
+		component: ShelterDetails,
 	},
 	{
 		path: '/members',
