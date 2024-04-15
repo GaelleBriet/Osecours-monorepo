@@ -8,7 +8,7 @@
 		store: object;
 		modelValue: object[];
 		title?: string;
-		description: string;
+		description?: string;
 		columns: {
 			label: string;
 			key: string | ((item: object) => string);
@@ -18,6 +18,7 @@
 				lg?: boolean;
 			};
 		}[];
+		animalsChars?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -35,7 +36,10 @@
 
 <template>
 	<div>
-		<div class="sm:flex sm:items-center">
+		<div
+			v-if="!animalsChars"
+			class="sm:flex sm:items-center"
+		>
 			<div class="sm:flex-auto">
 				<h1 class="text-base leading-6 text-gray-900">
 					{{ props.title }}
@@ -54,8 +58,27 @@
 				</button>
 			</div>
 		</div>
+		<div
+			v-else
+			class="relative flex justify-end -top-8 z-0"
+		>
+			<button
+				id="add-animal-btn"
+				type="button"
+				class="rounded-md px-3 py-2 text-center text-sm"
+			>
+				{{ getCapitalizedText(t('pages.animals.addChar')) }}
+			</button>
+		</div>
 
-		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
+		<div
+			class=""
+			:class="
+				props.animalsChars
+					? '-mx-4 mt-0 sm:-mx-0 overflow-hidden'
+					: '-mx-4 mt-8 sm:-mx-0 overflow-hidden'
+			"
+		>
 			<!-- view cards for smartphones -->
 			<div class="custonmXs:hidden">
 				<div

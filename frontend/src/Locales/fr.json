@@ -86,7 +86,8 @@
 			"birthdate": "date de naissance",
 			"details": "détails",
 			"health": "santé",
-			"docs": "documents"
+			"docs": "documents",
+			"addChar": "ajouter une caractéristique"
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",

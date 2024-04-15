@@ -60,7 +60,7 @@
 		<!--		affiche les tabs sur grand écran   -->
 		<div class="hidden sm:block">
 			<nav
-				class="flex space-x-4"
+				class="flex relative space-x-4 z-20"
 				aria-label="Tabs"
 			>
 				<template

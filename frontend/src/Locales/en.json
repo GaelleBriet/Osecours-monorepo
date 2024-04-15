@@ -86,7 +86,8 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
-			"docs": "documents"
+			"docs": "documents",
+			"addChar": "add characteristics"
 		},
 		"families": {
 			"title": "list of families",

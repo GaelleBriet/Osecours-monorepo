@@ -3,7 +3,6 @@
 	import { onMounted, ref } from 'vue';
 	import { Species } from '@/Interfaces/Species.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
@@ -19,15 +18,15 @@
 	});
 </script>
 <template>
-	<div class="w-full p-0">
+	<div class="w-full p-0 relative -top-[35px]">
 		<DataGridComponent
 			:store="animalSettingsStore"
 			:model-value="species"
-			:description="getCapitalizedText(t('paramétrage des espèces'))"
 			:columns="[
 				{ label: 'Espèce', key: 'name' },
 				{ label: 'Description', key: 'description' },
 			]"
+			:animals-chars="true"
 		/>
 	</div>
 </template>

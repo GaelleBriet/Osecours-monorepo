@@ -13,13 +13,29 @@
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
 	};
+
+	const tabDescriptions = [
+		'paramétrage des espèces',
+		'paramétrage des races',
+		'paramétrage des robes',
+		'paramétrage des couleurs',
+	];
 </script>
 
 <template>
 	<div class="container">
-		<div class="text-2xl mb-1">
+		<h1 class="mb-5">
 			{{ getCapitalizedText(t('gestion des caractéristiques')) }}
-		</div>
+		</h1>
+		<template v-for="(text, index) in tabDescriptions">
+			<p
+				v-if="currentTab === index"
+				:key="index"
+				class="text-sm text-gray-700 mb-5"
+			>
+				{{ getCapitalizedText(text) }}
+			</p>
+		</template>
 		<TabsComponent
 			id="animalsTabsComponent"
 			:tabs="[
