@@ -69,6 +69,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			console.log(animalToSend);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -91,6 +92,7 @@ export const useAnimalsStore = defineStore('animals', {
 			// }
 		},
 		initializeAnimalProperties(animal: Animal): Animal {
+			console.log(animal);
 			return {
 				...animal,
 				name: animal.name || '',
@@ -102,14 +104,14 @@ export const useAnimalsStore = defineStore('animals', {
 				age: animal.age || null,
 				behavioralComment: animal.behavioralComment || '',
 				icad: animal.icad || '',
-				species: animal.species || '',
+				specie_id: animal.specie_id || undefined,
 				breed: animal.breed || '',
 				status: animal.status || '',
-				gender: animal.gender || '',
-				size: animal.size || '',
-				coat: animal.coat || '',
-				color: animal.color || '',
-				ageRange: animal.ageRange || '',
+				gender: animal.gender || '', //gender_id
+				size: animal.size || '', //sizerange_id
+				coat: animal.coat || '', //coat_id
+				color: animal.color || '', //color_id
+				ageRange: animal.ageRange || '', //agerange_id
 			};
 		},
 	},

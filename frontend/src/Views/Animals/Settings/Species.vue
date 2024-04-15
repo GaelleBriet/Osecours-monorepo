@@ -14,7 +14,14 @@
 		// on récupère les especes depuis le store
 		await animalSettingsStore.getAllSpecies();
 		// on met à jour la liste des especes
-		species.value = animalSettingsStore.allSpecies;
+		species.value = animalSettingsStore.allSpecies.map((species) => {
+			return {
+				...species,
+				name: t(species.name),
+				description: t(species.description),
+			};
+		});
+		console.log(species.value);
 	});
 </script>
 <template>

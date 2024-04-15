@@ -1,16 +1,3 @@
-// exemple d'objet reçu de l'api
-// {
-// 	"id": 1,
-// 	"name": "Nom de l'animal",
-//   ...
-// 	"species_id": 1,
-// ou alors
-// "species": {
-// 	"id": 1,
-// 		"name": "Chien"
-// },
-// }
-
 export interface Animal {
 	id?: number;
 	name?: string;
@@ -31,7 +18,7 @@ export interface Animal {
 	coat?: string;
 	gender?: number | string;
 	ageRange?: number | string;
-	species?: number | string;
+	specie_id?: number;
 	status?: number | string;
 	size?: number | string;
 }

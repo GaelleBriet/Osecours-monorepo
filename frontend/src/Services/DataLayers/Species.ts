@@ -20,25 +20,10 @@ export const getOneSpecies = async (
 
 export const getAllSpecies = async (): Promise<Species[] | ErrorResponse> => {
 	try {
-		const response = {
-			data: [
-				{
-					id: 1,
-					name: 'Dog',
-					description: 'A domesticated carnivorous mammal.',
-				},
-				{
-					id: 2,
-					name: 'Cat',
-					description: 'A domesticated carnivorous mammal.',
-				},
-			],
-		};
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_SPECIES_API_URL}/all`,
+		);
 		return response.data;
-		// const response: AxiosResponse = await axiosInstance.get(
-		// 	`${import.meta.env.VITE_SPECIES_API_URL}/all`,
-		// );
-		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);

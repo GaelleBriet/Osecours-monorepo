@@ -61,7 +61,6 @@
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
-			console.log('create animal', createdAnimal.value);
 			const newAnimal: Animal = await animalsStore.createAnimal(
 				createdAnimal.value,
 			);
@@ -155,16 +154,17 @@
 					<FormSelect
 						id="animal-species"
 						:model-value="
-							!isCreateMode ? animal.species : createdAnimal.species
+							!isCreateMode ? animal.species : createdAnimal.specie_id
 						"
 						:name="'animal-species'"
 						:label="getCapitalizedText(t('pages.animals.species'))"
 						:options="animalSpeciesOptions"
+						placeholder="Choisir une espèce"
 						:disabled="!isEditMode"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.species = $event)
-								: (createdAnimal.species = $event)
+								: (createdAnimal.specie_id = $event)
 						"
 					/>
 				</div>
