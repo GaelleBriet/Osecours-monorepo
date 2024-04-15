@@ -3,31 +3,56 @@
 		"next": "suivant",
 		"cancel": "annuler",
 		"logIn": "connexion",
-		"register": "enregistrement",
-		"welcome": "bienvenue!"
+		"register": "enregistrer",
+		"welcome": "bienvenue!",
+		"profile": "profil",
+		"edit": "modifier",
+		"editMode": "mode édition",
+		"add": "ajouter",
+		"actions": "action | actions",
+		"name": "nom",
+		"other": "autre"
 	},
 	"navigation": {
 		"home": "accueil",
 		"about": "à propos",
-		"contact": "contact"
+		"contact": "contact",
+		"dashboard": "tableau de bord",
+		"animals": "animaux",
+		"users": "utilisateurs",
+		"calendar": "calendrier",
+		"settings": "paramètres",
+		"documents": "documents",
+		"organization": "association",
+		"members": "membres",
+		"shelters": "refuges",
+		"dogs": "chiens",
+		"cats": "chats",
+		"families": "familles"
 	},
 	"form": {
 		"email": "email",
 		"password": "mot de passe",
-		"rememberMe": "Se souvenir de moi"
+		"rememberMe": "Se souvenir de moi",
+		"name": "nom",
+		"firstName": "prénom",
+		"lastName": "nom de famille",
+		"phone": "téléphone"
 	},
 	"login": {
 		"title": "connection",
 		"description": "connectez-vous pour accéder à votre compte.",
 		"forgotPassword": "mot de passe oublié ?",
 		"signIn": "se connecter",
-		"error": "identifiants incorrects. Veuillez réessayer"
+		"error": "identifiants incorrects. Veuillez réessayer",
+		"selectAssociation": "sélectionnez votre association"
 	},
 	"register": {
 		"title": "enregistrement",
 		"description": "créez un compte pour commencer."
 	},
 	"logout": {
+		"title": "déconnexion",
 		"confirmation": "êtes-vous sûr de vouloir vous déconnecter ?"
 	},
 	"pages": {
@@ -41,6 +66,75 @@
 		"contact": {
 			"header": "contactez-nous",
 			"instructions": "remplissez le formulaire ci-dessous pour nous envoyer un message."
+		},
+		"animals": {
+			"title": "liste des animaux sous la responsabilité de l'association.",
+			"dogsTitle": "liste des chien sous la responsabilité de l'association.",
+			"catsTitle": "liste des chats sous la responsabilité de l'association.",
+			"card": "fiche animal",
+			"icad": "numéro I-CAD",
+			"species": "espèce",
+			"breed": "race",
+			"description": "description",
+			"status": "statut",
+			"gender": "genre",
+			"coat": "robe",
+			"color": "couleur",
+			"size": "taille",
+			"ageRange": "tranche d'âge",
+			"birthdate": "date de naissance",
+			"details": "détails",
+			"health": "santé",
+			"docs": "documents"
+
+		},
+		"users": {
+			"title": "liste des utilisateurs de l'association.",
+			"card": "fiche utilisateur",
+			"role": "rôle",
+			"phone": "téléphone",
+			"address": "adresse",
+			"city": "ville",
+			"zip": "code postal",
+			"country": "pays",
+			"details": "détails",
+			"personal": "informations personnelles",
+			"profileUpdated": "votre profil à bien été mis à jour",
+			"catCount": "nombre de chats",
+			"dogCount": "nombre de chiens",
+			"childrenCount": "nombre d'enfants",
+			"adoptFamily": "famille adoptante",
+			"fosterFamily": "famille d'accueil"
+		}
+	},
+	"enums": {
+		"animalSpecies": {
+			"dog": "chien",
+			"cat": "chat"
+		},
+		"animalStatus": {
+			"available": "disponible",
+			"adopted": "adopté",
+			"lost": "perdu",
+			"found": "trouvé",
+			"deceased": "décédé",
+			"underObservation": "sous observation",
+			"fosterFamily": "en famille d'accueil"
+		},
+		"animalGenders": {
+			"male": "mâle",
+			"female": "femelle"
+		},
+		"animalSizes": {
+			"small": "petit",
+			"medium": "moyen",
+			"large": "grand"
+		},
+		"animalAges": {
+			"baby": "bébé",
+			"young": "jeune",
+			"adult": "adulte",
+			"senior": "sénior"
 		}
 	}
 }

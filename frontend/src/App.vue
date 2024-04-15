@@ -1,14 +1,13 @@
 <script setup lang="ts">
 	import SidebarComponent from '@/Components/Navigation/SidebarComponent.vue';
-	import { useUserStore } from '@/Stores/UserStore';
-	import LoginController from '@/Controllers/LoginController.vue';
-	import router from '@/Router';
-
-	const userStore = useUserStore();
+	import LoginController from '@/Controllers/Login/LoginController.vue';
 </script>
 
 <template>
-	<div v-if="$route.name === 'Login'">
+	<div
+		v-if="$route.name === 'Login'"
+		class="h-full"
+	>
 		<LoginController />
 	</div>
 	<div
@@ -17,13 +16,13 @@
 	>
 		<div
 			id="sidebar-container"
-			class="w-full max-w-48 :sm:max-w-20"
+			class="w-full max-w-56 :sm:max-w-20 flex"
 		>
 			<SidebarComponent />
 		</div>
 		<div
 			id="main-container"
-			class="w-full h-full container mx-auto pt-12 px-12"
+			class="w-full h-full mx-auto py-4 px-5"
 		>
 			<RouterView class="flex-grow" />
 		</div>

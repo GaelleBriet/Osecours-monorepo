@@ -4,30 +4,55 @@
 		"cancel": "cancel",
 		"logIn": "log in",
 		"register": "register",
-		"welcome": "welcome!"
+		"welcome": "welcome!",
+		"profile": "profile",
+		"edit": "edit",
+		"editMode": "edit mode",
+		"add": "add",
+		"actions": "action | actions",
+		"name": "name",
+		"other": "other"
 	},
 	"navigation": {
 		"home": "home",
 		"about": "about",
-		"contact": "contact"
+		"contact": "contact",
+		"dashboard": "dashboard",
+		"animals": "animals",
+		"users": "users",
+		"calendar": "calendar",
+		"settings": "settings",
+		"documents": "documents",
+		"organization": "organization",
+		"members": "members",
+		"shelters": "shelters",
+		"dogs": "dogs",
+		"cats": "cats",
+		"families": "families"
 	},
 	"form": {
 		"email": "email",
 		"password": "password",
-		"rememberMe": "remember me"
+		"rememberMe": "remember me",
+		"name": "name",
+		"firstName": "first name",
+		"lastName": "last name",
+		"phone": "phone"
 	},
 	"login": {
 		"title": "log in",
 		"description": "log in to access your account.",
 		"forgotPassword": "forgot your password?",
-		"singIn": "sign in",
-		"error": "Invalid credentials. Please try again."
+		"signIn": "sign in",
+		"error": "Invalid credentials. Please try again.",
+		"selectAssociation": "select your organization"
 	},
 	"register": {
 		"title": "register",
 		"description": "create an account to get started."
 	},
 	"logout": {
+		"title": "log out",
 		"confirmation": "are you sure you want to log out?"
 	},
 	"pages": {
@@ -41,6 +66,75 @@
 		"contact": {
 			"header": "contact us",
 			"instructions": "fill out the form below to send us a message."
+		},
+		"animals": {
+			"title": "list of animals under the association's responsibility.",
+			"dogsTitle": "list of dogs under the association's responsibility.",
+			"catsTitle": "list of cats under the association's responsibility.",
+			"card": "animal card",
+			"icad": "ICAD number",
+			"species": "species",
+			"breed": "breed",
+			"description": "description",
+			"status": "status",
+			"gender": "gender",
+			"coat": "coat",
+			"color": "color",
+			"size": "size",
+			"ageRange": "age range",
+			"birthdate": "birthdate",
+			"details": "details",
+			"health": "health",
+			"docs": "documents"
+		},
+		"users": {
+			"title": "list of users",
+			"card": "user card",
+			"role": "role",
+			"email": "email",
+			"phone": "phone",
+			"address": "address",
+			"city": "city",
+			"zip": "zip code",
+			"country": "country",
+			"details": "details",
+			"personal": "personal information",
+			"profileUpdated": "your profile has been updated",
+			"catCount": "number of cats",
+			"dogCount": "number of dogs",
+			"childrenCount": "number of children",
+			"adoptFamily": "adopt family",
+			"fosterFamily": "foster family"
+		}
+	},
+	"enums": {
+		"animalSpecies": {
+			"dog": "dog",
+			"cat": "cat"
+		},
+		"animalStatus": {
+			"available": "available",
+			"adopted": "adopted",
+			"lost": "lost",
+			"found": "found",
+			"deceased": "deceased",
+			"underObservation": "under observation",
+			"fosterFamily": "foster family"
+		},
+		"animalGenders": {
+			"male": "male",
+			"female": "female"
+		},
+		"animalSizes": {
+			"small": "small",
+			"medium": "medium",
+			"large": "large"
+		},
+		"animalAges": {
+			"baby": "baby",
+			"young": "young",
+			"adult": "adult",
+			"senior": "senior"
 		}
 	}
 }

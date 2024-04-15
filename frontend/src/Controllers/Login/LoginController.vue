@@ -8,19 +8,19 @@
 	import AlertComponent from '@/Components/AlertComponent.vue';
 	import { User } from '@/Interfaces/User.ts';
 	import { Association } from '@/Interfaces/User.ts';
-	import { useUserStore } from '@/Stores/UserStore';
+	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations/index.ts';
+	import i18n from '@/Services/Translations';
 
-	const t = i18n.global.t;
 	const userStore = useUserStore();
 	const router = useRouter();
+	const t = i18n.global.t;
 
 	const email = ref('');
 	const password = ref('');
-	const selectedAssociation = ref('');
+	const selectedAssociation = ref(null);
 	const selectOptions = ref([]);
 	const associations = ref<Association[]>([]);
 	const rememberMe = ref(localStorage.getItem('rememberMe') === 'true');
@@ -39,8 +39,15 @@
 			await router.push({ name: 'Login' });
 		}
 		if (user && user.associations) {
+			console.log(user.associations);
 			associations.value = user.associations;
 		}
+	};
+
+	const handleAssociationChange = async (value) => {
+		selectedAssociation.value = value;
+		console.log(selectedAssociation.value);
+		await onAssociationChange();
 	};
 
 	const onAssociationChange = async () => {
@@ -61,13 +68,9 @@
 
 	const getAssociations = () => {
 		return [
-			{
-				value: 0,
-				label: 'Sélectionnez votre association',
-			},
 			...associations.value.map((association) => {
 				return {
-					value: association.id,
+					value: association.id.toString(),
 					label: association.name,
 				};
 			}),
@@ -96,15 +99,15 @@
 </script>
 
 <template>
-	<div class="flex min-h-full flex-1 ps-16">
+	<div class="flex min-h-full flex-1 ps-16 flex-row">
 		<div
-			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24"
+			class="flex flex-1 flex-col justify-center px-4 sm:px-6 lg:flex-none xl:px-48"
 		>
 			<div class="mx-auto w-full max-w-sm lg:w-96">
 				<div>
 					<img
 						class="h-28 w-auto mx-auto"
-						src="@/Assets/Images/logo-osecours.svg"
+						src="../../Assets/Images/logo-osecours.svg"
 						alt="logo-osecours"
 					/>
 					<h2
@@ -161,7 +164,7 @@
 								<div class="text-sm leading-6">
 									<a
 										href="#"
-										class="font-semibold text-indigo-600 hover:text-indigo-500"
+										class="font-normal text-osecours-beige-dark hover:text-osecours-pink"
 										>{{ getCapitalizedText(t('login.forgotPassword')) }}</a
 									>
 								</div>
@@ -184,11 +187,13 @@
 										:id="association.id.toString()"
 										:name="'selectAssociation'"
 										:options="selectOptions"
-										v-model="selectedAssociation"
-										placeholder="Please select an association"
-										@update:model-value="selectedAssociation = $event"
-										@input="onAssociationChange"
+										:model-value="selectedAssociation"
+										:placeholder="
+											getCapitalizedText(t('login.selectAssociation'))
+										"
+										@update:model-value="handleAssociationChange"
 									/>
+									<!--										@input="onAssociationChange"-->
 								</div>
 							</div>
 						</div>
@@ -241,7 +246,7 @@
 					<!--						<div class="mt-6 grid grid-cols-2 gap-4">-->
 					<!--							<a-->
 					<!--								href="#"-->
-					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
+					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-normal text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
 					<!--							>-->
 					<!--								<svg-->
 					<!--									class="h-5 w-5"-->
@@ -265,12 +270,12 @@
 					<!--										fill="#34A853"-->
 					<!--									/>-->
 					<!--								</svg>-->
-					<!--								<span class="text-sm font-semibold leading-6">Google</span>-->
+					<!--								<span class="text-sm font-normal leading-6">Google</span>-->
 					<!--							</a>-->
 
 					<!--							<a-->
 					<!--								href="#"-->
-					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
+					<!--								class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-normal text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"-->
 					<!--							>-->
 					<!--								<svg-->
 					<!--									class="h-5 w-5 fill-[#24292F]"-->
@@ -284,7 +289,7 @@
 					<!--										clip-rule="evenodd"-->
 					<!--									/>-->
 					<!--								</svg>-->
-					<!--								<span class="text-sm font-semibold leading-6">GitHub</span>-->
+					<!--								<span class="text-sm font-normal leading-6">GitHub</span>-->
 					<!--							</a>-->
 					<!--						</div>-->
 					<!--					</div>-->
@@ -294,9 +299,20 @@
 		<div class="relative hidden w-0 flex-1 lg:block">
 			<img
 				class="absolute inset-0 h-full w-full object-contain"
-				src="@/Assets/Images/dog-sketch.jpg"
+				src="../../Assets/Images/dog-sketch.jpg"
 				alt=""
 			/>
 		</div>
 	</div>
 </template>
+<style lang="postcss" scoped>
+	button {
+		background-color: rgba(217, 153, 98);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
+	}
+</style>

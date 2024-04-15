@@ -6,6 +6,7 @@ import {
 	removeFromStorage,
 	setToStorage,
 } from '@/Services/Helpers/LocalStorage.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
 export const useUserStore = defineStore({
 	id: 'user',
@@ -29,7 +30,9 @@ export const useUserStore = defineStore({
 	},
 	actions: {
 		async loginUser(email: string, password: string): Promise<User> {
-			const user: { error: string } = await login(email, password);
+			if (!email || !password)
+				throw new Error('Email and password are required.');
+			const user: Partial<User> | ErrorResponse = await login(email, password);
 			if (user) {
 				this.user = user as User;
 				setToStorage('user', this.user);
@@ -54,6 +57,7 @@ export const useUserStore = defineStore({
 					...this.user,
 					token: userTokenScope.token,
 					scopes: userTokenScope.scopes,
+					email: email,
 					associationName: associationName ? associationName : '',
 				};
 				setToStorage('token', this.user.token);

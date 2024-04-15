@@ -6,7 +6,7 @@ import type { FormKitNode } from '@formkit/core';
  * edited unless you’d like to "eject" from the CLI’s ability to update it.
  *
  * @checksum - 0d82d9ac4326325e6e0ea69c40f223319190d1e97ba39e4dd4f5119e2008ad81
- * @variables - radius=rounded-lg,accentColor=blue,colorTemperature=neutral,spacing=2,scale=base,inputShadow=shadow,baseColorShade=600,borderShadeLightMode=400,borderShadeDarkMode=500,inputMaxWidth=max-w-[24em],tagRadius=rounded,swatchRadius=rounded
+ * @variables - radius=rounded-lg,accentColor=blue,colorTemperature=neutral,spacing=2,scale=base,inputShadow=shadow,baseColorShade=600,borderShadeLightMode=400,borderShadeDarkMode=500,inputMaxWidth=max-w-[40em],tagRadius=rounded,swatchRadius=rounded
  * @theme - regenesis
  **/
 
@@ -62,7 +62,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'selection:bg-blue-100': true,
 		'selection:text-neutral-700': true,
 		'group-data-[has-overlay]:selection:!text-transparent': true,
-		'font-bold': true,
+		'font-medium': true,
 		'rounded-lg': true,
 		'outline-none': true,
 		flex: true,
@@ -96,7 +96,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-500': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'dark:text-neutral-700': true,
 		'mb-2': true,
 	},
@@ -169,7 +169,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'mb-1': true,
 		'!mb-0': true,
 		'!font-normal': true,
@@ -205,7 +205,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'dark:text-neutral-700': true,
 		'!inline-flex': true,
 		'mb-1': true,
@@ -772,7 +772,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	form__summaryHeader: {
 		'text-lg': true,
 		'text-neutral-700': true,
-		'font-bold': true,
+		'font-medium': true,
 		'mb-2': true,
 		'dark:text-neutral-700': true,
 	},
@@ -938,7 +938,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'group/optgroup': true,
 		'group-data-[multiple]:px-1.5': true,
 		'pt-1.5': true,
-		'font-bold': true,
+		'font-medium': true,
 		'text-sm': true,
 		'dark:bg-neutral-800': false,
 		'dark:text-neutral-700': true,
@@ -988,7 +988,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	submit__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -1189,7 +1189,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	colorpicker__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -2094,7 +2094,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'dark:text-neutral-700': true,
 		'mb-2': true,
 	},
@@ -2280,7 +2280,7 @@ const classes: Record<string, Record<string, boolean>> = {
 	},
 	slider__outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -2527,7 +2527,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'w-full': true,
 		'mb-1.5': true,
-		'font-bold': true,
+		'font-medium': true,
 		'text-xs': true,
 		'text-neutral-700': true,
 		'dark:text-neutral-700': true,
@@ -2554,7 +2554,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'mb-1': true,
 		'dark:text-neutral-700': true,
 		'peer-first:font-normal': true,
@@ -2564,7 +2564,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		absolute: true,
 		'text-neutral-200': true,
 		'text-[10px]': true,
-		'font-bold': true,
+		'font-medium': true,
 		'select-none': true,
 		'left-full': true,
 		'top-1/2': true,
@@ -2605,7 +2605,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'dark:bg-neutral-500': true,
 	},
 	toggle__valueLabel: {
-		'font-bold': true,
+		'font-medium': true,
 		'text-xs': true,
 		'text-neutral-700': true,
 		'dark:text-neutral-700': true,
@@ -3171,7 +3171,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'group-data-[tab-style=tab]/wrapper:shadow-[inset_0_-0.5em_0.5em_-0.5em_rgba(0,0,0,0.1)]':
 			true,
 		'group-data-[tab-style=tab]/wrapper:data-[active=true]:bg-white': true,
-		'group-data-[tab-style=tab]/wrapper:data-[active=true]:font-bold': true,
+		'group-data-[tab-style=tab]/wrapper:data-[active=true]:font-medium': true,
 		'group-data-[tab-style=tab]/wrapper:data-[active=true]:border-b-white':
 			true,
 		'group-data-[tab-style=tab]/wrapper:data-[active=true]:z-10': true,
@@ -3230,7 +3230,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'bg-red-600': true,
 		absolute: true,
 		'font-mono': true,
-		'font-bold': true,
+		'font-medium': true,
 		flex: true,
 		'items-center': true,
 		'justify-center': true,
@@ -3293,7 +3293,7 @@ const classes: Record<string, Record<string, boolean>> = {
 const globals: Record<string, Record<string, boolean>> = {
 	outer: {
 		group: true,
-		'max-w-[24em]': true,
+		'max-w-[40em]': true,
 		'min-w-0': true,
 		grow: true,
 		'mb-4': true,
@@ -3305,7 +3305,7 @@ const globals: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'mb-1': true,
 		'dark:text-neutral-700': true,
 	},
@@ -3313,7 +3313,7 @@ const globals: Record<string, Record<string, boolean>> = {
 		block: true,
 		'text-neutral-700': true,
 		'text-sm': true,
-		'font-bold': true,
+		'font-medium': true,
 		'dark:text-neutral-700': true,
 	},
 	input: {

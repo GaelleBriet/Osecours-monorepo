@@ -6,7 +6,7 @@
 	const props = defineProps<{
 		classes?: object;
 		disabled?: boolean;
-		id: string;
+		id?: string;
 		label?: string;
 		modelValue?: string | undefined;
 		name?: string;
@@ -35,25 +35,12 @@
 			node.context.state.dirty = true;
 		}
 
-		// node.input(inputElement.value);
-		// if (props.validation) {
-		// 	applyValidation(node);
-		// }
-
 		if (inputElement.value === '') {
 			const innerWrapper = inputElement.closest('[data-complete]');
 			if (innerWrapper) innerWrapper.removeAttribute('data-complete');
 		}
 		emit('blur', e);
 	};
-	// watch(
-	// 	() => props.modelValue,
-	// 	() => {
-	// 		const node = getNode(props.id);
-	// 		if (!node) return;
-	// 		node.input(props.modelValue, false);
-	// 	}
-	// );
 </script>
 <template>
 	<FormKit
@@ -67,9 +54,17 @@
 		:validation="validation"
 		:validation-visibility="validationVisibility"
 		:disabled="disabled"
+		:classes="{
+			inner: 'max-h-10',
+			input: 'text-sm',
+		}"
 		type="text"
 		@blur="onBlur"
 	/>
 </template>
-<style scoped></style>
+<style scoped>
+	.group {
+		margin-bottom: 4px !important;
+	}
+</style>
 <!--		@update:model-value="emit('update:modelValue', $event as string)"-->
