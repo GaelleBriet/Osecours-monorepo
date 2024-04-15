@@ -88,7 +88,13 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
-			"docs": "documents"
+			"docs": "documents",
+			"addChar": "add characteristics",
+			"settingChars": "characteristics settings",
+			"settingSpecies": "species settings",
+			"settingBreeds": "breeds settings",
+			"settingColors": "colors settings",
+			"settingCoats": "coats settings"
 		},
 		"associations": {
 			"card": "details of your association.",
