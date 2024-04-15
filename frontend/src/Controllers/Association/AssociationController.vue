@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import DataGridComponent from '@/Components/DataGridComponent.vue';
-import TabsComponent from '@/Components/TabsComponent.vue';
 import { useAssociationsStore } from '@/Stores/AssociationsStore.ts';
 import { computed, onMounted, ref } from 'vue';
 import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
