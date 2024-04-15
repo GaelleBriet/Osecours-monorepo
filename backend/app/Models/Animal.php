@@ -7,26 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Animal extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array<string>
      */
     protected $fillable = [
-        "name",
-        "description",
-        "birth_date",
-        "cats_friendly",
-        "dogs_friendly",
-        "children_friendly",
-        "age",
-        "behavioral_comment",
-        "sterilized",
-        "deceased"
+        'name', 'description', 'birth_date', 'cats_friendly', 'dogs_friendly',
+        'children_friendly', 'age', 'behavioral_comment', 'sterilized', 'deceased',
+        'specie_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id'
     ];
 
     public function gender(): BelongsTo
@@ -98,5 +92,36 @@ class Animal extends Model
     public function statuses(): BelongsToMany
     {
         return $this->belongsToMany(Status::class);
+    }
+
+
+    public function getSpecieNameAttribute()
+    {
+        return $this->specie ? $this->specie->name : null;
+    }
+
+    public function getGenderNameAttribute()
+    {
+        return $this->gender ? $this->gender->name : null;
+    }
+
+    public function getColorNameAttribute()
+    {
+        return $this->color ? $this->color->name : null;
+    }
+
+    public function getCoatNameAttribute()
+    {
+        return $this->coat ? $this->coat->name : null;
+    }
+
+    public function getSizerangeNameAttribute()
+    {
+        return $this->sizerange ? $this->sizerange->name : null;
+    }
+
+    public function getAgerangeNameAttribute()
+    {
+        return $this->agerange ? $this->agerange->name : null;
     }
 }

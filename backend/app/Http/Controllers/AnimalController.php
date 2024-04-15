@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AnimalNotFoundException;
+use App\Http\Requests\AnimalRequest;
 use App\Http\Services\AnimalService;
 use App\Http\Services\ErrorService;
 use App\Models\Animal;
@@ -31,11 +33,10 @@ class AnimalController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(AnimalRequest $request)
     {
-        try {
-            $validated = $request->validate();
-            $this->animalService->create($validated);
+        try {            
+            return $this->animalService->create($request->validated());
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }
@@ -46,48 +47,30 @@ class AnimalController extends Controller
         //
     }
 
-    public function update(Request $request, string $id)
+    public function update(AnimalRequest $request, string $id)
     {
         try {
-            $this->animalService->update($id,$request);
+            $animal = $this->animalService->update($id,$request->validated());
+            if ($animal) {
+                return $animal;
+            } else {
+                throw new AnimalNotFoundException('Animal not found');
+            }
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy($id){
+        try{
+            $deleteAnimal = $this->animalService->softDelete($id);
+            return response()->json([
+                'message' => 'L\'animal a été supprimé avec succès.',
+                'animal' => $deleteAnimal
+            ]);
 
-    public function updateGender(Request $request) {
-        $request->validate([
-            'animal_id' => 'required|exists:animals,id',
-            'gender_id' => 'required|exists:genders,id',
-        ]);
-        $animal = Animal::findOrFail($request->animal_id);
-        $animal->gender_id = $request->gender_id;
-        $animal->save();
-        return response()->json([
-            'message' => 'Le genre de l\'animal a été mis à jour avec succès.',
-            'animal' => $animal
-        ]);
-    }
-
-    public function updateSpecie(Request $request) {
-        $request->validate([
-            'animal_id' => 'required|exists:animals,id',
-            'specie_id' => 'required|exists:species,id',
-        ]);
-        $animal = Animal::findOrFail($request->animal_id);
-        $animal->specie_id = $request->specie_id;
-        $animal->save();
-        return response()->json([
-            'message' => 'L\'espèce de l\'animal a été mise à jour avec succès.',
-            'animal' => $animal
-        ]);
+        }catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 }

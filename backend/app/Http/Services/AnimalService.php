@@ -2,13 +2,14 @@
 
 namespace App\Http\Services;
 
-use App\Contract\AnimalRepositioryInterface;
+use App\Contract\AnimalRepositoryInterface;
+use App\Repositories\AnimalRepository;
 
 class AnimalService {
 
-    protected AnimalRepositioryInterface $animals;
+    protected AnimalRepositoryInterface $animals;
 
-    public function __construct(AnimalRepositioryInterface $animalRepositiory){
+    public function __construct(AnimalRepository $animalRepositiory){
         $this->animals = $animalRepositiory;
     }
 
@@ -17,11 +18,14 @@ class AnimalService {
     }    
 
     public function create($animal){
-        $this->animals->create($animal);
+       return $this->animals->create($animal);
     }
 
     public function update($id,$updatedDatas){
-        $this->animals->update($id,$updatedDatas);
+        return $this->animals->update($id,$updatedDatas);
     }
-   
+    
+    public function softDelete($id){
+        return $this->animals->softDelete($id);
+    }
 }

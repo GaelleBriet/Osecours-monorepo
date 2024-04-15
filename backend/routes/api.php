@@ -8,8 +8,6 @@ use App\Http\Controllers\GenderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
-use App\Models\Role;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,6 +21,9 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(AnimalController::class)->group(function () {
           Route::get('/animals/{id}', 'show');
           Route::post('/animals', 'store');
+          Route::put('/animals/{id}', 'update');
+          Route::delete('/animals/{id}', 'destroy');
+          Route::get('/animals', 'all');
           Route::put('/animals/{id}/gender', 'updateGender');
      });
 
