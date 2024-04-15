@@ -17,7 +17,7 @@ class AnimalService {
     }    
 
     public function createOrUpdate($animal){
-        $this->animals->createOrUpdate($animal);
+        $this->animals->create($animal);
     }
    
 }
