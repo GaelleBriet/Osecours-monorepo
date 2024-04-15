@@ -88,7 +88,13 @@
 			"birthdate": "date de naissance",
 			"details": "détails",
 			"health": "santé",
-			"docs": "documents"
+			"docs": "documents",
+			"addChar": "ajouter une caractéristique",
+			"settingChars": "gestion des caractéristiques",
+			"settingSpecies": "gestion des espèces",
+			"settingBreeds": "gestion des races",
+			"settingColors": "gestion des couleurs",
+			"settingCoats": "gestion des robes"
 		},
 		"associations": {
 			"card": "détails de votre association",
