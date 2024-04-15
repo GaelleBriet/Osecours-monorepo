@@ -31,7 +31,7 @@ export const getAssociation = async (
 			return association;
 		}
 		return { error: 'Association not found' };
-		// const response: AxiosResponse = await axios.get(`${API_URL}/associations/${id}`);
+		// const response: AxiosResponse = await axios.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${id}`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -68,7 +68,7 @@ export const getAssociations = async (): Promise<Association[] | ErrorResponse> 
 			},
 		];
 		return associations;
-		// const response: AxiosResponse = await axios.get(`${API_URL}/associations`);
+		// const response: AxiosResponse = await axios.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -81,7 +81,7 @@ export const createAssociation = async (
 ): Promise<Association | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axios.post(
-			`${API_URL}/associations`,
+			`${import.meta.env.VITE_ASSOCIATIONS_API_URL}`,
 			association,
 		);
 		return response.data;
@@ -96,8 +96,22 @@ export const updateAssociation = async (
 ): Promise<Association | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axios.put(
-			`${API_URL}/associations/${association.id}`,
+			`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${association.id}`,
 			association,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
+export const deleteAssociation = async (
+	id: number,
+): Promise<Association | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.delete(
+			`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${id}`,
 		);
 		return response.data;
 	} catch (error) {
