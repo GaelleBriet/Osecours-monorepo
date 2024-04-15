@@ -62,7 +62,9 @@
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
 			console.log('create animal', createdAnimal.value);
-			const newAnimal = await animalsStore.createAnimal(createdAnimal.value);
+			const newAnimal: Animal = await animalsStore.createAnimal(
+				createdAnimal.value,
+			);
 		}
 		if (!props.isCreateMode) {
 			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);

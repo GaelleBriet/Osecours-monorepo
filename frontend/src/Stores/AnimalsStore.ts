@@ -68,7 +68,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
-			const newAnimal: Animal | ErrorResponse = await createAnimal(animal);
+			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			const newAnimal: Animal | ErrorResponse =
+				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
 				return null;
 			} else {
@@ -87,6 +89,28 @@ export const useAnimalsStore = defineStore('animals', {
 			// 	this.animals.push(updatedAnimal);
 			// 	return updatedAnimal;
 			// }
+		},
+		initializeAnimalProperties(animal: Animal): Animal {
+			return {
+				...animal,
+				name: animal.name || '',
+				description: animal.description || '',
+				birthdate: animal.birthdate || '',
+				catsFriendly: animal.catsFriendly || null,
+				dogsFriendly: animal.dogsFriendly || null,
+				childrenFriendly: animal.childrenFriendly || null,
+				age: animal.age || null,
+				behavioralComment: animal.behavioralComment || '',
+				icad: animal.icad || '',
+				species: animal.species || '',
+				breed: animal.breed || '',
+				status: animal.status || '',
+				gender: animal.gender || '',
+				size: animal.size || '',
+				coat: animal.coat || '',
+				color: animal.color || '',
+				ageRange: animal.ageRange || '',
+			};
 		},
 	},
 });

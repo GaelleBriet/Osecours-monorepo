@@ -16,10 +16,10 @@ export interface Animal {
 	name?: string;
 	description?: string;
 	birthdate?: Date | string;
-	catsFriendly?: boolean;
-	dogsFriendly?: boolean;
-	childrenFriendly?: boolean;
-	age?: number;
+	catsFriendly?: boolean | null;
+	dogsFriendly?: boolean | null;
+	childrenFriendly?: boolean | null;
+	age?: number | null;
 	behavioralComment?: string;
 	sterilized?: boolean;
 	deceased?: boolean;
@@ -29,11 +29,11 @@ export interface Animal {
 	//@todo waiting for the backend to be ready
 	color?: string;
 	coat?: string;
-	gender?: number;
-	ageRange?: number;
-	species?: number;
-	status?: number;
-	size?: number;
+	gender?: number | string;
+	ageRange?: number | string;
+	species?: number | string;
+	status?: number | string;
+	size?: number | string;
 }
 
 //
