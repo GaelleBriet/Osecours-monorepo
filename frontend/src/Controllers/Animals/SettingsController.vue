@@ -23,7 +23,7 @@
 </script>
 
 <template>
-	<div class="container">
+	<div class="w-full p-0">
 		<h1 class="mb-5">
 			{{ getCapitalizedText(t('gestion des caractéristiques')) }}
 		</h1>
