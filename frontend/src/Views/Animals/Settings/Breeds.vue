@@ -1,9 +1,12 @@
 <script setup lang="ts">
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
-	import { Breed } from '@/Interfaces/Breed.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref } from 'vue';
+	import { Breed } from '@/Interfaces/Breed.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import i18n from '@/Services/Translations';
 
+	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const breeds = ref<Breed[]>([]);
 
@@ -13,13 +16,16 @@
 	});
 </script>
 <template>
-	<div class="w-full p-0 relative -top-[35px]">
+	<div class="w-full p-0 relative -top-[68px]">
 		<DataGridComponent
 			:store="animalSettingsStore"
 			:model-value="breeds"
 			:columns="[
-				{ label: 'Race', key: 'name' },
-				{ label: 'Description', key: 'description' },
+				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'name' },
+				{
+					label: getCapitalizedText(t('pages.animals.description')),
+					key: 'description',
+				},
 			]"
 			:animals-chars="true"
 		/>

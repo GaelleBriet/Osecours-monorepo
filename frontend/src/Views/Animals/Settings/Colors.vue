@@ -3,7 +3,10 @@
 	import { onMounted, ref } from 'vue';
 	import { Color } from '@/Interfaces/Color.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
+	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const colors = ref<Color[]>([]);
 
@@ -13,13 +16,16 @@
 	});
 </script>
 <template>
-	<div class="w-full p-0 relative -top-[35px]">
+	<div class="w-full p-0 relative -top-[68px]">
 		<DataGridComponent
 			:store="animalSettingsStore"
 			:model-value="colors"
 			:columns="[
-				{ label: 'Couleurs', key: 'name' },
-				{ label: 'Description', key: 'description' },
+				{ label: getCapitalizedText(t('pages.animals.color')), key: 'name' },
+				{
+					label: getCapitalizedText(t('pages.animals.description')),
+					key: 'description',
+				},
 			]"
 			:animals-chars="true"
 		/>
