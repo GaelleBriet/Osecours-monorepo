@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Contract\RoleRepositoryInterface;
+use App\Exceptions\RoleAlreadyExistException;
+use App\Http\Services\ErrorService;
 use App\Http\Services\RoleService;
 use App\Models\Association;
 use App\Models\Role;
@@ -13,10 +14,12 @@ use Illuminate\Http\Request;
 class RoleController extends Controller
 {
     protected RoleService $roleService;
+    protected ErrorService $errorService;
 
-    public function __construct(RoleService $roleService)
+    public function __construct(RoleService $roleService, ErrorService $eService)
     {
         $this->roleService = $roleService;
+        $this->errorService = $eService;
     }
 
     public function getAll()
@@ -40,11 +43,11 @@ class RoleController extends Controller
                     return response()->json(['data' => 'role has been added successfully'], 200);
                 } else {
                     $message = "role " . $roleToAttach->name . " already exist on this user";
-                    return response()->json(['data' => $message], 201);
+                    throw new RoleAlreadyExistException($message);
                 }
             }
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return $this->errorService->handle($e);
         }
     }
 }

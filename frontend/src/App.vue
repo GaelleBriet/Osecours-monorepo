@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import SidebarComponent from '@/Components/Navigation/SidebarComponent.vue';
-	import LoginController from '@/Controllers/LoginController.vue';
+	import LoginController from '@/Controllers/Login/LoginController.vue';
 </script>
 
 <template>

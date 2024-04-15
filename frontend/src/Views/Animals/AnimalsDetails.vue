@@ -8,6 +8,7 @@
 	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -41,13 +42,17 @@
 				{ name: getCapitalizedText(t('pages.animals.docs')) },
 				{ name: getCapitalizedText(t('common.other')) },
 			]"
+			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
+			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
 			@update:current-tab="updateCurrentTab"
 		/>
 		<div class="content">
 			<template v-if="currentTab === 0 && currentAnimal">
 				<GeneralInformations :animal="currentAnimal" />
 			</template>
-			<template v-if="currentTab === 1 && currentAnimal"></template>
+			<template v-if="currentTab === 2 && currentAnimal">
+				<AnimalDocuments :animal="currentAnimal" />
+			</template>
 		</div>
 	</div>
 </template>

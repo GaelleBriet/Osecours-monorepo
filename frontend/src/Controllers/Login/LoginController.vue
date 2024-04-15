@@ -8,11 +8,11 @@
 	import AlertComponent from '@/Components/AlertComponent.vue';
 	import { User } from '@/Interfaces/User.ts';
 	import { Association } from '@/Interfaces/User.ts';
-	import { useUserStore } from '@/Stores/UserStore';
+	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations/index.ts';
+	import i18n from '@/Services/Translations';
 
 	const userStore = useUserStore();
 	const router = useRouter();
@@ -107,7 +107,7 @@
 				<div>
 					<img
 						class="h-28 w-auto mx-auto"
-						src="@/Assets/Images/logo-osecours.svg"
+						src="../../Assets/Images/logo-osecours.svg"
 						alt="logo-osecours"
 					/>
 					<h2
@@ -299,7 +299,7 @@
 		<div class="relative hidden w-0 flex-1 lg:block">
 			<img
 				class="absolute inset-0 h-full w-full object-contain"
-				src="@/Assets/Images/dog-sketch.jpg"
+				src="../../Assets/Images/dog-sketch.jpg"
 				alt=""
 			/>
 		</div>

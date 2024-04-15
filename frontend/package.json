@@ -22,6 +22,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.11",
     "axios": "^1.6.8",
+    "floating-vue": "^5.2.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-i18n": "^9.10.2",

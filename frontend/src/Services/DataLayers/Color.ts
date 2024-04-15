@@ -30,12 +30,14 @@ export const getColors = async (): Promise<Color[] | ErrorResponse> => {
 
 export const createColor = async (
 	name: string,
+	description?: string,
 ): Promise<Color | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_COLORS_API_URL}`,
 			{
 				name: name,
+				description: description,
 			},
 		);
 		return response.data;
@@ -48,12 +50,14 @@ export const createColor = async (
 export const updateColor = async (
 	id: number,
 	name: string,
+	description?: string,
 ): Promise<Color | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.put(
 			`${import.meta.env.VITE_COLORS_API_URL}/${id}`,
 			{
 				name: name,
+				description: description,
 			},
 		);
 		return response.data;

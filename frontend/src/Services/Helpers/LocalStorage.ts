@@ -1,6 +1,10 @@
 export function getFromStorage(key: string): unknown | null {
 	const value = localStorage.getItem(key);
-	return value !== 'undefined' && value !== null ? JSON.parse(value) : null;
+	try {
+		return value !== 'undefined' && value !== null ? JSON.parse(value) : null;
+	} catch {
+		return value;
+	}
 }
 
 export function setToStorage(key: string, value: unknown): void {

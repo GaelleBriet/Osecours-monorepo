@@ -1,13 +1,21 @@
 <script setup lang="ts">
 	import { ref } from 'vue';
 
-	defineProps({
-		tabs: {
-			type: Array,
-			default: () => [],
-			required: true,
-		},
-	});
+	// defineProps({
+	// 	tabs: {
+	// 		type: Array,
+	// 		default: () => [],
+	// 		required: true,
+	// 	},
+	// 	activeColorClass?: string,
+	// 	secondaryColorClass?: string,
+	// });
+
+	defineProps<{
+		tabs: Array<{ name: string }>;
+		activeColorClass?: string;
+		secondaryColorClass?: string;
+	}>();
 
 	const emit = defineEmits<{
 		(event: 'update:currentTab', index): void;
@@ -33,7 +41,7 @@
 				id="tabs"
 				v-model="currentTab"
 				name="tabs"
-				class="block w-full rounded-md border-gray-300 focus:border-osecours-beige-dark focus:ring-osecours-beige-dark"
+				class="block w-full rounded-md border-gray-300"
 				@change="emit('update:currentTab', currentTab)"
 			>
 				<template
@@ -52,7 +60,7 @@
 		<!--		affiche les tabs sur grand écran   -->
 		<div class="hidden sm:block">
 			<nav
-				class="flex space-x-4"
+				class="flex relative space-x-4 z-20"
 				aria-label="Tabs"
 			>
 				<template
@@ -62,9 +70,7 @@
 					<a
 						v-if="tab"
 						:class="[
-							index === currentTab
-								? 'bg-osecours-beige-dark bg-opacity-10 text-gray-700'
-								: 'text-gray-500 hover:text-gray-500',
+							index === currentTab ? activeColorClass : secondaryColorClass,
 							'rounded-t-md px-3 py-2 text-sm font-medium cursor-pointer',
 						]"
 						:aria-current="index === currentTab ? 'page' : undefined"

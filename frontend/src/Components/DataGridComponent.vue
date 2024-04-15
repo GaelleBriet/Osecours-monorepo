@@ -8,7 +8,7 @@
 		store: object;
 		modelValue: object[];
 		title?: string;
-		description: string;
+		description?: string;
 		columns: {
 			label: string;
 			key: string | ((item: object) => string);
@@ -18,14 +18,24 @@
 				lg?: boolean;
 			};
 		}[];
+		animalsChars?: boolean;
 	}>();
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
+		(event: 'add'): void;
 	}>();
 
 	const editItem = (item: object) => {
 		emit('edit', item);
+	};
+
+	const addItem = () => {
+		emit('add');
+	};
+
+	const deleteItem = (item: object) => {
+		emit('delete', item);
 		// router.push({
 		// 	name: props.route,
 		// 	params: { id: item.id },
@@ -43,9 +53,12 @@
 
 <template>
 	<div>
-		<div class="sm:flex sm:items-center">
+		<div
+			v-if="!animalsChars"
+			class="sm:flex sm:items-center"
+		>
 			<div class="sm:flex-auto">
-				<h1 class="text-base leading-6 text-gray-900">
+				<h1 class="text-base leading-6 text-gray-900 mb-5">
 					{{ props.title }}
 				</h1>
 				<p class="mt-2 text-sm text-gray-700">
@@ -57,10 +70,24 @@
 					id="add-animal-btn"
 					type="button"
 					class="rounded-md px-3 py-2 text-center text-sm"
+					@click="addItem"
 				>
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
 			</div>
+		</div>
+		<div
+			v-else
+			class="relative flex justify-end -top-8 z-0"
+		>
+			<button
+				id="add-animal-btn"
+				type="button"
+				class="rounded-md px-3 py-2 text-center text-sm"
+				@click="addItem"
+			>
+				{{ getCapitalizedText(t('pages.animals.addChar')) }}
+			</button>
 		</div>
 
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
@@ -86,16 +113,11 @@
 							</li>
 						</ul>
 					</template>
-					<div class="pt-4 flex justify-between">
-						<a
-							class="text-osecours-beige-dark hover:text-indigo-900 cursor-pointer"
-							@click="editItem(item)"
-							>{{ getCapitalizedText(t('common.edit')) }}</a
-						>
-						<a
-							class="text-red-600 hover:text-red-900 cursor-pointer"
-							@click="deleteItem(item)"
-							>{{ getCapitalizedText(t('common.delete')) }}</a
+					<div class="pt-4">
+						<router-link
+							to="#"
+							class="text-osecours-beige-dark hover:text-indigo-900"
+							>{{ getCapitalizedText(t('common.edit')) }}</router-link
 						>
 					</div>
 				</div>

@@ -3,16 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Enum\RoleEnum;
+use App\Http\Requests\AuthRequest;
 use App\Http\Services\AuthService;
+use App\Http\Services\ErrorService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function getToken(Request $request)
+    protected $errorService;
+
+    public function __construct(ErrorService $eService)
     {
+        $this->errorService = $eService;
+    }
+    public function getToken(AuthRequest $request)
+    {
+        
         try {
+          
+            $request->validated();
             $credentials = $request->only('email', 'password');
             $currentAssociationId = $request->get('association_id');
 
@@ -21,17 +32,18 @@ class AuthController extends Controller
             }
             return response()->json(["data" => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 500);
+            return $this->errorService->handle($e);
         }
     }
 
-    public function login(Request $request)
+    public function login(AuthRequest $request)
     {
         try {
+            $request->validated();
             $credentials = $request->only('email', 'password');
             return response()->json(["data" => AuthService::connectUser($credentials)], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 500);
+            return $this->errorService->handle($e);
         }
     }
 }
