@@ -46,7 +46,6 @@
 				default:
 					value = selectElement.value;
 			}
-			console.log('value', value);
 			emit('update:modelValue', value);
 		}
 	};

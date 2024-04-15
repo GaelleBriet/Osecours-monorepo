@@ -39,14 +39,12 @@
 			await router.push({ name: 'Login' });
 		}
 		if (user && user.associations) {
-			console.log(user.associations);
 			associations.value = user.associations;
 		}
 	};
 
 	const handleAssociationChange = async (value) => {
 		selectedAssociation.value = value;
-		console.log(selectedAssociation.value);
 		await onAssociationChange();
 	};
 

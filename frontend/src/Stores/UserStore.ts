@@ -47,12 +47,9 @@ export const useUserStore = defineStore({
 			associationId: string,
 			associationName: string,
 		): Promise<User> {
-			const userTokenScope: UserTokenScope = await loginWithAssociation(
-				email,
-				password,
-				Number(associationId),
-			);
-			if (userTokenScope.token) {
+			const userTokenScope: UserTokenScope | ErrorResponse =
+				await loginWithAssociation(email, password, associationId);
+			if ('token' in userTokenScope && userTokenScope.token) {
 				this.user = {
 					...this.user,
 					token: userTokenScope.token,
