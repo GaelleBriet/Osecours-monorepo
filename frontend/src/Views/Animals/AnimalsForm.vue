@@ -1,5 +1,4 @@
 <script setup lang="ts">
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import Form from '@/Components/Forms/Form.vue';
 	import FormDate from '@/Components/Forms/FormDate.vue';
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
@@ -7,7 +6,6 @@
 	import FormText from '@/Components/Forms/FormText.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
 	import { Animal } from '@/Interfaces/Animal.ts';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import {
 		AnimalAges,
 		AnimalGenders,
@@ -16,6 +14,8 @@
 		AnimalStatus,
 	} from '@/Enums/Animals.ts';
 	import i18n from '@/Services/Translations';
+	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 

@@ -13,7 +13,7 @@
 	});
 </script>
 <template>
-	<div class="w-full p-0 relative -top-[35px]">
+	<div class="w-full p-0 relative -top-[68px]">
 		<DataGridComponent
 			:store="animalSettingsStore"
 			:model-value="breeds"

@@ -12,7 +12,6 @@ import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 import CreateAnimal from '@/Views/Animals/CreateAnimal.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/SettingsController.vue';
-import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
 
 const routes = [
 	{

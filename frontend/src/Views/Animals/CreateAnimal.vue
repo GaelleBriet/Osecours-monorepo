@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import AnimalsFormComponent from '@/Components/AnimalsFormComponent.vue';
+	import AnimalsFormComponent from '@/Views/Animals/AnimalsForm.vue';
 </script>
 
 <template>
