@@ -17,6 +17,10 @@ class AnimalService {
        return $this->animals->all();
     }    
 
+    public function getById($id){
+        return $this->animals->find($id);
+    }
+
     public function create($animal){
        return $this->animals->create($animal);
     }

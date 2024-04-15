@@ -44,7 +44,11 @@ class AnimalController extends Controller
 
     public function show(string $id)
     {
-        //
+        try {            
+            return $this->animalService->getById($id);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 
     public function update(AnimalRequest $request, string $id)
