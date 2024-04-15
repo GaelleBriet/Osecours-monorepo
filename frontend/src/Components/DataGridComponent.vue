@@ -23,6 +23,7 @@
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
+		(event: 'addItem'): void;
 	}>();
 
 	const editItem = (item: object) => {
@@ -31,6 +32,10 @@
 		// 	name: props.route,
 		// 	params: { id: item.id },
 		// });
+	};
+
+	const addItem = () => {
+		emit('addItem');
 	};
 </script>
 
@@ -53,6 +58,7 @@
 					id="add-animal-btn"
 					type="button"
 					class="rounded-md px-3 py-2 text-center text-sm"
+					@click="addItem"
 				>
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
@@ -66,6 +72,7 @@
 				id="add-animal-btn"
 				type="button"
 				class="rounded-md px-3 py-2 text-center text-sm"
+				@click="addItem"
 			>
 				{{ getCapitalizedText(t('pages.animals.addChar')) }}
 			</button>

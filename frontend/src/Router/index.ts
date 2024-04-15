@@ -11,6 +11,7 @@ import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/SettingsController.vue';
+import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
 
 const routes = [
 	{
@@ -28,6 +29,11 @@ const routes = [
 		path: '/animals',
 		name: 'Animals',
 		component: AnimalsController,
+	},
+	{
+		path: '/animals/add',
+		name: 'AddAnimal',
+		component: AnimalsAddForm,
 	},
 	{
 		path: '/animals/:id',

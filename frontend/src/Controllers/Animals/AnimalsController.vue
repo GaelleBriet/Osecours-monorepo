@@ -36,6 +36,12 @@
 		});
 	};
 
+	const addItem = () => {
+		router.push({
+			name: 'AddAnimal',
+		});
+	};
+
 	onMounted(async () => {
 		await animalsStore.getAnimals();
 	});
@@ -56,6 +62,7 @@
 				{ label: 'Statut', key: 'status', visibility: { md: true } },
 			]"
 			@edit="editItem"
+			@addItem="addItem"
 		/>
 	</div>
 </template>
