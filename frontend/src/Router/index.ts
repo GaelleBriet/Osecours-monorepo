@@ -7,6 +7,7 @@ import DogsController from '@/Controllers/Animals/DogsController.vue';
 import CatsController from '@/Controllers/Animals/CatsController.vue';
 import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
 import ShelterDetails from '@/Views/Shelters/ShelterDetails.vue';
+import AssociationController from '@/Controllers/Association/AssociationController.vue';
 import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
