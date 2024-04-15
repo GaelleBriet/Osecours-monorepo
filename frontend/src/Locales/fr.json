@@ -10,7 +10,8 @@
 		"add": "ajouter",
 		"actions": "action | actions",
 		"name": "nom",
-		"other": "autre"
+		"other": "autre",
+		"delete": "supprimer"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -88,7 +89,8 @@
 			"address": "adresse",
 			"zipcode": "code postal",
 			"city": "ville",
-			"shelters": "toutes mes refuges"
+			"shelters": "toutes mes refuges",
+			"associations": "liste de toutes les associations"
 		},
 		"shelters": {
 			"title": "liste des refuges sous la responsabilité de l'association.",

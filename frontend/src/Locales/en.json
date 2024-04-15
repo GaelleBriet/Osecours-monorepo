@@ -10,7 +10,8 @@
 		"add": "add",
 		"actions": "action | actions",
 		"name": "name",
-		"other": "other"
+		"other": "other",
+		"delete": "delete"
 	},
 	"navigation": {
 		"home": "home",
@@ -88,7 +89,8 @@
 			"address": "address",
 			"zipcode": "zipcode",
 			"city": "city",
-			"shelters": "all my shelters"
+			"shelters": "all my shelters",
+			"associations": "list of all associations"
 		},
 		"shelters": {
 			"title": "list of shelters under the association's responsibility.",
