@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 import HomeViewController from '@/Controllers/Dashboard/HomeController.vue';
 import LoginController from '@/Controllers/Login/LoginController.vue';
-import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
 import AnimalsController from '@/Controllers/Animals/AnimalsController.vue';
 import DogsController from '@/Controllers/Animals/DogsController.vue';
 import CatsController from '@/Controllers/Animals/CatsController.vue';
@@ -9,6 +9,7 @@ import AnimalsDetails from '@/Views/Animals/AnimalsDetails.vue';
 import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
+import CreateAnimal from '@/Views/Animals/CreateAnimal.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/SettingsController.vue';
 import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
@@ -32,8 +33,8 @@ const routes = [
 	},
 	{
 		path: '/animals/add',
-		name: 'AddAnimal',
-		component: AnimalsAddForm,
+		name: 'CreateAnimal',
+		component: CreateAnimal,
 	},
 	{
 		path: '/animals/:id',

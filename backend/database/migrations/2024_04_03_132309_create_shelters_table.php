@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('associations', function (Blueprint $table) {
+        Schema::create('shelters', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->string("siret");
-            $table->string("rib")->nullable();
+            $table->string('name');
+            $table->string('siret')->unique();
+            $table->text('description');
+            $table->string('email',255)->nullable();
+            $table->string('phone',10)->nullable();
 //            $table->bigInteger('person_id');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('associations');
+        Schema::dropIfExists('shelters');
     }
 };

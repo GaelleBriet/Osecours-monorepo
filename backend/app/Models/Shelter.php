@@ -5,39 +5,40 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Association extends Model
+class Shelter extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
         'description',
+        'phone',
+        'email',
         'siret',
-        'rib'
     ];
 
     public function person() {
         return $this->morphOne(Person::class, 'personable');
     }
 
-    public function users()
+    public function associations()
     {
-        return $this->belongsToMany(User::class, 'association_role_user')
-            ->withPivot('role_id')
+        return $this->belongsToMany(Association::class, 'association_shelter')
+            ->withPivot('association_id')
             ->withTimestamps();
     }
 
-    public function roles()
+    public function users()
     {
-        return $this->belongsToMany(Role::class, 'association_role_user')
+        return $this->belongsToMany(User::class, 'animal_shelter_user')
             ->withPivot('user_id')
             ->withTimestamps();
     }
 
-    public function shelters()
+    public function animals()
     {
-        return $this->belongsToMany(Shelter::class, 'association_shelter')
-            ->withPivot('shelter_id')
+        return $this->belongsToMany(Animal::class, 'animal_shelter_user')
+            ->withPivot('animal_id')
             ->withTimestamps();
     }
 }

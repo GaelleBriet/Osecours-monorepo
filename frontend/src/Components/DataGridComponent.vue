@@ -23,19 +23,15 @@
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
-		(event: 'addItem'): void;
+		(event: 'add'): void;
 	}>();
 
 	const editItem = (item: object) => {
 		emit('edit', item);
-		// router.push({
-		// 	name: props.route,
-		// 	params: { id: item.id },
-		// });
 	};
 
 	const addItem = () => {
-		emit('addItem');
+		emit('add');
 	};
 </script>
 
@@ -78,14 +74,7 @@
 			</button>
 		</div>
 
-		<div
-			class=""
-			:class="
-				props.animalsChars
-					? '-mx-4 mt-0 sm:-mx-0 overflow-hidden'
-					: '-mx-4 mt-8 sm:-mx-0 overflow-hidden'
-			"
-		>
+		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
 			<!-- view cards for smartphones -->
 			<div class="custonmXs:hidden">
 				<div

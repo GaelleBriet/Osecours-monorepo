@@ -38,7 +38,7 @@
 
 	const addItem = () => {
 		router.push({
-			name: 'AddAnimal',
+			name: 'CreateAnimal',
 		});
 	};
 
@@ -62,7 +62,7 @@
 				{ label: 'Statut', key: 'status', visibility: { md: true } },
 			]"
 			@edit="editItem"
-			@addItem="addItem"
+			@add="addItem"
 		/>
 	</div>
 </template>

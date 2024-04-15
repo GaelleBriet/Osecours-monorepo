@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('associations', function (Blueprint $table) {
+        Schema::create('animal_status', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->string("siret");
-            $table->string("rib")->nullable();
-//            $table->bigInteger('person_id');
+            $table->date('date');
+            $table->foreignId('animal_id');
+            $table->foreignId('status_id');           
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('associations');
+        Schema::dropIfExists('animal_status');
     }
 };
