@@ -75,7 +75,7 @@
 			"dogsTitle": "liste des chien sous la responsabilité de l'association.",
 			"catsTitle": "liste des chats sous la responsabilité de l'association.",
 			"card": "fiche animal",
-			"icad": "numéro I-CAD",
+			"icad": "I-Cad",
 			"species": "espèce",
 			"breed": "race",
 			"description": "description",
@@ -107,7 +107,12 @@
 			"phone": "numéro de téléphone",
 			"quantity": "nombre d'animaux",
 			"docs": "documents",
-			"addChar": "ajouter une caractéristique"
+			"addChar": "ajouter une caractéristique",
+			"settingChars": "gestion des caractéristiques",
+			"settingSpecies": "gestion des espèces",
+			"settingBreeds": "gestion des races",
+			"settingColors": "gestion des couleurs",
+			"settingCoats": "gestion des robes"
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",

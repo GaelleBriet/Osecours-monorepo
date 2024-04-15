@@ -107,7 +107,12 @@
 			"phone": "numéro de téléphone",
 			"quantity": "number of animals",
 			"docs": "documents",
-			"addChar": "add characteristics"
+			"addChar": "add characteristics",
+			"settingChars": "characteristics settings",
+			"settingSpecies": "species settings",
+			"settingBreeds": "breeds settings",
+			"settingColors": "colors settings",
+			"settingCoats": "coats settings"
 		},
 		"families": {
 			"title": "list of families",

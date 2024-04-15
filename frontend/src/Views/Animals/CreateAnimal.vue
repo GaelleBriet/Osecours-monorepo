@@ -1,9 +1,9 @@
 <script setup lang="ts">
-	import AnimalsFormComponent from '@/Components/AnimalsFormComponent.vue';
+	import AnimalsForm from '@/Views/Animals/AnimalsForm.vue';
 </script>
 
 <template>
-	<AnimalsFormComponent :isCreateMode="true" />
+	<AnimalsForm :isCreateMode="true" />
 </template>
 
 <style scoped lang="postcss"></style>
