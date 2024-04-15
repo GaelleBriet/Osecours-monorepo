@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('associations', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->string("siret");
-            $table->string("rib")->nullable();
-//            $table->bigInteger('person_id');
+
+            $table->string('filename',255);
+            $table->text('description')->nullable();
+            $table->integer('size');
+            $table->string('url',255);
+            $table->date('date');
+            $table->foreignId('mimetype_id');
+            $table->foreignId('doctype_id');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('associations');
+        Schema::dropIfExists('documents');
     }
 };

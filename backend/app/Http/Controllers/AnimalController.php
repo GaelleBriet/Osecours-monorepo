@@ -76,4 +76,18 @@ class AnimalController extends Controller
             'animal' => $animal
         ]);
     }
+
+    public function updateSpecie(Request $request) {
+        $request->validate([
+            'animal_id' => 'required|exists:animals,id',
+            'specie_id' => 'required|exists:species,id',
+        ]);
+        $animal = Animal::findOrFail($request->animal_id);
+        $animal->specie_id = $request->specie_id;
+        $animal->save();
+        return response()->json([
+            'message' => 'L\'espèce de l\'animal a été mise à jour avec succès.',
+            'animal' => $animal
+        ]);
+    }
 }

@@ -54,6 +54,9 @@ class User extends Authenticatable
         ];
     }
 
+    public function person() {
+        return $this->morphOne(Person::class, 'personable');
+    }
     
     public function associations()
     {
@@ -67,5 +70,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'association_role_user')
                     ->withPivot('association_id')
                     ->withTimestamps();
+    }
+
+    public function animals1(): BelongsToMany
+    {
+        return $this->belongsToMany(Animal::class, 'animal_user')
+        ->withPivot('comment')
+        ->withTimestamps();
+    }
+
+    public function animals()
+    {
+        return $this->belongsToMany(Animal::class, 'animal_shelter_user')
+            ->withPivot('animal_id')
+            ->withTimestamps();
+    }
+
+    public function shelters()
+    {
+        return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
+            ->withPivot('shelter_id')
+            ->withTimestamps();
     }
 }

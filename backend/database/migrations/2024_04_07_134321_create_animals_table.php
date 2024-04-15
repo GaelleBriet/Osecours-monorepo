@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_animal', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->string("name",100)->nullable();
             $table->text("description")->nullable();
@@ -23,8 +23,14 @@ return new class extends Migration
             $table->text("behavioral_comment")->nullable();
             $table->boolean("sterilized")->nullable();
             $table->boolean("deceased")->default(0);
-            $table->timestamps();
+            $table->foreignId('specie_id');
+
             $table->foreignId('gender_id')->nullable();
+            $table->foreignId('color_id')->nullable(); 
+            $table->foreignId('coat_id')->nullable();
+            $table->foreignId('sizerange_id')->nullable();
+            $table->foreignId('agerange_id')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_animal');
+        Schema::dropIfExists('animals');
     }
 };
