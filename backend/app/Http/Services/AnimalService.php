@@ -16,7 +16,7 @@ class AnimalService {
        return $this->animals->all();
     }    
 
-    public function createOrUpdate($animal){
+    public function create($animal){
         $this->animals->create($animal);
     }
    
