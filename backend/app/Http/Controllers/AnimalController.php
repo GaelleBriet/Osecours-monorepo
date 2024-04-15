@@ -2,54 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\AnimalService;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
+    protected AnimalService $animalService;
+
+    public function __construct(AnimalService $animalService)
+    {
+        $this->animalService = $animalService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function all()
     {
-        //
+        return $this->animalService->getAll();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate();
+        $this->animalService->createOrUpdate($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
