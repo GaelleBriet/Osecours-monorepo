@@ -7,17 +7,18 @@
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
-		title: string;
-		description: string;
+		title?: string;
+		description?: string;
 		columns: {
 			label: string;
-			key: string;
+			key: string | ((item: object) => string);
 			visibility?: {
 				sm?: boolean;
 				md?: boolean;
 				lg?: boolean;
 			};
 		}[];
+		animalsChars?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -36,9 +37,12 @@
 
 <template>
 	<div>
-		<div class="sm:flex sm:items-center">
+		<div
+			v-if="!animalsChars"
+			class="sm:flex sm:items-center"
+		>
 			<div class="sm:flex-auto">
-				<h1 class="text-base leading-6 text-gray-900">
+				<h1 class="text-base leading-6 text-gray-900 mb-5">
 					{{ props.title }}
 				</h1>
 				<p class="mt-2 text-sm text-gray-700">
@@ -55,6 +59,19 @@
 					{{ getCapitalizedText(t('common.add')) }}
 				</button>
 			</div>
+		</div>
+		<div
+			v-else
+			class="relative flex justify-end -top-8 z-0"
+		>
+			<button
+				id="add-animal-btn"
+				type="button"
+				class="rounded-md px-3 py-2 text-center text-sm"
+				@click="addItem"
+			>
+				{{ getCapitalizedText(t('pages.animals.addChar')) }}
+			</button>
 		</div>
 
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">

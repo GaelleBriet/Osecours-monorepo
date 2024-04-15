@@ -1,13 +1,15 @@
-import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
-import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-import { AxiosResponse } from 'axios';
-import { Color } from '@/Interfaces/Color.ts';
+import { Breed } from '@/Interfaces/Breed.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
+import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 
-export const getColor = async (id: number): Promise<Color | ErrorResponse> => {
+export const getOneBreed = async (
+	id: number,
+): Promise<Breed | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.get(
-			`${import.meta.env.VITE_COLORS_API_URL}/${id}`,
+			`${import.meta.env.VITE_BREEDS_API_URL}/${id}`,
 		);
 		return response.data;
 	} catch (error) {
@@ -16,10 +18,10 @@ export const getColor = async (id: number): Promise<Color | ErrorResponse> => {
 	}
 };
 
-export const getColors = async (): Promise<Color[] | ErrorResponse> => {
+export const getAllBreeds = async (): Promise<Breed[] | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.get(
-			`${import.meta.env.VITE_COLORS_API_URL}/all`,
+			`${import.meta.env.VITE_BREEDS_API_URL}/all`,
 		);
 		return response.data;
 	} catch (error) {
@@ -28,13 +30,13 @@ export const getColors = async (): Promise<Color[] | ErrorResponse> => {
 	}
 };
 
-export const createColor = async (
+export const createBreed = async (
 	name: string,
 	description?: string,
-): Promise<Color | ErrorResponse> => {
+): Promise<Breed | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_COLORS_API_URL}`,
+			`${import.meta.env.VITE_BREEDS_API_URL}`,
 			{
 				name: name,
 				description: description,
@@ -47,14 +49,14 @@ export const createColor = async (
 	}
 };
 
-export const updateColor = async (
+export const updateBreed = async (
 	id: number,
 	name: string,
 	description?: string,
-): Promise<Color | ErrorResponse> => {
+): Promise<Breed | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.put(
-			`${import.meta.env.VITE_COLORS_API_URL}/${id}`,
+			`${import.meta.env.VITE_BREEDS_API_URL}/${id}`,
 			{
 				name: name,
 				description: description,
@@ -67,10 +69,12 @@ export const updateColor = async (
 	}
 };
 
-export const deleteColor = async (id: number): Promise<ErrorResponse> => {
+export const deleteBreed = async (
+	id: number,
+): Promise<Breed | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.delete(
-			`${import.meta.env.VITE_COLORS_API_URL}${id}`,
+			`${import.meta.env.VITE_BREEDS_API_URL}/${id}`,
 		);
 		return response.data;
 	} catch (error) {

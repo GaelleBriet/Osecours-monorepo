@@ -28,7 +28,8 @@
 		"shelters": "shelters",
 		"dogs": "dogs",
 		"cats": "cats",
-		"families": "families"
+		"families": "families",
+		"animalsSettings": "settings"
 	},
 	"form": {
 		"email": "email",
@@ -85,7 +86,20 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
-			"docs": "documents"
+			"docs": "documents",
+			"addChar": "add characteristics"
+		},
+		"families": {
+			"title": "list of families",
+			"card": "family card",
+			"address": "address",
+			"city": "city",
+			"zip": "zip code",
+			"country": "country",
+			"phone": "phone",
+			"email": "email",
+			"details": "details",
+			"personal": "personal information"
 		},
 		"users": {
 			"title": "list of users",

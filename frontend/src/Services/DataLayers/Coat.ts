@@ -30,12 +30,14 @@ export const getCoats = async (): Promise<Coat[] | ErrorResponse> => {
 
 export const createCoat = async (
 	name: string,
+	description?: string,
 ): Promise<Coat | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_COATS_API_URL}`,
 			{
 				name: name,
+				description: description,
 			},
 		);
 		return response.data;
@@ -48,12 +50,14 @@ export const createCoat = async (
 export const updateCoat = async (
 	id: number,
 	name: string,
+	description?: string,
 ): Promise<Coat | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.put(
 			`${import.meta.env.VITE_COATS_API_URL}/${id}`,
 			{
 				name: name,
+				description: description,
 			},
 		);
 		return response.data;

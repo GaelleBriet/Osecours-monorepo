@@ -10,6 +10,9 @@ import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 import CreateAnimal from '@/Views/Animals/CreateAnimal.vue';
+import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
+import SettingsController from '@/Controllers/Animals/SettingsController.vue';
+import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
 
 const routes = [
 	{
@@ -49,6 +52,11 @@ const routes = [
 		component: DogsController,
 	},
 	{
+		path: '/animals/settings',
+		name: 'AnimalsSettings',
+		component: SettingsController,
+	},
+	{
 		path: '/organization',
 		name: 'Organization',
 		component: HomeViewController,
@@ -72,6 +80,11 @@ const routes = [
 		path: '/families',
 		name: 'Families',
 		component: FamiliesController,
+	},
+	{
+		path: '/families/:id',
+		name: 'EditFamilies',
+		component: FamiliesDetails,
 	},
 	{
 		path: '/profile',
