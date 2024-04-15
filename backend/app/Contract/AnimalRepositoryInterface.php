@@ -11,4 +11,6 @@ interface AnimalRepositioryInterface
     public function find($id);
 
     public function create($animal);
+    
+    public function update($id,$updatedDatas);
 }

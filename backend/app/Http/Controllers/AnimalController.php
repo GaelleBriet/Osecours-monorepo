@@ -3,29 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\AnimalService;
+use App\Http\Services\ErrorService;
 use App\Models\Animal;
+use Exception;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
 {
     protected AnimalService $animalService;
+    protected ErrorService $errorService;
 
-    public function __construct(AnimalService $animalService)
+    public function __construct(AnimalService $animalService, ErrorService $eService)
     {
         $this->animalService = $animalService;
+
+        $this->errorService = $eService;
     }
     /**
      * Display a listing of the resource.
      */
     public function all()
     {
-        return $this->animalService->getAll();
+        try {
+            return $this->animalService->getAll();
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
-    
+
     public function store(Request $request)
     {
-        $validated = $request->validate();
-        $this->animalService->createOrUpdate($validated);
+        try {
+            $validated = $request->validate();
+            $this->animalService->create($validated);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 
     public function show(string $id)
@@ -35,7 +48,11 @@ class AnimalController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $this->animalService->update($id,$request);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 
     /**

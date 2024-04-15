@@ -19,5 +19,9 @@ class AnimalService {
     public function create($animal){
         $this->animals->create($animal);
     }
+
+    public function update($id,$updatedDatas){
+        $this->animals->update($id,$updatedDatas);
+    }
    
 }
