@@ -24,8 +24,11 @@ class RoleController extends Controller
 
     public function getAll()
     {
-
-        $this->roleService->getAll();
+        try {
+            $this->roleService->getAll();
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 
     public function addRoleOnUser(Request $request)

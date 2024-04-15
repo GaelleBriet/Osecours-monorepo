@@ -2,13 +2,16 @@
 
 namespace App\Contract;
 
-use App\Models\User;
 
-interface AnimalRepositioryInterface
+interface AnimalRepositoryInterface
 {
     public function all();
 
     public function find($id);
 
     public function create($animal);
+    
+    public function update($id,$updatedDatas);
+
+    public function softDelete($id);
 }
