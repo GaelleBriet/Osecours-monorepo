@@ -11,7 +11,8 @@
 		"add": "add",
 		"actions": "action | actions",
 		"name": "name",
-		"other": "other"
+		"other": "other",
+		"delete": "delete"
 	},
 	"navigation": {
 		"home": "home",
@@ -28,6 +29,7 @@
 		"shelters": "shelters",
 		"dogs": "dogs",
 		"cats": "cats",
+		"all-associations": "all associations",
 		"families": "families",
 		"animalsSettings": "settings"
 	},
@@ -86,6 +88,24 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
+			"docs": "documents"
+		},
+		"associations": {
+			"card": "details of your association.",
+			"siret": "SIRET's number",	
+			"rib": "bank account identity (RIB)",
+			"address": "address",
+			"zipcode": "zipcode",
+			"city": "city",
+			"shelters": "all my shelters",
+			"associations": "list of all associations"
+		},
+		"shelters": {
+			"title": "list of shelters under the association's responsibility.",
+			"card": "refuge details",
+			"siret": "numéro de SIRET",		
+			"phone": "numéro de téléphone",
+			"quantity": "number of animals",
 			"docs": "documents",
 			"addChar": "add characteristics"
 		},
@@ -149,6 +169,17 @@
 			"young": "young",
 			"adult": "adult",
 			"senior": "senior"
+		},
+		"associationStatus": {
+			"pending": "pending",
+			"in_progress": "in progress",
+			"cancelled": "cancelled",
+			"on_hold": "on hold",
+			"completed": "completed",
+			"archived": "archived",
+			"draft": "draft",
+			"accepted": "accepted",
+			"rejected": "rejected"
 		}
 	}
 }
