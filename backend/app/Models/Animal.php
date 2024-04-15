@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Animal extends Model
 {
@@ -12,8 +13,8 @@ class Animal extends Model
      * The attributes that are mass assignable.
      *
      * @var array<string>
-    */
-    $fillable = [
+     */
+    protected $fillable = [
         "id",
         "name",
         "description",
@@ -25,5 +26,10 @@ class Animal extends Model
         "behavioral_comment",
         "sterilized",
         "deceased"
-    ]
+    ];
+
+    public function gender(): HasOne
+    {
+        return $this->hasOne(Gender::class);
+    }
 }
