@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'icons-osecours';
-  src: url('../font/icons-osecours.eot?73536598');
-  src: url('../font/icons-osecours.eot?73536598#iefix') format('embedded-opentype'),
-       url('../font/icons-osecours.woff2?73536598') format('woff2'),
-       url('../font/icons-osecours.woff?73536598') format('woff'),
-       url('../font/icons-osecours.ttf?73536598') format('truetype'),
-       url('../font/icons-osecours.svg?73536598#icons-osecours') format('svg');
+  src: url('../font/icons-osecours.eot?42449254');
+  src: url('../font/icons-osecours.eot?42449254#iefix') format('embedded-opentype'),
+       url('../font/icons-osecours.woff2?42449254') format('woff2'),
+       url('../font/icons-osecours.woff?42449254') format('woff'),
+       url('../font/icons-osecours.ttf?42449254') format('truetype'),
+       url('../font/icons-osecours.svg?42449254#icons-osecours') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'icons-osecours';
-    src: url('../font/icons-osecours.svg?73536598#icons-osecours') format('svg');
+    src: url('../font/icons-osecours.svg?42449254#icons-osecours') format('svg');
   }
 }
 */
@@ -62,6 +62,7 @@
 .icon-check:before { content: '\e805'; } /* '' */
 .icon-info-1:before { content: '\e806'; } /* '' */
 .icon-chart-bar:before { content: '\e807'; } /* '' */
+.icon-pencil:before { content: '\e808'; } /* '' */
 .icon-chat:before { content: '\e809'; } /* '' */
 .icon-chien:before { content: '\e80a'; } /* '' */
 .icon-refuge:before { content: '\e80b'; } /* '' */

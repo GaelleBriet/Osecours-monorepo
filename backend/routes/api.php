@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BreedController;
 use App\Http\Controllers\CoatController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\GenderController;
@@ -60,6 +61,14 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::get('/coats/{id}', 'show');  
           Route::put('/coats/{id}', 'update');
           Route::delete('/coats/{id}', 'delete');
+     });
+
+     Route::controller(BreedController::class)->group(function () {
+          Route::get("/breeds/all", "getAll");
+          Route::post('/breeds', 'create');
+          Route::get('/breeds/{id}', 'show');  
+          Route::put('/breeds/{id}', 'update');
+          Route::delete('/breeds/{id}', 'delete');
      });
 
 });
