@@ -26,45 +26,6 @@
 		type: 'info',
 	});
 
-	const photos = ref([
-		{
-			id: 1,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 2,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 3,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 4,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 5,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 6,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-		{
-			id: 7,
-			url: 'https://picsum.photos/seed/picsum/200/300',
-		},
-	]);
-
-	const addPhoto = () => {
-		// @todo Logique pour ajouter une photo
-	};
-
-	const removePhoto = () => {
-		// @todo  Logique pour supprimer une photo
-	};
-
 	const onSubmit = async () => {
 		// Logique pour soumettre le formulaire quand l'api sera fonctionnelle
 		const shelterToUpdate = await sheltersStore.updateShelter(localShelter.value);
@@ -170,39 +131,7 @@
 					</div>
 				</div>
 				<div
-					class="my-1 lg:row-start-2"
-				>
-					<div class="grid grid-cols-3 lg:grid-rows-2 lg:grid-cols-4 gap-4 p-2">
-						<!-- Miniatures des photos -->
-						<div
-							v-for="(photo, index) in photos"
-							:key="index"
-							class="relative"
-						>
-							<img
-								:src="photo.url"
-								alt="Photo du shelter"
-								class="w-full h-28 object-cover rounded-lg shadow-md"
-							/>
-							<button
-								class="absolute top-1 right-1 bg-osecours-pink text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
-								@click="removePhoto(index)"
-							>
-								&times;
-								<!-- Symbole de multiplication utilisé pour l'icône de suppression -->
-							</button>
-						</div>
-						<!-- Bouton pour ajouter une photo -->
-						<button
-							class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
-							@click="addPhoto"
-						>
-							<span>+</span>
-						</button>
-					</div>
-				</div>
-				<div
-					class="my-1 row-start-1 lg:row-start-3"
+					class="my-1 row-start-1 lg:row-start-2"
 				>
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-between lg:col-start-2">
@@ -214,7 +143,7 @@
 								{{
 									isEditMode
 										? getCapitalizedText(t('common.cancel'))
-										: getCapitalizedText(t('common.edit'))
+										: getCapitalizedText(t('common.editMode'))
 								}}
 							</button>
 							<button
@@ -223,7 +152,7 @@
 								:disabled="!isEditMode"
 								@click.prevent="onSubmit"
 							>
-								Enregistrer
+								{{ getCapitalizedText(t('common.register')) }}
 							</button>
 						</div>
 					</div>

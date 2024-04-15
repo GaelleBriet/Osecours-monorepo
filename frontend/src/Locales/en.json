@@ -26,7 +26,8 @@
 		"members": "membres",
 		"shelters": "shelters",
 		"dogs": "dogs",
-		"cats": "cats"
+		"cats": "cats",
+		"all-associations": "all associations"
 	},
 	"form": {
 		"email": "email",
