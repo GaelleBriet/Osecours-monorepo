@@ -24,6 +24,14 @@ import {
 	getCoats,
 	updateCoat,
 } from '@/Services/DataLayers/Coat.ts';
+import { Color } from '@/Interfaces/Color.ts';
+import {
+	createColor,
+	deleteColor,
+	getColor,
+	getColors,
+	updateColor,
+} from '@/Services/DataLayers/Color.ts';
 
 export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 	state: (): {
@@ -33,6 +41,8 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		breed: Breed | null;
 		coats: Coat[];
 		coat: Coat | null;
+		colors: Color[];
+		color: Color | null;
 	} => ({
 		allSpecies: [],
 		species: null,
@@ -40,6 +50,8 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		breed: null,
 		coats: [],
 		coat: null,
+		colors: [],
+		color: null,
 	}),
 	getters: {
 		getCurrentSpecies(): Species | null {
@@ -74,6 +86,15 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 				return coat;
 			}
 		},
+		async getOneColor(id: number): Promise<Color | null> {
+			const color: Color | ErrorResponse = await getColor(id);
+			if ('error' in color) {
+				return null;
+			} else {
+				this.color = color;
+				return color;
+			}
+		},
 		async getAllSpecies(): Promise<Species[]> {
 			const species: Species[] | ErrorResponse = await getAllSpecies();
 			if ('error' in species) {
@@ -99,6 +120,15 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.coats = coats;
 				return coats;
+			}
+		},
+		async getAllColors(): Promise<Color[]> {
+			const colors: Color[] | ErrorResponse = await getColors();
+			if ('error' in colors) {
+				return [];
+			} else {
+				this.colors = colors;
+				return colors;
 			}
 		},
 		async createSpecies(
@@ -137,6 +167,19 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 				this.coats.push(coat);
 				this.coat = coat;
 				return coat;
+			}
+		},
+		async createColor(
+			name: string,
+			description?: string,
+		): Promise<Color | null> {
+			const color: Color | ErrorResponse = await createColor(name, description);
+			if ('error' in color) {
+				return null;
+			} else {
+				this.colors.push(color);
+				this.color = color;
+				return color;
 			}
 		},
 		async updateSpecies(
@@ -190,6 +233,23 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 				return coat;
 			}
 		},
+		async updateColor(
+			id: number,
+			name: string,
+			description?: string,
+		): Promise<Color | null> {
+			const color: Color | ErrorResponse = await updateColor(
+				id,
+				name,
+				description,
+			);
+			if ('error' in color) {
+				return null;
+			} else {
+				this.color = color;
+				return color;
+			}
+		},
 		async deleteSpecies(id: number): Promise<boolean> {
 			const deletedSpecies: Species | ErrorResponse = await deleteSpecies(id);
 			if ('error' in deletedSpecies) {
@@ -217,6 +277,15 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 				return false;
 			} else {
 				this.coats = this.coats.filter((coats: Coat) => coats.id !== id);
+				return true;
+			}
+		},
+		async deleteColor(id: number): Promise<boolean> {
+			const deletedColor: Color | ErrorResponse = await deleteColor(id);
+			if ('error' in deletedColor) {
+				return false;
+			} else {
+				this.colors = this.colors.filter((colors: Color) => colors.id !== id);
 				return true;
 			}
 		},
