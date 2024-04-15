@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Enum\AccessScopeEnum;
 use App\Enum\RoleEnum;
 use App\Enum\UserStatus;
+use App\Exceptions\UnauthorizedException;
 use App\Models\Role;
 use Exception;
 use Illuminate\Support\Collection;
@@ -46,7 +47,7 @@ class AuthService
                 'scopes' => $status
             ];
         } else {
-            throw new Exception("Unauthorized");
+            throw new UnauthorizedException("Unauthorized");
         }
     }
 
@@ -85,7 +86,7 @@ class AuthService
                 'scopes' => $status
             ];
         } else {
-            throw new Exception("Unauthorized");
+            throw new UnauthorizedException("Unauthorized");
         }
     }
 
@@ -105,7 +106,7 @@ class AuthService
                 })->unique("id"),
             ];
         } else {
-            throw new Exception("Unauthorized");
+            throw new UnauthorizedException("Unauthorized");
         }
     }
 }
