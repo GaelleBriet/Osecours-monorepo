@@ -74,7 +74,8 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      });
 
      Route::controller(DocumentController::class)->group(function () {
-          Route::post("documents","create");
+          Route::post("documents/store/healthcare","addDocumentForHealthCare");
+          Route::post("documents/store/animal","addDocumentForAnimal");
      });
 
 });

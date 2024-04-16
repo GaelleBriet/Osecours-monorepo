@@ -27,11 +27,11 @@ class DocumentService{
 
     }
 
-    public function createDocumentForAnimal(Request $request, $idAnimal){
+    public function createDocumentForAnimal(Request $request){
 
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData);
-        $newDoc->animals()->attach($idAnimal);        
+        $newDoc->animals()->attach($$request->get('animal_id'));        
 
         return new DocumentResource($newDoc);
     }

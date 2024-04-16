@@ -24,7 +24,7 @@ class DocumentController extends Controller
         return $document;
     }
 
-    public function create(Request $request)
+    public function addDocumentForAnimal(Request $request)
     {
         
         $validated = $request->validate([
@@ -33,7 +33,19 @@ class DocumentController extends Controller
             'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
 
         ]);     
-        return $this->documentService->createDocumentForAnimal($request,2);
+        return $this->documentService->createDocumentForAnimal($request);
+    }
+
+    public function addDocumentForHealthCare(Request $request)
+    {
+        
+        $validated = $request->validate([
+            'filename' => 'required|max:255',
+            'description' => '',
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+
+        ]);     
+        return $this->documentService->createDocumentForHealthCare($request);
     }
 
     public function update(Request $request, Document $document)
