@@ -30,9 +30,11 @@ class DatabaseSeeder extends Seeder
     {
         $cityCreated = City::create(['name' => 'Dijon', 'zipcode' => '21000']);
 
-        $assocationsList = [['name' => "Le refuge des chimères", 'address' => '123 rue des fantaisies' ],
-                            ['name' => "larche de noé 2.0", 'address' => '10 place du désert'],
-                            ['name' => "quatres pattes et un toit", 'address' => '1 place de la tour Eiffel']];
+        $assocationsList = [
+            ['name' => "Le refuge des chimères", 'address' => '123 rue des fantaisies'],
+            ['name' => "larche de noé 2.0", 'address' => '10 place du désert'],
+            ['name' => "quatres pattes et un toit", 'address' => '1 place de la tour Eiffel']
+        ];
 
 
         foreach ($assocationsList as $association) {
@@ -40,7 +42,7 @@ class DatabaseSeeder extends Seeder
             $associationCreated =  Association::factory()->create(["name" => $association['name']]);
 
             $personCreated = Person::create(['personable_id' => $associationCreated->id, 'personable_type' => get_class($associationCreated)]);
-            $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id ]);
+            $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id]);
             $personCreated->addresses()->attach($addressCreated);
 
             $associationCreated->person()->save($personCreated);
@@ -325,7 +327,7 @@ class DatabaseSeeder extends Seeder
             'Yellow Labrador Retriever',
             'Yorkshire Terrier'
         ];
-        
+
         $catbreeds = [
             'Abyssinian',
             'American Bobtail',
@@ -380,37 +382,8 @@ class DatabaseSeeder extends Seeder
             'Turkish Angora',
             'Turkish Van'
         ];
-        
 
-        foreach ($species as $specie) {
-            if ($specie == 'Cat'){
-                    $specieCreated = Specie::factory()->create([
-                        'name' => ucfirst($specie),
-                        'description' => '',
-                    ]);
-                    foreach ($catbreeds as $catbreed) {
-                        $catbreedCreated = Breed::factory()->create([
-                            'name' => ucfirst($catbreed),
-                            'description' => '',
-                            'specie_id' => $specieCreated->id,
-                        ]);
-                    };
-            } else if ($specie == 'Dog') {
-                $specieCreated = Specie::factory()->create([
-                    'name' => ucfirst($specie),
-                    'description' => '',
-                ]);
-                    foreach ($dogbreeds as $dogbreed) {
-                        $dogbreedCreated = Breed::factory()->create([
-                            'name' => ucfirst($dogbreed),
-                            'description' => '',
-                            'specie_id' => $specieCreated->id,
-                        ]);
-                    };
-            }
-        }
-
-        $colors = [
+        $dogColors = [
             'Apricot',
             'Beige',
             'Bicolor',
@@ -433,6 +406,9 @@ class DatabaseSeeder extends Seeder
             'White',
             'Cream',
             'Yellow',
+        ];
+
+        $catColors = [
             'Tan',
             'Blond',
             'Fawn',
@@ -470,11 +446,49 @@ class DatabaseSeeder extends Seeder
             'White'
         ];
 
-        foreach ($colors as $color) {
-            $colorCreated = Color::factory()->create([
-                'name' => ucfirst($color),
-                'description' => '',
-            ]);
+
+
+        foreach ($species as $specie) {
+            if ($specie == 'Cat') {
+                $specieCreated = Specie::factory()->create([
+                    'name' => ucfirst($specie),
+                    'description' => '',
+                ]);
+                foreach ($catbreeds as $catbreed) {
+                    $catbreedCreated = Breed::factory()->create([
+                        'name' => ucfirst($catbreed),
+                        'description' => '',
+                        'specie_id' => $specieCreated->id,
+                    ]);
+                };
+                foreach ($catColors as $color) {
+                    $colorCreated = Color::factory()->create([
+                        'name' => ucfirst($color),
+                        'description' => '',
+                        'specie_id' => $specieCreated->id
+                    ]);
+                }
+            } else if ($specie == 'Dog') {
+                $specieCreated = Specie::factory()->create([
+                    'name' => ucfirst($specie),
+                    'description' => '',
+                ]);
+
+                foreach ($dogbreeds as $dogbreed) {
+                    $dogbreedCreated = Breed::factory()->create([
+                        'name' => ucfirst($dogbreed),
+                        'description' => '',
+                        'specie_id' => $specieCreated->id,
+                    ]);
+                };
+                foreach ($dogColors as $color) {
+                    $colorCreated = Color::factory()->create([
+                        'name' => ucfirst($color),
+                        'description' => '',
+                        'specie_id' => $specieCreated->id
+                    ]);
+                }
+            }
         }
 
 
@@ -537,7 +551,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($vaccines as $vaccineData) {
             $vaccineCreated = Vaccine::firstOrCreate(collect($vaccineData)->only(['name', 'description'])->toArray());
-            $specieBounded = Specie::where('name',$vaccineData['specie'])->first();
+            $specieBounded = Specie::where('name', $vaccineData['specie'])->first();
             $vaccineCreated->species()->attach($specieBounded);
         }
 
@@ -561,7 +575,7 @@ class DatabaseSeeder extends Seeder
             'Male',
             'Female',
             'Unknown'
-        ]; 
+        ];
 
         foreach ($genders as $gender) {
             $genderCreated = Gender::factory()->create([
