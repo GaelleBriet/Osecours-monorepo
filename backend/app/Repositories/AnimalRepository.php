@@ -14,9 +14,8 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
     }
 
     public function all(){
-        $animals = Animal::with(['specie', 'gender', 'color', 'coat', 'size_range', 'age_range'])
-        ->withTrashed()
-        ->get();
+        
+        $animals = Animal::all();
         return AnimalResource::collection($animals);
     }
     public function create($animal)
