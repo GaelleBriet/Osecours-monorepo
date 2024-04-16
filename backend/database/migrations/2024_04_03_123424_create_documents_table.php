@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('size');
             $table->string('url',255);
             $table->date('date');
-            $table->foreignId('mimetype_id');
-            $table->foreignId('doctype_id');
+            $table->foreignId('mimetype_id')->constrained();
+            $table->foreignId('doctype_id')->constrained();
             $table->timestamps();
         });
     }

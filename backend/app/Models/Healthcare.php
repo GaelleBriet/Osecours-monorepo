@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Healthcare extends Model
@@ -16,16 +17,17 @@ class Healthcare extends Model
         "report",
         "weight",
         "size",
-        "type"
+        "animal_id",
+        "document_id"
     ];
 
-    public function animal(): BelongsTo
+    public function animal(): HasOne
     {
-        return $this->belongsTo(Animal::class);
+        return $this->hasOne(Animal::class);
     }
 
-    public function document(): HasOne
+    public function document(): BelongsTo
     {
-        return $this->hasOne(Document::class);
+        return $this->belongsTo(Document::class);
     }
 }

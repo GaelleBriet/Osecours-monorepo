@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\DocumentService;
 use App\Models\Document;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    //  'filename',
-    //  'description',
-    //  'size',
-    //  'url',
-    //  'date',
+    protected DocumentService $documentService;
+
+    public function __construct(DocumentService $documentService)
+    {
+        $this->documentService = $documentService;
+    }
     public function getAll()
     {
         return Document::all();
@@ -24,20 +26,14 @@ class DocumentController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
+        
+        $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'size' => '',
-            'url' => '',
-            'date' => '',
-        ]);
-        return Document::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'size' => $request->size,
-            'url' => $request->url,
-            'date' => $request->date,
-        ]);
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+
+        ]);     
+        return $this->documentService->createDocumentForAnimal($request,2);
     }
 
     public function update(Request $request, Document $document)

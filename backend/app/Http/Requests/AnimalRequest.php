@@ -38,7 +38,7 @@ class AnimalRequest extends FormRequest
             'coat_id' => 'nullable|exists:coats,id',
             'sizerange_id' => 'nullable|exists:size_ranges,id',
             'agerange_id' => 'nullable|exists:age_ranges,id',
-            'breed_id' => 'nullable|exist:breeds,id'
+            'breed_id' => 'nullable|exists:breeds,id'
         ];
     }
 }
