@@ -59,7 +59,7 @@ class DocumentService{
     public function getDocumentData(Request $request){
 
         $file = $request->file('file');
-        $path = $file->storeAs('public/files',$request->filename);
+        $path = $file->storeAs('public/files',$request->filename . "." . $file->getClientOriginalExtension());
         $url = Storage::url($path);
 
         return [

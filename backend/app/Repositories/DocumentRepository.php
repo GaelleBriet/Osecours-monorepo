@@ -19,6 +19,7 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
     }
 
     public function createDocument($array){
+        //@todo
         Mimetype::firstOrCreate([
             'name' => 'jpeg'
         ]);
