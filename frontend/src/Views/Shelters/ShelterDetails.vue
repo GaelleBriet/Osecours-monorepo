@@ -39,6 +39,8 @@
 				{ name: getCapitalizedText(t('pages.animals.details')) },
 				{ name: getCapitalizedText(t('navigation.documents')) },
 			]"
+			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
+			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
 			@update:current-tab="updateCurrentTab"
 		/>
 		<div class="content">

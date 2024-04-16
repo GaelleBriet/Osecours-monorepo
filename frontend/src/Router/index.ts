@@ -68,7 +68,7 @@ const routes = [
 	},
 	{
 		path: '/organization/:id',
-		name: 'EditOrganization',
+		name: 'EditAssociation',
 		component: AssociationDetails,
 	},
 	{
