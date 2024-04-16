@@ -163,12 +163,14 @@
 		},
 		"animalGenders": {
 			"male": "male",
-			"female": "female"
+			"female": "female",
+			"unknown": "unknown"
 		},
 		"animalSizes": {
 			"small": "small",
 			"medium": "medium",
-			"large": "large"
+			"large": "large",
+			"molosse": "molosse"
 		},
 		"animalAges": {
 			"baby": "baby",

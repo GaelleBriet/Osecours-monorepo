@@ -18,8 +18,11 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
+	import { Breed } from '@/Interfaces/Breed.ts';
 
 	const animalsStore = useAnimalsStore();
+	const animalSettingsStore = useAnimalsSettingsStore();
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
@@ -59,6 +62,8 @@
 		'enums.animalAges',
 	);
 
+	const breeds = ref<Breed[]>([]);
+
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
 			const newAnimal: Animal = await animalsStore.createAnimal(
@@ -83,7 +88,7 @@
 	};
 
 	// @todo: à compléter et décommenter quand l'api sera prête, et insérer les données dans les selects :options="speciesOptions"
-	// const speciesOptions = ref<{ value: number; label: string }[]>([]);
+	//const speciesOptions = ref<{ value: number; label: string }[]>([]);
 	// const coatsOptions = ref([]);
 	// onMounted(async () => {
 	// 	const results = await Promise.all([getAllSpecies(), getAllCoats()]);
@@ -96,6 +101,17 @@
 	// 			: [],
 	// 	);
 	// });
+	onMounted(async () => {
+		await animalSettingsStore.getAllBreeds();
+		breeds.value = animalSettingsStore.breeds.map((breed) => {
+			return {
+				...breed,
+				name: getCapitalizedText(t(`enums.animalsBreeds.${breed.name}`)),
+				description: breed.description,
+			};
+		});
+		console.log(breeds.value);
+	});
 
 	onMounted(() => {
 		if (props.isCreateMode) {
@@ -182,6 +198,21 @@
 								: (createdAnimal.breed = $event)
 						"
 					/>
+					<!--					<FormSelect-->
+					<!--						id="animalBreed"-->
+					<!--						:model-value="!isCreateMode ? animal.breed : createdAnimal.breed"-->
+					<!--						:label="getCapitalizedText(t('pages.animals.breed'))"-->
+					<!--						class="w-full border border-gray-300 rounded shadow-sm"-->
+					<!--						:options="breeds"-->
+					<!--						placeholder="'Boxer, Berger Allemand ...'"-->
+					<!--						:disabled="!isEditMode"-->
+					<!--						name="animalBreed"-->
+					<!--						@update:model-value="-->
+					<!--							!isCreateMode-->
+					<!--								? (localAnimal.breed = $event)-->
+					<!--								: (createdAnimal.breed = $event)-->
+					<!--						"-->
+					<!--					/>-->
 				</div>
 				<div class="p-2 md:col-start-1 md:row-start-7 md:flex md:items-end">
 					<FormTextArea

@@ -19,7 +19,6 @@
 				description: breed.description,
 			};
 		});
-		console.log(breeds.value);
 	});
 </script>
 <template>
