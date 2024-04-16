@@ -117,7 +117,8 @@
 			"settingColors": "colors settings",
 			"settingCoats": "coats settings",
 			"description": "shelter's description",
-			"name": "shelter's name"
+			"name": "shelter's name",
+			"search": "Search..."
 		},
 		"families": {
 			"title": "list of families",

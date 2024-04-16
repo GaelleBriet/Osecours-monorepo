@@ -14,7 +14,8 @@
 		"other": "autre",
 		"delete": "supprimer",
 		"update": "a bien été mis à jour",
-		"creation": "a bien été créé"
+		"creation": "a bien été créé",
+		"search": "Chercher..."
 	},
 	"navigation": {
 		"home": "accueil",
