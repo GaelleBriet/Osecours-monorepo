@@ -18,7 +18,7 @@ export const getGender = async (
 	}
 };
 
-export const getGenders = async (): Promise<Gender | ErrorResponse> => {
+export const getGenders = async (): Promise<Gender[] | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.get(
 			`${import.meta.env.VITE_GENDERS_API}/all`,

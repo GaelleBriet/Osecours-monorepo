@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia';
 import { Species } from '@/Interfaces/Species.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { Breed } from '@/Interfaces/Breed.ts';
+import { Coat } from '@/Interfaces/Coat.ts';
+import { Color } from '@/Interfaces/Color.ts';
+import { AgeRange } from '@/Interfaces/AgeRange.ts';
+import { Gender } from '@/Interfaces/Gender.ts';
 import {
 	createSpecies,
 	deleteSpecies,
@@ -7,8 +13,6 @@ import {
 	getOneSpecies,
 	updateSpecies,
 } from '@/Services/DataLayers/Species.ts';
-import { ErrorResponse } from '@/Interfaces/Requests.ts';
-import { Breed } from '@/Interfaces/Breed.ts';
 import {
 	createBreed,
 	deleteBreed,
@@ -17,7 +21,6 @@ import {
 	getSpecificBreeds,
 	updateBreed,
 } from '@/Services/DataLayers/Breed.ts';
-import { Coat } from '@/Interfaces/Coat.ts';
 import {
 	createCoat,
 	deleteCoat,
@@ -25,7 +28,6 @@ import {
 	getCoats,
 	updateCoat,
 } from '@/Services/DataLayers/Coat.ts';
-import { Color } from '@/Interfaces/Color.ts';
 import {
 	createColor,
 	deleteColor,
@@ -34,6 +36,8 @@ import {
 	getSpecificColors,
 	updateColor,
 } from '@/Services/DataLayers/Color.ts';
+import { getAgeRanges } from '@/Services/DataLayers/AgeRange.ts';
+import { getGenders } from '@/Services/DataLayers/Gender.ts';
 
 export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 	state: (): {
@@ -49,6 +53,8 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		dogsBreeds: Breed[];
 		catsColors: Color[];
 		dogsColors: Color[];
+		ageRanges: AgeRange[];
+		genders: Gender[];
 	} => ({
 		allSpecies: [],
 		species: null,
@@ -62,6 +68,8 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		dogsBreeds: [],
 		catsColors: [],
 		dogsColors: [],
+		ageRanges: [],
+		genders: [],
 	}),
 	getters: {
 		getCurrentSpecies(): Species | null {
@@ -139,6 +147,24 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.colors = colors;
 				return colors;
+			}
+		},
+		async getAllAgeRanges(): Promise<AgeRange[]> {
+			const ageRanges: AgeRange[] | ErrorResponse = await getAgeRanges();
+			if ('error' in ageRanges) {
+				return [];
+			} else {
+				this.ageRanges = ageRanges;
+				return ageRanges;
+			}
+		},
+		async getAllGenders(): Promise<Gender[]> {
+			const genders: Gender[] | ErrorResponse = await getGenders();
+			if ('error' in genders) {
+				return [];
+			} else {
+				this.genders = genders;
+				return genders;
 			}
 		},
 		async createSpecies(
