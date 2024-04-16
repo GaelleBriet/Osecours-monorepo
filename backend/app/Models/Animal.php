@@ -45,7 +45,7 @@ class Animal extends Model
 
     public function size_range(): BelongsTo
     {
-        return $this->belongsTo(Size_range::class);
+        return $this->belongsTo(Size_range::class,"sizerange_id");
     }
 
     public function age_range(): BelongsTo

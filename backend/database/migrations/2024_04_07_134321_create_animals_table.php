@@ -23,13 +23,13 @@ return new class extends Migration
             $table->text("behavioral_comment")->nullable();
             $table->boolean("sterilized")->nullable();
             $table->boolean("deceased")->default(0);
-            $table->foreignId('specie_id');
-            $table->foreignId('breed_id')->nullable();
-            $table->foreignId('gender_id')->nullable();
-            $table->foreignId('color_id')->nullable(); 
-            $table->foreignId('coat_id')->nullable();
-            $table->foreignId('sizerange_id')->nullable();
-            $table->foreignId('agerange_id')->nullable();
+            $table->foreignId('specie_id')->constrained('species');
+            $table->foreignId('breed_id')->nullable()->constrained('breeds');
+            $table->foreignId('gender_id')->nullable()->constrained('genders');
+            $table->foreignId('color_id')->nullable()->constrained('colors'); 
+            $table->foreignId('coat_id')->nullable()->constrained('coats');
+            $table->foreignId('sizerange_id')->nullable()->constrained('size_ranges');
+            $table->foreignId('agerange_id')->nullable()->constrained('age_ranges');
             $table->timestamps();
         });
     }
