@@ -5,12 +5,10 @@ import axios, { AxiosResponse } from 'axios';
 
 const API_URL: string = 'http://localhost:8000/api';
 
-export const getAssociation = async (
-	id: number,
-): Promise<Association | ErrorResponse> => {
+export const getAssociation = async ()
+: Promise<Association | ErrorResponse> => {
 	try {
-		if (id === 1) {
-			const association: Association = {
+			const association = {
 				id: 1,
 				name: 'SPA',
 				siret: 'RC NANTES 234 987 456',
@@ -19,18 +17,6 @@ export const getAssociation = async (
                 // shelters: []
 			};
 			return association;
-		} else if (id === 2) {
-			const association: Association = {
-				id: 2,
-				name: 'Fondation Assistance aux Animaux',
-				siret: 'RC NANTES 234 987 456',
-                rib: 'FR20 3000 4500 5500 6066 7077 899',
-                request_status: 5,
-                // shelters: []
-			};
-			return association;
-		}
-		return { error: 'Association not found' };
 		// const response: AxiosResponse = await axios.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${id}`);
 		// return response.data;
 	} catch (error) {
@@ -52,7 +38,7 @@ export const getAssociations = async (): Promise<Association[] | ErrorResponse> 
 			},
 			{
                 id: 2,
-				name: 'Fondation Assistance aux Animaux',
+				name: 'Fondation Toby',
 				siret: 'RC PARIS 234 987 456',
                 rib: 'FR22 5000 4522 0099 5646 9877 123',
                 request_status: 5,
@@ -63,7 +49,7 @@ export const getAssociations = async (): Promise<Association[] | ErrorResponse> 
 				name: 'Solidarité Refuges',
 				siret: 'RC MARSEILLE 234 987 456',
                 rib: 'FR24 8000 7633 8800 1212 8768 321',
-                request_status: 5,
+                request_status: 3,
                 // shelters: []
 			},
 		];

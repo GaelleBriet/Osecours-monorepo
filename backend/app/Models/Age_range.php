@@ -10,6 +10,8 @@ class Age_range extends Model
 {
     use HasFactory;
 
+    protected $table = "age_ranges";
+    
     protected $fillable = [
         'name',
         'description',

@@ -12,6 +12,9 @@ import SheltersController from '@/Controllers/Shelters/SheltersController.vue';
 import ProfileController from '@/Controllers/Profile/ProfileController.vue';
 import FamiliesController from '@/Controllers/Families/FamiliesController.vue';
 import CreateAnimal from '@/Views/Animals/CreateAnimal.vue';
+import CreateAssociation from '@/Views/Association/CreateAssociation.vue';
+import AssociationDetails from '@/Views/Association/AssociationDetails.vue';
+import CreateShelters from '@/Views/Shelters/CreateShelter.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/SettingsController.vue';
 
@@ -63,9 +66,24 @@ const routes = [
 		component: AssociationController,
 	},
 	{
+		path: '/organization/:id',
+		name: 'EditAssociation',
+		component: AssociationDetails,
+	},
+	{
+		path: '/organization/add',
+		name: 'CreateAssociation',
+		component: CreateAssociation,
+	},
+	{
 		path: '/shelters',
 		name: 'Shelters',
 		component: SheltersController,
+	},
+	{
+		path: '/shelters/add',
+		name: 'CreateShelters',
+		component: CreateShelters,
 	},
 	{
 		path: '/shelters/:id',

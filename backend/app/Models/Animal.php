@@ -20,12 +20,17 @@ class Animal extends Model
     protected $fillable = [
         'name', 'description', 'birth_date', 'cats_friendly', 'dogs_friendly',
         'children_friendly', 'age', 'behavioral_comment', 'sterilized', 'deceased',
-        'specie_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id'
+        'specie_id', 'breed_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id'
     ];
 
     public function gender(): BelongsTo
     {
         return $this->belongsTo(Gender::class);
+    }
+
+    public function breed(): BelongsTo
+    {
+        return $this->belongsTo(Breed::class);
     }
 
     public function specie(): BelongsTo
@@ -45,7 +50,7 @@ class Animal extends Model
 
     public function size_range(): BelongsTo
     {
-        return $this->belongsTo(Size_range::class);
+        return $this->belongsTo(Size_range::class,"sizerange_id");
     }
 
     public function age_range(): BelongsTo

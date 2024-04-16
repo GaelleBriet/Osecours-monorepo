@@ -20,11 +20,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(function () {
 
      Route::controller(AnimalController::class)->group(function () {
+          Route::get('/animals/all', 'getAll');
           Route::get('/animals/{id}', 'show');
           Route::post('/animals', 'store');
           Route::put('/animals/{id}', 'update');
           Route::delete('/animals/{id}', 'destroy');
-          Route::get('/animals/all', 'all');
+          
      });
 
      Route::controller(UserController::class)->group(function () {

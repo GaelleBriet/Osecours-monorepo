@@ -44,6 +44,12 @@
 		});
 	};
 
+	const addItem = () => {
+		router.push({
+			name: 'CreateShelters',
+		});
+	};
+
 	onMounted(async () => {
 		await sheltersStore.getShelters();
 	});
@@ -62,6 +68,7 @@
 				{ label: getCapitalizedText(t('pages.shelters.phone')), key: 'phone'},
 				]"
 			@edit="editItem"
+			@add="addItem"
 		/>
 	</div>
 </template>

@@ -6,7 +6,6 @@ use App\Exceptions\AnimalNotFoundException;
 use App\Http\Requests\AnimalRequest;
 use App\Http\Services\AnimalService;
 use App\Http\Services\ErrorService;
-use App\Models\Animal;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -24,9 +23,9 @@ class AnimalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function all()
+    public function getAll()
     {
-        try {
+        try {            
             return $this->animalService->getAll();
         } catch (Exception $e) {
             return $this->errorService->handle($e);
