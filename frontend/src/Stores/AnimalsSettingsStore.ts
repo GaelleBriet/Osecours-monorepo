@@ -35,7 +35,6 @@ import {
 	getSpecificColors,
 	updateColor,
 } from '@/Services/DataLayers/Color.ts';
-import { getAgeRanges } from '@/Services/DataLayers/AgeRange.ts';
 import { getGenders } from '@/Services/DataLayers/Gender.ts';
 
 export const useAnimalsSettingsStore = defineStore('animalsSettings', {

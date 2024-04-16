@@ -1,5 +1,4 @@
 <script setup lang="ts">
-	import { FormKitOptionsLoader } from '@formkit/pro';
 	import { getNode } from '@formkit/core';
 	import { computed } from 'vue';
 	import { FormKit } from '@formkit/vue';
