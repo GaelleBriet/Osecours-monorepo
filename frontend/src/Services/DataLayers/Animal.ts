@@ -54,7 +54,7 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
-				species: 1,
+				species: 2,
 				breed: 'Golden Retriever',
 				status: 1,
 				icad: '123456789123458',
@@ -75,7 +75,7 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				behavioralComment: "Very friendly and playful, don't like cats",
 				sterilized: true,
 				deceased: false,
-				species: 1,
+				species: 2,
 				breed: 'Labrador',
 				status: 3,
 				icad: '254789654123584',
@@ -96,7 +96,7 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 				behavioralComment: 'Very friendly and playful',
 				sterilized: true,
 				deceased: false,
-				species: 2,
+				species: 1,
 				breed: 'Persian',
 				status: 3,
 				icad: '123456789123458',
@@ -120,10 +120,12 @@ export const createAnimal = async (
 	animal: Animal,
 ): Promise<Animal | ErrorResponse> => {
 	try {
+		console.log('animal', animal);
 		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_ANIMALS_API_URL}`,
 			animal,
 		);
+		console.log('response', response.data);
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;

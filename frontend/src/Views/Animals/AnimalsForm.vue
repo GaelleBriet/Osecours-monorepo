@@ -19,7 +19,7 @@
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
-	import { Breed } from '@/Interfaces/Breed.ts';
+	import { Breed, BreedSelect, BreedsForSelects } from '@/Interfaces/Breed.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -31,11 +31,12 @@
 
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
-	let localAnimal = ref({ ...props.animal });
+	let localAnimal = ref<Animal>({ ...props.animal });
 	let createdAnimal = ref<Animal>({});
 	const selectedSpecies = ref(
 		!props.isCreateMode ? props.animal?.specie_id : null,
 	);
+	const breeds = ref<BreedsForSelects[]>([]);
 
 	const notificationConfig = ref({
 		show: false,
@@ -48,6 +49,11 @@
 		AnimalSpecies,
 		'enums.animalSpecies',
 	);
+	// animalSpeciesOptions.unshift({
+	// 	value: '0',
+	// 	label: 'Votre placeholder'
+	// });
+	// console.log(animalSpeciesOptions);
 	const animalStatusOptions = generateOptionsFromEnum(
 		AnimalStatus,
 		'enums.animalStatus',
@@ -65,56 +71,42 @@
 		'enums.animalAges',
 	);
 
-	const breeds = ref<Breed[]>([]);
-
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
+			// on passe la race à l'objet animal créé
+			createdAnimal.value.specie_id = selectedSpecies.value;
+			console.log('createdAnimal', createdAnimal.value);
+
 			const newAnimal: Animal = await animalsStore.createAnimal(
 				createdAnimal.value,
 			);
 		}
 		if (!props.isCreateMode) {
 			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
-			// const animalToUpdate = props.animal;
 		}
-		// Si l'api à bien répondu, on affiche la notification
-		// et on stop le mode edition
-		//@todo: adapter le message suivant la réponse de l'api
-		notificationConfig.value = {
-			show: true,
-			message: !props.isCreateMode
-				? `L'animal ${localAnimal.value?.name} a bien été mis à jour`
-				: `L'animal ${createdAnimal.value?.name} a bien été créé`,
-			type: 'success',
-		};
+		// Si l'api à bien répondu, on affiche la notification et on stop le mode edition
+		// @todo: adapter le message suivant la réponse de l'api
+		// notificationConfig.value = {
+		// 	show: true,
+		// 	message: !props.isCreateMode
+		// 		? `L'animal ${localAnimal.value?.name} a bien été mis à jour`
+		// 		: `L'animal ${createdAnimal.value?.name} a bien été créé`,
+		// 	type: 'success',
+		// };
 		isEditMode.value = false;
 	};
 
-	// @todo: à compléter et décommenter quand l'api sera prête, et insérer les données dans les selects :options="speciesOptions"
-	//const speciesOptions = ref<{ value: number; label: string }[]>([]);
-	// const coatsOptions = ref([]);
-	// onMounted(async () => {
-	// 	const results = await Promise.all([getAllSpecies(), getAllCoats()]);
-	// 	[speciesOptions.value, coatsOptions.value] = results.map((result) =>
-	// 		Array.isArray(result)
-	// 			? result.map((item) => ({
-	// 					value: item.id,
-	// 					label: item.name,
-	// 				}))
-	// 			: [],
-	// 	);
-	// });
+	// fonction pour formater les données récupérées de l'api afin de les passer au select
+	const formatBreedOptions = (breeds: Breed[]) => {
+		return breeds.map((breed) => ({
+			value: breed.id.toString(),
+			label: breed.name,
+		}));
+	};
 
 	onMounted(async () => {
-		await animalSettingsStore.getAllBreeds();
-		breeds.value = animalSettingsStore.breeds.map((breed) => {
-			return {
-				...breed,
-				name: getCapitalizedText(t(`enums.animalsBreeds.${breed.name}`)),
-				description: breed.description,
-			};
-		});
-		// console.log(breeds.value);
+		// On récupère les races de tous les animaux par défaut au montage du composant
+		breeds.value = formatBreedOptions(await animalSettingsStore.getAllBreeds());
 	});
 
 	onMounted(() => {
@@ -123,15 +115,21 @@
 		}
 	});
 
-	watch(selectedSpecies, (newValue, oldValue) => {
-		console.log('newVal', newValue);
-		console.log('oldVal', oldValue);
-		if (newValue === 1) {
-			// console.log('cat');
-			// console.log(breeds.value);
+	watch(selectedSpecies, async (newValue) => {
+		// on surveille le changement de l'espèce pour récupérer les races correspondantes
+		if (newValue == 1) {
+			breeds.value = formatBreedOptions(
+				await animalSettingsStore.getSpecificBreeds('cat'),
+			);
+		} else if (newValue == 2) {
+			breeds.value = formatBreedOptions(
+				await animalSettingsStore.getSpecificBreeds('dog'),
+			);
+		} else {
+			breeds.value = formatBreedOptions(
+				await animalSettingsStore.getAllBreeds(),
+			);
 		}
-		// si la value est 1-cat alors on affiche les races correspondantes
-		// si la value est 2-dog alors on affiche les races correspondantes
 	});
 </script>
 <template>
@@ -151,7 +149,7 @@
 				<div class="px-2 w-full md:col-start-1">
 					<FormText
 						id="animal-name"
-						:model-value="!isCreateMode ? animal.name : createdAnimal.name"
+						:model-value="!isCreateMode ? animal?.name : createdAnimal.name"
 						:label="getCapitalizedText(t('common.name'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nom de l\'animal'"
@@ -166,7 +164,7 @@
 				<div class="px-2 w-full md:col-start-2">
 					<FormText
 						id="animal-icad-number"
-						:model-value="!isCreateMode ? animal.icad : createdAnimal.icad"
+						:model-value="!isCreateMode ? animal?.icad : createdAnimal.icad"
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
@@ -182,14 +180,6 @@
 				</div>
 
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
-					<!--					:model-value="-->
-					<!--					!isCreateMode ? animal.species : createdAnimal.specie_id-->
-					<!--					"-->
-					<!--					@update:model-value="-->
-					<!--					!isCreateMode-->
-					<!--					? (localAnimal.species = $event)-->
-					<!--					: (createdAnimal.specie_id = $event)-->
-					<!--					"-->
 					<FormSelect
 						id="animal-species"
 						:model-value="selectedSpecies"
@@ -202,40 +192,29 @@
 					/>
 				</div>
 				<div class="px-2 w-full md:col-start-2 md:row-start-2">
-					<FormText
-						id="animal-breed"
-						:model-value="!isCreateMode ? animal.breed : createdAnimal.breed"
+					<FormSelect
+						id="animalBreed"
+						:model-value="
+							!isCreateMode ? animal?.breed_id : createdAnimal.breed_id
+						"
 						:label="getCapitalizedText(t('pages.animals.breed'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Boxer, Berger Allemand ...'"
+						:options="breeds"
+						placeholder="'Boxer, Berger Allemand ...'"
 						:disabled="!isEditMode"
+						name="animalBreed"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.breed = $event)
-								: (createdAnimal.breed = $event)
+								? (localAnimal.breed_id = $event)
+								: (createdAnimal.breed_id = $event)
 						"
 					/>
-					<!--					<FormSelect-->
-					<!--						id="animalBreed"-->
-					<!--						:model-value="!isCreateMode ? animal.breed : createdAnimal.breed"-->
-					<!--						:label="getCapitalizedText(t('pages.animals.breed'))"-->
-					<!--						class="w-full border border-gray-300 rounded shadow-sm"-->
-					<!--						:options="breeds"-->
-					<!--						placeholder="'Boxer, Berger Allemand ...'"-->
-					<!--						:disabled="!isEditMode"-->
-					<!--						name="animalBreed"-->
-					<!--						@update:model-value="-->
-					<!--							!isCreateMode-->
-					<!--								? (localAnimal.breed = $event)-->
-					<!--								: (createdAnimal.breed = $event)-->
-					<!--						"-->
-					<!--					/>-->
 				</div>
 				<div class="p-2 md:col-start-1 md:row-start-7 md:flex md:items-end">
 					<FormTextArea
 						id="animal-description"
 						:model-value="
-							!isCreateMode ? animal.description : createdAnimal.description
+							!isCreateMode ? animal?.description : createdAnimal.description
 						"
 						:label="getCapitalizedText(t('pages.animals.description'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
@@ -251,7 +230,7 @@
 				<div class="px-2 md:col-start-1 md:row-start-3">
 					<FormSelect
 						id="animal-status"
-						:model-value="!isCreateMode ? animal.status : createdAnimal.status"
+						:model-value="!isCreateMode ? animal?.status : createdAnimal.status"
 						:name="'animal-status'"
 						:label="getCapitalizedText(t('pages.animals.status'))"
 						:options="animalStatusOptions"
@@ -266,37 +245,43 @@
 				<div class="px-2 md:col-start-1 md:row-start-4">
 					<FormSelect
 						id="animal-gender"
-						:model-value="!isCreateMode ? animal.gender : createdAnimal.gender"
+						:model-value="
+							!isCreateMode ? animal?.gender_id : createdAnimal.gender_id
+						"
 						:name="'animal-gender'"
 						:label="getCapitalizedText(t('pages.animals.gender'))"
 						:options="animalGendersOptions"
 						:disabled="!isEditMode"
+						placeholder="Choisir un genre"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.gender = $event)
-								: (createdAnimal.gender = $event)
+								? (localAnimal.gender_id = $event)
+								: (createdAnimal.gender_id = $event)
 						"
 					/>
 				</div>
 				<div class="px-2 md:col-start-2 md:row-start-4">
 					<FormSelect
 						id="animal-size"
-						:model-value="!isCreateMode ? animal.size : createdAnimal.size"
+						:model-value="
+							!isCreateMode ? animal?.sizerange_id : createdAnimal.sizerange_id
+						"
 						:name="getCapitalizedText(t('pages.animals.size'))"
 						:label="getCapitalizedText(t('pages.animals.size'))"
 						:options="animalSizeOptions"
 						:disabled="!isEditMode"
+						placeholder="Choisir une catégorie"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.size = $event)
-								: (createdAnimal.size = $event)
+								? (localAnimal.sizerange_id = $event)
+								: (createdAnimal.sizerange_id = $event)
 						"
 					/>
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-5">
 					<FormText
 						id="animal-coat"
-						:model-value="!isCreateMode ? animal.coat : createdAnimal.coat"
+						:model-value="!isCreateMode ? animal?.coat : createdAnimal.coat"
 						:label="getCapitalizedText(t('pages.animals.coat'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Robe de l\'animal (type de poils)'"
@@ -311,7 +296,7 @@
 				<div class="px-2 md:col-start-2 md:row-start-5">
 					<FormText
 						id="animal-color"
-						:model-value="!isCreateMode ? animal.color : createdAnimal.color"
+						:model-value="!isCreateMode ? animal?.color : createdAnimal.color"
 						:label="getCapitalizedText(t('pages.animals.color'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Couleur de l\'animal'"
@@ -327,16 +312,17 @@
 					<FormSelect
 						id="animal-age-range"
 						:model-value="
-							!isCreateMode ? animal.ageRange : createdAnimal.ageRange
+							!isCreateMode ? animal?.agerange_id : createdAnimal.agerange_id
 						"
 						:name="getCapitalizedText(t('pages.animals.ageRange'))"
 						:label="getCapitalizedText(t('pages.animals.ageRange'))"
 						:options="animalAgeRangeOptions"
 						:disabled="!isEditMode"
+						placeholder="Choisir une tranche d'âge"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.ageRange = $event)
-								: (createdAnimal.ageRange = $event)
+								? (localAnimal.agerange_id = $event)
+								: (createdAnimal.agerange_id = $event)
 						"
 					/>
 				</div>
@@ -344,7 +330,7 @@
 					<FormDate
 						id="animal-date"
 						:model-value="
-							!isCreateMode ? animal.birthdate : createdAnimal.birthdate
+							!isCreateMode ? animal?.birthdate : createdAnimal.birthdate
 						"
 						:name="'animal-date'"
 						:label="getCapitalizedText(t('pages.animals.birthdate'))"

@@ -6,16 +6,16 @@
 
 	const props = defineProps<{
 		id: string | number;
-		modelValue?: string | boolean | number;
+		modelValue?: string | boolean | number | undefined | null;
 		value?: number | string;
 		name: string;
 		label?: string;
-		options:
-			| string[]
-			| number[]
-			| Record<string | number, string>
-			| FormKitOptionsLoader
-			| undefined;
+		options: any;
+		// | string[]
+		// | number[]
+		// | Record<string | number, string>
+		// | FormKitOptionsLoader
+		// | undefined;
 		placeholder?: string;
 		validation?: string;
 		validationVisibility?: string;
@@ -24,7 +24,7 @@
 	}>();
 
 	const emit = defineEmits<{
-		(e: 'update:modelValue', value: number | string | boolean): void;
+		(e: 'update:modelValue', value: any): void;
 	}>();
 
 	const stringId = computed(() => props.id.toString());

@@ -69,7 +69,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
-			console.log(animalToSend);
+			// console.log('animalToSend', animalToSend);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -92,25 +92,24 @@ export const useAnimalsStore = defineStore('animals', {
 			// }
 		},
 		initializeAnimalProperties(animal: Animal): Animal {
-			console.log(animal);
 			return {
 				...animal,
 				name: animal.name || '',
 				description: animal.description || '',
-				birth_date: animal.birthdate ? new Date(animal.birthdate) : null,
-				cats_friendly: animal.catsFriendly || null,
-				dogs_friendly: animal.dogsFriendly || null,
-				children_friendly: animal.childrenFriendly || null,
+				birthdate: animal.birthdate ? new Date(animal.birthdate) : null,
+				cats_friendly: animal.cats_friendly || null,
+				dogs_friendly: animal.dogs_friendly || null,
+				children_friendly: animal.children_friendly || null,
 				// age: animal.age || null,
-				behavioral_comment: animal.behavioralComment || '',
+				behavioral_comment: animal.behavioral_comment || '',
 				// icad: animal.icad || '',
 				specie_id: animal.specie_id || undefined,
-				gender: animal.gender || '', //gender_id
-				color: animal.color || '', //color_id
-				coat: animal.coat || '', //coat_id
-				size: animal.size || '', //sizerange_id
-				ageRange: animal.ageRange || '', //agerange_id
-				breed: animal.breed || '',
+				gender_id: animal.gender_id || '', //gender_id
+				color_id: animal.color_id || '', //color_id
+				coat_id: animal.coat_id || '', //coat_id
+				sizerange_id: animal.sizerange_id || '', //sizerange_id
+				agerange_id: animal.agerange_id || '', //agerange_id
+				breed_id: animal.breed_id || undefined,
 				status: animal.status || '',
 			};
 		},
