@@ -3,7 +3,7 @@
 	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
-
+	import { ref, computed } from 'vue';
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
@@ -20,6 +20,7 @@
 		}[];
 		animalsChars?: boolean;
 	}>();
+	console.log(props)
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
@@ -39,6 +40,26 @@
 		emit('delete', item);
 	};
 
+	const searchQuery = ref('');
+
+	const filteredItems = computed(() => {
+		const query = searchQuery.value.toLowerCase().trim();
+		if (!query) {
+			return props.modelValue;
+		} else {
+			return props.modelValue.filter(item => {
+            for (const key in item) {
+                if (Object.hasOwnProperty.call(item, key)) {
+                    if (item[key]?.toString().toLowerCase().includes(query)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+			});
+		}
+	});
+
 </script>
 
 <template>
@@ -55,16 +76,40 @@
 					{{ props.description }}
 				</p>
 			</div>
-			<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-				<button
-					id="add-animal-btn"
-					type="button"
-					class="rounded-md px-3 py-2 text-center text-sm"
-					@click="addItem"
+			<div class="flex justify-between">
+				<div
+					class="mt-4 flex lg:mr-12"
 				>
-					{{ getCapitalizedText(t('common.add')) }}
-				</button>
+					<input
+						v-model="searchQuery"
+						type="text"
+						id="search-input"
+						class="rounded-l-md px-2 py-1 w-28 text-sm lg:w-36 lg:text-md border border-gray-300 focus:outline-none focus:border-orange-300"
+						:placeholder="getCapitalizedText(t('common.search'))"
+					/>
+					<button
+						id="search-btn"
+						type="button"
+						class="rounded-r-md px-2 py-1 text-center text-sm text-white"
+					>
+					<!-- @todo: changer le svg pour une icone  -->
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+							<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+						</svg>
+					</button>
+				</div>
+				<div class="mt-4 ml-22">
+					<button
+						id="add-animal-btn"
+						type="button"
+						class="rounded-md px-3 py-2 text-center text-sm"
+						@click="addItem"
+						>
+						{{ getCapitalizedText(t('common.add')) }}
+					</button>
+				</div>
 			</div>
+			
 		</div>
 		<div
 			v-else
@@ -79,12 +124,12 @@
 				{{ getCapitalizedText(t('pages.animals.addChar')) }}
 			</button>
 		</div>
-
+		
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
 			<!-- view cards for smartphones -->
 			<div class="custonmXs:hidden">
 				<div
-					v-for="item in modelValue"
+					v-for="item in filteredItems"
 					:key="item.id"
 					class="p-4 bg-white mb-4 shadow rounded-lg"
 				>
@@ -95,20 +140,29 @@
 						<ul>
 							<li class="flex flex-row space-x-2 items-baseline">
 								<span class="text-l text-osecours-black"
-									>{{ column.label }}:
-								</span>
+									>{{ column.label }}:</span
+								>
 								<span class="text-sm text-osecours-black">{{
-									item[column.key]
+									typeof column.key === 'function' ? column.key(item) : item[column.key]
 								}}</span>
 							</li>
 						</ul>
 					</template>
-					<div class="pt-4">
-						<router-link
-							to="#"
-							class="text-osecours-beige-dark hover:text-indigo-900"
-							>{{ getCapitalizedText(t('common.edit')) }}</router-link
-						>
+					<div class="flex justify-between">					
+						<div class="pt-4">
+							<router-link
+								to="#"
+								class="text-osecours-beige-dark hover:text-indigo-900"
+								>{{ getCapitalizedText(t('common.edit')) }}</router-link
+							>
+						</div>
+						<div class="pt-4">
+							<router-link
+								to="#"
+								class="text-red-600 hover:text-red-900 hover:text-indigo-900"
+								>{{ getCapitalizedText(t('common.delete')) }}</router-link
+							>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -142,7 +196,7 @@
 					</thead>
 					<tbody class="bg-white divide-y divide-gray-200">
 						<tr
-							v-for="item in modelValue"
+							v-for="item in filteredItems"
 							:key="`large-${item.id}`"
 						>
 							<template
@@ -156,7 +210,7 @@
 										column.visibility?.sm ? 'hidden customSm:block' : '',
 									]"
 								>
-									{{ item[column.key] }}
+									{{ typeof column.key === 'function' ? column.key(item) : item[column.key] }}
 								</td>
 							</template>
 							<td
@@ -167,14 +221,11 @@
 								<!--									class="text-indigo-600 hover:text-indigo-900"-->
 								<!--									>{{ getCapitalizedText(t('common.edit')) }}</router-link-->
 								<!--								>-->
-								<div class="flex justify-between">
+								<div class="flex gap-3">
 									<a
 									class=" cursor-pointer"
 									@click="editItem(item)"
 									>
-										<!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-											<path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-										</svg> -->
 										<i class="icon-pencil text-indigo-600 hover:text-indigo-900 text-lg"/>
 									</a>
 									<a
@@ -193,7 +244,8 @@
 	</div>
 </template>
 <style lang="postcss" scoped>
-	#add-animal-btn {
+	#add-animal-btn,
+	#search-btn {
 		background-color: rgba(217, 153, 98);
 		color: #fff;
 		&:hover {

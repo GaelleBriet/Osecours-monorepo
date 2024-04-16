@@ -12,7 +12,9 @@
 		"actions": "action | actions",
 		"name": "name",
 		"other": "other",
-		"delete": "delete"
+		"delete": "delete",
+		"update": "has been updated",
+		"creation": "hass been created"
 	},
 	"navigation": {
 		"home": "home",
@@ -98,7 +100,8 @@
 			"zipcode": "zipcode",
 			"city": "city",
 			"shelters": "all my shelters",
-			"associations": "list of all associations"
+			"associations": "list of all associations",
+			"association": "the association"
 		},
 		"shelters": {
 			"title": "list of shelters under the association's responsibility.",
@@ -112,7 +115,10 @@
 			"settingSpecies": "species settings",
 			"settingBreeds": "breeds settings",
 			"settingColors": "colors settings",
-			"settingCoats": "coats settings"
+			"settingCoats": "coats settings",
+			"description": "shelter's description",
+			"name": "shelter's name",
+			"search": "Search..."
 		},
 		"families": {
 			"title": "list of families",

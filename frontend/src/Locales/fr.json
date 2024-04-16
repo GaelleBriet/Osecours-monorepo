@@ -12,7 +12,10 @@
 		"actions": "action | actions",
 		"name": "nom",
 		"other": "autre",
-		"delete": "supprimer"
+		"delete": "supprimer",
+		"update": "a bien été mis à jour",
+		"creation": "a bien été créé",
+		"search": "Chercher..."
 	},
 	"navigation": {
 		"home": "accueil",
@@ -98,7 +101,8 @@
 			"zipcode": "code postal",
 			"city": "ville",
 			"shelters": "toutes mes refuges",
-			"associations": "liste de toutes les associations"
+			"associations": "liste de toutes les associations",
+			"association": "l'association"
 		},
 		"shelters": {
 			"title": "liste des refuges sous la responsabilité de l'association.",
@@ -112,7 +116,9 @@
 			"settingSpecies": "gestion des espèces",
 			"settingBreeds": "gestion des races",
 			"settingColors": "gestion des couleurs",
-			"settingCoats": "gestion des robes"
+			"settingCoats": "gestion des robes",
+			"description": "description du refuge",
+			"name": "nom du refuge"
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",
