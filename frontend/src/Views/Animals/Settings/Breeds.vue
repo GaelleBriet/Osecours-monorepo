@@ -27,8 +27,11 @@
 			:store="animalSettingsStore"
 			:model-value="breeds"
 			:columns="[
-				{ label: 'Race', key: 'name' },
-				{ label: 'Description', key: 'description' },
+				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'name' },
+				{
+					label: getCapitalizedText(t('pages.animals.description')),
+					key: 'description',
+				},
 			]"
 			:animals-chars="true"
 		/>

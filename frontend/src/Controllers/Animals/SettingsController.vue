@@ -25,7 +25,7 @@
 <template>
 	<div class="w-full p-0">
 		<h1 class="mb-5">
-			{{ getCapitalizedText(t('gestion des caractéristiques')) }}
+			{{ getCapitalizedText(t('pages.animals.settingChars')) }}
 		</h1>
 		<template v-for="(text, index) in tabDescriptions">
 			<p
@@ -39,10 +39,10 @@
 		<TabsComponent
 			id="animalsTabsComponent"
 			:tabs="[
-				{ name: getCapitalizedText(t('espèces')) },
-				{ name: getCapitalizedText(t('races')) },
-				{ name: getCapitalizedText(t('robes')) },
-				{ name: getCapitalizedText(t('couleurs')) },
+				{ name: getCapitalizedText(t('pages.animals.species')) },
+				{ name: getCapitalizedText(t('pages.animals.breed')) },
+				{ name: getCapitalizedText(t('pages.animals.coat')) },
+				{ name: getCapitalizedText(t('pages.animals.color')) },
 			]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"

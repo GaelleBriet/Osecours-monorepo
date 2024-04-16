@@ -27,8 +27,11 @@
 			:store="animalSettingsStore"
 			:model-value="coats"
 			:columns="[
-				{ label: 'Robes', key: 'name' },
-				{ label: 'Description', key: 'description' },
+				{ label: getCapitalizedText(t('pages.animals.coat')), key: 'name' },
+				{
+					label: getCapitalizedText(t('pages.animals.description')),
+					key: 'description',
+				},
 			]"
 			:animals-chars="true"
 		/>

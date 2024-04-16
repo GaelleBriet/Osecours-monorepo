@@ -22,10 +22,14 @@
 			:title="getCapitalizedText(t('navigation.dogs'))"
 			:description="getCapitalizedText(t('pages.animals.dogsTitle'))"
 			:columns="[
-				{ label: 'Nom', key: 'name' },
-				{ label: 'I-Cad', key: 'icad' },
-				{ label: 'Race', key: 'breed' },
-				{ label: 'Statut', key: 'status', visibility: { md: true } },
+				{ label: getCapitalizedText(t('common.name')), key: 'name' },
+				{ label: getCapitalizedText(t('pages.animals.icad')), key: 'icad' },
+				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'breed' },
+				{
+					label: getCapitalizedText(t('pages.animals.status')),
+					key: 'status',
+					visibility: { md: true },
+				},
 			]"
 		/>
 	</div>

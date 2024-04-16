@@ -3,7 +3,7 @@
 </script>
 
 <template>
-	<AnimalsFormComponent :isCreateMode="true" />
+	<AnimalsForm :isCreateMode="true" />
 </template>
 
 <style scoped lang="postcss"></style>
