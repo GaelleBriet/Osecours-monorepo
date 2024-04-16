@@ -3,14 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
+use App\Models\Specie;
+use Exception;
 use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
     //
-    public function getAll()
+    public function getAll(Request $request)
     {
-        return Color::all();
+        $query = Color::with(['specie']);
+        $colors = Color::all();      
+
+        if ($request->has('species')) {    
+            $species = ucfirst($request->species);
+            $specieExist = Specie::where('name', $species)->first();      
+            if(!$specieExist){
+                throw new Exception('Specie #'. $request->species . " not found",404);
+            }
+            $query->whereHas('specie', function ($query) use ($species) {
+                $query->where('name', $species); 
+            });
+
+            $colors = $query->get();
+        }              
+
+        return $colors;
     }
 
     public function show(Color $color)
