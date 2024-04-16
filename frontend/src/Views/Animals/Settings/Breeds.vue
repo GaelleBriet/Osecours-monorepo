@@ -3,13 +3,23 @@
 	import { Breed } from '@/Interfaces/Breed.ts';
 	import { onMounted, ref } from 'vue';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
 
+	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const breeds = ref<Breed[]>([]);
 
 	onMounted(async () => {
 		await animalSettingsStore.getAllBreeds();
-		breeds.value = animalSettingsStore.breeds;
+		breeds.value = animalSettingsStore.breeds.map((breed) => {
+			return {
+				...breed,
+				name: getCapitalizedText(t(`enums.animalsBreeds.${breed.name}`)),
+				description: breed.description,
+			};
+		});
+		console.log(breeds.value);
 	});
 </script>
 <template>

@@ -3,13 +3,22 @@
 	import { onMounted, ref } from 'vue';
 	import { Color } from '@/Interfaces/Color.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
 
+	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const colors = ref<Color[]>([]);
 
 	onMounted(async () => {
 		await animalSettingsStore.getAllColors();
-		colors.value = animalSettingsStore.colors;
+		colors.value = animalSettingsStore.colors.map((color) => {
+			return {
+				...color,
+				name: getCapitalizedText(t(`enums.animalsColors.${color.name}`)),
+				description: color.description,
+			};
+		});
 	});
 </script>
 <template>

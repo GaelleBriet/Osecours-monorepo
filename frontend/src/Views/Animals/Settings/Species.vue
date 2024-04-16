@@ -4,6 +4,7 @@
 	import { Species } from '@/Interfaces/Species.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -13,15 +14,14 @@
 	onMounted(async () => {
 		// on récupère les especes depuis le store
 		await animalSettingsStore.getAllSpecies();
-		// on met à jour la liste des especes
+		// on met à jour la liste des espèces et affiche leur traduction
 		species.value = animalSettingsStore.allSpecies.map((species) => {
 			return {
 				...species,
-				name: t(species.name),
-				description: t(species.description),
+				name: getCapitalizedText(t(`enums.animalSpecies.${species.name}`)),
+				description: species.description,
 			};
 		});
-		console.log(species.value);
 	});
 </script>
 <template>
