@@ -15,14 +15,14 @@ class BreedController extends Controller
         $query = Breed::with(['specie']);
         $breeds = Breed::all();      
 
-        if ($request->has('type')) {    
-            $type = ucfirst($request->type);
-            $specieExist = Specie::where('name', $type)->first();      
+        if ($request->has('species')) {    
+            $species = ucfirst($request->species);
+            $specieExist = Specie::where('name', $species)->first();      
             if(!$specieExist){
-                throw new Exception('Specie #'. $request->type . " not found",404);
+                throw new Exception('Specie #'. $request->species . " not found",404);
             }
-            $query->whereHas('specie', function ($query) use ($type) {
-                $query->where('name', $type); 
+            $query->whereHas('specie', function ($query) use ($species) {
+                $query->where('name', $species); 
             });
 
             $breeds = $query->get();
