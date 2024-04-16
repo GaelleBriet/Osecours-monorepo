@@ -8,6 +8,7 @@
 			type: Object,
 			default: () => ({
 				show: false,
+				title: '',
 				message: '',
 				type: 'info',
 			}),
@@ -69,7 +70,7 @@
 									class="text-sm font-medium"
 									:class="textClass"
 								>
-									Successfully saved!
+									{{ props.config.title }}
 								</p>
 								<p class="mt-1 text-sm text-gray-500">
 									{{ props.config.message }}
