@@ -108,7 +108,7 @@ export const getAnimals = async (): Promise<Animal[] | ErrorResponse> => {
 		];
 		return animals;
 		// @todo: Uncomment this code when the backend is ready
-		// const response: AxiosResponse = await axiosInstance.get(`${import.meta.env.VITE_ANIMALS_API_URL}`);
+		// const response: AxiosResponse = await axiosInstance.get(`${import.meta.env.VITE_ANIMALS_API_URL}/all`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;

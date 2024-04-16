@@ -82,3 +82,17 @@ export const deleteBreed = async (
 		return errorResponse(axiosError);
 	}
 };
+
+export const getSpecificBreeds = async (
+	species: string,
+): Promise<Breed[] | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_BREEDS_API_URL}/all?species=${species}`,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};

@@ -78,3 +78,17 @@ export const deleteColor = async (id: number): Promise<ErrorResponse> => {
 		return errorResponse(axiosError);
 	}
 };
+
+export const getSpecificColors = async (
+	species: string,
+): Promise<Color[] | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_COLORS_API_URL}/all?species=${species}`,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};

@@ -14,6 +14,7 @@ import {
 	deleteBreed,
 	getAllBreeds,
 	getOneBreed,
+	getSpecificBreeds,
 	updateBreed,
 } from '@/Services/DataLayers/Breed.ts';
 import { Coat } from '@/Interfaces/Coat.ts';
@@ -30,6 +31,7 @@ import {
 	deleteColor,
 	getColor,
 	getColors,
+	getSpecificColors,
 	updateColor,
 } from '@/Services/DataLayers/Color.ts';
 
@@ -43,6 +45,10 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		coat: Coat | null;
 		colors: Color[];
 		color: Color | null;
+		catsBreeds: Breed[];
+		dogsBreeds: Breed[];
+		catsColors: Color[];
+		dogsColors: Color[];
 	} => ({
 		allSpecies: [],
 		species: null,
@@ -52,6 +58,10 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		coat: null,
 		colors: [],
 		color: null,
+		catsBreeds: [],
+		dogsBreeds: [],
+		catsColors: [],
+		dogsColors: [],
 	}),
 	getters: {
 		getCurrentSpecies(): Species | null {
@@ -287,6 +297,34 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.colors = this.colors.filter((colors: Color) => colors.id !== id);
 				return true;
+			}
+		},
+		async getSpecificBreeds(species: string): Promise<Breed[]> {
+			const breeds: Breed[] | ErrorResponse = await getSpecificBreeds(species);
+			if ('error' in breeds) {
+				return [];
+			} else {
+				if (species === 'dog') {
+					this.dogsBreeds = breeds;
+				}
+				if (species === 'cat') {
+					this.catsBreeds = breeds;
+				}
+				return breeds;
+			}
+		},
+		async getSpecificColors(species: string): Promise<Breed[]> {
+			const colors: Color[] | ErrorResponse = await getSpecificColors(species);
+			if ('error' in colors) {
+				return [];
+			} else {
+				if (species === 'dog') {
+					this.dogsColors = colors;
+				}
+				if (species === 'cat') {
+					this.catsColors = colors;
+				}
+				return colors;
 			}
 		},
 	},

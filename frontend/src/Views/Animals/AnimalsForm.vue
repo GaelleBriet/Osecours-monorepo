@@ -16,7 +16,7 @@
 	import i18n from '@/Services/Translations';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { onMounted, ref } from 'vue';
+	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { Breed } from '@/Interfaces/Breed.ts';
@@ -33,6 +33,9 @@
 	const isEditMode = ref(false);
 	let localAnimal = ref({ ...props.animal });
 	let createdAnimal = ref<Animal>({});
+	const selectedSpecies = ref(
+		!props.isCreateMode ? props.animal?.specie_id : null,
+	);
 
 	const notificationConfig = ref({
 		show: false,
@@ -101,6 +104,7 @@
 	// 			: [],
 	// 	);
 	// });
+
 	onMounted(async () => {
 		await animalSettingsStore.getAllBreeds();
 		breeds.value = animalSettingsStore.breeds.map((breed) => {
@@ -110,13 +114,24 @@
 				description: breed.description,
 			};
 		});
-		console.log(breeds.value);
+		// console.log(breeds.value);
 	});
 
 	onMounted(() => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
+	});
+
+	watch(selectedSpecies, (newValue, oldValue) => {
+		console.log('newVal', newValue);
+		console.log('oldVal', oldValue);
+		if (newValue === 1) {
+			// console.log('cat');
+			// console.log(breeds.value);
+		}
+		// si la value est 1-cat alors on affiche les races correspondantes
+		// si la value est 2-dog alors on affiche les races correspondantes
 	});
 </script>
 <template>
@@ -167,21 +182,23 @@
 				</div>
 
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
+					<!--					:model-value="-->
+					<!--					!isCreateMode ? animal.species : createdAnimal.specie_id-->
+					<!--					"-->
+					<!--					@update:model-value="-->
+					<!--					!isCreateMode-->
+					<!--					? (localAnimal.species = $event)-->
+					<!--					: (createdAnimal.specie_id = $event)-->
+					<!--					"-->
 					<FormSelect
 						id="animal-species"
-						:model-value="
-							!isCreateMode ? animal.species : createdAnimal.specie_id
-						"
+						:model-value="selectedSpecies"
 						:name="'animal-species'"
 						:label="getCapitalizedText(t('pages.animals.species'))"
 						:options="animalSpeciesOptions"
 						placeholder="Choisir une espèce"
 						:disabled="!isEditMode"
-						@update:model-value="
-							!isCreateMode
-								? (localAnimal.species = $event)
-								: (createdAnimal.specie_id = $event)
-						"
+						@update:model-value="selectedSpecies = $event"
 					/>
 				</div>
 				<div class="px-2 w-full md:col-start-2 md:row-start-2">

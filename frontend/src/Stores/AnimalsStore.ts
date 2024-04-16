@@ -49,7 +49,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const dogs: Animal[] = animals.filter(
-					(animal: Animal) => animal.species === 1,
+					(animal: Animal) => animal.specie_id === 2,
 				);
 				this.animals = dogs;
 				return animals;
@@ -61,7 +61,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const cats: Animal[] = animals.filter(
-					(animal: Animal) => animal.species === 2,
+					(animal: Animal) => animal.specie_id === 1,
 				);
 				this.animals = cats;
 				return animals;
