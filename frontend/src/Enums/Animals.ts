@@ -10,8 +10,8 @@ export enum AnimalStatus {
 }
 
 export enum AnimalSpecies {
-	cat = 1,
-	dog = 2,
+	Cat = 1,
+	Dog = 2,
 }
 
 export enum AnimalGenders {

@@ -97,21 +97,21 @@ export const useAnimalsStore = defineStore('animals', {
 				...animal,
 				name: animal.name || '',
 				description: animal.description || '',
-				birthdate: animal.birthdate || '',
-				catsFriendly: animal.catsFriendly || null,
-				dogsFriendly: animal.dogsFriendly || null,
-				childrenFriendly: animal.childrenFriendly || null,
-				age: animal.age || null,
-				behavioralComment: animal.behavioralComment || '',
-				icad: animal.icad || '',
+				birth_date: animal.birthdate ? new Date(animal.birthdate) : null,
+				cats_friendly: animal.catsFriendly || null,
+				dogs_friendly: animal.dogsFriendly || null,
+				children_friendly: animal.childrenFriendly || null,
+				// age: animal.age || null,
+				behavioral_comment: animal.behavioralComment || '',
+				// icad: animal.icad || '',
 				specie_id: animal.specie_id || undefined,
+				gender: animal.gender || '', //gender_id
+				color: animal.color || '', //color_id
+				coat: animal.coat || '', //coat_id
+				size: animal.size || '', //sizerange_id
+				ageRange: animal.ageRange || '', //agerange_id
 				breed: animal.breed || '',
 				status: animal.status || '',
-				gender: animal.gender || '', //gender_id
-				size: animal.size || '', //sizerange_id
-				coat: animal.coat || '', //coat_id
-				color: animal.color || '', //color_id
-				ageRange: animal.ageRange || '', //agerange_id
 			};
 		},
 	},
