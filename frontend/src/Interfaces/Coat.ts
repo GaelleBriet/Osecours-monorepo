@@ -3,3 +3,8 @@ export interface Coat {
 	name: string;
 	description?: string;
 }
+
+export interface CoatsForSelects {
+	value: string;
+	label: string;
+}

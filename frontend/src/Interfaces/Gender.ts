@@ -3,3 +3,8 @@ export interface Gender {
 	name: string;
 	description?: string;
 }
+
+export interface GendersForSelects {
+	value: string;
+	label: string;
+}
