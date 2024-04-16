@@ -6,20 +6,18 @@
 	import FormText from '@/Components/Forms/FormText.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
 	import { Animal } from '@/Interfaces/Animal.ts';
-	import {
-		AnimalAges,
-		AnimalGenders,
-		AnimalSizes,
-		AnimalSpecies,
-		AnimalStatus,
-	} from '@/Enums/Animals.ts';
+	import { AnimalAges, AnimalSizes, AnimalStatus } from '@/Enums/Animals.ts';
+	import { BreedsForSelects } from '@/Interfaces/Breed.ts';
+	import { CoatsForSelects } from '@/Interfaces/Coat.ts';
+	import { ColorsForSelects } from '@/Interfaces/Color.ts';
+	import { GendersForSelects } from '@/Interfaces/Gender.ts';
+	import { SpeciesForSelects } from '@/Interfaces/Species.ts';
 	import i18n from '@/Services/Translations';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
-	import { Breed, BreedSelect, BreedsForSelects } from '@/Interfaces/Breed.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -33,10 +31,15 @@
 	const isEditMode = ref(false);
 	let localAnimal = ref<Animal>({ ...props.animal });
 	let createdAnimal = ref<Animal>({});
+	const newAnimal = ref<Animal | null>(null);
 	const selectedSpecies = ref(
 		!props.isCreateMode ? props.animal?.specie_id : null,
 	);
 	const breeds = ref<BreedsForSelects[]>([]);
+	const coats = ref<CoatsForSelects[]>([]);
+	const colors = ref<ColorsForSelects[]>([]);
+	const genders = ref<GendersForSelects[]>([]);
+	const species = ref<SpeciesForSelects[]>([]);
 
 	const notificationConfig = ref({
 		show: false,
@@ -44,69 +47,121 @@
 		type: 'info',
 	});
 
-	//@todo: à supprimer quand l'api sera prête (on utilisera un appel api à la place des enums)
-	const animalSpeciesOptions = generateOptionsFromEnum(
-		AnimalSpecies,
-		'enums.animalSpecies',
-	);
-	// animalSpeciesOptions.unshift({
-	// 	value: '0',
-	// 	label: 'Votre placeholder'
-	// });
-	// console.log(animalSpeciesOptions);
-	const animalStatusOptions = generateOptionsFromEnum(
+	// Fonction générique pour formater les options des selects depuis les données des enums
+	const generateOptionsWithDefault = (
+		enumObject,
+		translationKey,
+		defaultLabel,
+	) => {
+		const options = generateOptionsFromEnum(enumObject, translationKey);
+		options.unshift({ value: '', label: defaultLabel });
+		return options;
+	};
+
+	const animalStatusOptions = generateOptionsWithDefault(
 		AnimalStatus,
 		'enums.animalStatus',
+		'Choisir un statut',
 	);
-	const animalGendersOptions = generateOptionsFromEnum(
-		AnimalGenders,
-		'enums.animalGenders',
-	);
-	const animalSizeOptions = generateOptionsFromEnum(
+	const animalSizeOptions = generateOptionsWithDefault(
 		AnimalSizes,
 		'enums.animalSizes',
+		'Choisir une taille',
 	);
-	const animalAgeRangeOptions = generateOptionsFromEnum(
+	const animalAgeRangeOptions = generateOptionsWithDefault(
 		AnimalAges,
 		'enums.animalAges',
+		"Choisir une tranche d'âge",
 	);
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
 			// on passe la race à l'objet animal créé
 			createdAnimal.value.specie_id = selectedSpecies.value;
-			console.log('createdAnimal', createdAnimal.value);
 
-			const newAnimal: Animal = await animalsStore.createAnimal(
-				createdAnimal.value,
-			);
+			newAnimal.value = await animalsStore.createAnimal(createdAnimal.value);
+			console.log(newAnimal.value);
 		}
 		if (!props.isCreateMode) {
 			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
 		}
-		// Si l'api à bien répondu, on affiche la notification et on stop le mode edition
-		// @todo: adapter le message suivant la réponse de l'api
-		// notificationConfig.value = {
-		// 	show: true,
-		// 	message: !props.isCreateMode
-		// 		? `L'animal ${localAnimal.value?.name} a bien été mis à jour`
-		// 		: `L'animal ${createdAnimal.value?.name} a bien été créé`,
-		// 	type: 'success',
-		// };
-		isEditMode.value = false;
+
+		if (!newAnimal.value) {
+			notificationConfig.value = {
+				show: true,
+				title: 'Une erreur est survenue',
+				message: 'Veuillez contacter le support',
+				type: 'error',
+			};
+			return;
+		} else if (newAnimal.value) {
+			notificationConfig.value = {
+				show: true,
+				title: 'Succès',
+				message: !props.isCreateMode
+					? `L'animal ${localAnimal.value?.name || ''} a bien été mis à jour`
+					: `L'animal ${createdAnimal.value?.name || ''} a bien été créé`,
+				type: 'success',
+			};
+		}
+		// Réinitialiser les valeurs du formulaire
+		if (props.isCreateMode) {
+			createdAnimal.value = {};
+		} else {
+			localAnimal.value = { ...props.animal };
+			isEditMode.value = false;
+		}
 	};
 
-	// fonction pour formater les données récupérées de l'api afin de les passer au select
-	const formatBreedOptions = (breeds: Breed[]) => {
-		return breeds.map((breed) => ({
-			value: breed.id.toString(),
-			label: breed.name,
+	// Fonction générique pour formater les options des selects depuis les données de l'api
+	const formatOptions = (
+		items: { id: number; name: string }[],
+		translationKey: string,
+	) => {
+		return items.map((item) => ({
+			value: item.id.toString(),
+			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
 		}));
 	};
 
+	// Fonction générique pour récupérer les données depuis le store, les formater et ajouter l'option par défaut
+	const fetchDataAndFormatOptions = async (
+		store,
+		translationKey,
+		defaultLabel,
+	) => {
+		const data = await store();
+		const options = formatOptions(data, translationKey);
+		options.unshift({ value: '', label: defaultLabel });
+		return options;
+	};
+
 	onMounted(async () => {
-		// On récupère les races de tous les animaux par défaut au montage du composant
-		breeds.value = formatBreedOptions(await animalSettingsStore.getAllBreeds());
+		breeds.value = await fetchDataAndFormatOptions(
+			animalSettingsStore.getAllBreeds,
+			'enums.animalsBreeds',
+			'Sélectionner une race',
+		);
+		coats.value = await fetchDataAndFormatOptions(
+			animalSettingsStore.getAllCoats,
+			'enums.animalsCoats',
+			'Sélectionner un pelage',
+		);
+		colors.value = await fetchDataAndFormatOptions(
+			animalSettingsStore.getAllColors,
+			'enums.animalsColors',
+			'Sélectionner une couleur',
+		);
+		genders.value = await fetchDataAndFormatOptions(
+			animalSettingsStore.getAllGenders,
+			'enums.animalGenders',
+			'Sélectionner un genre',
+		);
+		species.value = await fetchDataAndFormatOptions(
+			animalSettingsStore.getAllSpecies,
+			'enums.animalSpecies',
+			'Sélectionner une espèce',
+		);
 	});
 
 	onMounted(() => {
@@ -118,17 +173,23 @@
 	watch(selectedSpecies, async (newValue) => {
 		// on surveille le changement de l'espèce pour récupérer les races correspondantes
 		if (newValue == 1) {
-			breeds.value = formatBreedOptions(
+			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('cat'),
+				'enums.animalsBreeds',
 			);
+			breeds.value.unshift({
+				value: '',
+				label: 'Sélectionner une race',
+			});
 		} else if (newValue == 2) {
-			breeds.value = formatBreedOptions(
+			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('dog'),
+				'enums.animalsBreeds',
 			);
-		} else {
-			breeds.value = formatBreedOptions(
-				await animalSettingsStore.getAllBreeds(),
-			);
+			breeds.value.unshift({
+				value: '',
+				label: 'Sélectionner une race',
+			});
 		}
 	});
 </script>
@@ -168,7 +229,7 @@
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'123456123456789'"
+						:placeholder="'ex: 123456123456789'"
 						:validation="'number'"
 						:disabled="!isEditMode"
 						@update:model-value="
@@ -185,8 +246,7 @@
 						:model-value="selectedSpecies"
 						:name="'animal-species'"
 						:label="getCapitalizedText(t('pages.animals.species'))"
-						:options="animalSpeciesOptions"
-						placeholder="Choisir une espèce"
+						:options="species"
 						:disabled="!isEditMode"
 						@update:model-value="selectedSpecies = $event"
 					/>
@@ -200,7 +260,6 @@
 						:label="getCapitalizedText(t('pages.animals.breed'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:options="breeds"
-						placeholder="'Boxer, Berger Allemand ...'"
 						:disabled="!isEditMode"
 						name="animalBreed"
 						@update:model-value="
@@ -250,9 +309,8 @@
 						"
 						:name="'animal-gender'"
 						:label="getCapitalizedText(t('pages.animals.gender'))"
-						:options="animalGendersOptions"
+						:options="genders"
 						:disabled="!isEditMode"
-						placeholder="Choisir un genre"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.gender_id = $event)
@@ -270,7 +328,6 @@
 						:label="getCapitalizedText(t('pages.animals.size'))"
 						:options="animalSizeOptions"
 						:disabled="!isEditMode"
-						placeholder="Choisir une catégorie"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.sizerange_id = $event)
@@ -279,32 +336,38 @@
 					/>
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-5">
-					<FormText
+					<FormSelect
 						id="animal-coat"
-						:model-value="!isCreateMode ? animal?.coat : createdAnimal.coat"
+						:model-value="
+							!isCreateMode ? animal?.coat_id : createdAnimal.coat_id
+						"
+						:name="getCapitalizedText(t('pages.animals.coat'))"
 						:label="getCapitalizedText(t('pages.animals.coat'))"
-						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Robe de l\'animal (type de poils)'"
+						:options="coats"
 						:disabled="!isEditMode"
+						class="w-full border border-gray-300 rounded shadow-sm"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.coat = $event)
-								: (createdAnimal.coat = $event)
+								? (localAnimal.coat_id = $event)
+								: (createdAnimal.coat_id = $event)
 						"
 					/>
 				</div>
 				<div class="px-2 md:col-start-2 md:row-start-5">
-					<FormText
+					<FormSelect
 						id="animal-color"
-						:model-value="!isCreateMode ? animal?.color : createdAnimal.color"
+						:model-value="
+							!isCreateMode ? animal?.color_id : createdAnimal.color_id
+						"
+						:name="getCapitalizedText(t('pages.animals.color'))"
 						:label="getCapitalizedText(t('pages.animals.color'))"
-						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Couleur de l\'animal'"
+						:options="colors"
 						:disabled="!isEditMode"
+						class="w-full border border-gray-300 rounded shadow-sm"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.color = $event)
-								: (createdAnimal.color = $event)
+								? (localAnimal.color_id = $event)
+								: (createdAnimal.color_id = $event)
 						"
 					/>
 				</div>
@@ -318,7 +381,6 @@
 						:label="getCapitalizedText(t('pages.animals.ageRange'))"
 						:options="animalAgeRangeOptions"
 						:disabled="!isEditMode"
-						placeholder="Choisir une tranche d'âge"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.agerange_id = $event)
