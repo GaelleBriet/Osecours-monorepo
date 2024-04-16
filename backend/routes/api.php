@@ -24,7 +24,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::post('/animals', 'store');
           Route::put('/animals/{id}', 'update');
           Route::delete('/animals/{id}', 'destroy');
-          Route::get('/animals', 'all');
+          Route::get('/animals/all', 'all');
      });
 
      Route::controller(UserController::class)->group(function () {
