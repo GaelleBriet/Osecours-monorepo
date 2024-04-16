@@ -37,6 +37,12 @@ const editItem = (item) => {
 };
 
 
+const addItem = () => {
+	router.push({
+		name: 'CreateAssociation',
+	});
+};
+
 onMounted(async () => {
 	currentAssociation.value = await associationsStore.getAssociation(userStore.user?.associations[0]?.id);
 	await associationsStore.getAssociations();
@@ -78,15 +84,17 @@ onMounted(async () => {
 			<template v-if="currentTab === 0 && currentAssociation">
 				<template v-if="userStore.user?.scopes === 'global_access_scope'">
 					<DataGridComponent 
-						:store="associationsStore" 
-						:model-value="associationsTransformed" 
-						:title="getCapitalizedText(t('navigation.all-associations'))"
-						:description="getCapitalizedText(t('pages.associations.associations'))"
-						:columns="[
+					:store="associationsStore" 
+					:model-value="associationsTransformed" 
+					:title="getCapitalizedText(t('navigation.all-associations'))"
+					:description="getCapitalizedText(t('pages.associations.associations'))"
+					:columns="[
 						{ label: getCapitalizedText(t('common.name')), key: 'name' },
 						{ label: getCapitalizedText(t('pages.associations.siret')), key: 'siret' },
 						{ label: getCapitalizedText(t('pages.animals.status')), key: 'status' },
-					]" @edit="editItem" />
+					]"
+					@edit="editItem"
+					@add="addItem" />
 				</template>
 				<template v-else>
 					<GeneralInformation :association="currentAssociation" />
