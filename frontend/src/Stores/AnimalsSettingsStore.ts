@@ -4,7 +4,6 @@ import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { Breed } from '@/Interfaces/Breed.ts';
 import { Coat } from '@/Interfaces/Coat.ts';
 import { Color } from '@/Interfaces/Color.ts';
-import { AgeRange } from '@/Interfaces/AgeRange.ts';
 import { Gender } from '@/Interfaces/Gender.ts';
 import {
 	createSpecies,
@@ -147,15 +146,6 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.colors = colors;
 				return colors;
-			}
-		},
-		async getAllAgeRanges(): Promise<AgeRange[]> {
-			const ageRanges: AgeRange[] | ErrorResponse = await getAgeRanges();
-			if ('error' in ageRanges) {
-				return [];
-			} else {
-				this.ageRanges = ageRanges;
-				return ageRanges;
 			}
 		},
 		async getAllGenders(): Promise<Gender[]> {

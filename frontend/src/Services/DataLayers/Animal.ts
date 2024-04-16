@@ -120,7 +120,6 @@ export const createAnimal = async (
 	animal: Animal,
 ): Promise<Animal | ErrorResponse> => {
 	try {
-		console.log('animal', animal);
 		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_ANIMALS_API_URL}`,
 			animal,
