@@ -50,9 +50,9 @@
 
 	// Fonction générique pour formater les options des selects depuis les données des enums
 	const generateOptionsWithDefault = (
-		enumObject,
-		translationKey,
-		defaultLabel,
+		enumObject: Record<string, unknown>,
+		translationKey: string,
+		defaultLabel: string,
 	) => {
 		const options = generateOptionsFromEnum(enumObject, translationKey);
 		options.unshift({ value: '', label: defaultLabel });
