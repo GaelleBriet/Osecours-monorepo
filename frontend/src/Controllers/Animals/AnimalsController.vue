@@ -16,17 +16,18 @@
 	// on récupère les animaux depuis le store
 	// on les transforme pour afficher les labels des enums
 	const animalsTransformed = computed(() => {
-		return animalsStore.animals.map((animal) => ({
-			...animal,
-			species:
-				generateOptionsFromEnum(AnimalSpecies, 'enums.animalSpecies')[
-					animal.species - 1
-				]?.label || animal.species,
-			status:
-				generateOptionsFromEnum(AnimalStatus, 'enums.animalStatus')[
-					animal.status - 1
-				]?.label || animal.status,
-		}));
+		return animalsStore.animals;
+		// return animalsStore.animals.map((animal) => ({
+		// 	...animal,
+		// 	species:
+		// 		generateOptionsFromEnum(AnimalSpecies, 'enums.animalSpecies')[
+		// 			animal.species - 1
+		// 		]?.label || animal.species,
+		// 	status:
+		// 		generateOptionsFromEnum(AnimalStatus, 'enums.animalStatus')[
+		// 			animal.status - 1
+		// 		]?.label || animal.status,
+		// }));
 	});
 
 	const editItem = (item) => {
@@ -63,10 +64,10 @@
 				{ label: getCapitalizedText(t('pages.animals.icad')), key: 'icad' },
 				{
 					label: getCapitalizedText(t('pages.animals.species')),
-					key: 'species',
+					key: 'specie',
 					visibility: { sm: true },
 				},
-				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'breed' },
+				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'bread' },
 				{
 					label: getCapitalizedText(t('pages.animals.status')),
 					key: 'status',
