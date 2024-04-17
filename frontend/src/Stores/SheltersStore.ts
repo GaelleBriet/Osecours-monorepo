@@ -51,7 +51,8 @@ export const useSheltersStore = defineStore('shelters', {
 			}
 		},
 		async updateShelter(shelter: Shelter): Promise<Shelter | null> {
-			const updatedShelter: Shelter | ErrorResponse = await updateShelter(shelter);
+			const updatedShelter: Shelter | ErrorResponse =
+				await updateShelter(shelter);
 			if ('error' in updatedShelter) {
 				return null;
 			} else {
