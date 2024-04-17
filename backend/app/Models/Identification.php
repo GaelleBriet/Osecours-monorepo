@@ -13,7 +13,6 @@ class Identification extends Model
     protected $fillable = [
         "date",
         "type",
-        "date",
         "number",
         "animal_id"
     ];
