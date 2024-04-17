@@ -13,6 +13,7 @@
 	import { GendersForSelects } from '@/Interfaces/Gender.ts';
 	import { SpeciesForSelects } from '@/Interfaces/Species.ts';
 	import i18n from '@/Services/Translations';
+	import router from '@/Router';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, watch } from 'vue';
@@ -28,6 +29,7 @@
 	}>();
 
 	const t = i18n.global.t;
+
 	const isEditMode = ref(false);
 	let localAnimal = ref<Animal>({ ...props.animal });
 	let createdAnimal = ref<Animal>({});
@@ -41,6 +43,7 @@
 	const genders = ref<GendersForSelects[]>([]);
 	const species = ref<SpeciesForSelects[]>([]);
 
+	// paramètres de la notification
 	const notificationConfig = ref({
 		show: false,
 		title: '',
@@ -49,6 +52,10 @@
 	});
 
 	// Fonction générique pour formater les options des selects depuis les données des enums
+	// @enumObject : l'enum à formater
+	// @translationKey : la clé de traduction pour les labels des options
+	// @defaultLabel : le label par défaut pour les selects
+	// return : value = clé de l'enum, label = valeur de l'enum traduite
 	const generateOptionsWithDefault = (
 		enumObject: Record<string, unknown>,
 		translationKey: string,
@@ -59,6 +66,7 @@
 		return options;
 	};
 
+	// Initialisation des options des selects depuis les Enums
 	const animalStatusOptions = generateOptionsWithDefault(
 		AnimalStatus,
 		'enums.animalStatus',
@@ -74,6 +82,45 @@
 		'enums.animalAges',
 		"Choisir une tranche d'âge",
 	);
+
+	// Fonction générique pour formater les options des selects depuis les données de l'api
+	// @items : les données de l'api
+	// @translationKey : la clé de traduction pour les labels des options
+	// return : value = id de l'item, label = name de l'item traduit
+	const formatOptions = (
+		items: { id: number; name: string }[],
+		translationKey: string,
+	) => {
+		return items.map((item) => ({
+			value: item.id.toString(),
+			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
+		}));
+	};
+
+	// @store : le store et la méthode à appeler
+	// @translationKey : la clé de traduction pour les labels des options
+	// @defaultLabel : le label par défaut pour les selects
+	// return : les options formatées avec le label par défaut en premier
+	const fetchDataAndFormatOptions = async (
+		store: () => Promise<any>,
+		translationKey: string,
+		defaultLabel: string,
+	) => {
+		const data = await store();
+		const options = formatOptions(data, translationKey);
+		options.unshift({ value: '', label: defaultLabel });
+		return options;
+	};
+
+	const onButtonClick = () => {
+		// en mode création : retour à la page précédente
+		// en mode visualisation : basculer en mode édition
+		if (!props.isCreateMode) {
+			isEditMode.value = !isEditMode.value;
+		} else {
+			router.go(-1);
+		}
+	};
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
@@ -113,30 +160,9 @@
 		}
 	};
 
-	// Fonction générique pour formater les options des selects depuis les données de l'api
-	const formatOptions = (
-		items: { id: number; name: string }[],
-		translationKey: string,
-	) => {
-		return items.map((item) => ({
-			value: item.id.toString(),
-			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
-		}));
-	};
-
-	// Fonction générique pour récupérer les données depuis le store, les formater et ajouter l'option par défaut
-	const fetchDataAndFormatOptions = async (
-		store: () => Promise<any>,
-		translationKey: string,
-		defaultLabel: string,
-	) => {
-		const data = await store();
-		const options = formatOptions(data, translationKey);
-		options.unshift({ value: '', label: defaultLabel });
-		return options;
-	};
-
 	onMounted(async () => {
+		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
+		//@todo: ajouter les traductions
 		breeds.value = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
 			'enums.animalsBreeds',
@@ -210,7 +236,9 @@
 				<div class="px-2 w-full md:col-start-1">
 					<FormText
 						id="animal-name"
-						:model-value="!isCreateMode ? animal?.name : createdAnimal.name"
+						:model-value="
+							!isCreateMode ? localAnimal?.name : createdAnimal.name
+						"
 						:label="getCapitalizedText(t('common.name'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nom de l\'animal'"
@@ -225,7 +253,9 @@
 				<div class="px-2 w-full md:col-start-2">
 					<FormText
 						id="animal-icad-number"
-						:model-value="!isCreateMode ? animal?.icad : createdAnimal.icad"
+						:model-value="
+							!isCreateMode ? localAnimal?.icad : createdAnimal.icad
+						"
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
@@ -243,7 +273,9 @@
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
 					<FormSelect
 						id="animal-species"
-						:model-value="selectedSpecies"
+						:model-value="
+							!isCreateMode ? localAnimal?.specie_id : selectedSpecies
+						"
 						:name="'animal-species'"
 						:label="getCapitalizedText(t('pages.animals.species'))"
 						:options="species"
@@ -255,7 +287,7 @@
 					<FormSelect
 						id="animalBreed"
 						:model-value="
-							!isCreateMode ? animal?.breed_id : createdAnimal.breed_id
+							!isCreateMode ? localAnimal?.breed_id : createdAnimal.breed_id
 						"
 						:label="getCapitalizedText(t('pages.animals.breed'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
@@ -273,7 +305,9 @@
 					<FormTextArea
 						id="animal-description"
 						:model-value="
-							!isCreateMode ? animal?.description : createdAnimal.description
+							!isCreateMode
+								? localAnimal?.description
+								: createdAnimal.description
 						"
 						:label="getCapitalizedText(t('pages.animals.description'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
@@ -289,7 +323,9 @@
 				<div class="px-2 md:col-start-1 md:row-start-3">
 					<FormSelect
 						id="animal-status"
-						:model-value="!isCreateMode ? animal?.status : createdAnimal.status"
+						:model-value="
+							!isCreateMode ? localAnimal?.status : createdAnimal.status
+						"
 						:name="'animal-status'"
 						:label="getCapitalizedText(t('pages.animals.status'))"
 						:options="animalStatusOptions"
@@ -305,7 +341,7 @@
 					<FormSelect
 						id="animal-gender"
 						:model-value="
-							!isCreateMode ? animal?.gender_id : createdAnimal.gender_id
+							!isCreateMode ? localAnimal?.gender_id : createdAnimal.gender_id
 						"
 						:name="'animal-gender'"
 						:label="getCapitalizedText(t('pages.animals.gender'))"
@@ -322,7 +358,9 @@
 					<FormSelect
 						id="animal-size"
 						:model-value="
-							!isCreateMode ? animal?.sizerange_id : createdAnimal.sizerange_id
+							!isCreateMode
+								? localAnimal?.sizerange_id
+								: createdAnimal.sizerange_id
 						"
 						:name="getCapitalizedText(t('pages.animals.size'))"
 						:label="getCapitalizedText(t('pages.animals.size'))"
@@ -339,7 +377,7 @@
 					<FormSelect
 						id="animal-coat"
 						:model-value="
-							!isCreateMode ? animal?.coat_id : createdAnimal.coat_id
+							!isCreateMode ? localAnimal?.coat_id : createdAnimal.coat_id
 						"
 						:name="getCapitalizedText(t('pages.animals.coat'))"
 						:label="getCapitalizedText(t('pages.animals.coat'))"
@@ -357,7 +395,7 @@
 					<FormSelect
 						id="animal-color"
 						:model-value="
-							!isCreateMode ? animal?.color_id : createdAnimal.color_id
+							!isCreateMode ? localAnimal?.color_id : createdAnimal.color_id
 						"
 						:name="getCapitalizedText(t('pages.animals.color'))"
 						:label="getCapitalizedText(t('pages.animals.color'))"
@@ -375,7 +413,9 @@
 					<FormSelect
 						id="animal-age-range"
 						:model-value="
-							!isCreateMode ? animal?.agerange_id : createdAnimal.agerange_id
+							!isCreateMode
+								? localAnimal?.agerange_id
+								: createdAnimal.agerange_id
 						"
 						:name="getCapitalizedText(t('pages.animals.ageRange'))"
 						:label="getCapitalizedText(t('pages.animals.ageRange'))"
@@ -392,15 +432,15 @@
 					<FormDate
 						id="animal-date"
 						:model-value="
-							!isCreateMode ? animal?.birthdate : createdAnimal.birthdate
+							!isCreateMode ? localAnimal?.birth_date : createdAnimal.birth_date
 						"
 						:name="'animal-date'"
 						:label="getCapitalizedText(t('pages.animals.birthdate'))"
 						:disabled="!isEditMode"
 						@update:modelValue="
 							!isCreateMode
-								? (localAnimal.birthdate = $event)
-								: (createdAnimal.birthdate = $event)
+								? (localAnimal.birth_date = $event)
+								: (createdAnimal.birth_date = $event)
 						"
 					/>
 				</div>
@@ -411,10 +451,9 @@
 					]"
 				>
 					<button
-						v-if="!isCreateMode"
 						id="edit-mode"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
-						@click.prevent="isEditMode = !isEditMode"
+						@click.prevent="onButtonClick"
 					>
 						{{
 							isEditMode

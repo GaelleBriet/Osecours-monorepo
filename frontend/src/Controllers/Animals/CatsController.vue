@@ -4,10 +4,25 @@
 	import { computed, onMounted } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import { useRouter } from 'vue-router';
 
-	const t = i18n.global.t;
+	const router = useRouter();
 	const animalsStore = useAnimalsStore();
+	const t = i18n.global.t;
 	const animals = computed(() => animalsStore.animals);
+
+	const editItem = (item) => {
+		router.push({
+			name: 'EditAnimal',
+			params: { id: item.id },
+		});
+	};
+
+	const addItem = () => {
+		router.push({
+			name: 'CreateAnimal',
+		});
+	};
 
 	onMounted(async () => {
 		await animalsStore.getCats();
@@ -31,6 +46,8 @@
 					visibility: { md: true },
 				},
 			]"
+			@edit="editItem"
+			@add="addItem"
 		/>
 	</div>
 </template>

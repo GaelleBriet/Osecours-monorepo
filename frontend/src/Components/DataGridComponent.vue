@@ -20,7 +20,6 @@
 		}[];
 		animalsChars?: boolean;
 	}>();
-	console.log(props)
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
@@ -47,19 +46,18 @@
 		if (!query) {
 			return props.modelValue;
 		} else {
-			return props.modelValue.filter(item => {
-            for (const key in item) {
-                if (Object.hasOwnProperty.call(item, key)) {
-                    if (item[key]?.toString().toLowerCase().includes(query)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
+			return props.modelValue.filter((item) => {
+				for (const key in item) {
+					if (Object.hasOwnProperty.call(item, key)) {
+						if (item[key]?.toString().toLowerCase().includes(query)) {
+							return true;
+						}
+					}
+				}
+				return false;
 			});
 		}
 	});
-
 </script>
 
 <template>
@@ -77,9 +75,7 @@
 				</p>
 			</div>
 			<div class="flex justify-between">
-				<div
-					class="mt-4 flex lg:mr-12"
-				>
+				<div class="mt-4 flex lg:mr-12">
 					<input
 						v-model="searchQuery"
 						type="text"
@@ -92,9 +88,20 @@
 						type="button"
 						class="rounded-r-md px-2 py-1 text-center text-sm text-white"
 					>
-					<!-- @todo: changer le svg pour une icone  -->
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-							<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+						<!-- @todo: changer le svg pour une icone  -->
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-4 h-4"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+							/>
 						</svg>
 					</button>
 				</div>
@@ -104,12 +111,11 @@
 						type="button"
 						class="rounded-md px-3 py-2 text-center text-sm"
 						@click="addItem"
-						>
+					>
 						{{ getCapitalizedText(t('common.add')) }}
 					</button>
 				</div>
 			</div>
-			
 		</div>
 		<div
 			v-else
@@ -124,7 +130,7 @@
 				{{ getCapitalizedText(t('pages.animals.addChar')) }}
 			</button>
 		</div>
-		
+
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
 			<!-- view cards for smartphones -->
 			<div class="custonmXs:hidden">
@@ -143,12 +149,14 @@
 									>{{ column.label }}:</span
 								>
 								<span class="text-sm text-osecours-black">{{
-									typeof column.key === 'function' ? column.key(item) : item[column.key]
+									typeof column.key === 'function'
+										? column.key(item)
+										: item[column.key]
 								}}</span>
 							</li>
 						</ul>
 					</template>
-					<div class="flex justify-between">					
+					<div class="flex justify-between">
 						<div class="pt-4">
 							<router-link
 								to="#"
@@ -210,7 +218,11 @@
 										column.visibility?.sm ? 'hidden customSm:block' : '',
 									]"
 								>
-									{{ typeof column.key === 'function' ? column.key(item) : item[column.key] }}
+									{{
+										typeof column.key === 'function'
+											? column.key(item)
+											: item[column.key]
+									}}
 								</td>
 							</template>
 							<td
@@ -223,16 +235,20 @@
 								<!--								>-->
 								<div class="flex gap-3">
 									<a
-									class=" cursor-pointer"
-									@click="editItem(item)"
+										class="cursor-pointer"
+										@click="editItem(item)"
 									>
-										<i class="icon-pencil text-indigo-600 hover:text-indigo-900 text-lg"/>
+										<i
+											class="icon-pencil text-indigo-600 hover:text-indigo-900 text-lg"
+										/>
 									</a>
 									<a
-									class=" cursor-pointer"
-									@click="deleteItem(item)"
+										class="cursor-pointer"
+										@click="deleteItem(item)"
 									>
-										<i class="icon-trash-empty text-red-600 hover:text-red-900 text-lg"/>
+										<i
+											class="icon-trash-empty text-red-600 hover:text-red-900 text-lg"
+										/>
 									</a>
 								</div>
 							</td>
