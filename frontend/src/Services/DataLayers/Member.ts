@@ -1,12 +1,11 @@
-import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 import { User } from '@/Interfaces/User.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { AxiosError } from 'axios';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
+// import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-export const getMemberById = async (
-	id: string,
-): Promise<Partial<User> | ErrorResponse> => {
+export const getMemberById = async () // id: string,
+: Promise<Partial<User> | ErrorResponse> => {
 	try {
 		const response = {
 			id: 1,
@@ -114,9 +113,8 @@ export const getMembersByFamilyType = async (
 	}
 };
 
-export const createMember = async (
-	member: User,
-): Promise<User | ErrorResponse> => {
+export const createMember = async () // member: User,
+: Promise<User | ErrorResponse> => {
 	try {
 		const response: User = {
 			id: 3,
@@ -142,9 +140,8 @@ export const createMember = async (
 	}
 };
 
-export const updateMember = async (
-	member: User,
-): Promise<User | ErrorResponse> => {
+export const updateMember = async () // member: User,
+: Promise<User | ErrorResponse> => {
 	try {
 		const response: User = {
 			id: 3,
@@ -170,7 +167,8 @@ export const updateMember = async (
 	}
 };
 
-export const deleteMember = async (id: string): Promise<boolean> => {
+export const deleteMember = async () // id: string
+: Promise<boolean> => {
 	try {
 		const response: boolean = true;
 		return response;

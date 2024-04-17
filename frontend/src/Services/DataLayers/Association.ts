@@ -1,9 +1,10 @@
 import { Association } from '@/Interfaces/Associations.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-const API_URL: string = 'http://localhost:8000/api';
+// const API_URL: string = 'http://localhost:8000/api';
 
 export const getAssociation = async (): Promise<
 	Association | ErrorResponse
@@ -18,7 +19,7 @@ export const getAssociation = async (): Promise<
 			// shelters: []
 		};
 		return association;
-		// const response: AxiosResponse = await axios.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${id}`);
+		// const response: AxiosResponse = await axiosInstance.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${id}`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -57,7 +58,7 @@ export const getAssociations = async (): Promise<
 			},
 		];
 		return associations;
-		// const response: AxiosResponse = await axios.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}`);
+		// const response: AxiosResponse = await axiosInstance.get(`${import.meta.env.VITE_ASSOCIATIONS_API_URL}`);
 		// return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -69,7 +70,7 @@ export const createAssociation = async (
 	association: Association,
 ): Promise<Association | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.post(
+		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_ASSOCIATIONS_API_URL}`,
 			association,
 		);
@@ -84,7 +85,7 @@ export const updateAssociation = async (
 	association: Association,
 ): Promise<Association | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.put(
+		const response: AxiosResponse = await axiosInstance.put(
 			`${import.meta.env.VITE_ASSOCIATIONS_API_URL}/${association.id}`,
 			association,
 		);

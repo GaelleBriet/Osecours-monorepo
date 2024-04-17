@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { Animal } from '@/Interfaces/Animal.ts';
 import {
 	createAnimal,
 	deleteAnimal,
 	getAnimalById,
 	getAnimals,
 } from '@/Services/DataLayers/Animal.ts';
+import { Animal } from '@/Interfaces/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
 
@@ -72,7 +72,6 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
-			console.log('animalToSend', animalToSend);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -88,7 +87,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return false;
 			} else {
 				this.animals = this.animals.filter(
-					(animal: Animal) => animal.id !== id,
+					(animal: Animal) => animal.id !== Number(id),
 				);
 				return true;
 			}

@@ -1,12 +1,12 @@
-import { Shelter } from '@/Interfaces/Shelters.ts';
+import { Shelter } from '@/Interfaces/Shelter.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-const API_URL: string = 'http://localhost:8000/api';
+// const API_URL: string = 'http://localhost:8000/api';
 
-export const getShelter = async () //id: number,
+export const getShelter = async () // id: number,
 : Promise<Shelter | ErrorResponse> => {
 	try {
 		const response = {
@@ -75,7 +75,7 @@ export const createShelter = async (
 	shelter: Shelter,
 ): Promise<Shelter | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.post(
+		const response: AxiosResponse = await axiosInstance.post(
 			`${import.meta.env.VITE_SHELTERS_API_URL}`,
 			shelter,
 		);
@@ -90,7 +90,7 @@ export const updateShelter = async (
 	shelter: Shelter,
 ): Promise<Shelter | ErrorResponse> => {
 	try {
-		const response: AxiosResponse = await axios.put(
+		const response: AxiosResponse = await axiosInstance.put(
 			`${import.meta.env.VITE_SHELTERS_API_URL}/${shelter.id}`,
 			shelter,
 		);

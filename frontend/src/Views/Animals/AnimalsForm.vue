@@ -102,7 +102,7 @@
 	// @defaultLabel : le label par défaut pour les selects
 	// return : les options formatées avec le label par défaut en premier
 	const fetchDataAndFormatOptions = async (
-		store: () => Promise<any>,
+		store: () => Promise<never>,
 		translationKey: string,
 		defaultLabel: string,
 	) => {

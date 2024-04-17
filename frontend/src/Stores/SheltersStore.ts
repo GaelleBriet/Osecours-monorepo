@@ -1,13 +1,12 @@
+import { Shelter } from '@/Interfaces/Shelter.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { defineStore } from 'pinia';
-import { Shelter } from '@/Interfaces/Shelters.ts';
 import {
 	createShelter,
 	getShelter,
 	getShelters,
 	updateShelter,
-	deleteShelter,
 } from '@/Services/DataLayers/Shelter.ts';
-import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
 export const useSheltersStore = defineStore('shelters', {
 	state: (): {
