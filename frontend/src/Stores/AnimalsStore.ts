@@ -6,6 +6,7 @@ import {
 	getAnimals,
 } from '@/Services/DataLayers/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { RouteParamValue } from 'vue-router';
 
 export const useAnimalsStore = defineStore('animals', {
 	state: (): {
@@ -25,7 +26,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 	},
 	actions: {
-		async getAnimal(id: number): Promise<Animal | null> {
+		async getAnimal(id: string | RouteParamValue[]): Promise<Animal | null> {
 			const animal: Animal | ErrorResponse = await getAnimalById(id);
 			if ('error' in animal) {
 				return null;
@@ -36,6 +37,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async getAnimals(): Promise<Animal[]> {
 			const animals: Animal[] | ErrorResponse = await getAnimals();
+			console.log('animals', animals);
 			if ('error' in animals) {
 				return [];
 			} else {
@@ -49,7 +51,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const dogs: Animal[] = animals.filter(
-					(animal: Animal) => animal.specie_id === 2,
+					(animal: Animal) => animal.specie === 'Dog',
 				);
 				this.animals = dogs;
 				return animals;
@@ -61,7 +63,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const cats: Animal[] = animals.filter(
-					(animal: Animal) => animal.specie_id === 1,
+					(animal: Animal) => animal.specie === 'Cat',
 				);
 				this.animals = cats;
 				return animals;
@@ -96,7 +98,7 @@ export const useAnimalsStore = defineStore('animals', {
 				...animal,
 				name: animal.name || '',
 				description: animal.description || '',
-				birth_date: animal.birthdate ? new Date(animal.birthdate) : null,
+				birth_date: animal.birth_date ? new Date(animal.birth_date) : null,
 				cats_friendly: animal.cats_friendly || null,
 				dogs_friendly: animal.dogs_friendly || null,
 				children_friendly: animal.children_friendly || null,

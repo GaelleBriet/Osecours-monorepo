@@ -2,7 +2,7 @@ export interface Animal {
 	id?: number;
 	name?: string;
 	description?: string;
-	birthdate?: Date | null;
+	birth_date?: Date | null;
 	cats_friendly?: boolean | null;
 	dogs_friendly?: boolean | null;
 	children_friendly?: boolean | null;
@@ -19,6 +19,7 @@ export interface Animal {
 	gender_id?: number | string;
 	agerange_id?: number | string;
 	specie_id?: number;
+	specie?: string;
 	status?: number | string;
 	sizerange_id?: number | string;
 	breed_id?: number | string;

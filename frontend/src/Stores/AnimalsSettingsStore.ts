@@ -51,7 +51,6 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		dogsBreeds: Breed[];
 		catsColors: Color[];
 		dogsColors: Color[];
-		ageRanges: AgeRange[];
 		genders: Gender[];
 	} => ({
 		allSpecies: [],
@@ -66,7 +65,6 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		dogsBreeds: [],
 		catsColors: [],
 		dogsColors: [],
-		ageRanges: [],
 		genders: [],
 	}),
 	getters: {
