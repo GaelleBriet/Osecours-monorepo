@@ -9,7 +9,7 @@
 		value?: number | string;
 		name: string;
 		label?: string;
-		options: any;
+		options: never;
 		// | string[]
 		// | number[]
 		// | Record<string | number, string>
@@ -23,7 +23,7 @@
 	}>();
 
 	const emit = defineEmits<{
-		(e: 'update:modelValue', value: any): void;
+		(e: 'update:modelValue', value: never): void;
 	}>();
 
 	const stringId = computed(() => props.id.toString());

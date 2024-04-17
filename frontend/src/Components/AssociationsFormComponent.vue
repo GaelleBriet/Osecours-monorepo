@@ -29,11 +29,13 @@
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const newAssociation = await associationsStore.createAssociation(
 				createdAssociation.value,
 			);
 		}
 		if (!props.isCreateMode) {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const associationToUpdate = await associationsStore.updateAssociation(
 				localAssociation.value,
 			);
