@@ -162,7 +162,7 @@
 
 	onMounted(async () => {
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
-		//@todo: ajouter les traductions
+		//@todo: ajouter les traductions de labels manquantes
 		breeds.value = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
 			'enums.animalsBreeds',

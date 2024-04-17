@@ -24,7 +24,7 @@
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
 		(event: 'add'): void;
-		(event: 'delete'): void;
+		(event: 'delete', item: object): void;
 	}>();
 
 	const editItem = (item: object) => {
@@ -158,17 +158,17 @@
 					</template>
 					<div class="flex justify-between">
 						<div class="pt-4">
-							<router-link
-								to="#"
-								class="text-osecours-beige-dark hover:text-indigo-900"
-								>{{ getCapitalizedText(t('common.edit')) }}</router-link
+							<a
+								class="cursor-pointer text-osecours-beige-dark hover:text-indigo-900"
+								@click="editItem(item)"
+								>{{ getCapitalizedText(t('common.edit')) }}</a
 							>
 						</div>
 						<div class="pt-4">
-							<router-link
-								to="#"
-								class="text-red-600 hover:text-red-900 hover:text-indigo-900"
-								>{{ getCapitalizedText(t('common.delete')) }}</router-link
+							<a
+								class="cursor-pointer text-red-600 hover:text-red-900"
+								@click="deleteItem(item)"
+								>{{ getCapitalizedText(t('common.delete')) }}</a
 							>
 						</div>
 					</div>

@@ -152,7 +152,7 @@ export const updateAnimal = async (
 };
 
 export const deleteAnimal = async (
-	id: number,
+	id: string,
 ): Promise<Animal | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.delete(

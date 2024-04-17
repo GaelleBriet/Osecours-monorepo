@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { Animal } from '@/Interfaces/Animal.ts';
 import {
 	createAnimal,
+	deleteAnimal,
 	getAnimalById,
 	getAnimals,
 } from '@/Services/DataLayers/Animal.ts';
@@ -79,6 +80,17 @@ export const useAnimalsStore = defineStore('animals', {
 			} else {
 				this.animals.push(newAnimal);
 				return newAnimal;
+			}
+		},
+		async deleteAnimal(id: string): Promise<boolean> {
+			const animalToDelete: Animal | ErrorResponse = await deleteAnimal(id);
+			if ('error' in animalToDelete) {
+				return false;
+			} else {
+				this.animals = this.animals.filter(
+					(animal: Animal) => animal.id !== id,
+				);
+				return true;
 			}
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {

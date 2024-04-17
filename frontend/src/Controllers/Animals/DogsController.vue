@@ -24,6 +24,10 @@
 		});
 	};
 
+	const deleteItem = (item) => {
+		animalsStore.deleteAnimal(item.id);
+	};
+
 	onMounted(async () => {
 		await animalsStore.getDogs();
 	});
@@ -48,6 +52,7 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
+			@delete="deleteItem"
 		/>
 	</div>
 </template>
