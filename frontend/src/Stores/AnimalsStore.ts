@@ -69,7 +69,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
-			// console.log('animalToSend', animalToSend);
+			console.log('animalToSend', animalToSend);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -96,7 +96,7 @@ export const useAnimalsStore = defineStore('animals', {
 				...animal,
 				name: animal.name || '',
 				description: animal.description || '',
-				birthdate: animal.birthdate ? new Date(animal.birthdate) : null,
+				birth_date: animal.birthdate ? new Date(animal.birthdate) : null,
 				cats_friendly: animal.cats_friendly || null,
 				dogs_friendly: animal.dogs_friendly || null,
 				children_friendly: animal.children_friendly || null,

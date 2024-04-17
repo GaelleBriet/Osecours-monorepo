@@ -43,6 +43,7 @@
 
 	const notificationConfig = ref({
 		show: false,
+		title: '',
 		message: '',
 		type: 'info',
 	});
@@ -80,7 +81,6 @@
 			createdAnimal.value.specie_id = selectedSpecies.value;
 
 			newAnimal.value = await animalsStore.createAnimal(createdAnimal.value);
-			console.log(newAnimal.value);
 		}
 		if (!props.isCreateMode) {
 			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
@@ -126,9 +126,9 @@
 
 	// Fonction générique pour récupérer les données depuis le store, les formater et ajouter l'option par défaut
 	const fetchDataAndFormatOptions = async (
-		store,
-		translationKey,
-		defaultLabel,
+		store: () => Promise<any>,
+		translationKey: string,
+		defaultLabel: string,
 	) => {
 		const data = await store();
 		const options = formatOptions(data, translationKey);
