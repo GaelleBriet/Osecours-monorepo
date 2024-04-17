@@ -1,3 +1,5 @@
+import { Identification } from '@/Interfaces/Identification.ts';
+
 export interface Animal {
 	id?: number;
 	name?: string;
@@ -12,7 +14,7 @@ export interface Animal {
 	deceased?: boolean;
 	breed?: string;
 
-	icad?: string;
+	identification?: Identification;
 	//@todo waiting for the backend to be ready
 	color_id?: string;
 	coat_id?: string;

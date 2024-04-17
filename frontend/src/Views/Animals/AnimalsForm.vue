@@ -126,6 +126,12 @@
 		if (props.isCreateMode) {
 			// on passe la race à l'objet animal créé
 			createdAnimal.value.specie_id = selectedSpecies.value;
+			createdAnimal.value.identification = {
+				date: new Date(),
+				type: 'tatoo', // ou chip
+				number: createdAnimal.value.identification,
+				animal_id: undefined,
+			};
 
 			newAnimal.value = await animalsStore.createAnimal(createdAnimal.value);
 		}
@@ -254,7 +260,9 @@
 					<FormText
 						id="animal-icad-number"
 						:model-value="
-							!isCreateMode ? localAnimal?.icad : createdAnimal.icad
+							!isCreateMode
+								? localAnimal?.identification
+								: createdAnimal.identification
 						"
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
@@ -264,8 +272,8 @@
 						:disabled="!isEditMode"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.icad = $event)
-								: (createdAnimal.icad = $event)
+								? (localAnimal.identification = $event)
+								: (createdAnimal.identification = $event)
 						"
 					/>
 				</div>

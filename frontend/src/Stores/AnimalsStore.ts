@@ -71,7 +71,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
+			console.log('animal store', animal);
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			console.log('animalToSend', animalToSend);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
