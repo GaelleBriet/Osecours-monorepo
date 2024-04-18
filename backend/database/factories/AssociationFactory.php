@@ -19,6 +19,7 @@ class AssociationFactory extends Factory
         return [
             "name" => fake()->name(),
             "siret" => fake()->word(14),
+            "description" => fake()->sentence(),
             "rib" => "FR76 0000 0000 0000 0000"
         ];
     }

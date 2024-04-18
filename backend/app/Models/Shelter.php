@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Contract\HasDocumentsInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Shelter extends Model
+class Shelter extends Model implements HasDocumentsInterface
 {
     use HasFactory;
 
@@ -24,7 +26,8 @@ class Shelter extends Model
     public function associations()
     {
         return $this->belongsToMany(Association::class, 'association_shelter')
-            ->withPivot('association_id')
+            ->withPivot('begin_date')
+            ->withPivot('end_date')
             ->withTimestamps();
     }
 
@@ -40,5 +43,15 @@ class Shelter extends Model
         return $this->belongsToMany(Animal::class, 'animal_shelter_user')
             ->withPivot('animal_id')
             ->withTimestamps();
+    }
+
+    public function documents(): BelongsToMany
+    {
+        return $this->belongsToMany(Document::class);
+    }
+
+    public function getDocuments()
+    {
+        return $this->belongsToMany(Document::class)->get();
     }
 }

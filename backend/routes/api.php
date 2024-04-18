@@ -76,8 +76,10 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(DocumentController::class)->group(function () {
           Route::get("/documents/find/animals/{animal}","findAllAnimalDocuments");
           Route::get("/documents/find/healthcares/{healthcare}","findAllHealthcareDocuments");
+          Route::get("/documents/find/shelters/{shelter}","findAllShelterDocuments");
           Route::post("documents/store/healthcares/{healthcare}","addDocumentForHealthCare");
           Route::post("documents/store/animals/{animal}","addDocumentForAnimal");
+          Route::post("documents/store/shelters/{shelter}","addDocumentForShelter");
           Route::get("/documents/find/{id}","show");
      });
 

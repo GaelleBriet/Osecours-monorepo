@@ -16,7 +16,8 @@ class Association extends Model
         'rib'
     ];
 
-    public function person() {
+    public function person()
+    {
         return $this->morphOne(Person::class, 'personable');
     }
 
@@ -37,7 +38,8 @@ class Association extends Model
     public function shelters()
     {
         return $this->belongsToMany(Shelter::class, 'association_shelter')
-            ->withPivot('shelter_id')
+            ->withPivot('begin_date')
+            ->withPivot('end_date')
             ->withTimestamps();
     }
 }
