@@ -2,11 +2,9 @@
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import { computed, onMounted } from 'vue';
 	import { useRouter } from 'vue-router';
-	import { AnimalSpecies, AnimalStatus } from '@/Enums/Animals.ts';
 	import i18n from '@/Services/Translations';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 
 	const t = i18n.global.t;
 	const router = useRouter();

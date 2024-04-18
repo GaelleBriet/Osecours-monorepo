@@ -19,7 +19,6 @@
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
-	import { getValidationMessages } from '@formkit/validation';
 	import { getNode } from '@formkit/core';
 
 	const animalsStore = useAnimalsStore();
