@@ -18,11 +18,36 @@ class AuthController extends Controller
     {
         $this->errorService = $eService;
     }
+   
+     /**
+     * @OA\Post(
+     *     path="/token/create",
+     *     summary="Get token",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="create token for specific association",
+     *         @OA\JsonContent(
+     *             required={"email","password"},
+     *             @OA\Property(property="email", type="string", example="admin-lerefugedeschimeres@osecours.org", format="email" ),
+     *             @OA\Property(property="password", type="string", example="P@ssword_1" ),
+     *             @OA\Property(property="association_id", type="integer", example=1 ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token created successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function getToken(AuthRequest $request)
     {
-        
+
         try {
-          
+
             $request->validated();
             $credentials = $request->only('email', 'password');
             $currentAssociationId = $request->get('association_id');

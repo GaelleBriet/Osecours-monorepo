@@ -8,15 +8,128 @@ servers:
     url: 'http://localhost:8000/api'
     description: 'API Server'
 paths:
-  /api/animals/all:
+  /animals/all:
     get:
-      operationId: e44043509ac374051a465bc4cf060028
+      operationId: c7546f9cd96a5e416aca6b2c734067a4
       responses:
         '200':
           description: 'get list of all animals'
       security:
         -
           bearerAuth: []
+  /animals:
+    post:
+      summary: 'register new animal'
+      operationId: c503fd8d2a3ab739b0b33ca257cbba33
+      requestBody:
+        description: 'Animal fields'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - specie_id
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  example: Pupuce
+                description:
+                  type: string
+                  example: 'Really cute'
+                birth_date:
+                  type: string
+                  format: '1995-04-01'
+                  example: Pupuce
+                cats_friendly:
+                  type: boolean
+                  example: true
+                dogs_friendly:
+                  type: boolean
+                  example: true
+                children_friendly:
+                  type: boolean
+                  example: true
+                age:
+                  type: integer
+                  example: 4
+                behavioral_comment:
+                  type: string
+                  example: 'Love cuddle'
+                sterilized:
+                  type: boolean
+                  example: true
+                deceased:
+                  type: boolean
+                  example: false
+                specie_id:
+                  type: integer
+                  example: 1
+                gender_id:
+                  type: integer
+                  example: 2
+                color_id:
+                  type: integer
+                  example: 3
+                sizerange_id:
+                  type: integer
+                  example: 4
+                agerange_id:
+                  type: integer
+                  example: 2
+                breed_id:
+                  type: integer
+                  example: 2
+                number:
+                  type: string
+                  maxLength: 15
+                  example: 152A5P6
+                email:
+                  type: string
+                  format: email
+                  example: admin-lerefugedeschimeres@osecours.org
+                password:
+                  type: string
+                  example: P@ssword_1
+                association_id:
+                  type: integer
+                  example: 1
+              type: object
+      responses:
+        '200':
+          description: 'Utilisateur créé avec succès'
+        '400':
+          description: 'Requête invalide'
+  /token/create:
+    post:
+      summary: 'Get token'
+      operationId: 938115c0186bb008a47800d0efe0c8fe
+      requestBody:
+        description: 'create token for specific association'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: admin-lerefugedeschimeres@osecours.org
+                password:
+                  type: string
+                  example: P@ssword_1
+                association_id:
+                  type: integer
+                  example: 1
+              type: object
+      responses:
+        '200':
+          description: 'Token created successfully'
+        '401':
+          description: Unauthorized
 components:
   securitySchemes:
     bearerAuth:
