@@ -17,8 +17,8 @@
 				...animal,
 				name: getCapitalizedText(animal.name) || '',
 				identification: animal.identification?.number || '',
-				specie:
-					getCapitalizedText(t(`enums.animalSpecies.${animal.specie?.name}`)) ||
+				breed:
+					getCapitalizedText(t(`enums.animalsBreeds.${animal.breed?.name}`)) ||
 					'',
 			};
 		});
