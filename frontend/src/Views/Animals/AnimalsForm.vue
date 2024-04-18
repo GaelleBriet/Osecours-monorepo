@@ -38,6 +38,7 @@
 	const selectedSpecies = ref(
 		!props.isCreateMode ? props.animal?.specie_id : null,
 	);
+
 	const breeds = ref<BreedsForSelects[]>([]);
 	const coats = ref<CoatsForSelects[]>([]);
 	const colors = ref<ColorsForSelects[]>([]);
@@ -124,10 +125,16 @@
 	};
 
 	const onSubmit = async () => {
-		const node = getNode('create-animal');
-		console.log(node.context);
-		const formIsValid = node?.context.state.valid;
-		if (!formIsValid) {
+		// on récupère le formulaire pour vérifier s'il est valide
+		let formId = ref('');
+		let formNode = ref(null);
+		formId.value = !props.isCreateMode
+			? `edit-animal${localAnimal.value.id}`
+			: 'create-animal';
+		formNode.value = getNode(formId.value);
+		const isFormValid = formNode.value?.context.state.valid;
+		// si le formulaire n'est pas valide, on affiche une notification
+		if (!isFormValid) {
 			notificationConfig.value = {
 				show: true,
 				title: 'Un ou plusieurs champs sont invalides',
@@ -136,22 +143,21 @@
 			};
 			return;
 		}
-		if (props.isCreateMode) {
-			// on passe la race à l'objet animal créé
-			createdAnimal.value.specie_id = selectedSpecies.value;
-			createdAnimal.value.identification = {
-				date: new Date(),
-				type: 'tatoo', // ou chip
-				number: createdAnimal.value.identification,
-				animal_id: undefined,
-			};
+		// on prépare les données de l'animal pour l'envoi à l'api
+		const animalData = props.isCreateMode
+			? createdAnimal.value
+			: localAnimal.value;
+		animalData.specie_id = selectedSpecies.value;
+		animalData.identification = {
+			date: null,
+			type: '', // tatoo ou chip
+			number: animalData.identification,
+			animal_id: null,
+		};
+		// on envoie les données à l'api
+		newAnimal.value = await animalsStore.updateAnimal(localAnimal.value);
 
-			newAnimal.value = await animalsStore.createAnimal(createdAnimal.value);
-		}
-		if (!props.isCreateMode) {
-			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
-		}
-
+		// on affiche une notification en fonction du résultat de la requête
 		if (!newAnimal.value) {
 			notificationConfig.value = {
 				show: true,
@@ -169,16 +175,17 @@
 					: `L'animal ${createdAnimal.value?.name || ''} a bien été créé`,
 				type: 'success',
 			};
-		}
-		// Réinitialiser les valeurs du formulaire
-		if (props.isCreateMode) {
-			createdAnimal.value = {};
-		} else {
-			localAnimal.value = { ...props.animal };
-			isEditMode.value = false;
+			// on réinitialise les valeurs du formulaire
+			if (props.isCreateMode) {
+				createdAnimal.value = {};
+			} else {
+				localAnimal.value = { ...newAnimal.value };
+				isEditMode.value = false;
+			}
 		}
 	};
 
+	// on construit le label du select avec un indicateur de champ obligatoire
 	const addRequiredIndicator = (label: string, isRequired: boolean) => {
 		if (isRequired) {
 			return `${label} <span class="text-red-600"> *</span>`;
@@ -194,6 +201,19 @@
 			'enums.animalsBreeds',
 			'Sélectionner une race',
 		);
+		if (!props.isCreateMode) {
+			if (props.animal?.specie_id == 1) {
+				breeds.value = formatOptions(
+					await animalSettingsStore.getSpecificBreeds('cat'),
+					'enums.animalsBreeds',
+				);
+			} else if (props.animal?.specie_id == 2) {
+				breeds.value = formatOptions(
+					await animalSettingsStore.getSpecificBreeds('dog'),
+					'enums.animalsBreeds',
+				);
+			}
+		}
 		coats.value = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
 			'enums.animalsCoats',
@@ -216,15 +236,15 @@
 		);
 	});
 
-	onMounted(() => {
+	onMounted(async () => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
 	});
 
-	watch(selectedSpecies, async (newValue) => {
+	watch(selectedSpecies, async () => {
 		// on surveille le changement de l'espèce pour récupérer les races correspondantes
-		if (newValue == 1) {
+		if (selectedSpecies.value == 1) {
 			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('cat'),
 				'enums.animalsBreeds',
@@ -233,7 +253,7 @@
 				value: '',
 				label: 'Sélectionner une race',
 			});
-		} else if (newValue == 2) {
+		} else if (selectedSpecies.value == 2) {
 			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('dog'),
 				'enums.animalsBreeds',
@@ -242,6 +262,12 @@
 				value: '',
 				label: 'Sélectionner une race',
 			});
+		} else if (selectedSpecies.value == 0) {
+			breeds.value = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllBreeds,
+				'enums.animalsBreeds',
+				'Sélectionner une race',
+			);
 		}
 	});
 </script>
@@ -309,9 +335,7 @@
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
 					<FormSelect
 						id="animal-species"
-						:model-value="
-							!isCreateMode ? localAnimal?.specie_id : selectedSpecies
-						"
+						:model-value="selectedSpecies"
 						:name="'animal-species'"
 						:label="
 							addRequiredIndicator(

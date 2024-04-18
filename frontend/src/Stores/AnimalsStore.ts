@@ -4,6 +4,7 @@ import {
 	deleteAnimal,
 	getAnimalById,
 	getAnimals,
+	updateAnimal,
 } from '@/Services/DataLayers/Animal.ts';
 import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
@@ -95,16 +96,15 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
-			const updatedAnimal = animal;
-			return updatedAnimal;
-			// @todo: Uncomment this code when the backend is ready
-			// const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
-			// if ('error' in updatedAnimal) {
-			// 	return null;
-			// } else {
-			// 	this.animals.push(updatedAnimal);
-			// 	return updatedAnimal;
-			// }
+			console.log('animal store', animal);
+			const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
+			if ('error' in updatedAnimal) {
+				return null;
+			} else {
+				this.animals.push(updatedAnimal);
+				console.log('updatedAnimal', updatedAnimal);
+				return updatedAnimal;
+			}
 		},
 		initializeAnimalProperties(animal: Animal): Animal {
 			return {

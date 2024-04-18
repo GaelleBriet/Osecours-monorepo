@@ -15,14 +15,14 @@
 		return animalsStore.animals.map((animal) => {
 			return {
 				...animal,
-				name: getCapitalizedText(animal.name) || '',
+				name: animal.name ? getCapitalizedText(animal.name) : '',
 				identification: animal.identification?.number || '',
 				specie:
 					getCapitalizedText(t(`enums.animalSpecies.${animal.specie?.name}`)) ||
 					'',
-				breed:
-					getCapitalizedText(t(`enums.animalsBreeds.${animal.breed?.name}`)) ||
-					'',
+				breed: animal.breed?.name
+					? getCapitalizedText(t(`enums.animalsBreeds.${animal.breed?.name}`))
+					: '',
 			};
 		});
 	});
