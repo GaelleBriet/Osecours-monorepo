@@ -5,13 +5,13 @@
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { AnimalAges, AnimalSizes, AnimalStatus } from '@/Enums/Animals.ts';
-	import { BreedsForSelects } from '@/Interfaces/Breed.ts';
-	import { CoatsForSelects } from '@/Interfaces/Coat.ts';
-	import { ColorsForSelects } from '@/Interfaces/Color.ts';
-	import { GendersForSelects } from '@/Interfaces/Gender.ts';
-	import { SpeciesForSelects } from '@/Interfaces/Species.ts';
+	import { BreedsForSelects } from '@/Interfaces/Animals/Breed.ts';
+	import { CoatsForSelects } from '@/Interfaces/Animals/Coat.ts';
+	import { ColorsForSelects } from '@/Interfaces/Animals/Color.ts';
+	import { GendersForSelects } from '@/Interfaces/Animals/Gender.ts';
+	import { SpeciesForSelects } from '@/Interfaces/Animals/Species.ts';
 	import i18n from '@/Services/Translations';
 	import router from '@/Router';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
@@ -532,6 +532,7 @@
 			outline: 1px solid #f28a80;
 		}
 	}
+
 	#save-changes {
 		background-color: #d99962;
 		color: #fff;
@@ -540,6 +541,11 @@
 			color: #d99962;
 			outline: 1px solid #d99962;
 		}
+	}
+
+	.formkit-outer[data-disabled] {
+		opacity: 0.8;
+		pointer-events: none;
 	}
 
 	.general-informations {

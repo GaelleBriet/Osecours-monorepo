@@ -1,7 +1,7 @@
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
-import { Gender } from '@/Interfaces/Gender.ts';
+import { Gender } from '@/Interfaces/Animals/Gender.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getGender = async (

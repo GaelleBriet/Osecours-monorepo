@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { Coat } from '@/Interfaces/Coat.ts';
+	import { Coat } from '@/Interfaces/Animals/Coat.ts';
 	import { onMounted, ref } from 'vue';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';

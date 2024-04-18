@@ -1,4 +1,4 @@
-import { Animal } from '@/Interfaces/Animal.ts';
+import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';

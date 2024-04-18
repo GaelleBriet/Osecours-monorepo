@@ -6,7 +6,7 @@
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import i18n from '@/Services/Translations';
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
 	import HealthInformations from '@/Views/Animals/HealthInformations.vue';

@@ -5,7 +5,7 @@ import {
 	getAnimalById,
 	getAnimals,
 } from '@/Services/DataLayers/Animal.ts';
-import { Animal } from '@/Interfaces/Animal.ts';
+import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
 
@@ -38,7 +38,7 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async getAnimals(): Promise<Animal[]> {
 			const animals: Animal[] | ErrorResponse = await getAnimals();
-			console.log('animals', animals);
+			// console.log('animals', animals);
 			if ('error' in animals) {
 				return [];
 			} else {
@@ -52,7 +52,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const dogs: Animal[] = animals.filter(
-					(animal: Animal) => animal.specie === 'Dog',
+					(animal: Animal) => animal.specie_id === 2,
 				);
 				this.animals = dogs;
 				return animals;
@@ -64,7 +64,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return [];
 			} else {
 				const cats: Animal[] = animals.filter(
-					(animal: Animal) => animal.specie === 'Cat',
+					(animal: Animal) => animal.specie_id === 1,
 				);
 				this.animals = cats;
 				return animals;

@@ -1,4 +1,4 @@
-import { Breed } from '@/Interfaces/Breed.ts';
+import { Breed } from '@/Interfaces/Animals/Breed.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';

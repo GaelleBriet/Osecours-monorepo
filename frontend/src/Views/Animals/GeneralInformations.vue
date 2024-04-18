@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import AnimalsForm from '@/Views/Animals/AnimalsForm.vue';
 
 	const props = defineProps<{
