@@ -150,12 +150,15 @@
 		animalData.specie_id = selectedSpecies.value;
 		animalData.identification = {
 			date: null,
-			type: '', // tatoo ou chip
-			number: animalData.identification,
+			type: 'chip', // tatoo ou chip
+			number: animalData.identification ? animalData.identification : null,
 			animal_id: null,
 		};
 		// on envoie les données à l'api
-		newAnimal.value = await animalsStore.updateAnimal(localAnimal.value);
+		// newAnimal.value = await animalsStore.updateAnimal(localAnimal.value);
+		newAnimal.value = props.isCreateMode
+			? await animalsStore.createAnimal(animalData)
+			: await animalsStore.updateAnimal(animalData);
 
 		// on affiche une notification en fonction du résultat de la requête
 		if (!newAnimal.value) {
@@ -322,12 +325,8 @@
 						:disabled="!isEditMode"
 						@update:model-value="
 							!isCreateMode
-								? localAnimal.identification
-									? (localAnimal.identification.number = $event)
-									: null
-								: createdAnimal.identification
-									? (createdAnimal.identification.number = $event)
-									: null
+								? (localAnimal.identification.number = $event)
+								: (createdAnimal.identification = $event)
 						"
 					/>
 				</div>

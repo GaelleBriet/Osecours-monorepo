@@ -72,9 +72,8 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
-			console.log('animal store', animal);
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
-			console.log('animalToSend', animalToSend);
+			console.log('animalToSend', animalToSend.identification);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -96,8 +95,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
-			console.log('animal store', animal);
-			const updatedAnimal: Animal | ErrorResponse = await updateAnimal(animal);
+			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			const updatedAnimal: Animal | ErrorResponse =
+				await updateAnimal(animalToSend);
 			if ('error' in updatedAnimal) {
 				return null;
 			} else {
@@ -126,6 +126,7 @@ export const useAnimalsStore = defineStore('animals', {
 				agerange_id: animal.agerange_id || '', //agerange_id
 				breed_id: animal.breed_id || undefined,
 				status: animal.status || '',
+				identification: animal.identification || [],
 			};
 		},
 	},

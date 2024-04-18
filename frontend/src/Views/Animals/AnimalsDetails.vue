@@ -40,7 +40,7 @@
 				class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"
 				@click="$router.go(-1)"
 			>
-				{{ getCapitalizedText(t('retour')) }}
+				{{ getCapitalizedText(t('common.back')) }}
 			</button>
 		</div>
 		<TabsComponent
