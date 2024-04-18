@@ -14,7 +14,8 @@
 		"other": "other",
 		"delete": "delete",
 		"update": "has been updated",
-		"creation": "hass been created"
+		"creation": "hass been created",
+		"back": "back"
 	},
 	"navigation": {
 		"home": "home",
