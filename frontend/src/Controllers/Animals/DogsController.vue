@@ -9,7 +9,20 @@
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
 	const t = i18n.global.t;
-	const animals = computed(() => animalsStore.animals);
+
+	// On transforme les données pour les afficher dans le tableau
+	const animalsTransformed = computed(() => {
+		return animalsStore.animals.map((animal) => {
+			return {
+				...animal,
+				name: getCapitalizedText(animal.name) || '',
+				identification: animal.identification?.number || '',
+				specie:
+					getCapitalizedText(t(`enums.animalSpecies.${animal.specie?.name}`)) ||
+					'',
+			};
+		});
+	});
 
 	const editItem = (item) => {
 		router.push({
@@ -37,12 +50,15 @@
 	<div class="w-full p-0">
 		<DataGridComponent
 			:store="animalsStore"
-			:model-value="animals"
+			:model-value="animalsTransformed"
 			:title="getCapitalizedText(t('navigation.dogs'))"
 			:description="getCapitalizedText(t('pages.animals.dogsTitle'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'name' },
-				{ label: getCapitalizedText(t('pages.animals.icad')), key: 'icad' },
+				{
+					label: getCapitalizedText(t('pages.animals.icad')),
+					key: 'identification',
+				},
 				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'breed' },
 				{
 					label: getCapitalizedText(t('pages.animals.status')),
