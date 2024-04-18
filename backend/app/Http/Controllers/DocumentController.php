@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\DocumentService;
+use App\Models\Animal;
 use App\Models\Document;
+use App\Models\Healthcare;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class DocumentController extends Controller
 {
@@ -19,33 +22,50 @@ class DocumentController extends Controller
         return Document::all();
     }
 
-    public function show(Document $document)
-    {
-        return $document;
+    public function show(String $id){
+        return $this->documentService->findDocument($id);
     }
 
-    public function addDocumentForAnimal(Request $request)
+    public function findAllAnimalDocuments(Animal $animal)
     {
-        
+        return $this->documentService->getAllAnimalDocuments($animal);
+    }
+
+    public function findAllHealthcareDocuments(Healthcare $healthcare)
+    {
+        return $this->documentService->getAllHealthcareDocuments($healthcare);
+    }
+
+    public function addDocumentForAnimal(Request $request, Animal $animal)
+    {
+
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
             'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
 
-        ]);     
-        return $this->documentService->createDocumentForAnimal($request);
+        ]);
+        return $this->documentService->createDocumentForAnimal($request, $animal);
     }
 
-    public function addDocumentForHealthCare(Request $request)
+    public function addDocumentForHealthCare(Request $request, Healthcare $healthcare)
     {
-        
+
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
             'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
 
-        ]);     
-        return $this->documentService->createDocumentForHealthCare($request);
+        ]);
+        if (!$healthcare) {
+            return "ok";
+           $healthcare = Healthcare::create([
+                "date" => Date::now(),
+                "report" => "tout va bien",
+                "animal_id" => 1
+            ]);
+        }
+        return $this->documentService->createDocumentForHealthCare($request, $healthcare);
     }
 
     public function update(Request $request, Document $document)

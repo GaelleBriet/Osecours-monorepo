@@ -3,9 +3,13 @@
 namespace App\Repositories;
 
 use App\Contract\DocumentRepositoryInterface;
+use App\Contract\HasDocumentsInterface;
+use App\Models\Animal;
 use App\Models\Doctype;
 use App\Models\Document;
+use App\Models\Healthcare;
 use App\Models\Mimetype as Mimetype;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentRepository extends BaseRepository implements  DocumentRepositoryInterface
 {
@@ -14,17 +18,21 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
         parent::__construct($doc);
     }
 
-    public function findDocument($path){
+    public function findDocument($id){
+        return Document::findOrFail($id);
+    }
 
+    public function getAllDocuments(HasDocumentsInterface $model){
+        return $model->getDocuments();
     }
 
     public function createDocument($array){
-        //@todo
+        
         Mimetype::firstOrCreate([
-            'name' => 'jpeg'
+            'name' =>  $array['mimeType']
         ]);
         DocType::firstOrCreate([
-            'name' => 'image',
+            'name' => $array['docType'],
             'description' => ''
         ]);
 

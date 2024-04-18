@@ -2,7 +2,9 @@
 namespace App\Http\Services;
 
 use App\Contract\DocumentRepositoryInterface;
+use App\Contract\HasDocumentsInterface;
 use App\Http\Resources\DocumentResource;
+use App\Models\Animal;
 use App\Models\Document;
 use App\Models\Healthcare;
 use App\Repositories\DocumentRepository;
@@ -22,25 +24,26 @@ class DocumentService{
         $this->documentRepo = $documentRepository;
     }
 
-    public function findDocument(String $path){
-        return $this->documentRepo->findDocument($path);
+    public function findDocument(String $id){
+        return $this->documentRepo->findDocument($id);
 
     }
 
-    public function createDocumentForAnimal(Request $request){
+    public function createDocumentForAnimal(Request $request, Animal $animal){
 
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData);
-        $newDoc->animals()->attach($$request->get('animal_id'));        
+       // $newDoc->animals()->attach($request->get('animal_id'));
+        $newDoc->animals()->attach($animal->id);              
 
         return new DocumentResource($newDoc);
     }
 
-    public function createDocumentForHealthCare(Request $request){
+    public function createDocumentForHealthCare(Request $request,Healthcare $healtcare){
         
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData);       
-        $healtcare = Healthcare::find($request->get('healthcare_id'));
+        //$healtcare = Healthcare::find($request->get('healthcare_id'));
         $healtcare->document()->associate($newDoc);
         $healtcare->save();
         
@@ -56,19 +59,29 @@ class DocumentService{
 
     }
 
+    public function getAllAnimalDocuments(HasDocumentsInterface $animal){
+        return $this->documentRepo->getAllDocuments($animal);
+    }
+
+    public function getAllHealthcareDocuments(HasDocumentsInterface $healtcare){
+        return $this->documentRepo->getAllDocuments($healtcare);
+    }
+
     public function getDocumentData(Request $request){
 
         $file = $request->file('file');
         $path = $file->storeAs('public/files',$request->filename . "." . $file->getClientOriginalExtension());
-        $url = Storage::url($path);
+        $imagesMimeType = ['jpeg,jpg,bmp,png,image.pdf'];
+        
 
         return [
             'date' => Date::now(),
             'mimeType' => $file->getMimeType(),
             'size' => $file->getSize(),
-            'url' => self::BASE_STORAGE . $url,
+            'url' => Storage::url($path),
             'filename' => $request->filename,
-            'description' => $request->description
+            'description' => $request->description,
+            'docType' => in_array($file->getMimeType(),$imagesMimeType) ? 'image' : 'doc'
         ];
     }
 }
