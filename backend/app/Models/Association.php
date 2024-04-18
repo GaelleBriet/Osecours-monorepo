@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Association extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
         'name',
