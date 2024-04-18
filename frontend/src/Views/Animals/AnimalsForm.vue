@@ -19,6 +19,8 @@
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
+	import { getValidationMessages } from '@formkit/validation';
+	import { getNode } from '@formkit/core';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -123,6 +125,18 @@
 	};
 
 	const onSubmit = async () => {
+		const node = getNode('create-animal');
+		console.log(node.context);
+		const formIsValid = node?.context.state.valid;
+		if (!formIsValid) {
+			notificationConfig.value = {
+				show: true,
+				title: 'Un ou plusieurs champs sont invalides',
+				message: 'Veuillez vérifier les champs',
+				type: 'warning',
+			};
+			return;
+		}
 		if (props.isCreateMode) {
 			// on passe la race à l'objet animal créé
 			createdAnimal.value.specie_id = selectedSpecies.value;
@@ -164,6 +178,13 @@
 			localAnimal.value = { ...props.animal };
 			isEditMode.value = false;
 		}
+	};
+
+	const addRequiredIndicator = (label: string, isRequired: boolean) => {
+		if (isRequired) {
+			return `${label} <span class="text-red-600"> *</span>`;
+		}
+		return label;
 	};
 
 	onMounted(async () => {
@@ -228,6 +249,7 @@
 <template>
 	<div class="general-informations">
 		<Form
+			ref="myForm"
 			:id="!isCreateMode ? `edit-animal${localAnimal.id}` : 'create-animal'"
 			:submit-label="'edit-animal'"
 			:actions="false"
@@ -249,6 +271,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nom de l\'animal'"
 						:disabled="!isEditMode"
+						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.name = $event)
@@ -261,19 +284,25 @@
 						id="animal-icad-number"
 						:model-value="
 							!isCreateMode
-								? localAnimal?.identification
-								: createdAnimal.identification
+								? localAnimal.identification?.number
+								: createdAnimal.identification?.number
 						"
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'ex: 123456123456789'"
-						:validation="'number'"
+						:help="'Doit contenir 6, 8 ou 15 caractères sans espaces'"
+						:validation="[['matches', /^(?:.{6}|.{8}|.{15})$/]]"
+						:validation-visibility="'blur'"
 						:disabled="!isEditMode"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.identification = $event)
-								: (createdAnimal.identification = $event)
+								? localAnimal.identification
+									? (localAnimal.identification.number = $event)
+									: null
+								: createdAnimal.identification
+									? (createdAnimal.identification.number = $event)
+									: null
 						"
 					/>
 				</div>
@@ -285,9 +314,16 @@
 							!isCreateMode ? localAnimal?.specie_id : selectedSpecies
 						"
 						:name="'animal-species'"
-						:label="getCapitalizedText(t('pages.animals.species'))"
+						:label="
+							addRequiredIndicator(
+								getCapitalizedText(t('pages.animals.species')),
+								true,
+							)
+						"
 						:options="species"
 						:disabled="!isEditMode"
+						:validation="'required'"
+						:validation-visibility="'blur'"
 						@update:model-value="selectedSpecies = $event"
 					/>
 				</div>
@@ -321,6 +357,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Description de l\'animal'"
 						:disabled="!isEditMode"
+						:validation="'length:0,1000'"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.description = $event)
@@ -445,6 +482,8 @@
 						:name="'animal-date'"
 						:label="getCapitalizedText(t('pages.animals.birthdate'))"
 						:disabled="!isEditMode"
+						:validation="`date_before:${new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}`"
+						:validation-visibility="'blur'"
 						@update:modelValue="
 							!isCreateMode
 								? (localAnimal.birth_date = $event)
@@ -471,6 +510,7 @@
 					</button>
 					<button
 						id="save-changes"
+						type="submit"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						:disabled="!isEditMode"
 						@click.prevent="onSubmit"
@@ -501,11 +541,6 @@
 			color: #d99962;
 			outline: 1px solid #d99962;
 		}
-	}
-
-	.formkit-outer[data-disabled] {
-		opacity: 0.8;
-		pointer-events: none;
 	}
 
 	.general-informations {

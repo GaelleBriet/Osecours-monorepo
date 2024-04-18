@@ -8,9 +8,10 @@
 		disabled?: boolean;
 		id?: string;
 		label?: string;
-		modelValue?: string | undefined;
+		modelValue?: any;
 		name?: string;
 		placeholder?: string;
+		help?: string;
 		prefixIcon?: string;
 		validation?: string | never[];
 		validationVisibility?: string;
@@ -49,6 +50,7 @@
 		:value="modelValue"
 		:name="name"
 		:placeholder="placeholder"
+		:help="help"
 		:prefix-icon="prefixIcon"
 		:label="label"
 		:validation="validation"
