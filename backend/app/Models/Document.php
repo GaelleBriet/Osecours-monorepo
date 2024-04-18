@@ -19,6 +19,8 @@ class Document extends Model
         'size',
         'url',
         'date',
+        'mimetype_id',
+        'doctype_id'
     ];
 
     public function doctype(): BelongsTo
@@ -39,5 +41,10 @@ class Document extends Model
     public function animals(): BelongsToMany
     {
         return $this->belongsToMany(Animal::class);
+    }
+
+    public function shelters(): BelongsToMany
+    {
+        return $this->belongsToMany(Shelter::class);
     }
 }

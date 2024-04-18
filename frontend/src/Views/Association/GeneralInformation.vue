@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { Association } from '@/Interfaces/Association.ts';
+	import { Association } from '@/Interfaces/Associations.ts';
 	import AssociationsFormComponent from '@/Components/AssociationsFormComponent.vue';
 
 	const props = defineProps<{

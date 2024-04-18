@@ -2,15 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Enum\IdentificationTypeEnum;
 use App\Enum\RoleEnum;
 use App\Models\Address;
 use App\Models\Age_range;
+use App\Models\Animal;
 use App\Models\Association;
 use App\Models\Breed;
 use App\Models\City;
 use App\Models\Coat;
 use App\Models\Color;
 use App\Models\Gender;
+use App\Models\Healthcare;
+use App\Models\Identification;
 use App\Models\Person;
 use App\Models\Role;
 use App\Models\Size_range;
@@ -20,6 +24,7 @@ use App\Models\User;
 use App\Models\Vaccine;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,6 +40,9 @@ class DatabaseSeeder extends Seeder
             ['name' => "larche de noé 2.0", 'address' => '10 place du désert'],
             ['name' => "quatres pattes et un toit", 'address' => '1 place de la tour Eiffel']
         ];
+
+
+
 
 
         foreach ($assocationsList as $association) {
@@ -583,5 +591,51 @@ class DatabaseSeeder extends Seeder
                 'description' => '',
             ]);
         }
+
+        $firstAnimal = Animal::create([
+            "name" => "pepette",
+            "description" => "petit chat",
+            "birth_date" => "2024-04-01",
+            "cats_friendly" => true,
+            "dogs_friendly" => true,
+            "children_friendly" => true,
+            "behavioral_comment" => "adorable",
+            "sterilized" => false,
+            "sizerange_id" => 1,
+            "specie_id" => 1
+        ]);
+        $secondAnimal = Animal::create([
+            "name" => "Gurvan",
+            "description" => "Warning",
+            "birth_date" => "2024-04-01",
+            "cats_friendly" => true,
+            "dogs_friendly" => true,
+            "children_friendly" => true,
+            "behavioral_comment" => "Dangerous",
+            "sterilized" => false,
+            "sizerange_id" => 4,
+            "specie_id" => 2,
+        ]);
+        $numberChip = "555555555555555";
+        $numberTatoo = "A45B56";        
+
+        Identification::create([
+            "type" => IdentificationTypeEnum::CHIP->value,
+            "number" => $numberChip,
+            "date" => Date::now(),
+            "animal_id" => $firstAnimal->id
+        ]);
+        Identification::create([
+            "type" =>  IdentificationTypeEnum::TATOO->value,
+            "number" =>  $numberTatoo,
+            "date" => Date::now(),
+            "animal_id" => $secondAnimal->id
+        ]);
+
+        $healthcare = Healthcare::create([
+            "date" => Date::now(),
+            "report" => "tout va bien",
+            "animal_id" => $firstAnimal->id
+        ]);
     }
 }

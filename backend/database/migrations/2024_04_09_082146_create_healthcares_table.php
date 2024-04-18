@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('report');
             $table->decimal('weight')->nullable();
             $table->decimal('size')->nullable();
-            $table->foreignId('animal_id');
-            $table->foreignId('document_id')->nullable();
+            $table->foreignId('animal_id')->constrained();
+            $table->foreignId('document_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

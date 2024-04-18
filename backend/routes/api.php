@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\CoatController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SpecieController;
@@ -70,6 +71,14 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::get('/breeds/{id}', 'show');  
           Route::put('/breeds/{id}', 'update');
           Route::delete('/breeds/{id}', 'delete');
+     });
+
+     Route::controller(DocumentController::class)->group(function () {
+          Route::get("/documents/find/animals/{animal}","findAllAnimalDocuments");
+          Route::get("/documents/find/healthcares/{healthcare}","findAllHealthcareDocuments");
+          Route::post("documents/store/healthcares/{healthcare}","addDocumentForHealthCare");
+          Route::post("documents/store/animals/{animal}","addDocumentForAnimal");
+          Route::get("/documents/find/{id}","show");
      });
 
 });
