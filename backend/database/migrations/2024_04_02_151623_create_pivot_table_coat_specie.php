@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shelters', function (Blueprint $table) {
+        Schema::create('coat_specie', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('siret',14)->unique();
-            $table->text('description');
-            $table->string('email',255)->nullable();
-            $table->string('phone',10)->nullable();
+            $table->foreignId('coat_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('specie_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shelters');
+        Schema::dropIfExists('coat_specie');
     }
 };

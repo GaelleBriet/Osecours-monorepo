@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Association extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -16,7 +17,8 @@ class Association extends Model
         'rib'
     ];
 
-    public function person() {
+    public function person()
+    {
         return $this->morphOne(Person::class, 'personable');
     }
 
@@ -37,7 +39,8 @@ class Association extends Model
     public function shelters()
     {
         return $this->belongsToMany(Shelter::class, 'association_shelter')
-            ->withPivot('shelter_id')
+            ->withPivot('begin_date')
+            ->withPivot('end_date')
             ->withTimestamps();
     }
 }

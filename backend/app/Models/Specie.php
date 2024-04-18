@@ -26,6 +26,16 @@ class Specie extends Model
         return $this->hasMany(Breed::class);
     }
 
+    public function colors(): BelongsToMany
+    {
+        return $this->belongsToMany(Color::class);
+    }
+
+    public function coats(): BelongsToMany
+    {
+        return $this->belongsToMany(Coat::class);
+    }
+
     public function vaccines(): BelongsToMany
     {
         return $this->belongsToMany(Vaccine::class);
