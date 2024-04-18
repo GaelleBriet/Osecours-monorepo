@@ -458,7 +458,39 @@ class DatabaseSeeder extends Seeder
             'White'
         ];
 
+        $colors = array_unique(array_merge($catColors, $dogColors));
 
+        foreach ($colors as $color) {
+            $colorCreated = Color::factory()->create([
+                'name' => ucfirst($color),
+                'description' => ''
+            ]);
+        };
+
+        $dogCoats = [
+            'Hairless',
+            'Short',
+            'Medium',
+            'Long',
+            'Wire',
+            'Curly'
+        ];
+
+        $catCoats = [
+            'Hairless',
+            'Short',
+            'Medium',
+            'Long'
+        ];
+
+        $coats = array_unique(array_merge($catCoats, $dogCoats));
+
+        foreach ($coats as $coat) {
+            $coatCreated = Coat::factory()->create([
+                'name' => ucfirst($coat),
+                'description' => ''
+            ]);
+        };
 
         foreach ($species as $specie) {
             if ($specie == 'Cat') {
@@ -473,12 +505,13 @@ class DatabaseSeeder extends Seeder
                         'specie_id' => $specieCreated->id,
                     ]);
                 };
-                foreach ($catColors as $color) {
-                    $colorCreated = Color::factory()->create([
-                        'name' => ucfirst($color),
-                        'description' => '',
-                        'specie_id' => $specieCreated->id
-                    ]);
+                foreach ($catCoats as $catcoat) {
+                    $coatBounded = Coat::where('name', $catcoat)->first();
+                    $specieCreated->coats()->syncWithoutDetaching($coatBounded);
+                };
+                foreach ($catColors as $catcolor) {
+                    $colorBounded = Color::where('name', $catcolor)->first();
+                    $specieCreated->colors()->syncWithoutDetaching($colorBounded);
                 }
             } else if ($specie == 'Dog') {
                 $specieCreated = Specie::factory()->create([
@@ -493,31 +526,15 @@ class DatabaseSeeder extends Seeder
                         'specie_id' => $specieCreated->id,
                     ]);
                 };
-                foreach ($dogColors as $color) {
-                    $colorCreated = Color::factory()->create([
-                        'name' => ucfirst($color),
-                        'description' => '',
-                        'specie_id' => $specieCreated->id
-                    ]);
+                foreach ($dogCoats as $dogcoat) {
+                    $coatBounded = Coat::where('name', $dogcoat)->first();
+                    $specieCreated->coats()->syncWithoutDetaching($coatBounded);
+                };
+                foreach ($dogColors as $dogcolor) {
+                    $colorBounded = Color::where('name', $dogcolor)->first();
+                    $specieCreated->colors()->syncWithoutDetaching($colorBounded);
                 }
             }
-        }
-
-
-        $coats = [
-            'Hairless',
-            'Short',
-            'Medium',
-            'Long',
-            'Wire',
-            'Curly'
-        ];
-
-        foreach ($coats as $coat) {
-            $coatCreated = Coat::factory()->create([
-                'name' => ucfirst($coat),
-                'description' => '',
-            ]);
         }
 
         $sizeRanges = [
