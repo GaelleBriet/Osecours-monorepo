@@ -13,11 +13,11 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
         parent::__construct($animal);
     }
 
-    public function all(){
-        
+    public function all(){        
         $animals = Animal::with(['identification'])->get();
         return AnimalResource::collection($animals);
     }
+    
     public function create($animal)
     {    
         return Animal::create($animal);

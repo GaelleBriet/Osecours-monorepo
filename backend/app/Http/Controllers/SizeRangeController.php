@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Size_range;
 use Illuminate\Http\Request;
 
-class Size_rangeController extends Controller
+class SizeRangeController extends Controller
 {
     //
     public function getAll()

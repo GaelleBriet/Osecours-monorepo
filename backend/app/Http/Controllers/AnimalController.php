@@ -8,6 +8,8 @@ use App\Http\Services\AnimalService;
 use App\Http\Services\ErrorService;
 use Exception;
 use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
+
 
 class AnimalController extends Controller
 {
@@ -21,7 +23,12 @@ class AnimalController extends Controller
         $this->errorService = $eService;
     }
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/animals/all",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(response="200", description="get list of all animals")
+     * 
+     * )
      */
     public function getAll()
     {

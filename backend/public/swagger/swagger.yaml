@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: "O'Secours"
+  description: 'API pour gérer des ressources'
+  version: '1.0'
+servers:
+  -
+    url: 'http://localhost:8000/api'
+    description: 'API Server'
+paths:
+  /api/animals/all:
+    get:
+      operationId: e44043509ac374051a465bc4cf060028
+      responses:
+        '200':
+          description: 'get list of all animals'
+      security:
+        -
+          bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Authorization header using the Bearer scheme.'
+      bearerFormat: JWT
+      scheme: bearer
