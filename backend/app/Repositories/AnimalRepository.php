@@ -15,7 +15,7 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
 
     public function all(){
         
-        $animals = Animal::all();
+        $animals = Animal::with(['identification'])->get();
         return AnimalResource::collection($animals);
     }
     public function create($animal)
@@ -33,7 +33,7 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
     }
 
     public function find($id){
-        $animal = Animal::with(['specie', 'gender', 'color', 'coat', 'size_range', 'age_range'])
+        $animal = Animal::with(['specie', 'gender', 'color', 'coat', 'size_range', 'age_range','identification'])
         ->withTrashed()
         ->findOrFail($id);
         return new AnimalResource($animal);

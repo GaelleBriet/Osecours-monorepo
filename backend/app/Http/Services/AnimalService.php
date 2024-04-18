@@ -3,14 +3,20 @@
 namespace App\Http\Services;
 
 use App\Contract\AnimalRepositoryInterface;
+use App\Contract\IdentificationRepositoryInterface;
+use App\Enum\IdentificationTypeEnum;
 use App\Repositories\AnimalRepository;
+use App\Repositories\IdentificationRepository;
+use Illuminate\Support\Facades\Date;
 
 class AnimalService {
 
     protected AnimalRepositoryInterface $animals;
+    protected IdentificationRepositoryInterface $identifications;
 
-    public function __construct(AnimalRepository $animalRepositiory){
+    public function __construct(AnimalRepository $animalRepositiory, IdentificationRepository $identificationRepository){
         $this->animals = $animalRepositiory;
+        $this->identifications = $identificationRepository;
     }
 
     public function getAll(){
@@ -21,8 +27,22 @@ class AnimalService {
         return $this->animals->find($id);
     }
 
-    public function create($animal){
-       return $this->animals->create($animal);
+    public function create($request){
+
+        $type = null;
+        if(array_key_exists('number',$request)){
+            $type = $this->getIdentityType($request['number']);
+        }       
+       
+       $animalCreated = $this->animals->create($request);
+       $this->identifications->create([
+        "type" => $type,
+        "number" => !is_null($type) ? $request['number'] : null,
+        "date" => Date::now(),
+        "animal_id" => $animalCreated->id
+       ]);
+
+       return $animalCreated;
     }
 
     public function update($id,$updatedDatas){
@@ -31,5 +51,13 @@ class AnimalService {
     
     public function softDelete($id){
         return $this->animals->softDelete($id);
+    }
+
+    public function getIdentityType($numberIdentity){
+        $type = IdentificationTypeEnum::TATOO->value;        
+        if(strlen($numberIdentity) == 15){
+            $type = IdentificationTypeEnum::CHIP->value;
+        }
+        return $type;
     }
 }
