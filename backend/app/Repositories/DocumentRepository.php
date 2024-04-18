@@ -49,8 +49,10 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
 
     }
 
-    public function deleteDocument($path){
-
+    public function softDeleteDocument($id){
+        $document = Document::findOrFail($id);
+        $document->delete();  
+        return $document;
     }
 
     public function updateDocument($path,$newDoc){

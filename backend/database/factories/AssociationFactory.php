@@ -18,8 +18,9 @@ class AssociationFactory extends Factory
     {
         return [
             "name" => fake()->name(),
-            "siret" => fake()->word(14),
-            "rib" => "FR76 0000 0000 0000 0000"
+            "siret" => fake()->numberBetween(10000000000000, 99999999999999),
+            "description" => fake()->sentence(),
+            "rib" => "FR76".fake()->numberBetween(1000000000, 9000000000). fake()->numberBetween(1000000000, 9000000000).strtoupper(fake()->randomLetter().fake()->randomLetter().fake()->randomLetter())
         ];
     }
 }

@@ -17,6 +17,7 @@ use App\Models\Healthcare;
 use App\Models\Identification;
 use App\Models\Person;
 use App\Models\Role;
+use App\Models\Shelter;
 use App\Models\Size_range;
 use App\Models\Specie;
 use App\Models\Status;
@@ -49,6 +50,9 @@ class DatabaseSeeder extends Seeder
 
             $associationCreated =  Association::factory()->create(["name" => $association['name']]);
 
+            $shelterCreated = Shelter::create(["name" => $associationCreated->name , "description" => $associationCreated->description , "siret" => $associationCreated->siret]);
+
+            $associationCreated->shelters()->attach($shelterCreated->id,["begin_date" => Date::now()]);
             $personCreated = Person::create(['personable_id' => $associationCreated->id, 'personable_type' => get_class($associationCreated)]);
             $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id]);
             $personCreated->addresses()->attach($addressCreated);
@@ -590,7 +594,7 @@ class DatabaseSeeder extends Seeder
                 'name' => ucfirst($gender),
                 'description' => '',
             ]);
-        }
+        };
 
         $firstAnimal = Animal::create([
             "name" => "pepette",
@@ -616,8 +620,9 @@ class DatabaseSeeder extends Seeder
             "sizerange_id" => 4,
             "specie_id" => 2,
         ]);
+
         $numberChip = "555555555555555";
-        $numberTatoo = "A45B56";        
+        $numberTatoo = "A45B56";
 
         Identification::create([
             "type" => IdentificationTypeEnum::CHIP->value,

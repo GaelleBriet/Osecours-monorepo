@@ -6,6 +6,7 @@ use App\Http\Services\DocumentService;
 use App\Models\Animal;
 use App\Models\Document;
 use App\Models\Healthcare;
+use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 
@@ -36,6 +37,11 @@ class DocumentController extends Controller
         return $this->documentService->getAllHealthcareDocuments($healthcare);
     }
 
+    public function findAllShelterDocuments(Shelter $shelter)
+    {
+        return $this->documentService->getAllShelterDocuments($shelter);
+    }
+
     public function addDocumentForAnimal(Request $request, Animal $animal)
     {
 
@@ -57,15 +63,19 @@ class DocumentController extends Controller
             'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
 
         ]);
-        if (!$healthcare) {
-            return "ok";
-           $healthcare = Healthcare::create([
-                "date" => Date::now(),
-                "report" => "tout va bien",
-                "animal_id" => 1
-            ]);
-        }
         return $this->documentService->createDocumentForHealthCare($request, $healthcare);
+    }
+
+    public function addDocumentForShelter(Request $request, Shelter $shelter)
+    {
+
+        $validated = $request->validate([
+            'filename' => 'required|max:255',
+            'description' => '',
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+
+        ]);
+        return $this->documentService->createDocumentForShelter($request, $shelter);
     }
 
     public function update(Request $request, Document $document)
