@@ -73,7 +73,6 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
-			console.log('animalToSend', animalToSend.identification);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -96,13 +95,13 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			console.log('animalToUpdate.NumberId', animalToSend.number);
 			const updatedAnimal: Animal | ErrorResponse =
 				await updateAnimal(animalToSend);
 			if ('error' in updatedAnimal) {
 				return null;
 			} else {
 				this.animals.push(updatedAnimal);
-				console.log('updatedAnimal', updatedAnimal);
 				return updatedAnimal;
 			}
 		},
@@ -112,21 +111,16 @@ export const useAnimalsStore = defineStore('animals', {
 				name: animal.name || '',
 				description: animal.description || '',
 				birth_date: animal.birth_date ? new Date(animal.birth_date) : null,
-				cats_friendly: animal.cats_friendly || null,
-				dogs_friendly: animal.dogs_friendly || null,
-				children_friendly: animal.children_friendly || null,
-				// age: animal.age || null,
-				behavioral_comment: animal.behavioral_comment || '',
-				// icad: animal.icad || '',
-				specie_id: animal.specie_id || undefined,
-				gender_id: animal.gender_id || '', //gender_id
-				color_id: animal.color_id || '', //color_id
-				coat_id: animal.coat_id || '', //coat_id
-				sizerange_id: animal.sizerange_id || '', //sizerange_id
-				agerange_id: animal.agerange_id || '', //agerange_id
+				specie_id: animal.specie_id,
+				gender_id: animal.gender_id || '',
+				color_id: animal.color_id || '',
+				coat_id: animal.coat_id || '',
+				sizerange_id: animal.sizerange_id || '',
+				agerange_id: animal.agerange_id || '',
 				breed_id: animal.breed_id || undefined,
-				status: animal.status || '',
-				identification: animal.identification || [],
+				number: animal.identification?.number
+					? animal.identification.number
+					: animal.identification,
 			};
 		},
 	},

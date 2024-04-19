@@ -103,8 +103,10 @@
 	// @translationKey : la clé de traduction pour les labels des options
 	// @defaultLabel : le label par défaut pour les selects
 	// return : les options formatées avec le label par défaut en premier
-	const fetchDataAndFormatOptions = async (
-		store: () => Promise<never>,
+	const fetchDataAndFormatOptions = async <
+		T extends { id: number; name: string },
+	>(
+		store: () => Promise<T[]>,
 		translationKey: string,
 		defaultLabel: string,
 	) => {
@@ -148,14 +150,20 @@
 			? createdAnimal.value
 			: localAnimal.value;
 		animalData.specie_id = selectedSpecies.value;
-		animalData.identification = {
-			date: null,
-			type: 'chip', // tatoo ou chip
-			number: animalData.identification ? animalData.identification : null,
-			animal_id: null,
-		};
+
+		if (!props.isCreateMode) {
+			animalData.number = localAnimal.value.identification?.number;
+		} else {
+			animalData.number = createdAnimal.value.identification;
+		}
+		// animalData.identification = {
+		// 	date: null,
+		// 	type: 'chip', // tatoo ou chip
+		// 	number: animalData.identification ? animalData.identification : null,
+		// 	animal_id: null,
+		// };
+
 		// on envoie les données à l'api
-		// newAnimal.value = await animalsStore.updateAnimal(localAnimal.value);
 		newAnimal.value = props.isCreateMode
 			? await animalsStore.createAnimal(animalData)
 			: await animalsStore.updateAnimal(animalData);

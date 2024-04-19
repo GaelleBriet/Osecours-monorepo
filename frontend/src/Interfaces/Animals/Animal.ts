@@ -19,17 +19,15 @@ export interface Animal {
 	behavioral_comment?: string;
 	sterilized?: boolean;
 	deceased?: boolean;
-
-	breed_id?: number | string;
-	specie_id?: number;
+	breed_id?: number | string | undefined;
+	specie_id: number;
 	gender_id?: number | string;
 	color_id?: string;
 	coat_id?: string;
 	sizerange_id?: number | string;
 	agerange_id?: number | string;
-
 	identification?: Identification;
-
+	number?: Identification | string;
 	breed?: Breed;
 	specie?: Species;
 	gender?: Gender;
@@ -37,6 +35,5 @@ export interface Animal {
 	coat?: Coat;
 	sizerange?: SizeRange;
 	agerange?: AgeRange;
-
 	status?: number | string;
 }
