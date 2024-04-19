@@ -1,20 +1,22 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Animals/GeneralInformations.vue';
-
+	import GeneralInformations from '@/Views/Animals/Details/GeneralInformations.vue';
+	import AnimalsDocuments from '@/Views/Animals/Details/AnimalsDocuments.vue';
+	import HealthInformations from '@/Views/Animals/Details/HealthInformations.vue';
+	import AnimalsBehaviour from '@/Views/Animals/Details/BehaviouralInformations.vue';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import i18n from '@/Services/Translations';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
-	import i18n from '@/Services/Translations';
-	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
-	import HealthInformations from '@/Views/Animals/HealthInformations.vue';
 
-	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
+
+	const t = i18n.global.t;
 	const animalId = route.params.id;
+
 	const currentTab = ref(0);
 	const currentAnimal = ref<Animal | null>(null);
 
@@ -63,7 +65,10 @@
 				<HealthInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 2 && currentAnimal">
-				<AnimalDocuments :animal="currentAnimal" />
+				<AnimalsDocuments :animal="currentAnimal" />
+			</template>
+			<template v-if="currentTab === 3 && currentAnimal">
+				<AnimalsBehaviour :animal="currentAnimal" />
 			</template>
 		</div>
 	</div>
