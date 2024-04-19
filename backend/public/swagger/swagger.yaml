@@ -131,6 +131,66 @@ paths:
         '401':
           description: Unauthorized
 components:
+  schemas:
+    Address:
+      title: Address
+      description: 'Address model'
+      properties:
+        id:
+          description: 'ID of the address'
+          type: integer
+          example: 1
+        street1:
+          description: 'First line of the street address'
+          type: string
+          example: '123 Main St'
+        street2:
+          description: 'Second line of the street address'
+          type: string
+          example: 'Apt 101'
+        city_id:
+          description: 'ID of the city'
+          type: integer
+          example: 1
+      type: object
+    Age_range:
+      title: 'Age Range'
+      description: 'Age Range model'
+      properties:
+        id:
+          description: 'ID of the age range'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the age range'
+          type: string
+          example: Adult
+        description:
+          description: 'Description of the age range'
+          type: string
+          example: 'Between 3 to 7 years old'
+        animals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Animal'
+      type: object
+    City:
+      title: City
+      description: 'City model'
+      properties:
+        id:
+          description: 'ID of the city'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the city'
+          type: string
+          example: 'New York'
+        zipcode:
+          description: 'Zip code of the city'
+          type: string
+          example: '10001'
+      type: object
   securitySchemes:
     bearerAuth:
       type: http
