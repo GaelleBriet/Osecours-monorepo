@@ -5,6 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *     title="Coat",
+ *     description="Coat model",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         description="ID of the coat",
+ *         example=1
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="Name of the coat",
+ *         example="Short"
+ *     ),
+ *     @OA\Property(
+ *         property="description",
+ *         type="string",
+ *         description="Description of the coat",
+ *         example="A short-haired coat"
+ *     )
+ * )
+ */
 
 class Coat extends Model
 {
