@@ -3,12 +3,11 @@
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
 	import { ref } from 'vue';
-	import FormText from '@/Components/Forms/FormText.vue';
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
 	import FormDate from '@/Components/Forms/FormDate.vue';
 
-	const props = defineProps<{
+	defineProps<{
 		animal: Animal;
 	}>();
 

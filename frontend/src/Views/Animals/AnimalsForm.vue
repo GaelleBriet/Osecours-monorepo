@@ -168,7 +168,6 @@
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
-
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
 		breeds.value = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
