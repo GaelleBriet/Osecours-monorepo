@@ -55,7 +55,7 @@ class AnimalService {
 
         $animal->identification()->update($identificationData);
 
-        return new AnimalResource($animal);
+        return $animal;
     }
 
     public function softDelete($id){

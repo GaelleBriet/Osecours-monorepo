@@ -98,7 +98,9 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::post("documents/store/healthcares/{healthcare}","addDocumentForHealthCare");
           Route::post("documents/store/animals/{animal}","addDocumentForAnimal");
           Route::post("documents/store/shelters/{shelter}","addDocumentForShelter");
-          Route::get("/documents/find/{id}","show");
+          Route::get("/documents/{id}","show");
+          Route::delete("/documents/{id}","delete");
+          Route::put("/documents/{id}","update");
      });
 
 });

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Age_range>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AgeRange>
  */
-class Age_rangeFactory extends Factory
+class AgeRangeFactory extends Factory
 {
     /**
      * Define the model's default state.
