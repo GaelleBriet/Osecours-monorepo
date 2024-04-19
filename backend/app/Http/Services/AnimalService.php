@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Services;
 
@@ -14,14 +14,14 @@ class AnimalService {
     protected AnimalRepositoryInterface $animals;
     protected IdentificationRepositoryInterface $identifications;
 
-    public function __construct(AnimalRepository $animalRepositiory, IdentificationRepository $identificationRepository){
-        $this->animals = $animalRepositiory;
+    public function __construct(AnimalRepository $animalRepository, IdentificationRepository $identificationRepository){
+        $this->animals = $animalRepository;
         $this->identifications = $identificationRepository;
     }
 
     public function getAll(){
        return $this->animals->all();
-    }    
+    }
 
     public function getById($id){
         return $this->animals->find($id);
@@ -32,8 +32,8 @@ class AnimalService {
         $type = null;
         if(array_key_exists('number',$request)){
             $type = $this->getIdentityType($request['number']);
-        }       
-       
+        }
+
        $animalCreated = $this->animals->create($request);
        $this->identifications->create([
         "type" => $type,
@@ -48,13 +48,13 @@ class AnimalService {
     public function update($id,$updatedDatas){
         return $this->animals->update($id,$updatedDatas);
     }
-    
+
     public function softDelete($id){
         return $this->animals->softDelete($id);
     }
 
     public function getIdentityType($numberIdentity){
-        $type = IdentificationTypeEnum::TATOO->value;        
+        $type = IdentificationTypeEnum::TATOO->value;
         if(strlen($numberIdentity) == 15){
             $type = IdentificationTypeEnum::CHIP->value;
         }
