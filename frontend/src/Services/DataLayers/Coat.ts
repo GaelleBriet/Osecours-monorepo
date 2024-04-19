@@ -1,7 +1,7 @@
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
-import { Coat } from '@/Interfaces/Coat.ts';
+import { Coat } from '@/Interfaces/Animals/Coat.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getCoat = async (id: number): Promise<Coat | ErrorResponse> => {

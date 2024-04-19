@@ -17,7 +17,6 @@ import AssociationDetails from '@/Views/Association/AssociationDetails.vue';
 import CreateShelters from '@/Views/Shelters/CreateShelter.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/SettingsController.vue';
-import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
 
 const routes = [
 	{

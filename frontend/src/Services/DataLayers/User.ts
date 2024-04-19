@@ -29,18 +29,18 @@ export const login = async (
 export const loginWithAssociation = async (
 	email: string,
 	password: string,
-	associationId: number,
-): Promise<UserTokenScope> => {
+	association_id: string,
+): Promise<UserTokenScope | ErrorResponse> => {
 	try {
-		const {
-			data: { data },
-		} = await axiosInstance.post(`${import.meta.env.VITE_TOKEN_API_URL}`, {
-			email,
-			password,
-			associationId,
-		});
-
-		return data;
+		const { data } = await axiosInstance.post(
+			`${import.meta.env.VITE_TOKEN_API_URL}`,
+			{
+				email,
+				password,
+				association_id,
+			},
+		);
+		return data.data;
 	} catch (error) {
 		console.error(error);
 		throw error;

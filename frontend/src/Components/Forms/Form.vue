@@ -6,15 +6,24 @@
 			id: string;
 			submitLabel?: string;
 			actions?: boolean;
+			outerClass?: string;
 		}>(),
 		{
-			actions: false, // Définition de la valeur par défaut à false
+			actions: false,
 		},
 	);
+
+	const emit = defineEmits<{
+		(e: 'invalid'): void;
+	}>();
 
 	const submitForm = (e: KeyboardEvent) => {
 		(e.target as HTMLInputElement).blur();
 		(e.target as HTMLInputElement).focus();
+	};
+
+	const submitInvalid = () => {
+		emit('invalid');
 	};
 </script>
 
@@ -25,12 +34,15 @@
 		type="form"
 		:actions="actions"
 		@keydown.enter="submitForm"
+		@submit-invalid="submitInvalid"
 	>
+		<slot> </slot>
 		<!--		<FormKit-->
 		<!--			:id="`${id}-submit`"-->
+		<!--			:wrapper-class="{ 'd-none': true }"-->
+		<!--			:outer-class="outerClass"-->
 		<!--			type="submit"-->
 		<!--		></FormKit>-->
-		<slot></slot>
 	</FormKit>
 </template>
 

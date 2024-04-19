@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { onMounted, ref } from 'vue';
-	import { Species } from '@/Interfaces/Species.ts';
+	import { Species } from '@/Interfaces/Animals/Species.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
@@ -14,8 +14,14 @@
 	onMounted(async () => {
 		// on récupère les especes depuis le store
 		await animalSettingsStore.getAllSpecies();
-		// on met à jour la liste des especes
-		species.value = animalSettingsStore.allSpecies;
+		// on met à jour la liste des espèces et affiche leur traduction
+		species.value = animalSettingsStore.allSpecies.map((species) => {
+			return {
+				...species,
+				name: getCapitalizedText(t(`enums.animalSpecies.${species.name}`)),
+				description: species.description,
+			};
+		});
 	});
 </script>
 <template>

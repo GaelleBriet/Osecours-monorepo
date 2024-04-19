@@ -1,21 +1,21 @@
 <script setup lang="ts">
-	import { FormKitOptionsLoader } from '@formkit/pro';
 	import { getNode } from '@formkit/core';
 	import { computed } from 'vue';
 	import { FormKit } from '@formkit/vue';
+	import { getValidationMessages } from '@formkit/validation';
 
 	const props = defineProps<{
 		id: string | number;
-		modelValue?: string | boolean | number;
+		modelValue?: string | boolean | number | undefined | null;
 		value?: number | string;
 		name: string;
 		label?: string;
-		options:
-			| string[]
-			| number[]
-			| Record<string | number, string>
-			| FormKitOptionsLoader
-			| undefined;
+		options: never;
+		// | string[]
+		// | number[]
+		// | Record<string | number, string>
+		// | FormKitOptionsLoader
+		// | undefined;
 		placeholder?: string;
 		validation?: string;
 		validationVisibility?: string;
@@ -24,18 +24,28 @@
 	}>();
 
 	const emit = defineEmits<{
-		(e: 'update:modelValue', value: number | string | boolean): void;
+		(e: 'update:modelValue', value: never): void;
+		(e: 'validation', message: object): void;
 	}>();
 
 	const stringId = computed(() => props.id.toString());
+
 	const onChange = (e: Event) => {
 		const selectElement = e.target as HTMLSelectElement;
 		if (selectElement.id) {
 			const node = getNode(selectElement.id);
 			if (!node) return;
+
+			if (props.validation) {
+				getValidationMessages(node).forEach((inputMessage) => {
+					inputMessage.forEach((error) => {
+						emit('validation', error);
+					});
+				});
+			}
 			node.input(selectElement.value);
-			let value: string | boolean | number | undefined =
-				props.value ?? props.modelValue;
+			let value: any = props.value ?? props.modelValue;
+
 			switch (typeof value) {
 				case 'boolean':
 					value = selectElement.value === 'true';
@@ -46,7 +56,6 @@
 				default:
 					value = selectElement.value;
 			}
-			console.log('value', value);
 			emit('update:modelValue', value);
 		}
 	};
@@ -57,7 +66,6 @@
 		:model-value="modelValue"
 		:value="modelValue"
 		:name="name"
-		:label="label"
 		:options="options"
 		:placeholder="placeholder"
 		:validation="validation"
@@ -69,7 +77,11 @@
 		}"
 		type="select"
 		@change="onChange"
-	></FormKit>
+	>
+		<template #label>
+			<span v-html="label"></span>
+		</template>
+	</FormKit>
 </template>
 
 <style lang="postcss" scoped>

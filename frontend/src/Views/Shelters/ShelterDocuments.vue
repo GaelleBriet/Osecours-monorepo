@@ -9,7 +9,7 @@
 
 	let localShelter = ref({ ...props.shelter });
 
-    const photos = ref([
+	const photos = ref([
 		{
 			id: 1,
 			url: 'https://picsum.photos/seed/picsum/200/300',
@@ -61,30 +61,30 @@
 				>
 					<!-- Miniatures des photos -->
 					<div
-                        v-for="(photo, index) in photos"
-                        :key="index"
-                        class="relative"
-                    >
-                        <img
-                            :src="photo.url"
-                            alt="Photo du shelter"
-                            class="w-full h-28 object-cover rounded-lg shadow-md"
-                        />
-                        <button
-                            class="absolute top-1 right-1 bg-osecours-pink text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
-                            @click="removePhoto(index)"
-                        >
-                            &times;
-                            <!-- Symbole de multiplication utilisé pour l'icône de suppression -->
-                        </button>
-                    </div>
-                    <!-- Bouton pour ajouter une photo -->
-                    <button
-                        class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
-                        @click="addPhoto"
-                    >
-                        <span>+</span>
-                    </button>
+						v-for="(photo, index) in photos"
+						:key="index"
+						class="relative"
+					>
+						<img
+							:src="photo.url"
+							alt="Photo du shelter"
+							class="w-full h-28 object-cover rounded-lg shadow-md"
+						/>
+						<button
+							class="absolute top-1 right-1 bg-osecours-pink text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
+							@click="removePhoto(index)"
+						>
+							&times;
+							<!-- Symbole de multiplication utilisé pour l'icône de suppression -->
+						</button>
+					</div>
+					<!-- Bouton pour ajouter une photo -->
+					<button
+						class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
+						@click="addPhoto"
+					>
+						<span>+</span>
+					</button>
 				</div>
 			</div>
 		</Form>

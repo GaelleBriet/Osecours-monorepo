@@ -34,3 +34,18 @@ export function generateOptionsFromEnum<T extends Record<string, unknown>>(
 		}),
 	);
 }
+
+// Fonction générique pour formater les options des selects depuis les données des enums
+// @enumObject : l'enum à formater
+// @translationKey : la clé de traduction pour les labels des options
+// @defaultLabel : le label par défaut pour les selects
+// return : value = clé de l'enum, label = valeur de l'enum traduite
+export const generateOptionsWithDefault = (
+	enumObject: Record<string, unknown>,
+	translationKey: string,
+	defaultLabel: string,
+) => {
+	const options = generateOptionsFromEnum(enumObject, translationKey);
+	options.unshift({ value: '', label: defaultLabel });
+	return options;
+};
