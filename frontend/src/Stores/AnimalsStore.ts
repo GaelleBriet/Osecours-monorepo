@@ -72,7 +72,8 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async createAnimal(animal: Animal): Promise<Animal | null> {
-			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			const animalToSend: Animal =
+				this.initializeCreatedAnimalProperties(animal);
 			const newAnimal: Animal | ErrorResponse =
 				await createAnimal(animalToSend);
 			if ('error' in newAnimal) {
@@ -94,7 +95,8 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
-			const animalToSend: Animal = this.initializeAnimalProperties(animal);
+			const animalToSend: Animal =
+				this.initializeUpdatedAnimalProperties(animal);
 			console.log('animalToUpdate.NumberId', animalToSend.number);
 			const updatedAnimal: Animal | ErrorResponse =
 				await updateAnimal(animalToSend);
@@ -105,7 +107,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return updatedAnimal;
 			}
 		},
-		initializeAnimalProperties(animal: Animal): Animal {
+		initializeCreatedAnimalProperties(animal: Animal): Animal {
 			return {
 				...animal,
 				name: animal.name || '',
@@ -121,6 +123,24 @@ export const useAnimalsStore = defineStore('animals', {
 				number: animal.identification?.number
 					? animal.identification.number
 					: animal.identification,
+			};
+		},
+		initializeUpdatedAnimalProperties(animal: Animal): Animal {
+			return {
+				...animal,
+				name: animal.name || '',
+				description: animal.description || '',
+				birth_date: animal.birth_date ? new Date(animal.birth_date) : null,
+				specie_id: animal.specie_id,
+				gender_id: animal.gender_id || '',
+				color_id: animal.color_id || '',
+				coat_id: animal.coat_id || '',
+				sizerange_id: animal.sizerange_id || '',
+				agerange_id: animal.agerange_id || '',
+				breed_id: animal.breed_id || undefined,
+				number: animal.identification?.number
+					? animal.identification.number
+					: '',
 			};
 		},
 	},
