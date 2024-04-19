@@ -3,30 +3,30 @@
 // console.log(dateObj);
 
 export const formatDate = (
-	date: Date,
+	date: Date | string,
 	format: 'short' | 'medium' | 'long',
 ): string => {
 	switch (format) {
 		case 'short':
-			return date.toLocaleDateString('fr-FR', {
+			return date.toLocaleString('fr-FR', {
 				year: 'numeric',
 				month: 'numeric',
 				day: 'numeric',
 			});
 		case 'medium':
-			return date.toLocaleDateString('fr-FR', {
+			return date.toLocaleString('fr-FR', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			});
 		case 'long':
-			return date.toLocaleDateString('fr-FR', {
+			return date.toLocaleString('fr-FR', {
 				weekday: 'long',
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			});
 		default:
-			return date.toLocaleDateString();
+			return date.toLocaleString();
 	}
 };
