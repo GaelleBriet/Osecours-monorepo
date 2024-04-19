@@ -1,9 +1,9 @@
 <script setup lang="ts">
-	import AssociationsFormComponent from '@/Components/AssociationsFormComponent.vue';
+	import AssociationsForm from '@/Views/Association/AssociationsForm.vue';
 </script>
 
 <template>
-	<AssociationsFormComponent :isCreateMode="true" />
+	<AssociationsForm :isCreateMode="true" />
 </template>
 
 <style scoped lang="postcss"></style>
