@@ -46,6 +46,7 @@ class AnimalController extends Controller
     /**
      * @OA\Post(
      *     path="/animals",
+     *     security={{"bearerAuth":{}}},
      *     summary="register new animal",
      *     description="Store animal informations with identification associated",
      *     operationId="createAnimal",
@@ -103,6 +104,7 @@ class AnimalController extends Controller
     /**
      * @OA\Get(
      *     path="/animals/{id}",
+     *    security={{"bearerAuth":{}}},
      *     summary="Get specific animal details",
      *     description="Return informations for an animal with specific id",
      *     operationId="getAnimalById",
@@ -145,6 +147,7 @@ class AnimalController extends Controller
     /**
      * @OA\Put(
      *     path="/animals/{id}",
+     *   security={{"bearerAuth":{}}},
      *     summary="Update an animal",
      *     operationId="updateAnimalById",
      *     tags={"Animals"},
@@ -210,6 +213,7 @@ class AnimalController extends Controller
     /**
      * @OA\Delete(
      *     path="/animals/{id}",
+     *   security={{"bearerAuth":{}}},
      *     summary="Delete specific animal (soft delete)",
      *     description="Make a soft delete for an animal with specific id",
      *     operationId="deleteAnimalById",

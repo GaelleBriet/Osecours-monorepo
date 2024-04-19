@@ -25,6 +25,7 @@ class AssociationController extends Controller
     /**
  * @OA\Get(
  *     path="/associations",
+ *   security={{"bearerAuth":{}}},
  *     operationId="getAllAssociations",
  *     tags={"Associations"},
  *     summary="Get all associations",
@@ -51,6 +52,7 @@ public function getAll()
 /**
  * @OA\Post(
  *     path="/associations",
+ *   security={{"bearerAuth":{}}},
  *     operationId="storeAssociation",
  *     tags={"Associations"},
  *     summary="Create a new association",
@@ -79,6 +81,7 @@ public function store(AssociationRequest $request)
 /**
  * @OA\Get(
  *     path="/associations/{id}",
+ *   security={{"bearerAuth":{}}},
  *     operationId="getAssociationById",
  *     tags={"Associations"},
  *     summary="Get an association by ID",
@@ -113,6 +116,7 @@ public function show(string $id)
 /**
  * @OA\Put(
  *     path="/associations/{id}",
+ *   security={{"bearerAuth":{}}},
  *     operationId="updateAssociation",
  *     tags={"Associations"},
  *     summary="Update an existing association",
@@ -157,6 +161,7 @@ public function update(AssociationRequest $request, string $id)
 /**
  * @OA\Delete(
  *     path="/associations/{id}",
+ *   security={{"bearerAuth":{}}},
  *     operationId="deleteAssociation",
  *     tags={"Associations"},
  *     summary="Delete an association",

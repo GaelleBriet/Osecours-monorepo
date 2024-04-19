@@ -101,6 +101,9 @@ paths:
           description: 'Bad request'
         '401':
           description: Unauthorized
+      security:
+        -
+          bearerAuth: []
   '/animals/{id}':
     get:
       tags:
@@ -127,6 +130,9 @@ paths:
           description: 'Animal not found'
         '500':
           description: 'Server Error'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Animals
@@ -209,6 +215,9 @@ paths:
           description: 'Bad request'
         '401':
           description: Unauthorized
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Animals
@@ -234,6 +243,9 @@ paths:
           description: 'Animal non trouvé'
         '500':
           description: 'Erreur interne'
+      security:
+        -
+          bearerAuth: []
   /associations:
     get:
       tags:
@@ -250,6 +262,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Association'
+      security:
+        -
+          bearerAuth: []
     post:
       tags:
         - Associations
@@ -270,6 +285,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Association'
+      security:
+        -
+          bearerAuth: []
   '/associations/{id}':
     get:
       tags:
@@ -294,6 +312,9 @@ paths:
                 $ref: '#/components/schemas/Association'
         '404':
           description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Associations
@@ -324,6 +345,9 @@ paths:
                 $ref: '#/components/schemas/Association'
         '404':
           description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Associations
@@ -350,6 +374,9 @@ paths:
                 type: object
         '404':
           description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
   /token/create:
     post:
       tags:
@@ -398,6 +425,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
   '/documents/{id}':
     get:
       tags:
@@ -422,6 +452,9 @@ paths:
                 $ref: '#/components/schemas/Document'
         '404':
           description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
     put:
       tags:
         - Documents
@@ -439,14 +472,21 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
+              required:
+                - filename
+                - file
               properties:
                 filename:
+                  description: 'Name of the file'
                   type: string
                 description:
+                  description: 'Description of the file'
                   type: string
+                  nullable: true
                 file:
+                  description: 'File to upload'
                   type: string
                   format: binary
               type: object
@@ -459,6 +499,9 @@ paths:
                 $ref: '#/components/schemas/Document'
         '404':
           description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
     delete:
       tags:
         - Documents
@@ -484,6 +527,9 @@ paths:
                 type: object
         '404':
           description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
   '/documents/store/animals/{animalId}':
     post:
       tags:
@@ -502,17 +548,21 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               required:
                 - filename
                 - file
               properties:
                 filename:
+                  description: 'Name of the file'
                   type: string
                 description:
+                  description: 'Description of the file'
                   type: string
+                  nullable: true
                 file:
+                  description: 'File to upload'
                   type: string
                   format: binary
               type: object
@@ -525,13 +575,16 @@ paths:
                 $ref: '#/components/schemas/Document'
         '400':
           description: 'Invalid input'
-  '/animals/{animalId}/documents':
+      security:
+        -
+          bearerAuth: []
+  '/documents/find/animals/{animalId}':
     get:
       tags:
         - Documents
       summary: 'Retrieve all documents associated with an animal'
       description: 'Fetches a list of documents associated with a specific animal'
-      operationId: 575fb5f5664c376a3fc31ffdacb60772
+      operationId: 4e685463448f1975e3d1d57c3eb1602b
       parameters:
         -
           name: animalId
@@ -549,13 +602,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Document'
-  '/healthcares/{healthcareId}/documents':
+      security:
+        -
+          bearerAuth: []
+  '/documents/find/healthcares/{healthcareId}':
     get:
       tags:
         - Documents
       summary: 'Retrieve all documents associated with a healthcare provider'
       description: 'Fetches a list of documents associated with a specific healthcare provider'
-      operationId: 7546f07367d68d8700645801142637c0
+      operationId: b0635583c1c2b99b4c5f627d85307636
       parameters:
         -
           name: healthcareId
@@ -573,54 +629,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Document'
-    post:
-      tags:
-        - Documents
-      summary: 'Add a document to a healthcare provider'
-      description: 'Creates a new document associated with a healthcare provider'
-      operationId: be94011799c770200379d3e3999d8d15
-      parameters:
+      security:
         -
-          name: healthcareId
-          in: path
-          description: 'Healthcare ID'
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              required:
-                - filename
-                - file
-              properties:
-                filename:
-                  type: string
-                description:
-                  type: string
-                  nullable: true
-                file:
-                  type: string
-                  format: binary
-              type: object
-      responses:
-        '201':
-          description: 'Document created'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-        '400':
-          description: 'Invalid input'
-  '/shelters/{shelterId}/documents':
+          bearerAuth: []
+  '/documents/find/shelters/{shelterId}':
     get:
       tags:
         - Documents
       summary: 'Retrieve all documents associated with a shelter'
       description: 'Fetches a list of documents associated with a specific shelter'
-      operationId: cf6ec6e6bb588a2c30a33aa5b8cf2d94
+      operationId: db44d8ad03e180cdb5167ab6cc57ac84
       parameters:
         -
           name: shelterId
@@ -638,35 +656,42 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
+  '/documents/store/healthcares/{healthcareId}':
     post:
       tags:
         - Documents
-      summary: 'Add a document to a shelter'
-      description: 'Creates a new document associated with a shelter'
-      operationId: c236d47f75fdcf7f8ceda4df7cd2eac7
+      summary: 'Add a document to a healthcare provider'
+      description: 'Creates a new document associated with a healthcare provider'
+      operationId: adc35dc0983af4efdba26e9bf4bc9e6c
       parameters:
         -
-          name: shelterId
+          name: healthcareId
           in: path
-          description: 'Shelter ID'
+          description: 'Healthcare ID'
           required: true
           schema:
             type: integer
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               required:
                 - filename
                 - file
               properties:
                 filename:
+                  description: 'Name of the file'
                   type: string
                 description:
+                  description: 'Description of the file'
                   type: string
                   nullable: true
                 file:
+                  description: 'File to upload'
                   type: string
                   format: binary
               type: object
@@ -679,6 +704,57 @@ paths:
                 $ref: '#/components/schemas/Document'
         '400':
           description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
+  '/documents/store/shelters/{shelterId}':
+    post:
+      tags:
+        - Documents
+      summary: 'Add a document to a shelter'
+      description: 'Creates a new document associated with a shelter'
+      operationId: b5881062629fdd99390d6c0a611f67fd
+      parameters:
+        -
+          name: shelterId
+          in: path
+          description: 'Shelter ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - filename
+                - file
+              properties:
+                filename:
+                  description: 'Name of the file'
+                  type: string
+                description:
+                  description: 'Description of the file'
+                  type: string
+                  nullable: true
+                file:
+                  description: 'File to upload'
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '201':
+          description: 'Document created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
 components:
   schemas:
     Address:

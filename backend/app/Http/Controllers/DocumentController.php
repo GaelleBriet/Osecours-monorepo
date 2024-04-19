@@ -22,6 +22,7 @@ class DocumentController extends Controller
     /**
      * @OA\Get(
      *     path="/documents",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Get all documents",
      *     description="Returns all documents",
@@ -43,6 +44,7 @@ class DocumentController extends Controller
     /**
      * @OA\Get(
      *     path="/documents/{id}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Get a specific document",
      *     description="Returns a single document by ID",
@@ -72,6 +74,7 @@ class DocumentController extends Controller
     /**
      * @OA\Post(
      *     path="/documents/store/animals/{animalId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Add a document to an animal",
      *     description="Creates a new document associated with an animal",
@@ -84,11 +87,28 @@ class DocumentController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"filename", "file"},
-     *             @OA\Property(property="filename", type="string"),
-     *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="file", type="string", format="binary")
+     *          @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"filename", "file"},
+     *                 @OA\Property(
+     *                     property="filename",
+     *                     type="string",
+     *                     description="Name of the file"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     description="Description of the file",
+     *                     nullable=true
+     *                 ),
+     *                 @OA\Property(
+     *                     property="file",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="File to upload"
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -114,7 +134,8 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/animals/{animalId}/documents",
+     *     path="/documents/find/animals/{animalId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with an animal",
      *     description="Fetches a list of documents associated with a specific animal",
@@ -142,7 +163,8 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/healthcares/{healthcareId}/documents",
+     *     path="/documents/find/healthcares/{healthcareId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with a healthcare provider",
      *     description="Fetches a list of documents associated with a specific healthcare provider",
@@ -170,7 +192,8 @@ class DocumentController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/shelters/{shelterId}/documents",
+     *     path="/documents/find/shelters/{shelterId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with a shelter",
      *     description="Fetches a list of documents associated with a specific shelter",
@@ -198,7 +221,8 @@ class DocumentController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/healthcares/{healthcareId}/documents",
+     *     path="/documents/store/healthcares/{healthcareId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Add a document to a healthcare provider",
      *     description="Creates a new document associated with a healthcare provider",
@@ -211,11 +235,28 @@ class DocumentController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"filename", "file"},
-     *             @OA\Property(property="filename", type="string"),
-     *             @OA\Property(property="description", type="string", nullable=true),
-     *             @OA\Property(property="file", type="string", format="binary")
+     *          @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"filename", "file"},
+     *                 @OA\Property(
+     *                     property="filename",
+     *                     type="string",
+     *                     description="Name of the file"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     description="Description of the file",
+     *                     nullable=true
+     *                 ),
+     *                 @OA\Property(
+     *                     property="file",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="File to upload"
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -241,7 +282,8 @@ class DocumentController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/shelters/{shelterId}/documents",
+     *     path="/documents/store/shelters/{shelterId}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Add a document to a shelter",
      *     description="Creates a new document associated with a shelter",
@@ -254,11 +296,28 @@ class DocumentController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             required={"filename", "file"},
-     *             @OA\Property(property="filename", type="string"),
-     *             @OA\Property(property="description", type="string", nullable=true),
-     *             @OA\Property(property="file", type="string", format="binary")
+     *          @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"filename", "file"},
+     *                 @OA\Property(
+     *                     property="filename",
+     *                     type="string",
+     *                     description="Name of the file"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     description="Description of the file",
+     *                     nullable=true
+     *                 ),
+     *                 @OA\Property(
+     *                     property="file",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="File to upload"
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -286,6 +345,7 @@ class DocumentController extends Controller
     /**
      * @OA\Put(
      *     path="/documents/{id}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Update a document",
      *     description="Updates an existing document",
@@ -298,10 +358,28 @@ class DocumentController extends Controller
      *     ),
      *     @OA\RequestBody(
      *         required=true,
-     *         @OA\JsonContent(
-     *             @OA\Property(property="filename", type="string"),
-     *             @OA\Property(property="description", type="string"),
-     *             @OA\Property(property="file", type="string", format="binary")
+     *            @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 required={"filename", "file"},
+     *                 @OA\Property(
+     *                     property="filename",
+     *                     type="string",
+     *                     description="Name of the file"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string",
+     *                     description="Description of the file",
+     *                     nullable=true
+     *                 ),
+     *                 @OA\Property(
+     *                     property="file",
+     *                     type="string",
+     *                     format="binary",
+     *                     description="File to upload"
+     *                 )
+     *             )
      *         )
      *     ),
      *     @OA\Response(
@@ -336,6 +414,7 @@ class DocumentController extends Controller
     /**
      * @OA\Delete(
      *     path="/documents/{id}",
+     *   security={{"bearerAuth":{}}},
      *     tags={"Documents"},
      *     summary="Delete a document",
      *     description="Deletes a specific document",
