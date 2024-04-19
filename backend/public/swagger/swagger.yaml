@@ -425,6 +425,234 @@ components:
           type: string
           example: application/pdf
       type: object
+    Person:
+      title: Person
+      description: 'Person model'
+      properties:
+        id:
+          description: 'ID of the person'
+          type: integer
+          example: 1
+        created_at:
+          description: 'Date and time when the person was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the person was last updated'
+          type: string
+          format: date-time
+        personable_type:
+          description: 'Type of the associated entity (morphed)'
+          type: string
+        personable_id:
+          description: 'ID of the associated entity (morphed)'
+          type: integer
+      type: object
+    Role:
+      title: Role
+      description: 'Role model'
+      properties:
+        id:
+          description: 'ID of the role'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the role'
+          type: string
+          example: admin
+        created_at:
+          description: 'Date and time when the role was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the role was last updated'
+          type: string
+          format: date-time
+      type: object
+    Shelter:
+      title: Shelter
+      description: 'Shelter model'
+      properties:
+        id:
+          description: 'ID of the shelter'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the shelter'
+          type: string
+          example: 'Animal Shelter'
+        description:
+          description: 'Description of the shelter'
+          type: string
+          example: 'A shelter for homeless animals'
+        phone:
+          description: 'Phone number of the shelter'
+          type: string
+          example: 123-456-7890
+        email:
+          description: 'Email address of the shelter'
+          type: string
+          example: info@example.com
+        siret:
+          description: 'SIRET number of the shelter'
+          type: string
+          maxLength: 14
+          minLength: 14
+          example: '12345678901234'
+        created_at:
+          description: 'Date and time when the shelter was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the shelter was last updated'
+          type: string
+          format: date-time
+      type: object
+    Size_range:
+      title: Size_range
+      description: 'Size_range model'
+      properties:
+        id:
+          description: 'ID of the size range'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the size range'
+          type: string
+          example: Small
+        description:
+          description: 'Description of the size range'
+          type: string
+          example: 'Small-sized animals'
+        created_at:
+          description: 'Date and time when the size range was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the size range was last updated'
+          type: string
+          format: date-time
+      type: object
+    Specie:
+      title: Specie
+      description: 'Specie model'
+      properties:
+        id:
+          description: 'ID of the specie'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the specie'
+          type: string
+          example: Cat
+        description:
+          description: 'Description of the specie'
+          type: string
+          example: 'Domestic cat'
+        created_at:
+          description: 'Date and time when the specie was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the specie was last updated'
+          type: string
+          format: date-time
+      type: object
+    Status:
+      title: Status
+      description: 'Status model'
+      properties:
+        id:
+          description: 'ID of the status'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the status'
+          type: string
+          example: Adopted
+        description:
+          description: 'Description of the status'
+          type: string
+          example: 'The animal has been adopted'
+        created_at:
+          description: 'Date and time when the status was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the status was last updated'
+          type: string
+          format: date-time
+      type: object
+    User:
+      title: User
+      description: 'User model'
+      properties:
+        id:
+          description: 'ID of the user'
+          type: integer
+          example: 1
+        first_name:
+          description: 'First name of the user'
+          type: string
+          example: John
+        last_name:
+          description: 'Last name of the user'
+          type: string
+          example: Doe
+        phone:
+          description: 'Phone number of the user'
+          type: string
+          example: '123456789'
+        existing_cat_count:
+          description: 'Number of existing cats owned by the user'
+          type: integer
+          example: 2
+        existing_children_count:
+          description: 'Number of existing children of the user'
+          type: integer
+          example: 1
+        existing_dog_count:
+          description: 'Number of existing dogs owned by the user'
+          type: integer
+          example: 0
+        email:
+          description: 'Email address of the user'
+          type: string
+          example: john@example.com
+        created_at:
+          description: 'Date and time when the user was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the user was last updated'
+          type: string
+          format: date-time
+      type: object
+    Vaccine:
+      title: Vaccine
+      description: 'Vaccine model'
+      properties:
+        id:
+          description: 'ID of the vaccine'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the vaccine'
+          type: string
+          example: Rabies
+        description:
+          description: 'Description of the vaccine'
+          type: string
+          example: 'Prevents rabies infection in animals'
+        created_at:
+          description: 'Date and time when the vaccine was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the vaccine was last updated'
+          type: string
+          format: date-time
+      type: object
   securitySchemes:
     bearerAuth:
       type: http
