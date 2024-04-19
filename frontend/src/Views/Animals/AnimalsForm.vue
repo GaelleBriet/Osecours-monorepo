@@ -13,16 +13,19 @@
 	import { GendersForSelects } from '@/Interfaces/Animals/Gender.ts';
 	import { SpeciesForSelects } from '@/Interfaces/Animals/Species.ts';
 	import i18n from '@/Services/Translations';
-	import router from '@/Router';
 	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
+	import { useRouter } from 'vue-router';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
+	const router = useRouter();
+	const routeParams = router.currentRoute.value.params;
+	console.log(routeParams);
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
@@ -212,19 +215,18 @@
 			'enums.animalsBreeds',
 			'Sélectionner une race',
 		);
-		if (!props.isCreateMode) {
-			if (props.animal?.specie_id == 1) {
-				breeds.value = formatOptions(
-					await animalSettingsStore.getSpecificBreeds('cat'),
-					'enums.animalsBreeds',
-				);
-			} else if (props.animal?.specie_id == 2) {
-				breeds.value = formatOptions(
-					await animalSettingsStore.getSpecificBreeds('dog'),
-					'enums.animalsBreeds',
-				);
-			}
+		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
+			breeds.value = formatOptions(
+				await animalSettingsStore.getSpecificBreeds('cat'),
+				'enums.animalsBreeds',
+			);
+		} else if (props.animal?.specie_id == 2 || routeParams.species == 'dog') {
+			breeds.value = formatOptions(
+				await animalSettingsStore.getSpecificBreeds('dog'),
+				'enums.animalsBreeds',
+			);
 		}
+
 		coats.value = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
 			'enums.animalsCoats',
@@ -245,6 +247,11 @@
 			'enums.animalSpecies',
 			'Sélectionner une espèce',
 		);
+		if (routeParams.species == 'cat') {
+			selectedSpecies.value = 1;
+		} else if (routeParams.species == 'dog') {
+			selectedSpecies.value = 2;
+		}
 	});
 
 	onMounted(async () => {

@@ -35,6 +35,7 @@
 	const addItem = () => {
 		router.push({
 			name: 'CreateAnimal',
+			params: { species: 'cat' },
 		});
 	};
 
