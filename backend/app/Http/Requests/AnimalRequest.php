@@ -36,8 +36,8 @@ class AnimalRequest extends FormRequest
             'gender_id' => 'nullable|exists:genders,id',
             'color_id' => 'nullable|exists:colors,id',
             'coat_id' => 'nullable|exists:coats,id',
-            'sizerange_id' => 'nullable|exists:SizeRanges,id',
-            'agerange_id' => 'nullable|exists:AgeRanges,id',
+            'sizerange_id' => 'nullable|exists:size_ranges,id',
+            'agerange_id' => 'nullable|exists:age_ranges,id',
             'breed_id' => 'nullable|exists:breeds,id',
             'number' => 'nullable|max:15|string'
         ];

@@ -48,7 +48,7 @@ class SizeRange extends Model
 {
     use HasFactory;
 
-    protected $table = "SizeRanges";
+    protected $table = "size_ranges";
 
     protected $fillable = [
         'name',
