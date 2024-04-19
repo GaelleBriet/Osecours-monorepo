@@ -1,5 +1,3 @@
-import { Animal } from '@/Interfaces/Animals/Animal.ts';
-
 export const animal = {
 	id: 1,
 	name: 'Bobby',
