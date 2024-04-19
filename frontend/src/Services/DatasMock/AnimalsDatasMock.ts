@@ -22,7 +22,7 @@ export const animal = {
 	coat: 'Long',
 };
 
-export const animals: Animal[] = [
+export const animals = [
 	{
 		id: 1,
 		name: 'Bobby',
