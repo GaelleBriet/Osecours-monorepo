@@ -87,4 +87,3 @@ export const animals: Animal[] = [
 		coat: 'Long',
 	},
 ];
-return animals;
