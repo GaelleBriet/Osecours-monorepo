@@ -28,8 +28,8 @@ return new class extends Migration
             $table->foreignId('gender_id')->nullable()->constrained('genders');
             $table->foreignId('color_id')->nullable()->constrained('colors'); 
             $table->foreignId('coat_id')->nullable()->constrained('coats');
-            $table->foreignId('sizerange_id')->nullable()->constrained('size_ranges');
-            $table->foreignId('agerange_id')->nullable()->constrained('age_ranges');
+            $table->foreignId('sizerange_id')->nullable()->constrained('SizeRanges');
+            $table->foreignId('agerange_id')->nullable()->constrained('AgeRanges');
             $table->timestamps();
         });
     }

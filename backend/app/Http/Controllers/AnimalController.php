@@ -26,6 +26,7 @@ class AnimalController extends Controller
      * @OA\Get(
      *     path="/animals/all",
      *     security={{"bearerAuth":{}}},
+     *     tags={"Animals"},
      *     @OA\Response(response="200", description="get list of all animals")
      * 
      * )
@@ -43,6 +44,9 @@ class AnimalController extends Controller
      * @OA\Post(
      *     path="/animals",
      *     summary="register new animal",
+     *     description="Store animal informations with identification associated",
+     *     operationId="createAnimal",
+     *     tags={"Animals"},
      *     @OA\RequestBody(
      *         required=true,
      *         description="Animal fields",
@@ -65,18 +69,22 @@ class AnimalController extends Controller
      *             @OA\Property(property="agerange_id", type="integer", example=2 ),
      *             @OA\Property(property="breed_id", type="integer", example=2 ),
      *             @OA\Property(property="number", type="string", example="152A5P6", maxLength=15 ),
-     *   @OA\Property(property="email", type="string", example="admin-lerefugedeschimeres@osecours.org", format="email" ),
-     *           @OA\Property(property="password", type="string", example="P@ssword_1" ),
-     *           @OA\Property(property="association_id", type="integer", example=1 ),
      *         )
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Utilisateur créé avec succès"
+     *         description="Animal created successfully",
+     *            @OA\JsonContent(
+     *             ref="#/components/schemas/Animal"
+     *         )
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Requête invalide"
+     *         description="Bad request"
+     *     ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
      *     )
      * )
      */
@@ -89,6 +97,39 @@ class AnimalController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/animals/{id}",
+     *     summary="Get specific animal details",
+     *     description="Return informations for an animal with specific id",
+     *     operationId="getAnimalById",
+     *     tags={"Animals"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="animal Id to fetch",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Animal fetched successfully",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/Animal"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Animal not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server Error"
+     *     )
+     * )
+     */
     public function show(string $id)
     {
         try {
@@ -98,6 +139,59 @@ class AnimalController extends Controller
         }
     }
 
+
+    /**
+     * @OA\Put(
+     *     path="/animals/{id}",
+     *     summary="Update an animal",
+     *     operationId="updateAnimalById",
+     *     tags={"Animals"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="animal Id to update",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="Animal fields",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="name", type="string", example="Pupuce" , maxLength=100),
+     *             @OA\Property(property="description", type="string", example="Really cute" ),
+     *             @OA\Property(property="birth_date", type="date", example="Pupuce" , format="1995-04-01"),
+     *             @OA\Property(property="cats_friendly", type="boolean", example=true ),
+     *             @OA\Property(property="dogs_friendly", type="boolean", example=true ),
+     *             @OA\Property(property="children_friendly", type="boolean", example=true ),
+     *             @OA\Property(property="age", type="integer", example=4 ),
+     *             @OA\Property(property="behavioral_comment", type="string", example="Love cuddle" ),
+     *             @OA\Property(property="sterilized", type="boolean", example=true ),
+     *             @OA\Property(property="deceased", type="boolean", example=false ),
+     *             @OA\Property(property="specie_id", type="integer", example=1 ),
+     *             @OA\Property(property="gender_id", type="integer", example=2 ),
+     *             @OA\Property(property="color_id", type="integer", example=3 ),
+     *             @OA\Property(property="sizerange_id", type="integer", example=4 ),
+     *             @OA\Property(property="agerange_id", type="integer", example=2 ),
+     *             @OA\Property(property="breed_id", type="integer", example=2 ),
+     *             @OA\Property(property="number", type="string", example="152A5P6", maxLength=15 ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Animal created successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *      @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function update(AnimalRequest $request, string $id)
     {
         try {
@@ -112,6 +206,39 @@ class AnimalController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/animals/{id}",
+     *     summary="Delete specific animal (soft delete)",
+     *     description="Make a soft delete for an animal with specific id",
+     *     operationId="deleteAnimalById",
+     *     tags={"Animals"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID de l'animal à récupérer",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Animal récupéré avec succès",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/Animal"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Animal non trouvé"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erreur interne"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         try {

@@ -32,11 +32,11 @@ use OpenApi\Annotations as OA;
  * )
  */
 
-class Age_range extends Model
+class AgeRange extends Model
 {
     use HasFactory;
 
-    protected $table = "age_ranges";
+    protected $table = "AgeRanges";
     
     protected $fillable = [
         'name',

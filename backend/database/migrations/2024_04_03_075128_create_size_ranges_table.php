@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('size_ranges', function (Blueprint $table) {
+        Schema::create('SizeRanges', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('size_ranges');
+        Schema::dropIfExists('SizeRanges');
     }
 };

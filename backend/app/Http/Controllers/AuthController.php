@@ -23,6 +23,7 @@ class AuthController extends Controller
      * @OA\Post(
      *     path="/token/create",
      *     summary="Get token",
+     *     tags={"Authentication"},
      *     @OA\RequestBody(
      *         required=true,
      *         description="create token for specific association",
