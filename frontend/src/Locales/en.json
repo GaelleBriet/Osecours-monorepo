@@ -33,7 +33,8 @@
 		"cats": "cats",
 		"all-associations": "all associations",
 		"families": "families",
-		"animalsSettings": "settings"
+		"animalsSettings": "settings",
+		"all": "tous"
 	},
 	"form": {
 		"email": "email",
@@ -150,6 +151,17 @@
 			"childrenCount": "number of children",
 			"adoptFamily": "adopt family",
 			"fosterFamily": "foster family"
+		},
+		"documents": {
+			"title": "list of all association documents",
+			"type": "type",
+			"date": "uploaded",
+			"filename": "file name",
+			"description": "description of the file",
+			"help": "please ensure that only files with the extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf and .txt are uploaded.",
+			"file": "choose a file",
+			"photos": "photos",
+			"card": "documents"
 		}
 	},
 	"enums": {
