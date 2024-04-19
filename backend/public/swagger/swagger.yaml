@@ -169,10 +169,55 @@ components:
           description: 'Description of the age range'
           type: string
           example: 'Between 3 to 7 years old'
-        animals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Animal'
+      type: object
+    Association:
+      title: Association
+      description: 'Association model'
+      properties:
+        id:
+          description: 'ID of the association'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the association'
+          type: string
+          example: 'Animal Rescue Association'
+        description:
+          description: 'Description of the association'
+          type: string
+          example: 'A non-profit organization dedicated to rescuing animals'
+        siret:
+          description: 'SIRET number of the association'
+          type: string
+          maxLength: 14
+          minLength: 14
+          example: '12345678901234'
+        rib:
+          description: "RIB (Relevé d'Identité Bancaire) of the association"
+          type: string
+          maxLength: 34
+          example: 'FRXX XXXX XXXX XXXX XXXX XXXX XXX'
+      type: object
+    Breed:
+      title: Breed
+      description: 'Breed model'
+      properties:
+        id:
+          description: 'ID of the breed'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the breed'
+          type: string
+          example: 'Labrador Retriever'
+        description:
+          description: 'Description of the breed'
+          type: string
+          example: 'A medium-large gun dog breed known for its friendly and outgoing nature'
+        specie_id:
+          description: 'ID of the species to which the breed belongs'
+          type: integer
+          example: 1
       type: object
     City:
       title: City
@@ -190,6 +235,195 @@ components:
           description: 'Zip code of the city'
           type: string
           example: '10001'
+      type: object
+    Coat:
+      title: Coat
+      description: 'Coat model'
+      properties:
+        id:
+          description: 'ID of the coat'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the coat'
+          type: string
+          example: Short
+        description:
+          description: 'Description of the coat'
+          type: string
+          example: 'A short-haired coat'
+      type: object
+    Color:
+      title: Color
+      description: 'Color model'
+      properties:
+        id:
+          description: 'ID of the color'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the color'
+          type: string
+          example: Red
+        description:
+          description: 'Description of the color'
+          type: string
+          example: 'A vibrant red color'
+        specie_id:
+          description: 'ID of the species associated with this color'
+          type: integer
+          example: 1
+      type: object
+    Doctype:
+      title: Doctype
+      description: 'Document Type model'
+      properties:
+        id:
+          description: 'ID of the document type'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the document type'
+          type: string
+          example: Passport
+        description:
+          description: 'Description of the document type'
+          type: string
+          example: 'A passport document'
+      type: object
+    Document:
+      title: Document
+      description: 'Document model'
+      properties:
+        id:
+          description: 'ID of the document'
+          type: integer
+          example: 1
+        filename:
+          description: 'Name of the file'
+          type: string
+          example: document.pdf
+        description:
+          description: 'Description of the document'
+          type: string
+          example: 'A document describing the health status'
+        size:
+          description: 'Size of the document in bytes'
+          type: integer
+          example: 1024
+        url:
+          description: 'URL of the document'
+          type: string
+          example: 'http://example.com/document.pdf'
+        date:
+          description: 'Date of the document'
+          type: string
+          format: date
+          example: '2024-04-16'
+        mimetype_id:
+          description: 'ID of the MIME type'
+          type: integer
+          example: 1
+        doctype_id:
+          description: 'ID of the document type'
+          type: integer
+          example: 1
+      type: object
+    Gender:
+      title: Gender
+      description: 'Gender model'
+      properties:
+        id:
+          description: 'ID of the gender'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the gender'
+          type: string
+          example: Male
+        description:
+          description: 'Description of the gender'
+          type: string
+          example: 'Male gender'
+      type: object
+    Healthcare:
+      title: Healthcare
+      description: 'Healthcare model'
+      properties:
+        id:
+          description: 'ID of the healthcare record'
+          type: integer
+          example: 1
+        date:
+          description: 'Date of the healthcare consultation'
+          type: string
+          format: date
+          example: '2022-04-16'
+        report:
+          description: 'Report of the healthcare consultation'
+          type: string
+        weight:
+          description: 'Weight of the animal during the healthcare consultation'
+          type: number
+          format: float
+          example: 12.5
+        size:
+          description: 'Size of the animal during the healthcare consultation'
+          type: number
+          format: float
+          example: 30.2
+        animal_id:
+          description: 'ID of the associated animal'
+          type: integer
+          example: 1
+        document_id:
+          description: 'ID of the associated document'
+          type: integer
+          example: 1
+      type: object
+    Identification:
+      title: Identification
+      description: 'Identification model'
+      properties:
+        id:
+          description: 'ID of the identification record'
+          type: integer
+          example: 1
+        date:
+          description: 'Date of the identification'
+          type: string
+          format: date
+          example: '2022-04-16'
+        type:
+          description: 'Type of identification (Chip or Tatoo)'
+          type: string
+          enum:
+            - Chip
+            - Tatoo
+          example: Chip
+        number:
+          description: 'Identification number'
+          type: string
+          maxLength: 15
+          minLength: 6
+          example: '123456789'
+        animal_id:
+          description: 'ID of the associated animal'
+          type: integer
+          example: 1
+      type: object
+    Mimetype:
+      title: Mimetype
+      description: 'Mimetype model'
+      properties:
+        id:
+          description: 'ID of the mimetype'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the mimetype'
+          type: string
+          example: application/pdf
       type: object
   securitySchemes:
     bearerAuth:
