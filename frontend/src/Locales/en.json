@@ -165,6 +165,16 @@
 			"Dog": "dog",
 			"Cat": "cat"
 		},
+		"animalVaccines": {
+			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
+			"LEPTOSPIROSIS"	: "leptospirosis",
+			"BORDETELLA/INFLUENZA": "bordetella/influenza",
+			"LYME": "lyme",
+			"RABIES": "rabies",
+			"FVRCP/RCP": "FVRCP/RCP",
+			"FeLV": "FeLV",
+			"CHLAMYDOPHILA": "chlamydophila"
+		},
 		"animalStatus": {
 			"available": "available",
 			"adopted": "adopted",
