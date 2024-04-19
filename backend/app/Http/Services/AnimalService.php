@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Contract\AnimalRepositoryInterface;
 use App\Contract\IdentificationRepositoryInterface;
 use App\Enum\IdentificationTypeEnum;
+use App\Http\Resources\AnimalResource;
 use App\Repositories\AnimalRepository;
 use App\Repositories\IdentificationRepository;
 use Illuminate\Support\Facades\Date;
@@ -46,7 +47,15 @@ class AnimalService {
     }
 
     public function update($id,$updatedDatas){
-        return $this->animals->update($id,$updatedDatas);
+
+        $animalsData = collect($updatedDatas)->except('number')->toArray();
+        $identificationData = collect($updatedDatas)->only('number')->toArray();
+        $animal = $this->animals->update($id,$animalsData);
+        $identificationData["type"] = $this->getIdentityType($identificationData['number']); 
+
+        $animal->identification()->update($identificationData);
+
+        return new AnimalResource($animal);
     }
 
     public function softDelete($id){
