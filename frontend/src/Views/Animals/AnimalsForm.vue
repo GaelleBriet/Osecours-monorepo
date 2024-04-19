@@ -13,19 +13,22 @@
 	import { GendersForSelects } from '@/Interfaces/Animals/Gender.ts';
 	import { SpeciesForSelects } from '@/Interfaces/Animals/Species.ts';
 	import i18n from '@/Services/Translations';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
+	import { generateOptionsWithDefault } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useRouter } from 'vue-router';
+	import {
+		fetchDataAndFormatOptions,
+		formatOptions,
+	} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
-	console.log(routeParams);
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
@@ -56,21 +59,6 @@
 		type: 'info',
 	});
 
-	// Fonction générique pour formater les options des selects depuis les données des enums
-	// @enumObject : l'enum à formater
-	// @translationKey : la clé de traduction pour les labels des options
-	// @defaultLabel : le label par défaut pour les selects
-	// return : value = clé de l'enum, label = valeur de l'enum traduite
-	const generateOptionsWithDefault = (
-		enumObject: Record<string, unknown>,
-		translationKey: string,
-		defaultLabel: string,
-	) => {
-		const options = generateOptionsFromEnum(enumObject, translationKey);
-		options.unshift({ value: '', label: defaultLabel });
-		return options;
-	};
-
 	// Initialisation des options des selects depuis les Enums
 	const animalStatusOptions = generateOptionsWithDefault(
 		AnimalStatus,
@@ -87,37 +75,6 @@
 		'enums.animalAges',
 		"Choisir une tranche d'âge",
 	);
-
-	// Fonction générique pour formater les options des selects depuis les données de l'api
-	// @items : les données de l'api
-	// @translationKey : la clé de traduction pour les labels des options
-	// return : value = id de l'item, label = name de l'item traduit
-	const formatOptions = (
-		items: { id: number; name: string }[],
-		translationKey: string,
-	) => {
-		return items.map((item) => ({
-			value: item.id.toString(),
-			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
-		}));
-	};
-
-	// @store : le store et la méthode à appeler
-	// @translationKey : la clé de traduction pour les labels des options
-	// @defaultLabel : le label par défaut pour les selects
-	// return : les options formatées avec le label par défaut en premier
-	const fetchDataAndFormatOptions = async <
-		T extends { id: number; name: string },
-	>(
-		store: () => Promise<T[]>,
-		translationKey: string,
-		defaultLabel: string,
-	) => {
-		const data = await store();
-		const options = formatOptions(data, translationKey);
-		options.unshift({ value: '', label: defaultLabel });
-		return options;
-	};
 
 	const onButtonClick = () => {
 		// en mode création : retour à la page précédente
