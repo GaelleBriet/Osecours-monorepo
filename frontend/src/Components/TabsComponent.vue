@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { ref } from 'vue';
+	import { computed, onMounted, ref, watch } from 'vue';
 
 	// defineProps({
 	// 	tabs: {
@@ -11,7 +11,7 @@
 	// 	secondaryColorClass?: string,
 	// });
 
-	defineProps<{
+	const props = defineProps<{
 		tabs: Array<{ name: string }>;
 		activeColorClass?: string;
 		secondaryColorClass?: string;
@@ -22,11 +22,20 @@
 	}>();
 
 	const currentTab = ref(0);
+	const activeTabClass = ref(props.activeColorClass || '');
 
 	const selectTabs = (index) => {
 		currentTab.value = index;
+		localStorage.setItem('currentTab', index);
 		emit('update:currentTab', index);
 	};
+
+	onMounted(() => {
+		if (localStorage.getItem('currentTab')) {
+			currentTab.value = Number(localStorage.getItem('currentTab'));
+		}
+		emit('update:currentTab', currentTab.value);
+	});
 </script>
 <template>
 	<div>
@@ -70,7 +79,7 @@
 					<a
 						v-if="tab"
 						:class="[
-							index === currentTab ? activeColorClass : secondaryColorClass,
+							index === currentTab ? activeTabClass : secondaryColorClass,
 							'rounded-t-md px-3 py-2 text-sm font-medium cursor-pointer',
 						]"
 						:aria-current="index === currentTab ? 'page' : undefined"
