@@ -125,7 +125,8 @@
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
 			"description": "description du refuge",
-			"name": "nom du refuge"
+			"name": "nom du refuge",
+			"search": "Rechercher..."
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",

@@ -15,6 +15,7 @@
 		"delete": "delete",
 		"update": "has been updated",
 		"creation": "hass been created",
+		"search": "Search...",
 		"back": "back"
 	},
 	"navigation": {
