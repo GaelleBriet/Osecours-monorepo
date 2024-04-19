@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\AnimalNotFoundException;
 use App\Http\Requests\AnimalRequest;
+use App\Http\Requests\AnimalUpdateRequest;
+use App\Http\Resources\AnimalResource;
 use App\Http\Services\AnimalService;
 use App\Http\Services\ErrorService;
+use App\Models\Animal;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -50,12 +53,19 @@ class AnimalController extends Controller
         }
     }
 
-    public function update(AnimalRequest $request, string $id)
+    public function update(AnimalUpdateRequest $request, string $id)
     {
         try {
-            $animal = $this->animalService->update($id,$request->validated());
+            if(is_null(Animal::find($id))){
+                throw new AnimalNotFoundException("Animal #".$id." not found");
+            }
+            $request->validated();
+            $animalData = collect($request)->except('number')->toArray();
+            $identificationData = collect($request)->only('number')->toArray();
+            $animal = $this->animalService->update($id,$animalData);
+            $animal->identification()->update($identificationData);
             if ($animal) {
-                return $animal;
+                return new AnimalResource($animal);
             } else {
                 throw new AnimalNotFoundException('Animal not found');
             }
