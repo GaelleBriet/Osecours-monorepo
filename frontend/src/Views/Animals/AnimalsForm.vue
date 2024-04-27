@@ -513,31 +513,6 @@
 </template>
 
 <style scoped lang="postcss">
-	#edit-mode {
-		background-color: rgba(242, 138, 128);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #f28a80;
-			outline: 1px solid #f28a80;
-		}
-	}
-
-	#save-changes {
-		background-color: #d99962;
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
-		}
-	}
-
-	.formkit-outer[data-disabled] {
-		opacity: 0.8;
-		pointer-events: none;
-	}
-
 	.general-informations {
 		//max-height: calc(100% - 4rem);
 		display: flex;

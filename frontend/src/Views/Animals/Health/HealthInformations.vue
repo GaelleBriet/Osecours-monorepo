@@ -8,6 +8,9 @@
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
+	import { getCapitalizedText } from '../../../Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
+	import { AnimalHealth } from '@/Interfaces/Animals/AnimalHealth.ts';
 
 	// defineProps<{
 	// 	animal: Animal;
@@ -16,7 +19,14 @@
 	const animal = ref({ ...animalHealthMock });
 	const animalVaccines = ref(animal.value.vaccines);
 	const animalHealth = ref(animal.value.health);
-	console.log(animalVaccines.value);
+	let healthReport = ref('');
+	let vaccineToAdd = ref({
+		vaccine: '',
+		date: '',
+	});
+
+	const t = i18n.global.t;
+	const isEditMode = ref(false);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -25,10 +35,29 @@
 		message: '',
 		type: 'info',
 	});
+
+	const onButtonClick = () => {
+		isEditMode.value = !isEditMode.value;
+	};
+
+	const onSave = () => {
+		// animal.value.vaccines.push(vaccineToAdd.value);
+		console.log('animalVaccines', vaccineToAdd.value);
+		console.log('healthReport', healthReport.value);
+
+		notificationConfig.value = {
+			show: true,
+			title: getCapitalizedText(t('common.success')),
+			message: getCapitalizedText(t('common.saved')),
+			type: 'warning',
+		};
+		isEditMode.value = false;
+	};
 </script>
 <template>
 	<div class="animal-health bg-osecours-beige-dark bg-opacity-10">
 		<Form
+			ref="animalHealthForm"
 			id="animal-health-form"
 			:actions="false"
 		>
@@ -47,18 +76,23 @@
 				</div>
 
 				<div class="w-full px-2 py-2 md:col-start-1 md:row-start-2">
-					<VaccinesForm />
+					<VaccinesForm
+						:edit-mode="isEditMode"
+						@update:vaccineType="vaccineToAdd.vaccine = $event"
+						@update:vaccineDate="vaccineToAdd.date = $event"
+					/>
 				</div>
 				<div class="px-2 py-2 w-full md:col-start-2 md:row-start-2">
 					<FormTextArea
 						id="health-information"
 						label="Informations de santé"
 						placeholder="Ajouter une information de santé"
-						:required="true"
+						:disabled="!isEditMode"
+						@update:modelValue="healthReport = $event"
 					/>
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-3">
-					<AddDocument />
+					<AddDocument :edit-mode="isEditMode" />
 				</div>
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 md:items-end"
@@ -66,14 +100,21 @@
 					<button
 						id="edit-mode"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
+						@click.prevent="onButtonClick"
 					>
-						blabla
+						{{
+							isEditMode
+								? getCapitalizedText(t('common.cancel'))
+								: getCapitalizedText(t('common.editMode'))
+						}}
 					</button>
 					<button
 						id="save-changes"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						:disabled="!isEditMode"
+						@click.prevent="onSave"
 					>
-						button
+						{{ getCapitalizedText(t('common.register')) }}
 					</button>
 				</div>
 			</div>
@@ -88,24 +129,7 @@
 		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
 	}
-	#edit-mode {
-		background-color: rgba(242, 138, 128);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #f28a80;
-			outline: 1px solid #f28a80;
-		}
-	}
-	#save-changes {
-		background-color: #d99962;
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
-		}
-	}
+
 	form {
 		display: flex;
 		flex-grow: 1;

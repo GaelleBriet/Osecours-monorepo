@@ -13,7 +13,7 @@ if (formattedToken) {
 	axiosInstance.defaults.headers.common['Authorization'] =
 		`Bearer ${formattedToken}`;
 }
-
+console.log(formattedToken);
 // axiosInstance.defaults.headers.post['Content-Type'] = 'application/json';
 axiosInstance.defaults.headers['Content-Type'] = 'application/json';
 export default axiosInstance;
