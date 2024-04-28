@@ -86,17 +86,19 @@
 		}
 	};
 
-	const onSubmit = async () => {
-		// on récupère le formulaire pour vérifier s'il est valide
+	const isFormValid = () => {
 		let formId = ref('');
 		let formNode = ref(null);
 		formId.value = !props.isCreateMode
 			? `edit-animal${localAnimal.value.id}`
 			: 'create-animal';
 		formNode.value = getNode(formId.value);
-		const isFormValid = formNode.value?.context.state.valid;
+		return formNode.value?.context.state.valid;
+	};
+
+	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
+		if (!isFormValid()) {
 			notificationConfig.value = {
 				show: true,
 				title: 'Un ou plusieurs champs sont invalides',
