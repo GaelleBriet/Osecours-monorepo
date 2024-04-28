@@ -97,13 +97,13 @@ export const useAnimalsStore = defineStore('animals', {
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal =
 				this.initializeUpdatedAnimalProperties(animal);
-			console.log('animalToUpdate.NumberId', animalToSend.number);
 			const updatedAnimal: Animal | ErrorResponse =
 				await updateAnimal(animalToSend);
 			if ('error' in updatedAnimal) {
 				return null;
 			} else {
 				this.animals.push(updatedAnimal);
+				this.animal = updatedAnimal;
 				return updatedAnimal;
 			}
 		},

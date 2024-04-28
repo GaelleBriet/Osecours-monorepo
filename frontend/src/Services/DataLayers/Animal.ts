@@ -54,8 +54,8 @@ export const updateAnimal = async (
 			`${import.meta.env.VITE_ANIMALS_API_URL}/${animal.id}`,
 			animal,
 		);
-		console.log('response', response.data);
-		return response.data;
+		console.log('response', response.data.data);
+		return response.data.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);
