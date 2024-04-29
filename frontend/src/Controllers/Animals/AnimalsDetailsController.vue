@@ -2,7 +2,7 @@
 	import TabsComponent from '@/Components/TabsComponent.vue';
 	import GeneralInformations from '@/Views/Animals/Details/GeneralInformations.vue';
 	import AnimalsDocuments from '@/Views/Animals/Documents/AnimalsDocuments.vue';
-	import HealthInformations from '@/Views/Animals/Health/HealthInformations.vue';
+	import HealthInformations from '@/Views/Animals/Details/HealthInformations.vue';
 	import AnimalsBehaviour from '@/Views/Animals/Details/BehaviouralInformations.vue';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import i18n from '@/Services/Translations';

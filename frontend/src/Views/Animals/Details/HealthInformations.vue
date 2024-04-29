@@ -10,7 +10,6 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
-	import { AnimalHealth } from '@/Interfaces/Animals/AnimalHealth.ts';
 
 	// defineProps<{
 	// 	animal: Animal;
