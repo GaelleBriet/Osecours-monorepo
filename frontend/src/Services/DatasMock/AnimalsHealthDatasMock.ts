@@ -42,7 +42,7 @@ export const animalHealthMock = {
 	health: [
 		{
 			id: 25,
-			date: '2024-04-19',
+			date: new Date('2024-04-19'),
 			report: 'examen de routine',
 			weight: 5,
 			size: 30,
@@ -53,7 +53,7 @@ export const animalHealthMock = {
 		},
 		{
 			id: 26,
-			date: '2024-05-20',
+			date: new Date('2024-05-20'),
 			report: 'examen de suivi',
 			weight: 5.2,
 			size: 30,

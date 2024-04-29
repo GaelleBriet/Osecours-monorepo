@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { ref } from 'vue';
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import VaccinesList from '@/Views/Animals/Health/VaccinesList.vue';
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
+	import { ref } from 'vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
-	import { getCapitalizedText } from '../../../Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import { AnimalHealth } from '@/Interfaces/Animals/AnimalHealth.ts';
 
@@ -42,9 +42,8 @@
 
 	const onSave = () => {
 		// animal.value.vaccines.push(vaccineToAdd.value);
-		console.log('animalVaccines', vaccineToAdd.value);
-		console.log('healthReport', healthReport.value);
-
+		// animal.value.health = healthReport.value;
+		// TODO: send animal health data to store
 		notificationConfig.value = {
 			show: true,
 			title: getCapitalizedText(t('common.success')),
@@ -83,9 +82,15 @@
 					/>
 				</div>
 				<div class="px-2 py-2 w-full md:col-start-2 md:row-start-2">
+					<p class="mb-5">
+						<span
+							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+						>
+							Ajouter un commentaire
+						</span>
+					</p>
 					<FormTextArea
 						id="health-information"
-						label="Informations de santé"
 						placeholder="Ajouter une information de santé"
 						:disabled="!isEditMode"
 						@update:modelValue="healthReport = $event"

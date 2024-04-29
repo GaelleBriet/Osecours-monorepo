@@ -12,30 +12,33 @@
 	}>();
 </script>
 <template>
-	<div class="p-3 bg-osecours-white rounded h-full">
-		<p>
+	<div class="rounded h-full">
+		<p class="mb-5">
 			<span
-				class="border-b-2 border-osecours-pink border-opacity-60 text-osecours-pink"
+				class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 				>Dernières mesures</span
 			>
 		</p>
-		<div
-			v-for="measure in measures"
-			:key="measure.id"
-		>
-			<div class="my-2">
-				<p class="text-osecours-black">
-					Poids: <span class="text-gray-500">{{ measure.weight }} cm.</span>
-				</p>
-				<p class="text-osecours-black">
-					Taille: <span class="text-gray-500">{{ measure.size }} kg.</span>
-				</p>
-				<p>
-					Date:
-					<span class="text-gray-500"
-						>{{ formatDate(measure.date, 'medium') }}
-					</span>
-				</p>
+		<div class="grid grid-cols-1 gap-4">
+			<div
+				v-for="measure in measures"
+				:key="measure.id"
+				class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-osecours-pink"
+			>
+				<div class="min-w-0 flex-1">
+					<span
+						class="absolute inset-0"
+						aria-hidden="true"
+					/>
+					<p class="text-sm font-medium text-gray-900">
+						Taille:
+						<span class="text-gray-500">{{ measure.size }} cm.</span> Poids:
+						<span class="text-gray-500">{{ measure.weight }} kg.</span>
+					</p>
+					<p class="truncate text-sm text-gray-500">
+						{{ formatDate(measure.date, 'medium') }}
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>

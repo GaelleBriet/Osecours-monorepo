@@ -35,12 +35,18 @@
 </script>
 <template>
 	<div class="">
+		<p class="mb-5">
+			<span
+				class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+			>
+				Ajouter un vaccin
+			</span>
+		</p>
 		<FormSelect
 			id="vaccine-type"
 			:model-value="vaccinesOptions"
 			:name="'vaccine'"
 			:options="vaccinesOptions"
-			:label="'Ajouter un vaccin'"
 			:disabled="!props.editMode"
 			@update:modelValue="updateVaccineType"
 		/>
