@@ -184,7 +184,7 @@
 									:key="association.id"
 								>
 									<FormSelect
-										:id="association.id.toString()"
+										:id="'association'"
 										:name="'selectAssociation'"
 										:options="selectOptions"
 										:model-value="selectedAssociation"
