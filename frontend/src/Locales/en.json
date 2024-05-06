@@ -108,6 +108,7 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
+			"behaviour": "behaviour",
 			"docs": "documents",
 			"addChar": "add characteristics",
 			"settingChars": "characteristics settings",

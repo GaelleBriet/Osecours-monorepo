@@ -49,9 +49,9 @@
 			id="animalsTabsComponent"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
+				{ name: getCapitalizedText(t('pages.animals.behaviour')) },
 				{ name: getCapitalizedText(t('pages.animals.health')) },
 				{ name: getCapitalizedText(t('pages.animals.docs')) },
-				{ name: getCapitalizedText(t('common.other')) },
 			]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
@@ -62,13 +62,13 @@
 				<GeneralInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 1 && currentAnimal">
-				<HealthInformations :animal="currentAnimal" />
+				<AnimalsBehaviour :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 2 && currentAnimal">
-				<AnimalsDocuments :animal="currentAnimal" />
+				<HealthInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 3 && currentAnimal">
-				<AnimalsBehaviour :animal="currentAnimal" />
+				<AnimalsDocuments :animal="currentAnimal" />
 			</template>
 		</div>
 	</div>
