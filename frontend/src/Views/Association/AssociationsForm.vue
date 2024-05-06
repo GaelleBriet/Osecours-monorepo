@@ -5,7 +5,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref } from 'vue';
 	import i18n from '@/Services/Translations';
-	import { Association } from '@/Interfaces/Association.ts';
+	import { Association } from '@/Interfaces/Associations.ts';
 	import { useAssociationsStore } from '@/Stores/AssociationsStore.ts';
 
 	const associationsStore = useAssociationsStore();
