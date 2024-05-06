@@ -26,6 +26,9 @@ export const useAnimalsStore = defineStore('animals', {
 		getCurrentAnimal(): Animal | null {
 			return this.animal;
 		},
+		animalsQuantity(): number {
+			return this.animals.length;
+		},
 	},
 	actions: {
 		async getAnimal(id: string | RouteParamValue[]): Promise<Animal | null> {

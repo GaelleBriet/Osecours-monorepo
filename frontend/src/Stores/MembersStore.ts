@@ -10,7 +10,7 @@ import {
 	updateMember,
 } from '@/Services/DataLayers/Member.ts';
 
-export const UseMembersStore = defineStore({
+export const useMembersStore = defineStore({
 	id: 'members',
 	state: (): {
 		members: User[];
@@ -20,7 +20,7 @@ export const UseMembersStore = defineStore({
 		member: null,
 	}),
 	getters: {
-		totalMembers(): number {
+		membersQuantity(): number {
 			return this.members.length;
 		},
 		getCurrentMember(): User | null {
@@ -34,7 +34,6 @@ export const UseMembersStore = defineStore({
 				return [];
 			} else {
 				this.members = members;
-				console.log(members);
 				return members;
 			}
 		},

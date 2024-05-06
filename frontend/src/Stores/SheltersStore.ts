@@ -20,6 +20,9 @@ export const useSheltersStore = defineStore('shelters', {
 		getCurrentShelter(): Shelter | null {
 			return this.shelter;
 		},
+		sheltersQuantity(): number {
+			return this.shelters.length;
+		},
 	},
 	actions: {
 		async getShelter(id: number): Promise<Shelter | null> {

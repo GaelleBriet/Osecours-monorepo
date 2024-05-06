@@ -58,7 +58,6 @@ export const getMembers = async (): Promise<User[] | ErrorResponse> => {
 				fosterFamily: false,
 			},
 		];
-		console.log(members);
 		return members;
 		// const response: AxiosResponse<User[]> = await axiosInstance.get<User[]>(
 		// 	`${import.meta.env.VITE_USERS_API_URL}`,

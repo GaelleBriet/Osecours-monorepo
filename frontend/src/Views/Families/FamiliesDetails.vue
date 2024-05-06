@@ -3,9 +3,9 @@
 	import i18n from '@/Services/Translations';
 	import { onMounted, ref } from 'vue';
 	import { User } from '@/Interfaces/User.ts';
-	import { UseMembersStore } from '@/Stores/MembersStore.ts';
+	import { useMembersStore } from '@/Stores/MembersStore.ts';
 
-	const membersStore = UseMembersStore();
+	const membersStore = useMembersStore();
 	const t = i18n.global.t;
 
 	const currentFamily = ref<User | null>(null);
