@@ -25,9 +25,11 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.11",
     "axios": "^1.6.8",
+    "chart.js": "^4.4.2",
     "floating-vue": "^5.2.2",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
+    "vue-chartjs": "^5.3.1",
     "vue-i18n": "^9.10.2",
     "vue-router": "^4.0.13"
   },

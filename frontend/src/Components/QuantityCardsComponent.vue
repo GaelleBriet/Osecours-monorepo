@@ -6,7 +6,7 @@
 </script>
 <template>
 	<div
-		class="relative lg:w-52 min-h-32 flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-osecours-pink"
+		class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-osecours-pink"
 	>
 		<div class="min-w-0 flex-1">
 			<span

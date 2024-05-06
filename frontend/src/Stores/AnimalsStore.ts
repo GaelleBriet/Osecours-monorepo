@@ -29,6 +29,12 @@ export const useAnimalsStore = defineStore('animals', {
 		animalsQuantity(): number {
 			return this.animals.length;
 		},
+		catsQuantity(): number {
+			return this.cats.length;
+		},
+		dogsQuantity(): number {
+			return this.dogs.length;
+		},
 	},
 	actions: {
 		async getAnimal(id: string | RouteParamValue[]): Promise<Animal | null> {
@@ -59,6 +65,7 @@ export const useAnimalsStore = defineStore('animals', {
 					(animal: Animal) => animal.specie_id === 2,
 				);
 				this.animals = dogs;
+				this.dogs = dogs;
 				return animals;
 			}
 		},
@@ -71,6 +78,7 @@ export const useAnimalsStore = defineStore('animals', {
 					(animal: Animal) => animal.specie_id === 1,
 				);
 				this.animals = cats;
+				this.cats = cats;
 				return animals;
 			}
 		},

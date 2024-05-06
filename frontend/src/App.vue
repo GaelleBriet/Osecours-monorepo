@@ -35,4 +35,10 @@
 			max-width: 5rem;
 		}
 	}
+	#main-container {
+		width: calc(100% - 14rem);
+		@media (max-width: 640px) {
+			width: calc(100% - 5rem);
+		}
+	}
 </style>
