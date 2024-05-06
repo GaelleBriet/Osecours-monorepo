@@ -29,13 +29,19 @@
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
-			const newAssociation = await associationsStore.createAssociation(createdAssociation.value);
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const newAssociation = await associationsStore.createAssociation(
+				createdAssociation.value,
+			);
 		}
 		if (!props.isCreateMode) {
-			const associationToUpdate = await associationsStore.updateAssociation(localAssociation.value);
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			const associationToUpdate = await associationsStore.updateAssociation(
+				localAssociation.value,
+			);
 			// const associationToUpdate = props.association;
 		}
-		
+
 		// Si l'api à bien répondu, on affiche la notification
 		// et on stop le mode edition
 		//@todo: adapter le message suivant la réponse de l'api
@@ -59,7 +65,11 @@
 <template>
 	<div class="general-informations">
 		<Form
-			:id="!isCreateMode ? `edit-association${localAssociation.id}` : 'create-association'"
+			:id="
+				!isCreateMode
+					? `edit-association${localAssociation.id}`
+					: 'create-association'
+			"
 			:submit-label="'edit-association'"
 			:actions="false"
 		>
@@ -73,23 +83,28 @@
 				<div className="grid lg:grid-cols-2 lg:grid-rows-2 gap-4">
 					<div class="col-start-1 lg:row-start-1">
 						<FormText
-						id="association-name"
-						:model-value="!isCreateMode ? association.name : createdAssociation.name"
-						:label="getCapitalizedText(t('common.name'))"
-						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nom du association'"
-						:disabled="!isEditMode"
-						@update:model-value="
-							!isCreateMode
+							id="association-name"
+							:model-value="
+								!isCreateMode ? association.name : createdAssociation.name
+							"
+							:label="getCapitalizedText(t('common.name'))"
+							class="w-full border border-gray-300 rounded shadow-sm"
+							:placeholder="'Nom du association'"
+							:disabled="!isEditMode"
+							@update:model-value="
+								!isCreateMode
 									? (localAnimal.name = $event)
-									: (createdAnimal.name = $event)"
+									: (createdAnimal.name = $event)
+							"
 						/>
 					</div>
 
 					<div class="lg:col-start-2 lg:row-start-1">
 						<FormText
 							id="association-siret"
-							:model-value="!isCreateMode ? association.siret : createdAssociation.siret"
+							:model-value="
+								!isCreateMode ? association.siret : createdAssociation.siret
+							"
 							:name="'association-siret'"
 							:label="getCapitalizedText(t('pages.associations.siret'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
@@ -98,13 +113,16 @@
 							@update:model-value="
 								!isCreateMode
 									? (localAnimal.siret = $event)
-									: (createdAnimal.siret = $event)"
+									: (createdAnimal.siret = $event)
+							"
 						/>
 					</div>
 					<div class="col-start-1 lg:row-start-2">
 						<FormText
 							id="association-rib"
-							:model-value="!isCreateMode ? association.rib : createdAssociation.rib"
+							:model-value="
+								!isCreateMode ? association.rib : createdAssociation.rib
+							"
 							:name="'association-rib'"
 							:label="getCapitalizedText(t('pages.associations.rib'))"
 							:placeholder="'hello@mail.com'"
@@ -112,13 +130,16 @@
 							@update:model-value="
 								!isCreateMode
 									? (localAnimal.rib = $event)
-									: (createdAnimal.rib = $event)"
+									: (createdAnimal.rib = $event)
+							"
 						/>
 					</div>
-					<div class="lg:col-start-1 lg:row-start-3 lg:col-span-2 ">
+					<div class="lg:col-start-1 lg:row-start-3 lg:col-span-2">
 						<FormText
 							id="association-address"
-							:model-value="!isCreateMode ? association.address : createdAssociation.address"
+							:model-value="
+								!isCreateMode ? association.address : createdAssociation.address
+							"
 							:label="getCapitalizedText(t('pages.associations.address'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
 							:placeholder="getCapitalizedText(t('pages.associations.address'))"
@@ -126,13 +147,16 @@
 							@update:model-value="
 								!isCreateMode
 									? (localAnimal.address = $event)
-									: (createdAnimal.address = $event)"
+									: (createdAnimal.address = $event)
+							"
 						/>
 					</div>
-					<div class="lg:col-start-1 lg:row-start-4 ">
+					<div class="lg:col-start-1 lg:row-start-4">
 						<FormText
 							id="association-zipcode"
-							:model-value="!isCreateMode ? association.zipcode : createdAssociation.zipcode"
+							:model-value="
+								!isCreateMode ? association.zipcode : createdAssociation.zipcode
+							"
 							:label="getCapitalizedText(t('pages.associations.zipcode'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
 							:placeholder="getCapitalizedText(t('pages.associations.zipcode'))"
@@ -140,13 +164,16 @@
 							@update:model-value="
 								!isCreateMode
 									? (localAnimal.zipcode = $event)
-									: (createdAnimal.zipcode = $event)"
+									: (createdAnimal.zipcode = $event)
+							"
 						/>
 					</div>
-					<div class="lg:col-start-2 lg:row-start-4 ">
+					<div class="lg:col-start-2 lg:row-start-4">
 						<FormText
 							id="association-city"
-							:model-value="!isCreateMode ? association.city : createdAssociation.city"
+							:model-value="
+								!isCreateMode ? association.city : createdAssociation.city
+							"
 							:label="getCapitalizedText(t('pages.associations.city'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
 							:placeholder="getCapitalizedText(t('pages.associations.city'))"
@@ -154,13 +181,12 @@
 							@update:model-value="
 								!isCreateMode
 									? (localAnimal.city = $event)
-									: (createdAnimal.city = $event)"
+									: (createdAnimal.city = $event)
+							"
 						/>
 					</div>
-				</div>				
-				<div
-					class="my-1 lg:my-3 row-start-2 lg:row-start-2"
-				>
+				</div>
+				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2">
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-end lg:col-start-2">
 							<button

@@ -1,5 +1,10 @@
 import { defineStore } from 'pinia';
-import { Species } from '@/Interfaces/Species.ts';
+import { Species } from '@/Interfaces/Animals/Species.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { Breed } from '@/Interfaces/Animals/Breed.ts';
+import { Coat } from '@/Interfaces/Animals/Coat.ts';
+import { Color } from '@/Interfaces/Animals/Color.ts';
+import { Gender } from '@/Interfaces/Animals/Gender.ts';
 import {
 	createSpecies,
 	deleteSpecies,
@@ -7,16 +12,14 @@ import {
 	getOneSpecies,
 	updateSpecies,
 } from '@/Services/DataLayers/Species.ts';
-import { ErrorResponse } from '@/Interfaces/Requests.ts';
-import { Breed } from '@/Interfaces/Breed.ts';
 import {
 	createBreed,
 	deleteBreed,
 	getAllBreeds,
 	getOneBreed,
+	getSpecificBreeds,
 	updateBreed,
 } from '@/Services/DataLayers/Breed.ts';
-import { Coat } from '@/Interfaces/Coat.ts';
 import {
 	createCoat,
 	deleteCoat,
@@ -24,14 +27,15 @@ import {
 	getCoats,
 	updateCoat,
 } from '@/Services/DataLayers/Coat.ts';
-import { Color } from '@/Interfaces/Color.ts';
 import {
 	createColor,
 	deleteColor,
 	getColor,
 	getColors,
+	getSpecificColors,
 	updateColor,
 } from '@/Services/DataLayers/Color.ts';
+import { getGenders } from '@/Services/DataLayers/Gender.ts';
 
 export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 	state: (): {
@@ -43,6 +47,11 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		coat: Coat | null;
 		colors: Color[];
 		color: Color | null;
+		catsBreeds: Breed[];
+		dogsBreeds: Breed[];
+		catsColors: Color[];
+		dogsColors: Color[];
+		genders: Gender[];
 	} => ({
 		allSpecies: [],
 		species: null,
@@ -52,6 +61,11 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		coat: null,
 		colors: [],
 		color: null,
+		catsBreeds: [],
+		dogsBreeds: [],
+		catsColors: [],
+		dogsColors: [],
+		genders: [],
 	}),
 	getters: {
 		getCurrentSpecies(): Species | null {
@@ -129,6 +143,15 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.colors = colors;
 				return colors;
+			}
+		},
+		async getAllGenders(): Promise<Gender[]> {
+			const genders: Gender[] | ErrorResponse = await getGenders();
+			if ('error' in genders) {
+				return [];
+			} else {
+				this.genders = genders;
+				return genders;
 			}
 		},
 		async createSpecies(
@@ -287,6 +310,34 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			} else {
 				this.colors = this.colors.filter((colors: Color) => colors.id !== id);
 				return true;
+			}
+		},
+		async getSpecificBreeds(species: string): Promise<Breed[]> {
+			const breeds: Breed[] | ErrorResponse = await getSpecificBreeds(species);
+			if ('error' in breeds) {
+				return [];
+			} else {
+				if (species === 'dog') {
+					this.dogsBreeds = breeds;
+				}
+				if (species === 'cat') {
+					this.catsBreeds = breeds;
+				}
+				return breeds;
+			}
+		},
+		async getSpecificColors(species: string): Promise<Breed[]> {
+			const colors: Color[] | ErrorResponse = await getSpecificColors(species);
+			if ('error' in colors) {
+				return [];
+			} else {
+				if (species === 'dog') {
+					this.dogsColors = colors;
+				}
+				if (species === 'cat') {
+					this.catsColors = colors;
+				}
+				return colors;
 			}
 		},
 	},

@@ -33,7 +33,7 @@
 
 	const sheltersTransformed = computed(() => {
 		return sheltersStore.shelters.map((shelter) => ({
-			...shelter
+			...shelter,
 		}));
 	});
 
@@ -64,9 +64,12 @@
 			:description="getCapitalizedText(t('pages.shelters.title'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'name' },
-				{ label: getCapitalizedText(t('pages.shelters.quantity')), key: 'animals' },
-				{ label: getCapitalizedText(t('pages.shelters.phone')), key: 'phone'},
-				]"
+				{
+					label: getCapitalizedText(t('pages.shelters.quantity')),
+					key: 'animals',
+				},
+				{ label: getCapitalizedText(t('pages.shelters.phone')), key: 'phone' },
+			]"
 			@edit="editItem"
 			@add="addItem"
 		/>

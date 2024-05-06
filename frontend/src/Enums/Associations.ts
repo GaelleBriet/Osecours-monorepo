@@ -6,6 +6,6 @@ export enum AssociationsRequestStatus {
 	completed = 5, //action successfully finished ???
 	archived = 6, //archived for historical purposes
 	draft = 7, //has not been finalized or published yet
-	accepted = 8, 
+	accepted = 8,
 	rejected = 9,
 }

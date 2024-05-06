@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('shelters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('siret')->unique();
+            $table->string('siret',14)->unique();
             $table->text('description');
             $table->string('email',255)->nullable();
             $table->string('phone',10)->nullable();
-//            $table->bigInteger('person_id');
             $table->timestamps();
         });
     }

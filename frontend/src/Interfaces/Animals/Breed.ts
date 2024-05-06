@@ -3,3 +3,8 @@ export interface Breed {
 	name: string;
 	description?: string;
 }
+
+export interface BreedsForSelects {
+	value: string;
+	label: string;
+}

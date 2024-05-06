@@ -15,10 +15,10 @@
 	};
 
 	const tabDescriptions = [
-		'pages.animals.settingSpecies',
-		'pages.animals.settingBreeds',
-		'pages.animals.settingCoats',
-		'pages.animals.settingColors',
+		getCapitalizedText(t('pages.animals.settingSpecies')),
+		getCapitalizedText(t('pages.animals.settingBreeds')),
+		getCapitalizedText(t('pages.animals.settingCoats')),
+		getCapitalizedText(t('pages.animals.settingColors')),
 	];
 </script>
 
@@ -33,7 +33,7 @@
 				:key="index"
 				class="text-sm text-gray-700 mb-5"
 			>
-				{{ getCapitalizedText(t(text)) }}
+				{{ text }}
 			</p>
 		</template>
 		<TabsComponent

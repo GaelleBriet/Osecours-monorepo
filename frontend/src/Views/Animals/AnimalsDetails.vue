@@ -6,9 +6,10 @@
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import i18n from '@/Services/Translations';
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
+	import HealthInformations from '@/Views/Animals/HealthInformations.vue';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -24,15 +25,23 @@
 	onMounted(async () => {
 		// Logique pour récupérer les données de l'animal à afficher
 		currentAnimal.value = await animalsStore.getAnimal(animalId);
-		// console.log(currentAnimal.value);
 	});
 </script>
 
 <template>
 	<div class="container">
-		<div class="text-2xl mb-1">
-			{{ getCapitalizedText(t('pages.animals.card')) }}:
-			{{ currentAnimal?.name }}
+		<div class="flex flex-row justify-between">
+			<div class="text-2xl mb-1">
+				{{ getCapitalizedText(t('pages.animals.card')) }}:
+				{{ currentAnimal?.name }}
+			</div>
+			<button
+				id="back-btn"
+				class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"
+				@click="$router.go(-1)"
+			>
+				{{ getCapitalizedText(t('common.back')) }}
+			</button>
 		</div>
 		<TabsComponent
 			id="animalsTabsComponent"
@@ -49,6 +58,9 @@
 		<div class="content">
 			<template v-if="currentTab === 0 && currentAnimal">
 				<GeneralInformations :animal="currentAnimal" />
+			</template>
+			<template v-if="currentTab === 1 && currentAnimal">
+				<HealthInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 2 && currentAnimal">
 				<AnimalDocuments :animal="currentAnimal" />
@@ -67,5 +79,15 @@
 	.content {
 		flex-grow: 1;
 		overflow-y: auto;
+	}
+
+	#back-btn {
+		background-color: #d99962;
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
 	}
 </style>

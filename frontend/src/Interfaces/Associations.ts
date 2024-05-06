@@ -1,11 +1,11 @@
 import { AssociationsRequestStatus } from '@/Enums/Associations.ts';
 
-export interface RequestStatus{
+export interface RequestStatus {
 	id: number;
 	name: string;
 }
 
-export interface Shelter{
+export interface Shelter {
 	id: number;
 	name: string;
 	siret: string;

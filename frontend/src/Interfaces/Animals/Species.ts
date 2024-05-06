@@ -3,3 +3,8 @@ export interface Species {
 	name: string;
 	description?: string;
 }
+
+export interface SpeciesForSelects {
+	value: string;
+	label: string;
+}

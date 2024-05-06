@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->text("description")->nullable();
-            $table->string("siret");
-            $table->string("rib")->nullable();
+            $table->string("siret",14)->unique();
+            $table->string("rib",34)->unique()->nullable();
 //            $table->bigInteger('person_id');
             $table->timestamps();
         });

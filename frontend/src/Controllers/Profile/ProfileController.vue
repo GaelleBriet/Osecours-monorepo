@@ -6,8 +6,6 @@
 	import { ref } from 'vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import FormNumber from '@/Components/Forms/FormNumber.vue';
-	import FormToggle from '@/Components/Forms/FormToggle.vue';
 	import FormPassword from '@/Components/Forms/FormPassword.vue';
 
 	const userStore = useUserStore();

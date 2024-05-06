@@ -1,7 +1,7 @@
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
-import { Gender } from '@/Interfaces/Gender.ts';
+import { Gender } from '@/Interfaces/Animals/Gender.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getGender = async (
@@ -18,7 +18,7 @@ export const getGender = async (
 	}
 };
 
-export const getGenders = async (): Promise<Gender | ErrorResponse> => {
+export const getGenders = async (): Promise<Gender[] | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.get(
 			`${import.meta.env.VITE_GENDERS_API}/all`,

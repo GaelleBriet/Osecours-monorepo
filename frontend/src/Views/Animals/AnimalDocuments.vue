@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { ref } from 'vue';
 	import Form from '@/Components/Forms/Form.vue';
 

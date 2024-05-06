@@ -32,7 +32,8 @@ export const useAssociationsStore = defineStore('associations', {
 			}
 		},
 		async getAssociations(): Promise<Association[]> {
-			const associations: Association[] | ErrorResponse = await getAssociations();
+			const associations: Association[] | ErrorResponse =
+				await getAssociations();
 			if ('error' in associations) {
 				return [];
 			} else {
@@ -40,8 +41,11 @@ export const useAssociationsStore = defineStore('associations', {
 				return associations;
 			}
 		},
-		async createAssociation(association: Association): Promise<Association | null> {
-			const newAssociation: Association | ErrorResponse = await createAssociation(association);
+		async createAssociation(
+			association: Association,
+		): Promise<Association | null> {
+			const newAssociation: Association | ErrorResponse =
+				await createAssociation(association);
 			if ('error' in newAssociation) {
 				return null;
 			} else {
@@ -49,8 +53,11 @@ export const useAssociationsStore = defineStore('associations', {
 				return newAssociation;
 			}
 		},
-		async updateAssociation(association: Association): Promise<Association | null> {
-			const updatedAssociation: Association | ErrorResponse = await updateAssociation(association);
+		async updateAssociation(
+			association: Association,
+		): Promise<Association | null> {
+			const updatedAssociation: Association | ErrorResponse =
+				await updateAssociation(association);
 			if ('error' in updatedAssociation) {
 				return null;
 			} else {

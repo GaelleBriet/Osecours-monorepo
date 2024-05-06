@@ -1,4 +1,4 @@
-export interface Shelter{
+export interface Shelter {
 	id: number;
 	name: string;
 	siret: string;

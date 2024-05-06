@@ -1,13 +1,12 @@
+import { Shelter } from '@/Interfaces/Shelter.ts';
+import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { defineStore } from 'pinia';
-import { Shelter } from '@/Interfaces/Shelters.ts';
 import {
 	createShelter,
 	getShelter,
 	getShelters,
 	updateShelter,
-	deleteShelter,
 } from '@/Services/DataLayers/Shelter.ts';
-import { ErrorResponse } from '@/Interfaces/Requests.ts';
 
 export const useSheltersStore = defineStore('shelters', {
 	state: (): {
@@ -51,7 +50,8 @@ export const useSheltersStore = defineStore('shelters', {
 			}
 		},
 		async updateShelter(shelter: Shelter): Promise<Shelter | null> {
-			const updatedShelter: Shelter | ErrorResponse = await updateShelter(shelter);
+			const updatedShelter: Shelter | ErrorResponse =
+				await updateShelter(shelter);
 			if ('error' in updatedShelter) {
 				return null;
 			} else {
