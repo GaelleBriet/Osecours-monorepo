@@ -17,7 +17,8 @@
 		"creation": "hass been created",
 		"search": "Search...",
 		"back": "back",
-		"succes": "success"
+		"succes": "success",
+		"notImplemented": "not implemented"
 	},
 	"navigation": {
 		"home": "home",
@@ -57,6 +58,9 @@
 			"warning": "warning",
 			"check": "please check the form for errors"
 		}
+	},
+	"button": {
+		"addAnimal": "add an animal"
 	},
 	"login": {
 		"title": "log in",

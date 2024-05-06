@@ -17,7 +17,8 @@
 		"creation": "a bien été créé",
 		"search": "Chercher...",
 		"back": "retour",
-		"success": "succès"
+		"success": "succès",
+		"notImplemented": "fonctionnalité non implémentée"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -57,6 +58,9 @@
 			"warning": "un ou plusieurs champs sont invalides",
 			"check": "veuillez vérifier les champs"
 		}
+	},
+	"button": {
+		"addAnimal": "ajouter un animal"
 	},
 	"login": {
 		"title": "connection",
