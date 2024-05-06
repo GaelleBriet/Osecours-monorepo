@@ -25,24 +25,9 @@
 		(e: 'blur', event: Event): void;
 	}>();
 
-	const onBlur = (e: Event) => {
+	const onClick = (e: Event) => {
 		const inputElement = e.target as HTMLInputElement;
-		emit('update:modelValue', inputElement.value);
-		if (!inputElement.id) return;
-		const node = getNode(inputElement.id);
-		if (!node) return;
-
-		// apply dirty state on form submit which use blur event
-		if (props.validationVisibility === 'dirty') {
-			if (!node.context) return;
-			node.context.state.dirty = true;
-		}
-
-		if (inputElement.value === '') {
-			const innerWrapper = inputElement.closest('[data-complete]');
-			if (innerWrapper) innerWrapper.removeAttribute('data-complete');
-		}
-		emit('blur', e);
+		emit('update:modelValue', inputElement.checked);
 	};
 </script>
 <template>
@@ -64,11 +49,26 @@
 			input: 'text-sm',
 		}"
 		type="toggle"
-		@blur="onBlur"
+		@click="onClick"
 	/>
 </template>
-<style scoped>
+<style lang="postcss">
 	.group {
 		margin-bottom: 4px !important;
+	}
+	[data-type='toggle'] input:checked ~ .formkit-track {
+		background-color: var(--color-pink);
+	}
+	[data-type='toggle']:focus-within .formkit-track {
+		box-shadow: none;
+	}
+	[type='checkbox']:focus {
+		box-shadow: none;
+	}
+	[data-type='toggle']:focus-within input:checked ~ .formkit-track {
+		box-shadow: none;
+	}
+	.formkit-innerLabel {
+		font-size: 0.58rem;
 	}
 </style>

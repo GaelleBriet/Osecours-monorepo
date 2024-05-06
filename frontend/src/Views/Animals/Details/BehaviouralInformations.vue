@@ -1,9 +1,22 @@
 <script setup lang="ts">
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
+	import BehaviourForm from '@/Views/Animals/Behaviour/BehaviourForm.vue';
+	import BehaviourComments from '@/Views/Animals/Behaviour/BehaviourComments.vue';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { ref } from 'vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { getNode } from '@formkit/core';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+
+	const props = defineProps<{
+		animal: Animal;
+	}>();
+
+	const animalsStore = useAnimalsStore();
+
+	let animal = ref<Animal>({ ...props.animal });
 
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
@@ -20,13 +33,44 @@
 		isEditMode.value = !isEditMode.value;
 	};
 
-	const onSave = () => {
-		notificationConfig.value = {
-			show: true,
-			title: getCapitalizedText(t('common.success')),
-			message: getCapitalizedText(t('common.saved')),
-			type: 'warning',
+	const isFormValid = () => {
+		let formId = ref('');
+		let formNode = ref(null);
+		formId.value = 'animal-behavioural-form';
+		formNode.value = getNode(formId.value);
+		return formNode.value?.context.state.valid;
+	};
+
+	const onSave = async () => {
+		if (!isFormValid()) {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('form.messages.warning')),
+				message: getCapitalizedText(t('form.messages.check')),
+				type: 'warning',
+			};
+			return;
+		}
+
+		const animalData = {
+			...animal.value,
+			children_friendly: animal.value.children_friendly,
+			cats_friendly: animal.value.cats_friendly,
+			dogs_friendly: animal.value.dogs_friendly,
+			behavioral_comment: animal.value.behavioral_comment,
 		};
+
+		const updatedAnimal = await animalsStore.updateAnimal(animalData);
+
+		if (updatedAnimal) {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('common.success')),
+				message: getCapitalizedText(t('pages.animals.messages.updateSuccess')),
+				type: 'success',
+			};
+		}
+
 		isEditMode.value = false;
 	};
 </script>
@@ -46,20 +90,20 @@
 					@close="notificationConfig.show = false"
 				/>
 				<div class="px-2 py-2 w-full md:col-start-1">
-					<p class="mb-5">
-						<span
-							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-							>Ententes de l'animal</span
-						>
-					</p>
+					<BehaviourForm
+						:editMode="isEditMode"
+						:animal="animal"
+						@update:children-agreements="animal.children_friendly = $event"
+						@update:cats-agreements="animal.cats_friendly = $event"
+						@update:dogs-agreements="animal.dogs_friendly = $event"
+					/>
 				</div>
-				<div class="px-2 py-2 w-full md:col-start-2">
-					<p class="mb-5">
-						<span
-							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-							>Comportement de l'animal</span
-						>
-					</p>
+				<div class="px-2 py-2 w-full md:col-start-1 md:row-start-2">
+					<BehaviourComments
+						:editMode="isEditMode"
+						:animal="animal"
+						@update:comments="animal.behavioral_comment = $event"
+					/>
 				</div>
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 md:items-end"

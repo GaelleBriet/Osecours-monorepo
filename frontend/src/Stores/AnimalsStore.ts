@@ -141,6 +141,9 @@ export const useAnimalsStore = defineStore('animals', {
 				number: animal.identification?.number
 					? animal.identification.number
 					: '',
+				children_friendly: animal.children_friendly || null,
+				dogs_friendly: animal.dogs_friendly || null,
+				cats_friendly: animal.cats_friendly || null,
 			};
 		},
 	},
