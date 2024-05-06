@@ -2593,7 +2593,7 @@ const classes: Record<string, Record<string, boolean>> = {
 		'rounded-full': true,
 		'transition-all': true,
 		'bg-neutral-400': true,
-		'peer-checked:bg-blue-600': true,
+		'peer-checked:bg-osecours-pink': true,
 		'peer-checked:[&>div:last-child]:left-full': true,
 		'peer-checked:[&>div:last-child]:-translate-x-full': true,
 		'peer-checked:[&>div:first-child:not(:last-child)]:left-0': true,
