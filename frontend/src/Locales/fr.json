@@ -16,7 +16,8 @@
 		"update": "a bien été mis à jour",
 		"creation": "a bien été créé",
 		"search": "Chercher...",
-		"back": "retour"
+		"back": "retour",
+		"success": "succès"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -44,7 +45,18 @@
 		"name": "nom",
 		"firstName": "prénom",
 		"lastName": "nom de famille",
-		"phone": "téléphone"
+		"phone": "téléphone",
+		"messages": {
+			"required": "ce champ est obligatoire",
+			"email": "veuillez entrer une adresse email valide",
+			"min": "ce champ doit contenir au moins {min} caractères",
+			"max": "ce champ doit contenir au maximum {max} caractères",
+			"password": "le mot de passe doit contenir au moins 6 caractères",
+			"passwordConfirmation": "les mots de passe ne correspondent pas",
+			"phone": "veuillez entrer un numéro de téléphone valide",
+			"warning": "un ou plusieurs champs sont invalides",
+			"check": "veuillez vérifier les champs"
+		}
 	},
 	"login": {
 		"title": "connection",
@@ -98,7 +110,25 @@
 			"settingSpecies": "gestion des espèces",
 			"settingBreeds": "gestion des races",
 			"settingColors": "gestion des couleurs",
-			"settingCoats": "gestion des robes"
+			"settingCoats": "gestion des robes",
+			"messages": {
+				"delete": "êtes-vous sûr de vouloir supprimer cet animal ?",
+				"deleteSuccess": "l'animal a bien été supprimé",
+				"deleteError": "une erreur est survenue lors de la suppression de l'animal",
+				"updateSuccess": "l'animal a bien été mis à jour",
+				"updateError": "une erreur est survenue lors de la mise à jour de l'animal",
+				"createSuccess": "l'animal a bien été créé",
+				"createError": "une erreur est survenue lors de la création de l'animal",
+				"uploadSuccess": "le document a bien été téléchargé",
+				"uploadError": "une erreur est survenue lors du téléchargement du document",
+				"deleteDoc": "êtes-vous sûr de vouloir supprimer ce document ?",
+				"deleteDocSuccess": "le document a bien été supprimé",
+				"deleteDocError": "une erreur est survenue lors de la suppression du document",
+				"updateDocSuccess": "le document a bien été mis à jour",
+				"updateDocError": "une erreur est survenue lors de la mise à jour du document",
+				"createDocSuccess": "le document a bien été créé",
+				"createDocError": "une erreur est survenue lors de la création du document"
+			}
 		},
 		"associations": {
 			"card": "détails de votre association",
