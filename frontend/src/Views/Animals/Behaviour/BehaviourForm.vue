@@ -3,15 +3,15 @@
 	import { defineEmits } from 'vue';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 
-	const props = defineProps<{
+	defineProps<{
 		editMode: boolean;
 		animal: Animal;
 	}>();
 
 	const emit = defineEmits<{
-		(e: 'update:childrenAgreements', value: string): void;
-		(e: 'update:catsAgreements', value: string): void;
-		(e: 'update:dogsAgreements', value: string): void;
+		(e: 'update:childrenAgreements', value: boolean): void;
+		(e: 'update:catsAgreements', value: boolean): void;
+		(e: 'update:dogsAgreements', value: boolean): void;
 	}>();
 
 	const updateChildrenAgreements = (value: boolean) => {

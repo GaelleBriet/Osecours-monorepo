@@ -65,7 +65,7 @@ body,
 	}
 
 	.formkit-outer[data-disabled] {
-		opacity: 0.9;
+		opacity: 0.8;
 		pointer-events: none;
 	}
 
