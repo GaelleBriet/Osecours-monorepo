@@ -13,21 +13,21 @@
 
 	const columns = ref([
 		{
-			label: 'Nom',
+			label: getCapitalizedText(t('pages.families.name')),
 			key: 'fullName',
 		},
 		{
-			label: "Nombre d'animaux",
+			label: getCapitalizedText(t('pages.families.animalsNumber')),
 			key: 'animalCount',
 		},
 		{
-			label: 'Adresse',
+			label: getCapitalizedText(t('pages.families.address')),
 			key: 'email',
 			visibility: { sm: true },
 		},
 	]);
 
-	const editItem = (item) => {
+	const editItem = (item: User) => {
 		router.push({
 			name: 'EditFamilies',
 			params: { id: item.id },
@@ -40,7 +40,8 @@
 		members.value = membersStore.members.map((member) => ({
 			...member,
 			fullName: `${member.firstName} ${member.lastName}`,
-			animalCount: member.existingCatCount + member.existingDogCount,
+			animalCount:
+				(member.existingCatCount ?? 0) + (member.existingDogCount ?? 0),
 		}));
 	});
 </script>

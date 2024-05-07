@@ -18,7 +18,8 @@
 		"search": "Search...",
 		"back": "back",
 		"succes": "success",
-		"notImplemented": "not implemented"
+		"notImplemented": "not implemented",
+		"close": "close"
 	},
 	"navigation": {
 		"home": "home",
@@ -81,7 +82,15 @@
 	},
 	"pages": {
 		"home": {
-			"welcomeMessage": "welcome to our site!"
+			"welcomeMessage": "welcome to our site!",
+			"animalsNumber": "number of animals",
+			"familiesNumber": "number of families",
+			"sheltersNumber": "number of shelters",
+			"shelters": "shelters",
+			"membersNumber": "number of members",
+			"members": "members",
+			"adoptFamily": "adopt family",
+			"fosterFamily": "foster family"
 		},
 		"about": {
 			"header": "about us",
@@ -174,7 +183,9 @@
 			"phone": "phone",
 			"email": "email",
 			"details": "details",
-			"personal": "personal information"
+			"personal": "personal information",
+			"name": "name",
+			"animalsNumber": "number of animals"
 		},
 		"users": {
 			"title": "list of users",
@@ -214,7 +225,7 @@
 		},
 		"animalVaccines": {
 			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS"	: "leptospirosis",
+			"LEPTOSPIROSIS": "leptospirosis",
 			"BORDETELLA/INFLUENZA": "bordetella/influenza",
 			"LYME": "lyme",
 			"RABIES": "rabies",

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+	import ChartsBarComponent from '@/Components/ChartsBarComponent.vue';
 	import QuantityCardsComponent from '@/Components/QuantityCardsComponent.vue';
 	import i18n from '@/Services/Translations/index.ts';
 	import { useUserStore } from '@/Stores/UserStore.ts';
@@ -7,7 +8,6 @@
 	import { onMounted, ref } from 'vue';
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import ChartsBarComponent from '@/Components/ChartsBarComponent.vue';
 
 	const t = i18n.global.t;
 	const userStore = useUserStore();
@@ -58,31 +58,36 @@
 				<div class="mr-5 mb-5">
 					<ChartsBarComponent
 						:data="[catsQuantity, dogsQuantity]"
-						:labels="['Chats', 'Chiens']"
-						:title="getCapitalizedText('nombre d\'animaux')"
+						:labels="[
+							getCapitalizedText(t('navigation.cats')),
+							getCapitalizedText(t('navigation.dogs')),
+						]"
+						:title="getCapitalizedText(t('pages.home.animalsNumber'))"
 					/>
 				</div>
 				<div class="mb-5">
 					<ChartsBarComponent
 						:data="[fosterQuantity, adoptQuantity]"
-						:labels="['Familles d\'accueil', 'Familles d\'adoption']"
-						:title="getCapitalizedText('nombre de familles')"
+						:labels="[
+							getCapitalizedText(t('pages.home.fosterFamily')),
+							getCapitalizedText(t('pages.home.adoptFamily')),
+						]"
+						:title="getCapitalizedText(t('pages.home.familiesNumber'))"
 					/>
 				</div>
 			</div>
 			<div class="flex flex-col md:flex-row">
 				<div class="mb-2">
 					<QuantityCardsComponent
-						:title="getCapitalizedText('nombre de refuges')"
-						:quantity="sheltersQuantity + ' ' + 'refuges'"
+						:title="getCapitalizedText(t('pages.home.sheltersNumber'))"
+						:quantity="sheltersQuantity + ' ' + t('pages.home.shelters')"
 						class="md:mr-2"
 					/>
 				</div>
 				<div class="">
 					<QuantityCardsComponent
-						:title="getCapitalizedText('nombre de membres')"
-						:quantity="membersQuantity + ' ' + 'membres'"
-						class=""
+						:title="getCapitalizedText(t('pages.home.membersNumber'))"
+						:quantity="membersQuantity + ' ' + t('pages.home.members')"
 					/>
 				</div>
 			</div>

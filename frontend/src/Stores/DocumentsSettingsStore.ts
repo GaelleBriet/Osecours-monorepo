@@ -12,7 +12,7 @@ import {
 export const useDocumentsSettingsStore = defineStore('documentsSettings', {
 	state: (): {
 		allDoctypes: Doctypes[];
-		doctypes: Doctypes | null;		
+		doctypes: Doctypes | null;
 	} => ({
 		allDoctypes: [],
 		doctypes: null,
@@ -34,7 +34,7 @@ export const useDocumentsSettingsStore = defineStore('documentsSettings', {
 		},
 		async getAllDoctypes(): Promise<Doctypes[]> {
 			const doctypes: Doctypes[] | ErrorResponse = await getAllDoctypes();
-			console.log("dt " + doctypes)
+			console.log('dt ' + doctypes);
 			if ('error' in doctypes) {
 				return [];
 			} else {
@@ -73,9 +73,10 @@ export const useDocumentsSettingsStore = defineStore('documentsSettings', {
 				this.doctypes = doctypes;
 				return doctypes;
 			}
-		},		
+		},
 		async deleteDoctypes(id: number): Promise<boolean> {
-			const deletedDoctypes: Doctypes | ErrorResponse = await deleteDoctypes(id);
+			const deletedDoctypes: Doctypes | ErrorResponse =
+				await deleteDoctypes(id);
 			if ('error' in deletedDoctypes) {
 				return false;
 			} else {

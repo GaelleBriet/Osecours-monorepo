@@ -10,7 +10,7 @@
 
 	const t = i18n.global.t;
 	const currentTab = ref(0);
-	const updateCurrentTab = (index) => {
+	const updateCurrentTab = (index: number) => {
 		currentTab.value = index;
 	};
 
@@ -38,6 +38,7 @@
 		</template>
 		<TabsComponent
 			id="animalsTabsComponent"
+			:name="'settingsTabs'"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.species')) },
 				{ name: getCapitalizedText(t('pages.animals.breed')) },

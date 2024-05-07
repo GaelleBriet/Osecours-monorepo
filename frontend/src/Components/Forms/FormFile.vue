@@ -1,7 +1,5 @@
 <script setup lang="ts">
-	import { getNode } from '@formkit/core';
-
-	const props = defineProps<{
+	defineProps<{
 		modelValue?: string | undefined;
 		value?: string | number;
 		name?: string;
@@ -9,22 +7,21 @@
 		placeholder?: string;
 		validation?: string | never[];
 		validationVisibility?: string;
-        accept: string;
-        multiple: boolean;
+		accept: string;
+		multiple: boolean;
 		disabled?: boolean;
 		help?: string;
-        fileItemIcon?: string;
-        noFilesIcon?: string;
-        outerClass?: string;
-        wrapperClass?: string;
-        innerClass?: string;
+		fileItemIcon?: string;
+		noFilesIcon?: string;
+		outerClass?: string;
+		wrapperClass?: string;
+		innerClass?: string;
 	}>();
 
-	const emit = defineEmits<{
+	defineEmits<{
 		(e: 'update:modelValue', value: string): void;
 		(e: 'blur', event: Event): void;
 	}>();
-
 </script>
 
 <template>
@@ -34,15 +31,15 @@
 		:label="label"
 		:validation="validation"
 		:validation-visibility="validationVisibility"
-        :accept="accept"
+		:accept="accept"
 		:help="help"
-        :multiple="multiple"
-        :file-item-icon="fileItemIcon"
-        :no-files-icon="noFilesIcon"
-        :outer-class="outerClass"
-        :wrapper-class="wrapperClass"
-        :inner-class="innerClass"
-        type="file"
+		:multiple="multiple"
+		:file-item-icon="fileItemIcon"
+		:no-files-icon="noFilesIcon"
+		:outer-class="outerClass"
+		:wrapper-class="wrapperClass"
+		:inner-class="innerClass"
+		type="file"
 	/>
 </template>
 
@@ -50,5 +47,4 @@
 	.group {
 		margin-bottom: 4px !important;
 	}
-
 </style>

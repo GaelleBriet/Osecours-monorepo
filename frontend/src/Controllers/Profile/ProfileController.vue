@@ -2,11 +2,11 @@
 	import FormText from '@/Components/Forms/FormText.vue';
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { useUserStore } from '@/Stores/UserStore.ts';
-	import { ref } from 'vue';
-	import i18n from '@/Services/Translations';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import FormPassword from '@/Components/Forms/FormPassword.vue';
+	import { ref } from 'vue';
+	import { useUserStore } from '@/Stores/UserStore.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
 
 	const userStore = useUserStore();
 	const t = i18n.global.t;
@@ -21,7 +21,6 @@
 	const user = ref(userStore.user);
 
 	const onSubmit = async () => {
-		// const updatedUser = await userStore.updateUser(user.value);
 		notificationConfig.value = {
 			show: true,
 			message: getCapitalizedText(t('pages.users.profileUpdated')),

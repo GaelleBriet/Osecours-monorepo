@@ -18,7 +18,8 @@
 		"search": "Chercher...",
 		"back": "retour",
 		"success": "succès",
-		"notImplemented": "fonctionnalité non implémentée"
+		"notImplemented": "fonctionnalité non implémentée",
+		"close": "fermer"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -81,7 +82,15 @@
 	},
 	"pages": {
 		"home": {
-			"welcomeMessage": "bienvenue sur notre site !"
+			"welcomeMessage": "bienvenue sur notre site !",
+			"animalsNumber": "nombre d'animaux",
+			"familiesNumber": "nombre de familles",
+			"sheltersNumber": "nombre de refuges",
+			"shelters": "refuges",
+			"membersNumber": "nombre de membres",
+			"members": "membres",
+			"adoptFamily": "famille d'adoption",
+			"fosterFamily": "famille d'accueil"
 		},
 		"about": {
 			"header": "à propos de nous",
@@ -174,7 +183,9 @@
 			"phone": "téléphone",
 			"email": "email",
 			"details": "détails",
-			"personal": "informations personnelles"
+			"personal": "informations personnelles",
+			"name": "nom",
+			"animalsNumber": "nombre d'animaux"
 		},
 		"users": {
 			"title": "liste des utilisateurs de l'association.",
@@ -214,7 +225,7 @@
 		},
 		"animalVaccines": {
 			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS"	: "leptospirose",
+			"LEPTOSPIROSIS": "leptospirose",
 			"BORDETELLA/INFLUENZA": "bordetella/influenza",
 			"LYME": "maladie de lyme",
 			"RABIES": "rage",
