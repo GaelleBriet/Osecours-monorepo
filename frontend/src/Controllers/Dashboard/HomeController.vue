@@ -38,7 +38,7 @@
 		await shelterStore.getShelters();
 		sheltersQuantity.value = shelterStore.sheltersQuantity;
 
-		await membersStore.getMembers();
+		await membersStore.getMembers(currentAssociationId ?? '');
 		membersQuantity.value = membersStore.membersQuantity;
 
 		await membersStore.getMembersByFamilyType(

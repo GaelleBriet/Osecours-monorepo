@@ -38,8 +38,8 @@ export const useMembersStore = defineStore({
 		},
 	},
 	actions: {
-		async getMembers(): Promise<User[]> {
-			const members: User[] | ErrorResponse = await getMembers();
+		async getMembers(associationId: string): Promise<User[]> {
+			const members: User[] | ErrorResponse = await getMembers(associationId);
 			if ('error' in members) {
 				return [];
 			} else {
