@@ -28,7 +28,7 @@
 
 	let localDocument = ref({ ...props.document });
 	import { useRoute } from 'vue-router';
-	
+
 	const route = useRoute();
 	const id = route.params.id;
 	const t = i18n.global.t;
@@ -60,20 +60,19 @@
 
 		return extensionMap[mimeType] || null;
 	};
-	
+
 	onMounted(async () => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
-		console.log(props.isCreateMode)
+		console.log(props.isCreateMode);
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
 		doctypes.value = await fetchDataAndFormatOptions(
 			documentSettingsStore.getAllDoctypes,
 			'enums.documentType',
 			'Sélectionner une type de document',
 		);
-		console.log(doctypes)
-	
+		console.log(doctypes);
 	});
 
 	const onSubmit = async () => {
@@ -101,17 +100,17 @@
 		const uploadedFile = (fileInputElement as HTMLInputElement).files[0];
 		const fileSize = uploadedFile.size;
 		const mimeType = uploadedFile.type;
-		console.log((fileInputElement as HTMLInputElement))
-		
+		console.log(fileInputElement as HTMLInputElement);
+
 		const documentData = props.isCreateMode
-		? createdDocument.value
-		: localDocument.value;
-		
-    	documentData.size = fileSize;
+			? createdDocument.value
+			: localDocument.value;
+
+		documentData.size = fileSize;
 		documentData.mimetype_id = getFileExtensionFromMimeType(mimeType);
 		documentData.doctype_id = 1;
-		documentData.url = "test";
-		console.log(documentData)
+		documentData.url = 'test';
+		console.log(documentData);
 		if (!props.isCreateMode) {
 			documentData.number = localDocument.value.identification?.number;
 		} else {
@@ -121,7 +120,7 @@
 		// on envoie les données à l'api
 		newDocument.value = props.isCreateMode
 			? await documentsStore.createDocument(documentData)
-			: await documentsStore.createDocumentForAnimal(id,documentData);
+			: await documentsStore.createDocumentForAnimal(id, documentData);
 
 		// on affiche une notification en fonction du résultat de la requête
 		if (!newDocument.value) {
@@ -153,70 +152,89 @@
 </script>
 
 <template>
-	<div class="general-informations">
+	<div class="documents-view bg-osecours-beige-dark bg-opacity-10">
 		<Form
-			:id="!isCreateMode ? `edit-document${localDocument.id}` : 'create-document'"
+			:id="
+				!isCreateMode ? `edit-document${localDocument.id}` : 'create-document'
+			"
 			:submit-label="'edit-document'"
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-1 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
+				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-1 rounded-b-lg shadow-md p-2 flex-grow"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
 					@close="notificationConfig.show = false"
 				/>
 				<div className="grid lg:grid-cols-2 gap-4 lg:pb-10">
-					<div v-if="showFileForm" class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7">
+					<div
+						v-if="showFileForm"
+						class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7"
+					>
 						<FormFile
-								id="documents-file"			
-								:label="getCapitalizedText(t('pages.documents.file'))"									
-								accept=".pdf,.doc,.docx,.xls,.xlsx,.rtf,.txt"
-								:help="getCapitalizedText(t('pages.documents.help'))"
-								file-item-icon="fileDoc"
-								:multiple="true"
-								no-files-icon="fileDoc"
-								outer-class="h-full"
-								wrapper-class="h-full"
-								inner-class="h-full"
-							/>  
+							id="documents-file"
+							:label="getCapitalizedText(t('pages.documents.file'))"
+							accept=".pdf,.doc,.docx,.xls,.xlsx,.rtf,.txt"
+							:help="getCapitalizedText(t('pages.documents.help'))"
+							file-item-icon="fileDoc"
+							:multiple="true"
+							no-files-icon="fileDoc"
+							outer-class="h-full"
+							wrapper-class="h-full"
+							inner-class="h-full"
+						/>
 					</div>
 					<div>
 						<div class="col-start-1 lg:row-start-1">
 							<FormText
-							id="document-name"
-							:model-value="!isCreateMode ? localDocument.filename : createdDocument.filename"
-							:label="getCapitalizedText(t('pages.documents.filename'))"
-							class="w-full border border-gray-300 rounded shadow-sm"
-							:placeholder="getCapitalizedText(t('pages.documents.filename'))"
-							:disabled="!isEditMode"
-							:validation="'required'"
-							@update:model-value="
-								!isCreateMode
+								id="document-name"
+								:model-value="
+									!isCreateMode
+										? localDocument.filename
+										: createdDocument.filename
+								"
+								:label="getCapitalizedText(t('pages.documents.filename'))"
+								class="w-full border border-gray-300 rounded shadow-sm"
+								:placeholder="getCapitalizedText(t('pages.documents.filename'))"
+								:disabled="!isEditMode"
+								:validation="'required'"
+								@update:model-value="
+									!isCreateMode
 										? (localDocument.filename = $event)
-										: (createdDocument.filename = $event)"
+										: (createdDocument.filename = $event)
+								"
 							/>
 						</div>
 						<div class="col-start-1 lg:row-start-2">
 							<FormTextArea
-								id="document-description"						
-								:model-value="!isCreateMode ? localDocument.description : createdDocument.description"
+								id="document-description"
+								:model-value="
+									!isCreateMode
+										? localDocument.description
+										: createdDocument.description
+								"
 								:label="getCapitalizedText(t('pages.animals.description'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="getCapitalizedText(t('pages.documents.description'))"
+								:placeholder="
+									getCapitalizedText(t('pages.documents.description'))
+								"
 								:disabled="!isEditMode"
 								:validation="'required'"
 								@update:model-value="
-								!isCreateMode
-									? (localDocument.description = $event)
-									: (createdDocument.description = $event)"
+									!isCreateMode
+										? (localDocument.description = $event)
+										: (createdDocument.description = $event)
+								"
 							/>
 						</div>
 						<div class="col-start-1 lg:row-start-3">
 							<FormSelect
 								id="document-type"
 								:model-value="
-									!isCreateMode ? localDocument?.doctype_id : createdDocument.doctype_id
+									!isCreateMode
+										? localDocument?.doctype_id
+										: createdDocument.doctype_id
 								"
 								:name="'document-type'"
 								:label="getCapitalizedText(t('pages.documents.type'))"
@@ -224,9 +242,10 @@
 								:disabled="!isEditMode"
 								:validation="'required'"
 								:validation-visibility="'blur'"
-								@update:model-value="!isCreateMode
-									? (localDocument.doctype_id = $event)
-									: (createdDocument.doctype_id = $event)
+								@update:model-value="
+									!isCreateMode
+										? (localDocument.doctype_id = $event)
+										: (createdDocument.doctype_id = $event)
 								"
 							/>
 						</div>
@@ -234,7 +253,9 @@
 							<FormDate
 								id="document-date"
 								:model-value="
-									!isCreateMode ? localDocument?.date : createdDocumlocalDocument.date
+									!isCreateMode
+										? localDocument?.date
+										: createdDocumlocalDocument.date
 								"
 								:name="'document-date'"
 								:label="getCapitalizedText(t('pages.documents.date'))"
@@ -249,11 +270,8 @@
 							/>
 						</div>
 					</div>
-								
-				</div>				
-				<div
-					class="my-1 lg:my-3 row-start-2 lg:row-start-2"
-				>
+				</div>
+				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2 grid items-end">
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-end lg:col-start-2">
 							<button
@@ -284,31 +302,7 @@
 	</div>
 </template>
 <style scoped lang="postcss">
-	#edit-mode {
-		background-color: rgba(242, 138, 128);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #f28a80;
-			outline: 1px solid #f28a80;
-		}
-	}
-	#save-changes {
-		background-color: rgb(199, 123, 51);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: rgb(199, 123, 51);
-			outline: 1px solid rgb(199, 123, 51);
-		}
-	}
-
-	.formkit-outer[data-disabled] {
-		opacity: 0.8;
-		pointer-events: none;
-	}
-
-	.general-informations {
+	.documents-view {
 		//max-height: calc(100% - 4rem);
 		display: flex;
 		flex-direction: column;

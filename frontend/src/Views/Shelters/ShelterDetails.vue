@@ -1,14 +1,13 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Shelters/GeneralInformations.vue';
-
+	import GeneralInformations from '@/Views/Shelters/ShelterGeneralInformations.vue';
+	import ShelterPhotos from '@/Views/Shelters/ShelterPhotos.vue';
+	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
-	import i18n from '@/Services/Translations';
-	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import ShelterPhotos from '@/Views/Shelters/ShelterPhotos.vue';
+	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
 	const route = useRoute();
