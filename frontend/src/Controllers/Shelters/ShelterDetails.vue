@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Shelters/ShelterGeneralInformations.vue';
-	import ShelterPhotos from '@/Views/Shelters/ShelterPhotos.vue';
+	import ShelterGeneralInformations from '@/Views/Shelters/Details/ShelterGeneralInformations.vue';
+	import ShelterPhotos from '@/Views/Shelters/Documents/ShelterPhotos.vue';
 	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
@@ -45,7 +45,7 @@
 		/>
 		<div class="content">
 			<template v-if="currentTab === 0 && currentShelter">
-				<GeneralInformations :shelter="currentShelter" />
+				<ShelterGeneralInformations :shelter="currentShelter" />
 			</template>
 			<template v-if="currentTab === 1 && currentShelter">
 				<ShelterPhotos :shelter="currentShelter" />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import GeneralInformation from '@/Views/Association/GeneralInformation.vue';
+	import GeneralInformation from '@/Views/Association/AssociationGeneralInformation.vue';
 	import { Association } from '@/Interfaces/Associations.ts';
 	import { AssociationsRequestStatus } from '@/Enums/Associations.ts';
 	import { computed, onMounted, ref } from 'vue';
