@@ -75,7 +75,9 @@
 				</p>
 			</div>
 			<div class="flex justify-between">
-				<div class="mt-4 flex lg:mr-12">
+				<div
+					class="mt-4 flex mr-12"
+				>
 					<input
 						v-model="searchQuery"
 						type="text"

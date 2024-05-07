@@ -1,9 +1,9 @@
 <script setup lang="ts">
-	import SheltersFormComponent from '@/Components/SheltersFormComponent.vue';
+	import SheltersForm from '@/Views/Shelters/SheltersForm.vue';
 </script>
 
 <template>
-	<SheltersFormComponent :isCreateMode="true" />
+	<SheltersForm :isCreateMode="true" />
 </template>
 
 <style scoped lang="postcss"></style>

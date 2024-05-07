@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 	import { Association } from '@/Interfaces/Associations.ts';
-	import AssociationsFormComponent from '@/Components/AssociationsFormComponent.vue';
+	import AssociationsForm from '@/Views/Association/AssociationsForm.vue';
 
 	const props = defineProps<{
 		association: Association;
@@ -8,7 +8,7 @@
 </script>
 
 <template>
-	<AssociationsFormComponent
+	<AssociationsForm
 		:association="props.association"
 		:is-create-mode="false"
 	/>
