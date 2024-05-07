@@ -82,7 +82,15 @@
 	},
 	"pages": {
 		"home": {
-			"welcomeMessage": "bienvenue sur notre site !"
+			"welcomeMessage": "bienvenue sur notre site !",
+			"animalsNumber": "nombre d'animaux",
+			"familiesNumber": "nombre de familles",
+			"sheltersNumber": "nombre de refuges",
+			"shelters": "refuges",
+			"membersNumber": "nombre de membres",
+			"members": "membres",
+			"adoptFamily": "famille d'adoption",
+			"fosterFamily": "famille d'accueil"
 		},
 		"about": {
 			"header": "à propos de nous",

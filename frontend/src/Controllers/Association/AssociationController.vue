@@ -1,15 +1,15 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { useAssociationsStore } from '@/Stores/AssociationsStore.ts';
-	import { computed, onMounted, ref } from 'vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations';
-	import { useRouter } from 'vue-router';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
-	import { AssociationsRequestStatus } from '@/Enums/Associations.ts';
-	import { useUserStore } from '@/Stores/UserStore.ts';
 	import GeneralInformation from '@/Views/Association/GeneralInformation.vue';
 	import { Association } from '@/Interfaces/Associations.ts';
+	import { AssociationsRequestStatus } from '@/Enums/Associations.ts';
+	import { computed, onMounted, ref } from 'vue';
+	import { useRouter } from 'vue-router';
+	import { useAssociationsStore } from '@/Stores/AssociationsStore.ts';
+	import { useUserStore } from '@/Stores/UserStore.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
+	import i18n from '@/Services/Translations';
 
 	const userStore = useUserStore();
 	const currentTab = ref(0);
@@ -17,7 +17,6 @@
 	const t = i18n.global.t;
 	const router = useRouter();
 	const associationsStore = useAssociationsStore();
-	//const association = computed(() => associationsStore.association);
 
 	const associationsTransformed = computed(() => {
 		return associationsStore.associations.map((association) => ({
@@ -30,7 +29,7 @@
 		}));
 	});
 
-	const editItem = (item) => {
+	const editItem = (item: Association) => {
 		router.push({
 			name: 'EditAssociation',
 			params: { id: item.id },
