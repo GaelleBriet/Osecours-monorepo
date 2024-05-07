@@ -20,14 +20,20 @@
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useRouter } from 'vue-router';
-	import {fetchDataAndFormatOptions,formatOptions} from '@/Services/Helpers/SelectOptions.ts';
+	import {
+		fetchDataAndFormatOptions,
+		formatOptions,
+	} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
 
-	const props = defineProps<{isCreateMode?: boolean;animal?: Animal;}>();
+	const props = defineProps<{
+		isCreateMode?: boolean;
+		animal?: Animal;
+	}>();
 
 	const t = i18n.global.t;
 
@@ -70,33 +76,32 @@
 		"Choisir une tranche d'âge",
 	);
 
-
 	// Fonction générique pour formater les options des selects depuis les données de l'api
 	// @items : les données de l'api
 	// @translationKey : la clé de traduction pour les labels des options
 	// return : value = id de l'item, label = name de l'item traduit
-	const formatOptions = (
-		items: { id: number; name: string }[],
-		translationKey: string,
-	) => {
-		return items.map((item) => ({
-			value: item.id.toString(),
-			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
-		}));
-	};
+	// const formatOptions = (
+	// 	items: { id: number; name: string }[],
+	// 	translationKey: string,
+	// ) => {
+	// 	return items.map((item) => ({
+	// 		value: item.id.toString(),
+	// 		label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
+	// 	}));
+	// };
 
 	// @store : le store et la méthode à appeler
 	// @translationKey : la clé de traduction pour les labels des options
 	// @defaultLabel : le label par défaut pour les selects
 	// return : les options formatées avec le label par défaut en premier
-	const fetchDataAndFormatOptions = async (
-		store: () => Promise<never>,
-		translationKey: string,
-	) => {
-		const data = await store();
-		const options = formatOptions(data, translationKey);
-		return options;
-	};
+	// const fetchDataAndFormatOptions = async (
+	// 	store: () => Promise<never>,
+	// 	translationKey: string,
+	// ) => {
+	// 	const data = await store();
+	// 	const options = formatOptions(data, translationKey);
+	// 	return options;
+	// };
 
 	const onButtonClick = () => {
 		// en mode création : retour à la page précédente
@@ -108,17 +113,19 @@
 		}
 	};
 
-	const onSubmit = async () => {
-		// on récupère le formulaire pour vérifier s'il est valide
+	const isFormValid = () => {
 		let formId = ref('');
 		let formNode = ref(null);
 		formId.value = !props.isCreateMode
 			? `edit-animal${localAnimal.value.id}`
 			: 'create-animal';
 		formNode.value = getNode(formId.value);
-		const isFormValid = formNode.value?.context.state.valid;
+		return formNode.value?.context.state.valid;
+	};
+
+	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
+		if (!isFormValid()) {
 			notificationConfig.value = {
 				show: true,
 				title: 'Un ou plusieurs champs sont invalides',
@@ -191,26 +198,22 @@
 			isEditMode.value = true;
 		}
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
-
-		//@todo: ajouter les traductions de labels manquantes
 		let breedsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
-			'enums.animalsBreeds'
+			'enums.animalsBreeds',
+			'Sélectionner une race',
 		);
-
 
 		// Tri des races par ordre alphabétique
 		//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
-    	// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
+		// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
 		// La méthode sort() utilise ensuite ces valeurs renvoyées par la fonction de comparaison pour réorganiser les éléments du tableau speciesData dans l'ordre alphabétique de leur propriété label.
-		 breedsData.sort((a, b) => a.label.localeCompare(b.label));
+		breedsData.sort((a, b) => a.label.localeCompare(b.label));
 
 		// Insérer la valeur par défaut au début du tableau trié
 		breedsData.unshift({ label: 'Sélectionner une race', value: null });
 
 		breeds.value = breedsData;
-
-	
 
 		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
 			breeds.value = formatOptions(
@@ -225,7 +228,8 @@
 		}
 		let coatsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
-			'enums.animalsCoats'
+			'enums.animalsCoats',
+			'Sélectionner un pelage',
 		);
 
 		coatsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -236,7 +240,8 @@
 
 		let colorsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllColors,
-			'enums.animalsColors'
+			'enums.animalsColors',
+			'Sélectionner une couleur',
 		);
 
 		colorsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -247,7 +252,8 @@
 
 		let gendersData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllGenders,
-			'enums.animalsGenders'
+			'enums.animalGenders',
+			'Sélectionner un genre',
 		);
 
 		gendersData.sort((a, b) => a.label.localeCompare(b.label));
@@ -255,12 +261,12 @@
 		gendersData.unshift({ label: 'Sélectionner un genre', value: null });
 
 		genders.value = gendersData;
-	
+
 		let speciesData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllSpecies,
-			'enums.animalsSpecies'
+			'enums.animalSpecies',
+			'Sélectionner une espèce',
 		);
-
 
 		speciesData.sort((a, b) => a.label.localeCompare(b.label));
 
@@ -277,7 +283,6 @@
 			selectedSpecies.value = 1;
 		} else if (routeParams.species == 'dog') {
 			selectedSpecies.value = 2;
-
 		}
 	});
 
@@ -582,31 +587,6 @@
 </template>
 
 <style scoped lang="postcss">
-	#edit-mode {
-		background-color: rgba(242, 138, 128);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #f28a80;
-			outline: 1px solid #f28a80;
-		}
-	}
-
-	#save-changes {
-		background-color: #d99962;
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
-		}
-	}
-
-	.formkit-outer[data-disabled] {
-		opacity: 0.8;
-		pointer-events: none;
-	}
-
 	.general-informations {
 		//max-height: calc(100% - 4rem);
 		display: flex;

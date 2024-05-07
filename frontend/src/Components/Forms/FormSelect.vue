@@ -79,7 +79,10 @@
 		@change="onChange"
 	>
 		<template #label>
-			<span v-html="label"></span>
+			<span
+				v-html="label"
+				class="block text-neutral-700 text-sm font-medium mb-1 dark:text-neutral-700 formkit-label"
+			></span>
 		</template>
 	</FormKit>
 </template>

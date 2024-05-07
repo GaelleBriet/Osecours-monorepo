@@ -26,7 +26,6 @@
 			};
 		});
 	});
-
 	const editItem = (item) => {
 		router.push({
 			name: 'EditAnimal',

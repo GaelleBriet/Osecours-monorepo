@@ -75,9 +75,7 @@
 				</p>
 			</div>
 			<div class="flex justify-between">
-				<div
-					class="mt-4 flex mr-12"
-				>
+				<div class="mt-4 flex sm:mr-12">
 					<input
 						v-model="searchQuery"
 						type="text"
@@ -124,7 +122,8 @@
 			class="relative flex justify-end -top-8 z-0"
 		>
 			<button
-				id="add-animal-btn"
+				v-tooltip="getCapitalizedText(t('common.notImplemented'))"
+				id="add-btn"
 				type="button"
 				class="rounded-md px-3 py-2 text-center text-sm"
 				@click="addItem"
@@ -230,13 +229,9 @@
 							<td
 								class="whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm sm:pr-2"
 							>
-								<!--								<router-link-->
-								<!--									:to="`${props.route}/${item.id}`"-->
-								<!--									class="text-indigo-600 hover:text-indigo-900"-->
-								<!--									>{{ getCapitalizedText(t('common.edit')) }}</router-link-->
-								<!--								>-->
 								<div class="flex gap-3">
 									<a
+										v-tooltip="getCapitalizedText(t('common.edit'))"
 										class="cursor-pointer"
 										@click="editItem(item)"
 									>
@@ -245,6 +240,7 @@
 										/>
 									</a>
 									<a
+										v-tooltip="getCapitalizedText(t('common.delete'))"
 										class="cursor-pointer"
 										@click="deleteItem(item)"
 									>
@@ -263,6 +259,7 @@
 </template>
 <style lang="postcss" scoped>
 	#add-animal-btn,
+	#add-btn,
 	#search-btn {
 		background-color: rgba(217, 153, 98);
 		color: #fff;

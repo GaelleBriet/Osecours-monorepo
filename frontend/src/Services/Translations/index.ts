@@ -19,9 +19,10 @@ if (!locale) {
 
 const i18n = createI18n({
 	legacy: false,
+	allowComposition: true,
 	globalInjection: true,
 	locale,
-	fallbackLocale: 'en',
+	fallbackLocale: 'fr-FR',
 	messages: {
 		'fr-FR': fr,
 		'en-GB': en,

@@ -15,7 +15,10 @@
 		"delete": "delete",
 		"update": "has been updated",
 		"creation": "hass been created",
-		"back": "back"
+		"search": "Search...",
+		"back": "back",
+		"succes": "success",
+		"notImplemented": "not implemented"
 	},
 	"navigation": {
 		"home": "home",
@@ -44,7 +47,21 @@
 		"name": "name",
 		"firstName": "first name",
 		"lastName": "last name",
-		"phone": "phone"
+		"phone": "phone",
+		"messages": {
+			"required": "this field is required",
+			"email": "please enter a valid email address",
+			"min": "this field must contain at least {min} characters",
+			"max": "this field must contain at most {max} characters",
+			"password": "the password must contain at least 8 characters, including a number, a lowercase letter, an uppercase letter and a special character",
+			"passwordConfirmation": "the passwords do not match",
+			"phone": "please enter a valid phone number",
+			"warning": "warning",
+			"check": "please check the form for errors"
+		}
+	},
+	"button": {
+		"addAnimal": "add an animal"
 	},
 	"login": {
 		"title": "log in",
@@ -92,13 +109,32 @@
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
+			"behaviour": "behaviour",
 			"docs": "documents",
 			"addChar": "add characteristics",
 			"settingChars": "characteristics settings",
 			"settingSpecies": "species settings",
 			"settingBreeds": "breeds settings",
 			"settingColors": "colors settings",
-			"settingCoats": "coats settings"
+			"settingCoats": "coats settings",
+			"messages": {
+				"delete": "are you sure you want to delete this animal ?",
+				"deleteSuccess": "the animal has been successfully deleted",
+				"deleteError": "an error occurred while deleting the animal",
+				"updateSuccess": "the animal has been successfully updated",
+				"updateError": "an error occurred while updating the animal",
+				"createSuccess": "the animal has been successfully created",
+				"createError": "an error occurred while creating the animal",
+				"uploadSuccess": "the document has been successfully uploaded",
+				"uploadError": "an error occurred while uploading the document",
+				"deleteDoc": "are you sure you want to delete this document ?",
+				"deleteDocSuccess": "the document has been successfully deleted",
+				"deleteDocError": "an error occurred while deleting the document",
+				"updateDocSuccess": "the document has been successfully updated",
+				"updateDocError": "an error occurred while updating the document",
+				"createDocSuccess": "the document has been successfully created",
+				"createDocError": "an error occurred while creating the document"
+			}
 		},
 		"associations": {
 			"card": "details of your association.",
@@ -175,6 +211,16 @@
 		"animalSpecies": {
 			"Dog": "dog",
 			"Cat": "cat"
+		},
+		"animalVaccines": {
+			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
+			"LEPTOSPIROSIS"	: "leptospirosis",
+			"BORDETELLA/INFLUENZA": "bordetella/influenza",
+			"LYME": "lyme",
+			"RABIES": "rabies",
+			"FVRCP/RCP": "FVRCP/RCP",
+			"FeLV": "FeLV",
+			"CHLAMYDOPHILA": "chlamydophila"
 		},
 		"animalStatus": {
 			"available": "available",

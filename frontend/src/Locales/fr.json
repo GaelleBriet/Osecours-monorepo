@@ -16,7 +16,9 @@
 		"update": "a bien été mis à jour",
 		"creation": "a bien été créé",
 		"search": "Chercher...",
-		"back": "retour"
+		"back": "retour",
+		"success": "succès",
+		"notImplemented": "fonctionnalité non implémentée"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -45,7 +47,21 @@
 		"name": "nom",
 		"firstName": "prénom",
 		"lastName": "nom de famille",
-		"phone": "téléphone"
+		"phone": "téléphone",
+		"messages": {
+			"required": "ce champ est obligatoire",
+			"email": "veuillez entrer une adresse email valide",
+			"min": "ce champ doit contenir au moins {min} caractères",
+			"max": "ce champ doit contenir au maximum {max} caractères",
+			"password": "le mot de passe doit contenir au moins 6 caractères",
+			"passwordConfirmation": "les mots de passe ne correspondent pas",
+			"phone": "veuillez entrer un numéro de téléphone valide",
+			"warning": "un ou plusieurs champs sont invalides",
+			"check": "veuillez vérifier les champs"
+		}
+	},
+	"button": {
+		"addAnimal": "ajouter un animal"
 	},
 	"login": {
 		"title": "connection",
@@ -93,13 +109,32 @@
 			"birthdate": "date de naissance",
 			"details": "détails",
 			"health": "santé",
+			"behaviour": "comportement",
 			"docs": "documents",
 			"addChar": "ajouter une caractéristique",
 			"settingChars": "gestion des caractéristiques",
 			"settingSpecies": "gestion des espèces",
 			"settingBreeds": "gestion des races",
 			"settingColors": "gestion des couleurs",
-			"settingCoats": "gestion des robes"
+			"settingCoats": "gestion des robes",
+			"messages": {
+				"delete": "êtes-vous sûr de vouloir supprimer cet animal ?",
+				"deleteSuccess": "l'animal a bien été supprimé",
+				"deleteError": "une erreur est survenue lors de la suppression de l'animal",
+				"updateSuccess": "l'animal a bien été mis à jour",
+				"updateError": "une erreur est survenue lors de la mise à jour de l'animal",
+				"createSuccess": "l'animal a bien été créé",
+				"createError": "une erreur est survenue lors de la création de l'animal",
+				"uploadSuccess": "le document a bien été téléchargé",
+				"uploadError": "une erreur est survenue lors du téléchargement du document",
+				"deleteDoc": "êtes-vous sûr de vouloir supprimer ce document ?",
+				"deleteDocSuccess": "le document a bien été supprimé",
+				"deleteDocError": "une erreur est survenue lors de la suppression du document",
+				"updateDocSuccess": "le document a bien été mis à jour",
+				"updateDocError": "une erreur est survenue lors de la mise à jour du document",
+				"createDocSuccess": "le document a bien été créé",
+				"createDocError": "une erreur est survenue lors de la création du document"
+			}
 		},
 		"associations": {
 			"card": "détails de votre association",
@@ -126,7 +161,8 @@
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
 			"description": "description du refuge",
-			"name": "nom du refuge"
+			"name": "nom du refuge",
+			"search": "Rechercher..."
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",
@@ -175,6 +211,16 @@
 		"animalSpecies": {
 			"Dog": "chien",
 			"Cat": "chat"
+		},
+		"animalVaccines": {
+			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
+			"LEPTOSPIROSIS"	: "leptospirose",
+			"BORDETELLA/INFLUENZA": "bordetella/influenza",
+			"LYME": "maladie de lyme",
+			"RABIES": "rage",
+			"FVRCP/RCP": "FVRCP/RCP",
+			"FeLV": "leucose féline",
+			"CHLAMYDOPHILA": "chlamydophilose"
 		},
 		"animalStatus": {
 			"available": "disponible",

@@ -72,6 +72,7 @@ export const useUserStore = defineStore({
 			removeFromStorage('token');
 			removeFromStorage('user');
 			removeFromStorage('userLoggedIn');
+			removeFromStorage('currentTab');
 			this.isLoggedIn = false;
 		},
 	},

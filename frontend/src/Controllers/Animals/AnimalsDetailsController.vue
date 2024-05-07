@@ -1,20 +1,22 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Animals/GeneralInformations.vue';
-
+	import GeneralInformations from '@/Views/Animals/Details/GeneralInformations.vue';
+	import AnimalsDocuments from '@/Views/Animals/Documents/AnimalsDocuments.vue';
+	import HealthInformations from '@/Views/Animals/Details/HealthInformations.vue';
+	import AnimalsBehaviour from '@/Views/Animals/Details/BehaviouralInformations.vue';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import i18n from '@/Services/Translations';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
-	import i18n from '@/Services/Translations';
-	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import AnimalDocuments from '@/Views/Animals/AnimalDocuments.vue';
-	import HealthInformations from '@/Views/Animals/HealthInformations.vue';
 
-	const t = i18n.global.t;
 	const route = useRoute();
 	const animalsStore = useAnimalsStore();
+
+	const t = i18n.global.t;
 	const animalId = route.params.id;
+
 	const currentTab = ref(0);
 	const currentAnimal = ref<Animal | null>(null);
 
@@ -47,9 +49,9 @@
 			id="animalsTabsComponent"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
+				{ name: getCapitalizedText(t('pages.animals.behaviour')) },
 				{ name: getCapitalizedText(t('pages.animals.health')) },
 				{ name: getCapitalizedText(t('pages.animals.docs')) },
-				{ name: getCapitalizedText(t('common.other')) },
 			]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
@@ -60,10 +62,13 @@
 				<GeneralInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 1 && currentAnimal">
-				<HealthInformations :animal="currentAnimal" />
+				<AnimalsBehaviour :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 2 && currentAnimal">
-				<AnimalDocuments :animal="currentAnimal" />
+				<HealthInformations :animal="currentAnimal" />
+			</template>
+			<template v-if="currentTab === 3 && currentAnimal">
+				<AnimalsDocuments :animal="currentAnimal" />
 			</template>
 		</div>
 	</div>

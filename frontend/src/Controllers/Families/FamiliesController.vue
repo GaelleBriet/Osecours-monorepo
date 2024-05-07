@@ -3,12 +3,12 @@
 	import { onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-	import { UseMembersStore } from '@/Stores/MembersStore.ts';
+	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { User } from '@/Interfaces/User.ts';
 	import router from '@/Router';
 
 	const t = i18n.global.t;
-	const membersStore = UseMembersStore();
+	const membersStore = useMembersStore();
 	let members = ref<User[]>([]);
 
 	const columns = ref([

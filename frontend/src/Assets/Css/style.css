@@ -36,30 +36,59 @@
 
 body,
 #app {
-	font-family: var(--font-primary);
+	font-family: var(--font-primary), sans-serif;
 	height: 100vh;
 	margin: 0;
 	padding: 0;
 	background-color: var(--color-withe);
 	color: var(--color-black);
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--font-secondary), sans-serif;
+	}
+
+	/***** FormKit *****/
+	.formkit-wrapper,
+	.formkit-fieldset {
+		max-width: 48em; /* ou toute autre valeur souhaitée */
+	}
+
+	.formkit-label {
+		display: block;
+		margin: 0 0 0.5em;
+		padding: 0 0 0 0.2rem;
+	}
+
+	.formkit-outer[data-disabled] {
+		opacity: 0.8;
+		pointer-events: none;
+	}
+
+	/***** Buttons *****/
+	#edit-mode {
+		background-color: rgba(242, 138, 128);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #f28a80;
+			outline: 1px solid #f28a80;
+		}
+	}
+
+	#save-changes {
+		background-color: #d99962;
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
+	}
+
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: var(--font-secondary);
-}
-
-.formkit-wrapper,
-.formkit-fieldset {
-	max-width: 48em; /* ou toute autre valeur souhaitée */
-}
-
-.formkit-label {
-	display: block;
-	margin: 0 0 0.5em;
-	padding: 0 0 0 0.2rem;
-}

@@ -26,6 +26,15 @@ export const useAnimalsStore = defineStore('animals', {
 		getCurrentAnimal(): Animal | null {
 			return this.animal;
 		},
+		animalsQuantity(): number {
+			return this.animals.length;
+		},
+		catsQuantity(): number {
+			return this.cats.length;
+		},
+		dogsQuantity(): number {
+			return this.dogs.length;
+		},
 	},
 	actions: {
 		async getAnimal(id: string | RouteParamValue[]): Promise<Animal | null> {
@@ -56,6 +65,7 @@ export const useAnimalsStore = defineStore('animals', {
 					(animal: Animal) => animal.specie_id === 2,
 				);
 				this.animals = dogs;
+				this.dogs = dogs;
 				return animals;
 			}
 		},
@@ -68,6 +78,7 @@ export const useAnimalsStore = defineStore('animals', {
 					(animal: Animal) => animal.specie_id === 1,
 				);
 				this.animals = cats;
+				this.cats = cats;
 				return animals;
 			}
 		},
@@ -97,13 +108,13 @@ export const useAnimalsStore = defineStore('animals', {
 		async updateAnimal(animal: Animal): Promise<Animal | null> {
 			const animalToSend: Animal =
 				this.initializeUpdatedAnimalProperties(animal);
-			console.log('animalToUpdate.NumberId', animalToSend.number);
 			const updatedAnimal: Animal | ErrorResponse =
 				await updateAnimal(animalToSend);
 			if ('error' in updatedAnimal) {
 				return null;
 			} else {
 				this.animals.push(updatedAnimal);
+				this.animal = updatedAnimal;
 				return updatedAnimal;
 			}
 		},
@@ -141,6 +152,9 @@ export const useAnimalsStore = defineStore('animals', {
 				number: animal.identification?.number
 					? animal.identification.number
 					: '',
+				children_friendly: animal.children_friendly || null,
+				dogs_friendly: animal.dogs_friendly || null,
+				cats_friendly: animal.cats_friendly || null,
 			};
 		},
 	},
