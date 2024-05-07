@@ -30,7 +30,10 @@
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
 
-	const props = defineProps<{ isCreateMode?: boolean; animal?: Animal }>();
+	const props = defineProps<{
+		isCreateMode?: boolean;
+		animal?: Animal;
+	}>();
 
 	const t = i18n.global.t;
 
@@ -77,28 +80,28 @@
 	// @items : les données de l'api
 	// @translationKey : la clé de traduction pour les labels des options
 	// return : value = id de l'item, label = name de l'item traduit
-	const formatOptions = (
-		items: { id: number; name: string }[],
-		translationKey: string,
-	) => {
-		return items.map((item) => ({
-			value: item.id.toString(),
-			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
-		}));
-	};
+	// const formatOptions = (
+	// 	items: { id: number; name: string }[],
+	// 	translationKey: string,
+	// ) => {
+	// 	return items.map((item) => ({
+	// 		value: item.id.toString(),
+	// 		label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
+	// 	}));
+	// };
 
 	// @store : le store et la méthode à appeler
 	// @translationKey : la clé de traduction pour les labels des options
 	// @defaultLabel : le label par défaut pour les selects
 	// return : les options formatées avec le label par défaut en premier
-	const fetchDataAndFormatOptions = async (
-		store: () => Promise<never>,
-		translationKey: string,
-	) => {
-		const data = await store();
-		const options = formatOptions(data, translationKey);
-		return options;
-	};
+	// const fetchDataAndFormatOptions = async (
+	// 	store: () => Promise<never>,
+	// 	translationKey: string,
+	// ) => {
+	// 	const data = await store();
+	// 	const options = formatOptions(data, translationKey);
+	// 	return options;
+	// };
 
 	const onButtonClick = () => {
 		// en mode création : retour à la page précédente
@@ -195,11 +198,10 @@
 			isEditMode.value = true;
 		}
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
-
-		//@todo: ajouter les traductions de labels manquantes
 		let breedsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
 			'enums.animalsBreeds',
+			'Sélectionner une race',
 		);
 
 		// Tri des races par ordre alphabétique
@@ -227,6 +229,7 @@
 		let coatsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
 			'enums.animalsCoats',
+			'Sélectionner un pelage',
 		);
 
 		coatsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -238,6 +241,7 @@
 		let colorsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllColors,
 			'enums.animalsColors',
+			'Sélectionner une couleur',
 		);
 
 		colorsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -249,6 +253,7 @@
 		let gendersData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllGenders,
 			'enums.animalGenders',
+			'Sélectionner un genre',
 		);
 
 		gendersData.sort((a, b) => a.label.localeCompare(b.label));
@@ -260,6 +265,7 @@
 		let speciesData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllSpecies,
 			'enums.animalSpecies',
+			'Sélectionner une espèce',
 		);
 
 		speciesData.sort((a, b) => a.label.localeCompare(b.label));

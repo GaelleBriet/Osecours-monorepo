@@ -17,7 +17,6 @@ import AssociationDetails from '@/Views/Association/AssociationDetails.vue';
 import CreateShelters from '@/Views/Shelters/CreateShelter.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
 import SettingsController from '@/Controllers/Animals/Grids/SettingsController.vue';
-import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
 import DocumentsController from '@/Controllers/Documents/DocumentsController.vue';
 import CreateDocument from '@/Views/Documents/CreateDocument.vue';
 import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
