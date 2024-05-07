@@ -20,14 +20,17 @@
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useRouter } from 'vue-router';
-	import {fetchDataAndFormatOptions,formatOptions} from '@/Services/Helpers/SelectOptions.ts';
+	import {
+		fetchDataAndFormatOptions,
+		formatOptions,
+	} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
 
-	const props = defineProps<{isCreateMode?: boolean;animal?: Animal;}>();
+	const props = defineProps<{ isCreateMode?: boolean; animal?: Animal }>();
 
 	const t = i18n.global.t;
 
@@ -69,7 +72,6 @@
 		'enums.animalAges',
 		"Choisir une tranche d'âge",
 	);
-
 
 	// Fonction générique pour formater les options des selects depuis les données de l'api
 	// @items : les données de l'api
@@ -197,22 +199,19 @@
 		//@todo: ajouter les traductions de labels manquantes
 		let breedsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
-			'enums.animalsBreeds'
+			'enums.animalsBreeds',
 		);
-
 
 		// Tri des races par ordre alphabétique
 		//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
-    	// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
+		// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
 		// La méthode sort() utilise ensuite ces valeurs renvoyées par la fonction de comparaison pour réorganiser les éléments du tableau speciesData dans l'ordre alphabétique de leur propriété label.
-		 breedsData.sort((a, b) => a.label.localeCompare(b.label));
+		breedsData.sort((a, b) => a.label.localeCompare(b.label));
 
 		// Insérer la valeur par défaut au début du tableau trié
 		breedsData.unshift({ label: 'Sélectionner une race', value: null });
 
 		breeds.value = breedsData;
-
-	
 
 		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
 			breeds.value = formatOptions(
@@ -227,7 +226,7 @@
 		}
 		let coatsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
-			'enums.animalsCoats'
+			'enums.animalsCoats',
 		);
 
 		coatsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -238,7 +237,7 @@
 
 		let colorsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllColors,
-			'enums.animalsColors'
+			'enums.animalsColors',
 		);
 
 		colorsData.sort((a, b) => a.label.localeCompare(b.label));
@@ -249,7 +248,7 @@
 
 		let gendersData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllGenders,
-			'enums.animalsGenders'
+			'enums.animalGenders',
 		);
 
 		gendersData.sort((a, b) => a.label.localeCompare(b.label));
@@ -257,12 +256,11 @@
 		gendersData.unshift({ label: 'Sélectionner un genre', value: null });
 
 		genders.value = gendersData;
-	
+
 		let speciesData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllSpecies,
-			'enums.animalsSpecies'
+			'enums.animalSpecies',
 		);
-
 
 		speciesData.sort((a, b) => a.label.localeCompare(b.label));
 
@@ -279,7 +277,6 @@
 			selectedSpecies.value = 1;
 		} else if (routeParams.species == 'dog') {
 			selectedSpecies.value = 2;
-
 		}
 	});
 
