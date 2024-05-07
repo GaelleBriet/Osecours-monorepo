@@ -90,6 +90,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::get('/associations/{id}', 'show');
           Route::put('/associations/{id}', 'update');
           Route::delete('/associations/{id}', 'delete');
+          Route::get('/associations/{id}/members', 'getMembers');
      });
 
      Route::controller(DocumentController::class)->group(function () {
