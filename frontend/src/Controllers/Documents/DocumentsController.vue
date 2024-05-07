@@ -36,9 +36,9 @@
 		});
 	};
 
-	const deleteItem = (item) => {
-		documentsStore.deleteDocument(item.id);
-	};
+	// const deleteItem = (item) => {
+	// 	documentsStore.deleteDocument(item.id);
+	// };
 
 	onMounted(async () => {
 		await documentsStore.getDocumentsByShelter();

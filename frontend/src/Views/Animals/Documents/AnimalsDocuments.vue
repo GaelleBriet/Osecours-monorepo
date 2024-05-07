@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { ref, onMounted } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
@@ -11,16 +10,18 @@
 	const route = useRoute();
 
 	onMounted(async () => {
-		documents.value = await documentsStore.getDocumentsByAnimal(route.params.id);
+		documents.value = await documentsStore.getDocumentsByAnimal(
+			route.params.id,
+		);
 	});
-	console.log(documents)
-	const addPhoto = () => {
-		// @todo Logique pour ajouter une photo
-	};
+	console.log(documents);
+	// const addPhoto = () => {
+	// 	// @todo Logique pour ajouter une photo
+	// };
 
-	const removePhoto = () => {
-		// @todo  Logique pour supprimer une photo
-	};
+	// const removePhoto = () => {
+	// 	// @todo  Logique pour supprimer une photo
+	// };
 </script>
 <template>
 	<DocumentsForm

@@ -39,7 +39,7 @@
 				});
 			}
 			node.input(selectElement.value);
-			let value: any = props.value ?? props.modelValue;
+			let value: never = props.value ?? props.modelValue;
 
 			switch (typeof value) {
 				case 'boolean':

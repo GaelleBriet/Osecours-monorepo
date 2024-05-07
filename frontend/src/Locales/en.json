@@ -225,7 +225,7 @@
 		},
 		"animalVaccines": {
 			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS"	: "leptospirosis",
+			"LEPTOSPIROSIS": "leptospirosis",
 			"BORDETELLA/INFLUENZA": "bordetella/influenza",
 			"LYME": "lyme",
 			"RABIES": "rabies",

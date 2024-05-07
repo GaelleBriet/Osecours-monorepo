@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	const props = defineProps<{
+	defineProps<{
 		modelValue?: string | undefined;
 		value?: string | number;
 		name?: string;
@@ -18,7 +18,7 @@
 		innerClass?: string;
 	}>();
 
-	const emit = defineEmits<{
+	defineEmits<{
 		(e: 'update:modelValue', value: string): void;
 		(e: 'blur', event: Event): void;
 	}>();

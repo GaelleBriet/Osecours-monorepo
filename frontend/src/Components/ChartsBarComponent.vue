@@ -11,7 +11,6 @@
 		LinearScale,
 	} from 'chart.js';
 	import { ref, watchEffect } from 'vue';
-	import { plugin } from '@formkit/vue';
 
 	ChartJS.register(
 		Title,

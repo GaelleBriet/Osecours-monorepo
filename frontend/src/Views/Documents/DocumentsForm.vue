@@ -13,10 +13,7 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
-	import {
-		fetchDataAndFormatOptions,
-		formatOptions,
-	} from '@/Services/Helpers/SelectOptions.ts';
+	import { fetchDataAndFormatOptions } from '@/Services/Helpers/SelectOptions.ts';
 
 	const documentSettingsStore = useDocumentsSettingsStore();
 
@@ -28,6 +25,7 @@
 
 	let localDocument = ref({ ...props.document });
 	import { useRoute } from 'vue-router';
+	import { DoctypesForSelects } from '@/Interfaces/Documents/Doctypes.ts';
 
 	const route = useRoute();
 	const id = route.params.id;
