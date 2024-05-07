@@ -46,19 +46,22 @@
 		</h1>
 
 		<div class="flex flex-col flex-grow items-center justify-between">
-			<div>
+			<div class="flex flex-col">
 				<ChartsBarComponent
-					:animals-count="animalsQuantity"
+					:cats-count="catsQuantity"
+					:dogs-count="dogsQuantity"
+				/>
+				<ChartsBarComponent
 					:cats-count="catsQuantity"
 					:dogs-count="dogsQuantity"
 				/>
 			</div>
-			<div class="flex flex-col">
+			<div class="flex flex-col md:flex-row">
 				<div class="mb-2">
 					<QuantityCardsComponent
 						:title="getCapitalizedText('nombre de refuges')"
 						:quantity="sheltersQuantity + ' ' + 'refuges'"
-						class=""
+						class="md:mr-2"
 					/>
 				</div>
 				<div class="">

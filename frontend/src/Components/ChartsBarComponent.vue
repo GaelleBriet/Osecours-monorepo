@@ -23,7 +23,6 @@
 	);
 
 	const props = defineProps<{
-		animalsCount: number;
 		catsCount: number;
 		dogsCount: number;
 	}>();
