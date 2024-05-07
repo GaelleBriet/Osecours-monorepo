@@ -20,20 +20,14 @@
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useRouter } from 'vue-router';
-	import {
-		fetchDataAndFormatOptions,
-		formatOptions,
-	} from '@/Services/Helpers/SelectOptions.ts';
+	import {fetchDataAndFormatOptions,formatOptions} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
 
-	const props = defineProps<{
-		isCreateMode?: boolean;
-		animal?: Animal;
-	}>();
+	const props = defineProps<{isCreateMode?: boolean;animal?: Animal;}>();
 
 	const t = i18n.global.t;
 
@@ -75,6 +69,34 @@
 		'enums.animalAges',
 		"Choisir une tranche d'âge",
 	);
+
+
+	// Fonction générique pour formater les options des selects depuis les données de l'api
+	// @items : les données de l'api
+	// @translationKey : la clé de traduction pour les labels des options
+	// return : value = id de l'item, label = name de l'item traduit
+	const formatOptions = (
+		items: { id: number; name: string }[],
+		translationKey: string,
+	) => {
+		return items.map((item) => ({
+			value: item.id.toString(),
+			label: getCapitalizedText(t(`${translationKey}.${item.name}`)),
+		}));
+	};
+
+	// @store : le store et la méthode à appeler
+	// @translationKey : la clé de traduction pour les labels des options
+	// @defaultLabel : le label par défaut pour les selects
+	// return : les options formatées avec le label par défaut en premier
+	const fetchDataAndFormatOptions = async (
+		store: () => Promise<never>,
+		translationKey: string,
+	) => {
+		const data = await store();
+		const options = formatOptions(data, translationKey);
+		return options;
+	};
 
 	const onButtonClick = () => {
 		// en mode création : retour à la page précédente
@@ -169,11 +191,27 @@
 			isEditMode.value = true;
 		}
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
-		breeds.value = await fetchDataAndFormatOptions(
+
+		//@todo: ajouter les traductions de labels manquantes
+		let breedsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
-			'enums.animalsBreeds',
-			'Sélectionner une race',
+			'enums.animalsBreeds'
 		);
+
+
+		// Tri des races par ordre alphabétique
+		//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
+    	// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
+		// La méthode sort() utilise ensuite ces valeurs renvoyées par la fonction de comparaison pour réorganiser les éléments du tableau speciesData dans l'ordre alphabétique de leur propriété label.
+		 breedsData.sort((a, b) => a.label.localeCompare(b.label));
+
+		// Insérer la valeur par défaut au début du tableau trié
+		breedsData.unshift({ label: 'Sélectionner une race', value: null });
+
+		breeds.value = breedsData;
+
+	
+
 		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
 			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('cat'),
@@ -185,30 +223,61 @@
 				'enums.animalsBreeds',
 			);
 		}
-		coats.value = await fetchDataAndFormatOptions(
+		let coatsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
-			'enums.animalsCoats',
-			'Sélectionner un pelage',
+			'enums.animalsCoats'
 		);
-		colors.value = await fetchDataAndFormatOptions(
+
+		coatsData.sort((a, b) => a.label.localeCompare(b.label));
+
+		coatsData.unshift({ label: 'Sélectionner un pelage', value: null });
+
+		coats.value = coatsData;
+
+		let colorsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllColors,
-			'enums.animalsColors',
-			'Sélectionner une couleur',
+			'enums.animalsColors'
 		);
-		genders.value = await fetchDataAndFormatOptions(
+
+		colorsData.sort((a, b) => a.label.localeCompare(b.label));
+
+		colorsData.unshift({ label: 'Sélectionner une couleur', value: null });
+
+		colors.value = colorsData;
+
+		let gendersData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllGenders,
-			'enums.animalGenders',
-			'Sélectionner un genre',
+			'enums.animalsGenders'
 		);
-		species.value = await fetchDataAndFormatOptions(
+
+		gendersData.sort((a, b) => a.label.localeCompare(b.label));
+
+		gendersData.unshift({ label: 'Sélectionner un genre', value: null });
+
+		genders.value = gendersData;
+	
+		let speciesData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllSpecies,
-			'enums.animalSpecies',
-			'Sélectionner une espèce',
+			'enums.animalsSpecies'
 		);
+
+
+		speciesData.sort((a, b) => a.label.localeCompare(b.label));
+
+		speciesData.unshift({ label: 'Sélectionner une espèce', value: null });
+
+		species.value = speciesData;
+	});
+
+	onMounted(() => {
+		if (props.isCreateMode) {
+			isEditMode.value = true;
+		}
 		if (routeParams.species == 'cat') {
 			selectedSpecies.value = 1;
 		} else if (routeParams.species == 'dog') {
 			selectedSpecies.value = 2;
+
 		}
 	});
 
