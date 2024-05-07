@@ -584,6 +584,14 @@
 			"Tonkinese": "Tonkinese",
 			"Turkish Angora": "Turkish Angora",
 			"Turkish Van": "Turkish Van"
+		},
+		"documentType": {
+			"healthRecords": "health records",
+			"photos": "photos",
+			"adoptionPapers": "adoption papers",
+			"fosterCareRecord": "foster care records",
+			"trainingAndBehaviorRecord": "training and behavior records",
+			"legalDocuments": "legal documents"
 		}
 	}
 }
