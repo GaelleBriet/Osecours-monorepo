@@ -15,13 +15,23 @@ export const useMembersStore = defineStore({
 	state: (): {
 		members: User[];
 		member: User | null;
+		adoptFamiliesCount: number;
+		fosterFamiliesCount: number;
 	} => ({
 		members: [],
 		member: null,
+		adoptFamiliesCount: 0,
+		fosterFamiliesCount: 0,
 	}),
 	getters: {
 		membersQuantity(): number {
 			return this.members.length;
+		},
+		adoptFamiliesQuantity(): number {
+			return this.adoptFamiliesCount;
+		},
+		fosterFamiliesQuantity(): number {
+			return this.fosterFamiliesCount;
 		},
 		getCurrentMember(): User | null {
 			return this.member;
@@ -46,13 +56,25 @@ export const useMembersStore = defineStore({
 				return member;
 			}
 		},
-		async getMembersByFamilyType(familyType: string): Promise<User[]> {
-			const families: User[] | ErrorResponse =
-				await getMembersByFamilyType(familyType);
+		async getMembersByFamilyType(
+			familyType: 'adopt' | 'foster',
+			currentAssociationId: string,
+		): Promise<User[]> {
+			const families: User[] | ErrorResponse = await getMembersByFamilyType(
+				familyType,
+				currentAssociationId,
+			);
+
 			if ('error' in families) {
 				return [];
 			} else {
 				this.members = families;
+				if (familyType === 'adopt') {
+					this.adoptFamiliesCount = families.length;
+				} else if (familyType === 'foster') {
+					this.fosterFamiliesCount = families.length;
+				}
+
 				return families;
 			}
 		},

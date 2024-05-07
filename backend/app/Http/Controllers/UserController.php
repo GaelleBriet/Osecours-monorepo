@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use OpenApi\Annotations as OA;
 
 class UserController extends Controller
 {
@@ -38,7 +39,33 @@ class UserController extends Controller
         }
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/users/role",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Users"},
+      *     @OA\Parameter(
+      *         name="role",
+      *         in="query",
+      *         description="The role of the user",
+      *         required=true,
+      *         @OA\Schema(
+      *             type="string"
+      *         )
+      *     ),
+      *     @OA\Parameter(
+      *         name="currentAssociationId",
+      *         in="query",
+      *         description="The ID of the current association",
+      *         required=true,
+      *         @OA\Schema(
+      *             type="integer"
+      *         )
+      *     ),
+     *     @OA\Response(response="200", description="get users by role & association")
+     *
+     * )
+     */
     public function getUserByRole(Request $request)
     {
         try {
