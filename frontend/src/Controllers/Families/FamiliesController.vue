@@ -6,10 +6,14 @@
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { User } from '@/Interfaces/User.ts';
 	import router from '@/Router';
+	import { useUserStore } from '@/Stores/UserStore.ts';
+	import { Members } from '@/Interfaces/Members.ts';
 
 	const t = i18n.global.t;
 	const membersStore = useMembersStore();
-	let members = ref<User[]>([]);
+	const userStore = useUserStore();
+	let members = ref<Members[]>([]);
+	const currentAssociationId = userStore.user?.associationId;
 
 	const columns = ref([
 		{
@@ -35,11 +39,12 @@
 	};
 
 	onMounted(async () => {
-		await membersStore.getAllFamilies();
+		await membersStore.getAllFamilies(currentAssociationId ?? '');
 		members.value = membersStore.members;
+
 		members.value = membersStore.members.map((member) => ({
 			...member,
-			fullName: `${member.firstName} ${member.lastName}`,
+			fullName: `${member.first_name} ${member.last_name}`,
 			animalCount:
 				(member.existingCatCount ?? 0) + (member.existingDogCount ?? 0),
 		}));

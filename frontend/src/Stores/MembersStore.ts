@@ -9,6 +9,7 @@ import {
 	getMembersByFamilyType,
 	updateMember,
 } from '@/Services/DataLayers/Member.ts';
+import { Members } from '@/Interfaces/Members.ts';
 
 export const useMembersStore = defineStore({
 	id: 'members',
@@ -78,13 +79,16 @@ export const useMembersStore = defineStore({
 				return families;
 			}
 		},
-		async getAllFamilies(): Promise<User[]> {
-			const families: User[] | ErrorResponse = await getMembers();
+		async getAllFamilies(associationId: string): Promise<Members[]> {
+			const families: Members[] | ErrorResponse =
+				await getMembers(associationId);
+			console.log(families);
 			if ('error' in families) {
 				return [];
 			} else {
-				const filteredFamilies: User[] = families.filter(
-					(family) => family.adoptFamily || family.fosterFamily,
+				const filteredFamilies: Members[] = families.filter(
+					(family) =>
+						family?.pivot?.role_id === 5 || family?.pivot?.role_id === 7,
 				);
 				this.members = filteredFamilies;
 				return filteredFamilies;
