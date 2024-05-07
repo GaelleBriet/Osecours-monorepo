@@ -26,9 +26,10 @@
 		document?: Document;
 	}>();
 
-	let localDocument = ref({ ...props.document });
+	// let localDocument = ref({ ...props.document });
+	let localDocument = ref<Document>({});
 	import { useRoute } from 'vue-router';
-	
+
 	const route = useRoute();
 	const id = route.params.id;
 	const t = i18n.global.t;
@@ -63,7 +64,7 @@
 
 		return extensionMap[mimeType] || null;
 	};
-	
+
 	onMounted(async () => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
@@ -74,44 +75,50 @@
 			'enums.documentType',
 			'Sélectionner une type de document',
 		);
-	
 	});
 
-	const onSubmit = async () => {
-		// on récupère le formulaire pour vérifier s'il est valide
+	const isFormValid = () => {
 		let formId = ref('');
 		let formNode = ref(null);
 		formId.value = !props.isCreateMode
 			? `edit-document${localDocument.value.id}`
 			: 'create-document';
 		formNode.value = getNode(formId.value);
-		const isFormValid = formNode.value?.context.state.valid;
+		return formNode.value?.context.state.valid;
+	};
+
+	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
-			notificationConfig.value = {
-				show: true,
-				title: 'Un ou plusieurs champs sont invalides',
-				message: 'Veuillez vérifier les champs',
-				type: 'warning',
-			};
-			return;
-		}
+		// if (!isFormValid) {
+		// 	notificationConfig.value = {
+		// 		show: true,
+		// 		title: 'Un ou plusieurs champs sont invalides',
+		// 		message: 'Veuillez vérifier les champs',
+		// 		type: 'warning',
+		// 	};
+		// 	return;
+		// }
+		console.log('file', localDocument.value);
 		// on prépare les données de l'document pour l'envoi à l'api
 		// Get MIME type of uploaded file
 		const fileInputElement = document.getElementById('document-file');
 		const uploadedFile = (fileInputElement as HTMLInputElement).files[0];
-		const fileSize = uploadedFile.size;
-		const mimeType = uploadedFile.type;
-		
+		// const fileSize = uploadedFile.size;
+		// const mimeType = uploadedFile.type;
+		const formData = new FormData();
+		formData.append('filename', localDocument.value.filename);
+		formData.append('description', localDocument.value.description);
+		formData.append('file', localDocument.value.file);
+
 		const documentData = props.isCreateMode
-		? createdDocument.value
-		: localDocument.value;
-		
-    	documentData.size = fileSize;
-		documentData.mimetype = getFileExtensionFromMimeType(mimeType);
-		documentData.doctype = 1;
-		documentData.url = "test";
-		console.log(documentData)
+			? createdDocument.value
+			: localDocument.value;
+
+		// documentData.size = fileSize;
+		// documentData.mimetype = getFileExtensionFromMimeType(mimeType);
+		// documentData.doctype = 1;
+		// documentData.url = 'test';
+		console.log(documentData);
 		if (!props.isCreateMode) {
 			documentData.number = localDocument.value.identification?.number;
 		} else {
@@ -120,8 +127,8 @@
 
 		// on envoie les données à l'api
 		newDocument.value = props.isCreateMode
-			? await documentsStore.createDocumentForAnimal(id, documentData)
-			: await documentsStore.createDocumentForAnimal(id,documentData);
+			? await documentsStore.createDocumentForAnimal(id, formData)
+			: await documentsStore.createDocumentForAnimal(id, formData);
 
 		// on affiche une notification en fonction du résultat de la requête
 		if (!newDocument.value) {
@@ -155,7 +162,11 @@
 <template>
 	<div class="general-informations">
 		<Form
-			:id="!isCreateMode ? `edit-document${localDocument.id}` : 'create-document'"
+			:id="
+				!isCreateMode
+					? `edit-document${localDocument.id ?? -1}`
+					: 'create-document'
+			"
 			:submit-label="'edit-document'"
 			:actions="false"
 		>
@@ -167,57 +178,75 @@
 					@close="notificationConfig.show = false"
 				/>
 				<div className="grid lg:grid-cols-2 gap-4 lg:pb-10">
-					<div v-if="showFileForm" class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7">
+					<div
+						v-if="showFileForm"
+						class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7"
+					>
 						<FormFile
-								id="document-file"
-								:model-value="!isCreateMode ? localDocument.file : createdDocument.file"
-								:label="getCapitalizedText(t('pages.documents.file'))"									
-								accept=".jpg,.bmp,.png"
-								:help="getCapitalizedText(t('pages.documents.help'))"
-								file-item-icon="fileDoc"
-								:multiple="true"
-								no-files-icon="fileDoc"
-								outer-class="h-full"
-								wrapper-class="h-full"
-								inner-class="h-full"
-							/>  
+							:id="'document-file'"
+							:model-value="localDocument.file"
+							:label="getCapitalizedText(t('pages.documents.file'))"
+							accept=".jpg,.bmp,.png"
+							:help="getCapitalizedText(t('pages.documents.help'))"
+							file-item-icon="fileDoc"
+							:multiple="true"
+							no-files-icon="fileDoc"
+							outer-class="h-full"
+							wrapper-class="h-full"
+							inner-class="h-full"
+							@update:modelValue="localDocument.file = $event"
+						/>
 					</div>
 					<div>
 						<div class="col-start-1 lg:row-start-1">
 							<FormText
-							id="document-name"
-							:model-value="!isCreateMode ? localDocument.filename : createdDocument.filename"
-							:label="getCapitalizedText(t('pages.documents.filename'))"
-							class="w-full border border-gray-300 rounded shadow-sm"
-							:placeholder="getCapitalizedText(t('pages.documents.filename'))"
-							:disabled="!isEditMode"
-							:validation="'required'"
-							@update:model-value="
-								!isCreateMode
+								id="document-name"
+								:model-value="
+									!isCreateMode
+										? localDocument.filename
+										: createdDocument.filename
+								"
+								:label="getCapitalizedText(t('pages.documents.filename'))"
+								class="w-full border border-gray-300 rounded shadow-sm"
+								:placeholder="getCapitalizedText(t('pages.documents.filename'))"
+								:disabled="!isEditMode"
+								:validation="'required'"
+								@update:model-value="
+									!isCreateMode
 										? (localDocument.filename = $event)
-										: (createdDocument.filename = $event)"
+										: (createdDocument.filename = $event)
+								"
 							/>
 						</div>
 						<div class="col-start-1 lg:row-start-2">
 							<FormTextArea
-								id="document-description"						
-								:model-value="!isCreateMode ? localDocument.description : createdDocument.description"
+								id="document-description"
+								:model-value="
+									!isCreateMode
+										? localDocument.description
+										: createdDocument.description
+								"
 								:label="getCapitalizedText(t('pages.animals.description'))"
 								class="w-full border border-gray-300 rounded shadow-sm"
-								:placeholder="getCapitalizedText(t('pages.documents.description'))"
+								:placeholder="
+									getCapitalizedText(t('pages.documents.description'))
+								"
 								:disabled="!isEditMode"
 								:validation="'required'"
 								@update:model-value="
-								!isCreateMode
-									? (localDocument.description = $event)
-									: (createdDocument.description = $event)"
+									!isCreateMode
+										? (localDocument.description = $event)
+										: (createdDocument.description = $event)
+								"
 							/>
 						</div>
 						<div class="col-start-1 lg:row-start-3">
 							<FormSelect
 								id="document-type"
 								:model-value="
-									!isCreateMode ? localDocument?.doctype : createdDocument.doctype
+									!isCreateMode
+										? localDocument?.doctype
+										: createdDocument.doctype
 								"
 								:name="'document-type'"
 								:label="getCapitalizedText(t('pages.documents.type'))"
@@ -225,9 +254,10 @@
 								:disabled="!isEditMode"
 								:validation="'required'"
 								:validation-visibility="'blur'"
-								@update:model-value="!isCreateMode
-									? (localDocument.doctype = $event)
-									: (createdDocument.doctype = $event)
+								@update:model-value="
+									!isCreateMode
+										? (localDocument.doctype = $event)
+										: (createdDocument.doctype = $event)
 								"
 							/>
 						</div>
@@ -235,7 +265,9 @@
 							<FormDate
 								id="document-date"
 								:model-value="
-									!isCreateMode ? localDocument?.date : createdDocumlocalDocument.date
+									!isCreateMode
+										? localDocument?.date
+										: createdDocumlocalDocument.date
 								"
 								:name="'document-date'"
 								:label="getCapitalizedText(t('pages.documents.date'))"
@@ -250,11 +282,8 @@
 							/>
 						</div>
 					</div>
-								
-				</div>				
-				<div
-					class="my-1 lg:my-3 row-start-2 lg:row-start-2"
-				>
+				</div>
+				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2">
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-end lg:col-start-2">
 							<button

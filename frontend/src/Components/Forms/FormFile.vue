@@ -2,6 +2,7 @@
 	import { getNode } from '@formkit/core';
 
 	const props = defineProps<{
+		id: string;
 		modelValue?: string | undefined;
 		value?: string | number;
 		name?: string;
@@ -9,15 +10,15 @@
 		placeholder?: string;
 		validation?: string | never[];
 		validationVisibility?: string;
-        accept: string;
-        multiple: boolean;
+		accept: string;
+		multiple: boolean;
 		disabled?: boolean;
 		help?: string;
-        fileItemIcon?: string;
-        noFilesIcon?: string;
-        outerClass?: string;
-        wrapperClass?: string;
-        innerClass?: string;
+		fileItemIcon?: string;
+		noFilesIcon?: string;
+		outerClass?: string;
+		wrapperClass?: string;
+		innerClass?: string;
 	}>();
 
 	const emit = defineEmits<{
@@ -25,24 +26,31 @@
 		(e: 'blur', event: Event): void;
 	}>();
 
+	const onInput = (e: Event) => {
+		const inputElement = e.target as HTMLInputElement;
+		const node = getNode(inputElement.id);
+		if (!node) return;
+		emit('update:modelValue', inputElement.value);
+	};
 </script>
 
 <template>
 	<FormKit
-		id="id"
+		:id="id"
 		:name="name"
 		:label="label"
 		:validation="validation"
 		:validation-visibility="validationVisibility"
-        :accept="accept"
+		:accept="accept"
 		:help="help"
-        :multiple="multiple"
-        :file-item-icon="fileItemIcon"
-        :no-files-icon="noFilesIcon"
-        :outer-class="outerClass"
-        :wrapper-class="wrapperClass"
-        :inner-class="innerClass"
-        type="file"
+		:multiple="multiple"
+		:file-item-icon="fileItemIcon"
+		:no-files-icon="noFilesIcon"
+		:outer-class="outerClass"
+		:wrapper-class="wrapperClass"
+		:inner-class="innerClass"
+		type="file"
+		@change="onInput"
 	/>
 </template>
 
@@ -50,5 +58,4 @@
 	.group {
 		margin-bottom: 4px !important;
 	}
-
 </style>
