@@ -1,10 +1,11 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { computed, onMounted } from 'vue';
+	import { useRouter } from 'vue-router';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-	import { useRouter } from 'vue-router';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
@@ -24,7 +25,7 @@
 		});
 	});
 
-	const editItem = (item) => {
+	const editItem = (item: Animal) => {
 		router.push({
 			name: 'EditAnimal',
 			params: { id: item.id },
@@ -38,7 +39,7 @@
 		});
 	};
 
-	const deleteItem = (item) => {
+	const deleteItem = (item: Animal) => {
 		animalsStore.deleteAnimal(item.id);
 	};
 

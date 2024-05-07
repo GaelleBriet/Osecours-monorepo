@@ -20,7 +20,7 @@
 	const currentTab = ref(0);
 	const currentAnimal = ref<Animal | null>(null);
 
-	const updateCurrentTab = (index) => {
+	const updateCurrentTab = (index: number) => {
 		currentTab.value = index;
 	};
 

@@ -8,6 +8,7 @@ import { SizeRange } from '@/Interfaces/Animals/SizeRange.ts';
 import { AgeRange } from '@/Interfaces/Animals/AgeRange.ts';
 
 export interface Animal {
+	id?: number | undefined;
 	age?: number | null;
 	agerange?: AgeRange;
 	agerange_id?: number | string;
@@ -26,7 +27,6 @@ export interface Animal {
 	dogs_friendly?: boolean | null;
 	gender?: Gender;
 	gender_id?: number | string;
-	id?: number;
 	identification?: Identification;
 	name?: string;
 	number?: Identification | string;
