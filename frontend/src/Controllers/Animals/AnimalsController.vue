@@ -2,31 +2,29 @@
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import { computed, onMounted } from 'vue';
 	import { useRouter } from 'vue-router';
-	import { AnimalSpecies, AnimalStatus } from '@/Enums/Animals.ts';
 	import i18n from '@/Services/Translations';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 
 	const t = i18n.global.t;
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
-	// const animals = computed(() => animalsStore.animals);
 
-	// on récupère les animaux depuis le store
-	// on les transforme pour afficher les labels des enums
+	// On transforme les données pour les afficher dans le tableau
 	const animalsTransformed = computed(() => {
-		return animalsStore.animals.map((animal) => ({
-			...animal,
-			species:
-				generateOptionsFromEnum(AnimalSpecies, 'enums.animalSpecies')[
-					animal.species - 1
-				]?.label || animal.species,
-			status:
-				generateOptionsFromEnum(AnimalStatus, 'enums.animalStatus')[
-					animal.status - 1
-				]?.label || animal.status,
-		}));
+		return animalsStore.animals.map((animal) => {
+			return {
+				...animal,
+				name: animal.name ? getCapitalizedText(animal.name) : '',
+				identification: animal.identification?.number || '',
+				specie:
+					getCapitalizedText(t(`enums.animalSpecies.${animal.specie?.name}`)) ||
+					'',
+				breed: animal.breed?.name
+					? getCapitalizedText(t(`enums.animalsBreeds.${animal.breed?.name}`))
+					: '',
+			};
+		});
 	});
 
 	const editItem = (item) => {
@@ -60,13 +58,19 @@
 			:description="getCapitalizedText(t('pages.animals.title'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'name' },
-				{ label: getCapitalizedText(t('pages.animals.icad')), key: 'icad' },
+				{
+					label: getCapitalizedText(t('pages.animals.icad')),
+					key: 'identification',
+				},
 				{
 					label: getCapitalizedText(t('pages.animals.species')),
-					key: 'species',
+					key: 'specie',
 					visibility: { sm: true },
 				},
-				{ label: getCapitalizedText(t('pages.animals.breed')), key: 'breed' },
+				{
+					label: getCapitalizedText(t('pages.animals.breed')),
+					key: 'breed',
+				},
 				{
 					label: getCapitalizedText(t('pages.animals.status')),
 					key: 'status',

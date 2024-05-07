@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\AssociationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\CoatController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +73,34 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::get('/breeds/{id}', 'show');  
           Route::put('/breeds/{id}', 'update');
           Route::delete('/breeds/{id}', 'delete');
+     });
+
+     Route::controller(ShelterController::class)->group(function () {
+          Route::get("/shelters/all", "getAll");
+          Route::post('/shelters', 'create');
+          Route::get('/shelters/{id}', 'show');  
+          Route::put('/shelters/{id}', 'update');
+          Route::delete('/shelters/{id}', 'delete');
+     });
+
+     Route::controller(AssociationController::class)->group(function () {
+          Route::get("/associations/all", "getAll");
+          Route::post('/associations', 'create');
+          Route::get('/associations/{id}', 'show');  
+          Route::put('/associations/{id}', 'update');
+          Route::delete('/associations/{id}', 'delete');
+     });
+
+     Route::controller(DocumentController::class)->group(function () {
+          Route::get("/documents/find/animals/{animal}","findAllAnimalDocuments");
+          Route::get("/documents/find/healthcares/{healthcare}","findAllHealthcareDocuments");
+          Route::get("/documents/find/shelters/{shelter}","findAllShelterDocuments");
+          Route::post("documents/store/healthcares/{healthcare}","addDocumentForHealthCare");
+          Route::post("documents/store/animals/{animal}","addDocumentForAnimal");
+          Route::post("documents/store/shelters/{shelter}","addDocumentForShelter");
+          Route::get("/documents/{id}","show");
+          Route::delete("/documents/{id}","delete");
+          Route::put("/documents/{id}","update");
      });
 
 });

@@ -2,6 +2,7 @@
 	import { getNode } from '@formkit/core';
 	import { computed } from 'vue';
 	import { FormKit } from '@formkit/vue';
+	import { getValidationMessages } from '@formkit/validation';
 
 	const props = defineProps<{
 		id: string | number;
@@ -24,17 +25,27 @@
 
 	const emit = defineEmits<{
 		(e: 'update:modelValue', value: never): void;
+		(e: 'validation', message: object): void;
 	}>();
 
 	const stringId = computed(() => props.id.toString());
+
 	const onChange = (e: Event) => {
 		const selectElement = e.target as HTMLSelectElement;
 		if (selectElement.id) {
 			const node = getNode(selectElement.id);
 			if (!node) return;
+
+			if (props.validation) {
+				getValidationMessages(node).forEach((inputMessage) => {
+					inputMessage.forEach((error) => {
+						emit('validation', error);
+					});
+				});
+			}
 			node.input(selectElement.value);
-			let value: string | boolean | number | undefined =
-				props.value ?? props.modelValue;
+			let value: any = props.value ?? props.modelValue;
+
 			switch (typeof value) {
 				case 'boolean':
 					value = selectElement.value === 'true';
@@ -55,7 +66,6 @@
 		:model-value="modelValue"
 		:value="modelValue"
 		:name="name"
-		:label="label"
 		:options="options"
 		:placeholder="placeholder"
 		:validation="validation"
@@ -67,7 +77,11 @@
 		}"
 		type="select"
 		@change="onChange"
-	></FormKit>
+	>
+		<template #label>
+			<span v-html="label"></span>
+		</template>
+	</FormKit>
 </template>
 
 <style lang="postcss" scoped>

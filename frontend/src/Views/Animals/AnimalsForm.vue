@@ -5,23 +5,30 @@
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { Animal } from '@/Interfaces/Animal.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { AnimalAges, AnimalSizes, AnimalStatus } from '@/Enums/Animals.ts';
-	import { BreedsForSelects } from '@/Interfaces/Breed.ts';
-	import { CoatsForSelects } from '@/Interfaces/Coat.ts';
-	import { ColorsForSelects } from '@/Interfaces/Color.ts';
-	import { GendersForSelects } from '@/Interfaces/Gender.ts';
-	import { SpeciesForSelects } from '@/Interfaces/Species.ts';
+	import { BreedsForSelects } from '@/Interfaces/Animals/Breed.ts';
+	import { CoatsForSelects } from '@/Interfaces/Animals/Coat.ts';
+	import { ColorsForSelects } from '@/Interfaces/Animals/Color.ts';
+	import { GendersForSelects } from '@/Interfaces/Animals/Gender.ts';
+	import { SpeciesForSelects } from '@/Interfaces/Animals/Species.ts';
 	import i18n from '@/Services/Translations';
-	import router from '@/Router';
-	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
+	import { generateOptionsWithDefault } from '@/Services/Helpers/Enums.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, watch } from 'vue';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
+	import { getNode } from '@formkit/core';
+	import { useRouter } from 'vue-router';
+	import {
+		fetchDataAndFormatOptions,
+		formatOptions,
+	} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
+	const router = useRouter();
+	const routeParams = router.currentRoute.value.params;
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
@@ -37,6 +44,7 @@
 	const selectedSpecies = ref(
 		!props.isCreateMode ? props.animal?.specie_id : null,
 	);
+
 	const breeds = ref<BreedsForSelects[]>([]);
 	const coats = ref<CoatsForSelects[]>([]);
 	const colors = ref<ColorsForSelects[]>([]);
@@ -50,21 +58,6 @@
 		message: '',
 		type: 'info',
 	});
-
-	// Fonction générique pour formater les options des selects depuis les données des enums
-	// @enumObject : l'enum à formater
-	// @translationKey : la clé de traduction pour les labels des options
-	// @defaultLabel : le label par défaut pour les selects
-	// return : value = clé de l'enum, label = valeur de l'enum traduite
-	const generateOptionsWithDefault = (
-		enumObject: Record<string, unknown>,
-		translationKey: string,
-		defaultLabel: string,
-	) => {
-		const options = generateOptionsFromEnum(enumObject, translationKey);
-		options.unshift({ value: '', label: defaultLabel });
-		return options;
-	};
 
 	// Initialisation des options des selects depuis les Enums
 	const animalStatusOptions = generateOptionsWithDefault(
@@ -82,6 +75,7 @@
 		'enums.animalAges',
 		"Choisir une tranche d'âge",
 	);
+
 
 	// Fonction générique pour formater les options des selects depuis les données de l'api
 	// @items : les données de l'api
@@ -121,16 +115,48 @@
 	};
 
 	const onSubmit = async () => {
-		if (props.isCreateMode) {
-			// on passe la race à l'objet animal créé
-			createdAnimal.value.specie_id = selectedSpecies.value;
-
-			newAnimal.value = await animalsStore.createAnimal(createdAnimal.value);
+		// on récupère le formulaire pour vérifier s'il est valide
+		let formId = ref('');
+		let formNode = ref(null);
+		formId.value = !props.isCreateMode
+			? `edit-animal${localAnimal.value.id}`
+			: 'create-animal';
+		formNode.value = getNode(formId.value);
+		const isFormValid = formNode.value?.context.state.valid;
+		// si le formulaire n'est pas valide, on affiche une notification
+		if (!isFormValid) {
+			notificationConfig.value = {
+				show: true,
+				title: 'Un ou plusieurs champs sont invalides',
+				message: 'Veuillez vérifier les champs',
+				type: 'warning',
+			};
+			return;
 		}
+		// on prépare les données de l'animal pour l'envoi à l'api
+		const animalData = props.isCreateMode
+			? createdAnimal.value
+			: localAnimal.value;
+		animalData.specie_id = selectedSpecies.value;
+
 		if (!props.isCreateMode) {
-			const animalToUpdate = await animalsStore.updateAnimal(localAnimal.value);
+			animalData.number = localAnimal.value.identification?.number;
+		} else {
+			animalData.number = createdAnimal.value.identification;
 		}
+		// animalData.identification = {
+		// 	date: null,
+		// 	type: 'chip', // tatoo ou chip
+		// 	number: animalData.identification ? animalData.identification : null,
+		// 	animal_id: null,
+		// };
 
+		// on envoie les données à l'api
+		newAnimal.value = props.isCreateMode
+			? await animalsStore.createAnimal(animalData)
+			: await animalsStore.updateAnimal(animalData);
+
+		// on affiche une notification en fonction du résultat de la requête
 		if (!newAnimal.value) {
 			notificationConfig.value = {
 				show: true,
@@ -148,23 +174,36 @@
 					: `L'animal ${createdAnimal.value?.name || ''} a bien été créé`,
 				type: 'success',
 			};
-		}
-		// Réinitialiser les valeurs du formulaire
-		if (props.isCreateMode) {
-			createdAnimal.value = {};
-		} else {
-			localAnimal.value = { ...props.animal };
-			isEditMode.value = false;
+			// on réinitialise les valeurs du formulaire
+			if (props.isCreateMode) {
+				createdAnimal.value = {};
+			} else {
+				localAnimal.value = { ...newAnimal.value };
+				isEditMode.value = false;
+			}
 		}
 	};
 
+	// on construit le label du select avec un indicateur de champ obligatoire
+	const addRequiredIndicator = (label: string, isRequired: boolean) => {
+		if (isRequired) {
+			return `${label} <span class="text-red-600"> *</span>`;
+		}
+		return label;
+	};
+
 	onMounted(async () => {
+		if (props.isCreateMode) {
+			isEditMode.value = true;
+		}
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
+
 		//@todo: ajouter les traductions de labels manquantes
 		let breedsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllBreeds,
 			'enums.animalsBreeds'
 		);
+
 
 		// Tri des races par ordre alphabétique
 		//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
@@ -177,7 +216,21 @@
 
 		breeds.value = breedsData;
 
-		let coatsData = await fetchDataAndFormatOptions(
+	
+
+		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
+			breeds.value = formatOptions(
+				await animalSettingsStore.getSpecificBreeds('cat'),
+				'enums.animalsBreeds',
+			);
+		} else if (props.animal?.specie_id == 2 || routeParams.species == 'dog') {
+			breeds.value = formatOptions(
+				await animalSettingsStore.getSpecificBreeds('dog'),
+				'enums.animalsBreeds',
+			);
+		}
+		coats.value = await fetchDataAndFormatOptions(
+
 			animalSettingsStore.getAllCoats,
 			'enums.animalsCoats'
 		);
@@ -215,6 +268,7 @@
 			'enums.animalsSpecies'
 		);
 
+
 		speciesData.sort((a, b) => a.label.localeCompare(b.label));
 
 		speciesData.unshift({ label: 'Sélectionner une espèce', value: null });
@@ -225,12 +279,18 @@
 	onMounted(() => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
+
+		if (routeParams.species == 'cat') {
+			selectedSpecies.value = 1;
+		} else if (routeParams.species == 'dog') {
+			selectedSpecies.value = 2;
+
 		}
 	});
 
-	watch(selectedSpecies, async (newValue) => {
+	watch(selectedSpecies, async () => {
 		// on surveille le changement de l'espèce pour récupérer les races correspondantes
-		if (newValue == 1) {
+		if (selectedSpecies.value == 1) {
 			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('cat'),
 				'enums.animalsBreeds',
@@ -239,7 +299,7 @@
 				value: '',
 				label: 'Sélectionner une race',
 			});
-		} else if (newValue == 2) {
+		} else if (selectedSpecies.value == 2) {
 			breeds.value = formatOptions(
 				await animalSettingsStore.getSpecificBreeds('dog'),
 				'enums.animalsBreeds',
@@ -248,12 +308,19 @@
 				value: '',
 				label: 'Sélectionner une race',
 			});
+		} else if (selectedSpecies.value == 0) {
+			breeds.value = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllBreeds,
+				'enums.animalsBreeds',
+				'Sélectionner une race',
+			);
 		}
 	});
 </script>
 <template>
 	<div class="general-informations">
 		<Form
+			ref="myForm"
 			:id="!isCreateMode ? `edit-animal${localAnimal.id}` : 'create-animal'"
 			:submit-label="'edit-animal'"
 			:actions="false"
@@ -275,6 +342,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nom de l\'animal'"
 						:disabled="!isEditMode"
+						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.name = $event)
@@ -286,18 +354,22 @@
 					<FormText
 						id="animal-icad-number"
 						:model-value="
-							!isCreateMode ? localAnimal?.icad : createdAnimal.icad
+							!isCreateMode
+								? localAnimal.identification?.number
+								: createdAnimal.identification?.number
 						"
 						:name="'animal-icad-number'"
 						:label="getCapitalizedText(t('pages.animals.icad'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'ex: 123456123456789'"
-						:validation="'number'"
+						:help="'Doit contenir 6, 8 ou 15 caractères sans espaces'"
+						:validation="[['matches', /^(?:.{6}|.{8}|.{15})$/]]"
+						:validation-visibility="'blur'"
 						:disabled="!isEditMode"
 						@update:model-value="
 							!isCreateMode
-								? (localAnimal.icad = $event)
-								: (createdAnimal.icad = $event)
+								? (localAnimal.identification.number = $event)
+								: (createdAnimal.identification = $event)
 						"
 					/>
 				</div>
@@ -305,13 +377,18 @@
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
 					<FormSelect
 						id="animal-species"
-						:model-value="
-							!isCreateMode ? localAnimal?.specie_id : selectedSpecies
-						"
+						:model-value="selectedSpecies"
 						:name="'animal-species'"
-						:label="getCapitalizedText(t('pages.animals.species'))"
+						:label="
+							addRequiredIndicator(
+								getCapitalizedText(t('pages.animals.species')),
+								true,
+							)
+						"
 						:options="species"
 						:disabled="!isEditMode"
+						:validation="'required'"
+						:validation-visibility="'blur'"
 						@update:model-value="selectedSpecies = $event"
 					/>
 				</div>
@@ -345,6 +422,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Description de l\'animal'"
 						:disabled="!isEditMode"
+						:validation="'length:0,1000'"
 						@update:model-value="
 							!isCreateMode
 								? (localAnimal.description = $event)
@@ -469,6 +547,8 @@
 						:name="'animal-date'"
 						:label="getCapitalizedText(t('pages.animals.birthdate'))"
 						:disabled="!isEditMode"
+						:validation="`date_before:${new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}`"
+						:validation-visibility="'blur'"
 						@update:modelValue="
 							!isCreateMode
 								? (localAnimal.birth_date = $event)
@@ -495,6 +575,7 @@
 					</button>
 					<button
 						id="save-changes"
+						type="submit"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						:disabled="!isEditMode"
 						@click.prevent="onSubmit"
@@ -517,6 +598,7 @@
 			outline: 1px solid #f28a80;
 		}
 	}
+
 	#save-changes {
 		background-color: #d99962;
 		color: #fff;

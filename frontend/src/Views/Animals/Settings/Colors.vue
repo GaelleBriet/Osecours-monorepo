@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { onMounted, ref } from 'vue';
-	import { Color } from '@/Interfaces/Color.ts';
+	import { Color } from '@/Interfaces/Animals/Color.ts';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';

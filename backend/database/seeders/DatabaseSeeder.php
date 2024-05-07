@@ -2,24 +2,30 @@
 
 namespace Database\Seeders;
 
+use App\Enum\IdentificationTypeEnum;
 use App\Enum\RoleEnum;
 use App\Models\Address;
-use App\Models\Age_range;
+use App\Models\AgeRange;
+use App\Models\Animal;
 use App\Models\Association;
 use App\Models\Breed;
 use App\Models\City;
 use App\Models\Coat;
 use App\Models\Color;
 use App\Models\Gender;
+use App\Models\Healthcare;
+use App\Models\Identification;
 use App\Models\Person;
 use App\Models\Role;
-use App\Models\Size_range;
+use App\Models\Shelter;
+use App\Models\SizeRange;
 use App\Models\Specie;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\Vaccine;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,10 +43,16 @@ class DatabaseSeeder extends Seeder
         ];
 
 
+
+
+
         foreach ($assocationsList as $association) {
 
             $associationCreated =  Association::factory()->create(["name" => $association['name']]);
 
+            $shelterCreated = Shelter::create(["name" => $associationCreated->name , "description" => $associationCreated->description , "siret" => $associationCreated->siret]);
+
+            $associationCreated->shelters()->attach($shelterCreated->id,["begin_date" => Date::now()]);
             $personCreated = Person::create(['personable_id' => $associationCreated->id, 'personable_type' => get_class($associationCreated)]);
             $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id]);
             $personCreated->addresses()->attach($addressCreated);
@@ -446,7 +458,39 @@ class DatabaseSeeder extends Seeder
             'White'
         ];
 
+        $colors = array_unique(array_merge($catColors, $dogColors));
 
+        foreach ($colors as $color) {
+            $colorCreated = Color::factory()->create([
+                'name' => ucfirst($color),
+                'description' => ''
+            ]);
+        };
+
+        $dogCoats = [
+            'Hairless',
+            'Short',
+            'Medium',
+            'Long',
+            'Wire',
+            'Curly'
+        ];
+
+        $catCoats = [
+            'Hairless',
+            'Short',
+            'Medium',
+            'Long'
+        ];
+
+        $coats = array_unique(array_merge($catCoats, $dogCoats));
+
+        foreach ($coats as $coat) {
+            $coatCreated = Coat::factory()->create([
+                'name' => ucfirst($coat),
+                'description' => ''
+            ]);
+        };
 
         foreach ($species as $specie) {
             if ($specie == 'Cat') {
@@ -461,12 +505,13 @@ class DatabaseSeeder extends Seeder
                         'specie_id' => $specieCreated->id,
                     ]);
                 };
-                foreach ($catColors as $color) {
-                    $colorCreated = Color::factory()->create([
-                        'name' => ucfirst($color),
-                        'description' => '',
-                        'specie_id' => $specieCreated->id
-                    ]);
+                foreach ($catCoats as $catcoat) {
+                    $coatBounded = Coat::where('name', $catcoat)->first();
+                    $specieCreated->coats()->syncWithoutDetaching($coatBounded);
+                };
+                foreach ($catColors as $catcolor) {
+                    $colorBounded = Color::where('name', $catcolor)->first();
+                    $specieCreated->colors()->syncWithoutDetaching($colorBounded);
                 }
             } else if ($specie == 'Dog') {
                 $specieCreated = Specie::factory()->create([
@@ -481,31 +526,15 @@ class DatabaseSeeder extends Seeder
                         'specie_id' => $specieCreated->id,
                     ]);
                 };
-                foreach ($dogColors as $color) {
-                    $colorCreated = Color::factory()->create([
-                        'name' => ucfirst($color),
-                        'description' => '',
-                        'specie_id' => $specieCreated->id
-                    ]);
+                foreach ($dogCoats as $dogcoat) {
+                    $coatBounded = Coat::where('name', $dogcoat)->first();
+                    $specieCreated->coats()->syncWithoutDetaching($coatBounded);
+                };
+                foreach ($dogColors as $dogcolor) {
+                    $colorBounded = Color::where('name', $dogcolor)->first();
+                    $specieCreated->colors()->syncWithoutDetaching($colorBounded);
                 }
             }
-        }
-
-
-        $coats = [
-            'Hairless',
-            'Short',
-            'Medium',
-            'Long',
-            'Wire',
-            'Curly'
-        ];
-
-        foreach ($coats as $coat) {
-            $coatCreated = Coat::factory()->create([
-                'name' => ucfirst($coat),
-                'description' => '',
-            ]);
         }
 
         $sizeRanges = [
@@ -516,7 +545,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($sizeRanges as $size) {
-            $sizeCreated = Size_range::factory()->create([
+            $sizeCreated = SizeRange::factory()->create([
                 'name' => ucfirst($size),
                 'description' => '',
             ]);
@@ -530,7 +559,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($ageRanges as $age) {
-            $ageCreated = Age_range::factory()->create([
+            $ageCreated = AgeRange::factory()->create([
                 'name' => ucfirst($age),
                 'description' => '',
             ]);
@@ -582,6 +611,53 @@ class DatabaseSeeder extends Seeder
                 'name' => ucfirst($gender),
                 'description' => '',
             ]);
-        }
+        };
+
+        $firstAnimal = Animal::create([
+            "name" => "pepette",
+            "description" => "petit chat",
+            "birth_date" => "2024-04-01",
+            "cats_friendly" => true,
+            "dogs_friendly" => true,
+            "children_friendly" => true,
+            "behavioral_comment" => "adorable",
+            "sterilized" => false,
+            "sizerange_id" => 1,
+            "specie_id" => 1
+        ]);
+        $secondAnimal = Animal::create([
+            "name" => "Gurvan",
+            "description" => "Warning",
+            "birth_date" => "2024-04-01",
+            "cats_friendly" => true,
+            "dogs_friendly" => true,
+            "children_friendly" => true,
+            "behavioral_comment" => "Dangerous",
+            "sterilized" => false,
+            "sizerange_id" => 4,
+            "specie_id" => 2,
+        ]);
+
+        $numberChip = "555555555555555";
+        $numberTatoo = "A45B56";
+
+        Identification::create([
+            "type" => IdentificationTypeEnum::CHIP->value,
+            "number" => $numberChip,
+            "date" => Date::now(),
+            "animal_id" => $firstAnimal->id
+        ]);
+        Identification::create([
+            "type" =>  IdentificationTypeEnum::TATOO->value,
+            "number" =>  $numberTatoo,
+            "date" => Date::now(),
+            "animal_id" => $secondAnimal->id
+        ]);
+
+        $healthcare = Healthcare::create([
+            "date" => Date::now(),
+            "report" => "tout va bien",
+            "animal_id" => $firstAnimal->id
+        ]);
     }
 }

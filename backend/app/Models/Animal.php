@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Contract\HasDocumentsInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,9 +11,137 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Animal extends Model
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(
+ *     schema="Animal",
+ *     type="object",
+ *     title="Animal",
+ *     description="Animal model representing the detailed information of an animal in the system",
+ *     @OA\Property(
+ *         property="id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Unique identifier for the Animal",
+ *         example=1
+ *     ),
+ *     @OA\Property(
+ *         property="name",
+ *         type="string",
+ *         description="Name of the animal",
+ *         example="Bella"
+ *     ),
+ *     @OA\Property(
+ *         property="description",
+ *         type="string",
+ *         description="Description of the animal",
+ *         example="A very playful young dog"
+ *     ),
+ *     @OA\Property(
+ *         property="birth_date",
+ *         type="string",
+ *         format="date",
+ *         description="Birth date of the animal",
+ *         example="2017-04-21"
+ *     ),
+ *     @OA\Property(
+ *         property="cats_friendly",
+ *         type="boolean",
+ *         description="Indicates if the animal is friendly towards cats",
+ *         example=true
+ *     ),
+ *     @OA\Property(
+ *         property="dogs_friendly",
+ *         type="boolean",
+ *         description="Indicates if the animal is friendly towards dogs",
+ *         example=false
+ *     ),
+ *     @OA\Property(
+ *         property="children_friendly",
+ *         type="boolean",
+ *         description="Indicates if the animal is friendly towards children",
+ *         example=true
+ *     ),
+ *     @OA\Property(
+ *         property="age",
+ *         type="integer",
+ *         format="int32",
+ *         description="Age of the animal",
+ *         example=3
+ *     ),
+ *     @OA\Property(
+ *         property="behavioral_comment",
+ *         type="string",
+ *         description="Behavioral comments about the animal",
+ *         example="Needs a lot of exercise"
+ *     ),
+ *     @OA\Property(
+ *         property="sterilized",
+ *         type="boolean",
+ *         description="Indicates if the animal is sterilized",
+ *         example=true
+ *     ),
+ *     @OA\Property(
+ *         property="deceased",
+ *         type="boolean",
+ *         description="Indicates if the animal is deceased",
+ *         example=false
+ *     ),
+ *      * @OA\Property(
+ *     property="specie_id",
+ *     type="integer",
+ *     format="int64",
+ *     description="Foreign key identifier for the species to which the animal belongs",
+ *     example=1
+ *      ),
+ *     @OA\Property(
+ *         property="breed_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the breed to which the animal belongs",
+ *         example=2
+ *     ),
+ *     @OA\Property(
+ *         property="gender_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the gender to which the animal belongs",
+ *         example=1
+ *     ),
+ *     @OA\Property(
+ *         property="color_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the color to which the animal belongs",
+ *         example=3
+ *     ),
+ *     @OA\Property(
+ *         property="coat_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the coat type of the animal",
+ *         example=4
+ *     ),
+ *     @OA\Property(
+ *         property="sizerange_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the size range to which the animal belongs",
+ *         example=5
+ *     ),
+ *     @OA\Property(
+ *         property="agerange_id",
+ *         type="integer",
+ *         format="int64",
+ *         description="Foreign key identifier for the age range to which the animal belongs",
+ *         example=6
+ *     )    
+ * )
+ */
+class Animal extends Model implements HasDocumentsInterface
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -49,14 +178,14 @@ class Animal extends Model
         return $this->belongsTo(Color::class);
     }
 
-    public function size_range(): BelongsTo
+    public function SizeRange(): BelongsTo
     {
-        return $this->belongsTo(Size_range::class,"sizerange_id");
+        return $this->belongsTo(SizeRange::class, "sizerange_id");
     }
 
-    public function age_range(): BelongsTo
+    public function AgeRange(): BelongsTo
     {
-        return $this->belongsTo(Age_range::class);
+        return $this->belongsTo(AgeRange::class);
     }
 
     public function vaccines(): HasMany
@@ -84,6 +213,11 @@ class Animal extends Model
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class);
+    }
+
+    public function getDocuments()
+    {
+        return $this->belongsToMany(Document::class)->get();
     }
 
     public function users()

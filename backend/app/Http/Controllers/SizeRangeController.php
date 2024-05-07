@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Size_range;
+use App\Models\SizeRange;
 use Illuminate\Http\Request;
 
-class Size_rangeController extends Controller
+class SizeRangeController extends Controller
 {
     //
     public function getAll()
     {
-        return Size_range::all();
+        return SizeRange::all();
     }
 
-    public function show(Size_range $size_range)
+    public function show(SizeRange $SizeRange)
     {
-        return $size_range;
+        return $SizeRange;
     }
 
     public function create(Request $request)
@@ -24,26 +24,26 @@ class Size_rangeController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return Size_range::create([
+        return SizeRange::create([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function update(Request $request, Size_range $size_range)
+    public function update(Request $request, SizeRange $SizeRange)
     {
         $request->validate([
             'name' => 'required|max:255',
             'description' => '',
         ]);
-        return $size_range->update([
+        return $SizeRange->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
     }
 
-    public function delete(Size_range $size_range)
+    public function delete(SizeRange $SizeRange)
     {
-        return $size_range->delete();
+        return $SizeRange->delete();
     }
 }

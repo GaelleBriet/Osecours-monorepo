@@ -17,8 +17,8 @@ return new class extends Migration
             $table->date("date");
             $table->enum("type", collect(IdentificationTypeEnum::cases())->map(function($case) {
                 return $case->value;
-            })->toArray() );
-            $table->string("number", 15);
+            })->toArray() )->nullable();
+            $table->string("number", 15)->unique()->nullable();
             $table->foreignId("animal_id")->constrained('animals');
             $table->timestamps();
         });

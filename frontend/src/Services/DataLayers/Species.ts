@@ -1,7 +1,7 @@
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
-import { Species } from '@/Interfaces/Species.ts';
+import { Species } from '@/Interfaces/Animals/Species.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getOneSpecies = async (

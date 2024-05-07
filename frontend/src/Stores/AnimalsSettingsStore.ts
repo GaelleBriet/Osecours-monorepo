@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { Species } from '@/Interfaces/Species.ts';
+import { Species } from '@/Interfaces/Animals/Species.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
-import { Breed } from '@/Interfaces/Breed.ts';
-import { Coat } from '@/Interfaces/Coat.ts';
-import { Color } from '@/Interfaces/Color.ts';
-import { Gender } from '@/Interfaces/Gender.ts';
+import { Breed } from '@/Interfaces/Animals/Breed.ts';
+import { Coat } from '@/Interfaces/Animals/Coat.ts';
+import { Color } from '@/Interfaces/Animals/Color.ts';
+import { Gender } from '@/Interfaces/Animals/Gender.ts';
 import {
 	createSpecies,
 	deleteSpecies,
