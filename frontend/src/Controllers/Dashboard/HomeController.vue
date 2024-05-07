@@ -21,6 +21,8 @@
 	const dogsQuantity = ref(0);
 	const sheltersQuantity = ref(0);
 	const membersQuantity = ref(0);
+	const fosterQuantity = ref(0);
+	const adoptQuantity = ref(0);
 
 	onMounted(async () => {
 		await animalStore.getAnimals();
@@ -37,6 +39,12 @@
 
 		await membersStore.getMembers();
 		membersQuantity.value = membersStore.membersQuantity;
+
+		await membersStore.getMembersByFamilyType('foster');
+		fosterQuantity.value = membersStore.membersQuantity;
+
+		await membersStore.getMembersByFamilyType('adopt');
+		adoptQuantity.value = membersStore.membersQuantity;
 	});
 </script>
 <template>
@@ -46,15 +54,21 @@
 		</h1>
 
 		<div class="flex flex-col flex-grow items-center justify-between">
-			<div class="flex flex-col">
-				<ChartsBarComponent
-					:cats-count="catsQuantity"
-					:dogs-count="dogsQuantity"
-				/>
-				<ChartsBarComponent
-					:cats-count="catsQuantity"
-					:dogs-count="dogsQuantity"
-				/>
+			<div class="flex flex-col md:flex-row">
+				<div class="mr-5 mb-5">
+					<ChartsBarComponent
+						:data="[catsQuantity, dogsQuantity]"
+						:labels="['Chats', 'Chiens']"
+						:title="getCapitalizedText('nombre d\'animaux')"
+					/>
+				</div>
+				<div class="mb-5">
+					<ChartsBarComponent
+						:data="[fosterQuantity, adoptQuantity]"
+						:labels="['Familles d\'accueil', 'Familles d\'adoption']"
+						:title="getCapitalizedText('nombre de familles')"
+					/>
+				</div>
 			</div>
 			<div class="flex flex-col md:flex-row">
 				<div class="mb-2">
