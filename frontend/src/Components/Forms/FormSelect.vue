@@ -11,11 +11,6 @@
 		name: string;
 		label?: string;
 		options: never;
-		// | string[]
-		// | number[]
-		// | Record<string | number, string>
-		// | FormKitOptionsLoader
-		// | undefined;
 		placeholder?: string;
 		validation?: string;
 		validationVisibility?: string;

@@ -114,7 +114,6 @@
 		id="sidebar"
 		class="fixed top-0 left-0 flex h-screen flex-col :sm:w-20 max-w-56 transition-width ease-in-out duration-1000"
 	>
-		<!--		class:fixed-->
 		<div
 			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6"
 		>
