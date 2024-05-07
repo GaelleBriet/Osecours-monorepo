@@ -1,9 +1,13 @@
 import { defineStore } from 'pinia';
-import { Document } from '@/Interfaces/Documents';
+import { Document } from '@/Interfaces/Documents/Documents';
 import {
 	createDocument,
+	createDocumentForHealthCare,
+	createDocumentForAnimal,
+	createDocumentForShelter,
 	getDocument,
-	getDocuments,
+	getDocumentsByShelter,
+	getDocumentsByAnimal,
 	updateDocument,
 	deleteDocument,
 } from '@/Services/DataLayers/Document.ts';
@@ -32,8 +36,17 @@ export const useDocumentsStore = defineStore('documents', {
 				return document;
 			}
 		},
-		async getDocuments(): Promise<Document[]> {
-			const documents: Document[] | ErrorResponse = await getDocuments();
+		async getDocumentsByShelter(): Promise<Document[]> {
+			const documents: Document[] | ErrorResponse = await getDocumentsByShelter();
+			if ('error' in documents) {
+				return [];
+			} else {
+				this.documents = documents;
+				return documents;
+			}
+		},
+		async getDocumentsByAnimal(id: number): Promise<Document[]> {
+			const documents: Document[] | ErrorResponse = await getDocumentsByAnimal(id);
 			if ('error' in documents) {
 				return [];
 			} else {
@@ -43,6 +56,33 @@ export const useDocumentsStore = defineStore('documents', {
 		},
 		async createDocument(document: Document): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse = await createDocument(document);
+			if ('error' in newDocument) {
+				return null;
+			} else {
+				this.documents.push(newDocument);
+				return newDocument;
+			}
+		},
+		async createDocumentForHealthCare(document: Document): Promise<Document | null> {
+			const newDocument: Document | ErrorResponse = await createDocumentForHealthCare(document);
+			if ('error' in newDocument) {
+				return null;
+			} else {
+				this.documents.push(newDocument);
+				return newDocument;
+			}
+		},
+		async createDocumentForAnimal(document: Document): Promise<Document | null> {
+			const newDocument: Document | ErrorResponse = await createDocumentForAnimal(document);
+			if ('error' in newDocument) {
+				return null;
+			} else {
+				this.documents.push(newDocument);
+				return newDocument;
+			}
+		},
+		async createDocumentForShelter(document: Document): Promise<Document | null> {
+			const newDocument: Document | ErrorResponse = await createDocumentForShelter(document);
 			if ('error' in newDocument) {
 				return null;
 			} else {
