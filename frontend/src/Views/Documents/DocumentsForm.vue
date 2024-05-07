@@ -56,6 +56,9 @@
 			'application/rtf': 5, // 'rtf',
 			'application/pdf': 6, // 'pdf',
 			'text/plain': 7, // 'txt',
+			'image/jpeg': 8, // 'jpeg',
+			'image/png': 9, // 'png',
+			'image/gif': 10, // 'gif',
 		};
 
 		return extensionMap[mimeType] || null;
@@ -65,14 +68,12 @@
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
-		console.log(props.isCreateMode)
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
 		doctypes.value = await fetchDataAndFormatOptions(
 			documentSettingsStore.getAllDoctypes,
 			'enums.documentType',
 			'Sélectionner une type de document',
 		);
-		console.log(doctypes)
 	
 	});
 
@@ -97,19 +98,18 @@
 		}
 		// on prépare les données de l'document pour l'envoi à l'api
 		// Get MIME type of uploaded file
-		const fileInputElement = document.getElementById('documents-file');
+		const fileInputElement = document.getElementById('document-file');
 		const uploadedFile = (fileInputElement as HTMLInputElement).files[0];
 		const fileSize = uploadedFile.size;
 		const mimeType = uploadedFile.type;
-		console.log((fileInputElement as HTMLInputElement))
 		
 		const documentData = props.isCreateMode
 		? createdDocument.value
 		: localDocument.value;
 		
     	documentData.size = fileSize;
-		documentData.mimetype_id = getFileExtensionFromMimeType(mimeType);
-		documentData.doctype_id = 1;
+		documentData.mimetype = getFileExtensionFromMimeType(mimeType);
+		documentData.doctype = 1;
 		documentData.url = "test";
 		console.log(documentData)
 		if (!props.isCreateMode) {
@@ -120,7 +120,7 @@
 
 		// on envoie les données à l'api
 		newDocument.value = props.isCreateMode
-			? await documentsStore.createDocument(documentData)
+			? await documentsStore.createDocumentForAnimal(id, documentData)
 			: await documentsStore.createDocumentForAnimal(id,documentData);
 
 		// on affiche une notification en fonction du résultat de la requête
@@ -169,9 +169,10 @@
 				<div className="grid lg:grid-cols-2 gap-4 lg:pb-10">
 					<div v-if="showFileForm" class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7">
 						<FormFile
-								id="documents-file"			
+								id="document-file"
+								:model-value="!isCreateMode ? localDocument.file : createdDocument.file"
 								:label="getCapitalizedText(t('pages.documents.file'))"									
-								accept=".pdf,.doc,.docx,.xls,.xlsx,.rtf,.txt"
+								accept=".jpg,.bmp,.png"
 								:help="getCapitalizedText(t('pages.documents.help'))"
 								file-item-icon="fileDoc"
 								:multiple="true"
@@ -216,7 +217,7 @@
 							<FormSelect
 								id="document-type"
 								:model-value="
-									!isCreateMode ? localDocument?.doctype_id : createdDocument.doctype_id
+									!isCreateMode ? localDocument?.doctype : createdDocument.doctype
 								"
 								:name="'document-type'"
 								:label="getCapitalizedText(t('pages.documents.type'))"
@@ -225,8 +226,8 @@
 								:validation="'required'"
 								:validation-visibility="'blur'"
 								@update:model-value="!isCreateMode
-									? (localDocument.doctype_id = $event)
-									: (createdDocument.doctype_id = $event)
+									? (localDocument.doctype = $event)
+									: (createdDocument.doctype = $event)
 								"
 							/>
 						</div>
