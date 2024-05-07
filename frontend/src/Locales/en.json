@@ -183,7 +183,9 @@
 			"phone": "phone",
 			"email": "email",
 			"details": "details",
-			"personal": "personal information"
+			"personal": "personal information",
+			"name": "name",
+			"animalsNumber": "number of animals"
 		},
 		"users": {
 			"title": "list of users",

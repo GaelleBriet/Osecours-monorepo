@@ -183,7 +183,9 @@
 			"phone": "téléphone",
 			"email": "email",
 			"details": "détails",
-			"personal": "informations personnelles"
+			"personal": "informations personnelles",
+			"name": "nom",
+			"animalsNumber": "nombre d'animaux"
 		},
 		"users": {
 			"title": "liste des utilisateurs de l'association.",
