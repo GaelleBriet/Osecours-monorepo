@@ -20,20 +20,14 @@
 	import { useAnimalsSettingsStore } from '@/Stores/AnimalsSettingsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useRouter } from 'vue-router';
-	import {
-		fetchDataAndFormatOptions,
-		formatOptions,
-	} from '@/Services/Helpers/SelectOptions.ts';
+	import {fetchDataAndFormatOptions,formatOptions} from '@/Services/Helpers/SelectOptions.ts';
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
 	const router = useRouter();
 	const routeParams = router.currentRoute.value.params;
 
-	const props = defineProps<{
-		isCreateMode?: boolean;
-		animal?: Animal;
-	}>();
+	const props = defineProps<{isCreateMode?: boolean;animal?: Animal;}>();
 
 	const t = i18n.global.t;
 
@@ -229,8 +223,7 @@
 				'enums.animalsBreeds',
 			);
 		}
-		coats.value = await fetchDataAndFormatOptions(
-
+		let coatsData = await fetchDataAndFormatOptions(
 			animalSettingsStore.getAllCoats,
 			'enums.animalsCoats'
 		);
@@ -279,7 +272,7 @@
 	onMounted(() => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
-
+		}
 		if (routeParams.species == 'cat') {
 			selectedSpecies.value = 1;
 		} else if (routeParams.species == 'dog') {
