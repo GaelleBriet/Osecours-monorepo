@@ -19,11 +19,11 @@
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
 	};
-
 	onMounted(async () => {
 		// Logique pour récupérer les données du document à afficher
 		currentDocument.value = await documentsStore.getDocument(documentId);
 	});
+	console.log(documentId)
 </script>
 
 <template>

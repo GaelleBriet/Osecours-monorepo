@@ -17,7 +17,7 @@ const documentsTransformed = computed(() => {
         ...document
     }));
 });
-console.log(documentsTransformed)
+//console.log(documentsTransformed)
 const currentTab = ref(0);
 const updateCurrentTab = (index) => {
     currentTab.value = index;
@@ -36,8 +36,12 @@ const addItem = () => {
     });
 };
 
+const deleteItem = (item) => {
+    documentsStore.deleteDocument(item.id);
+};
+
 onMounted(async () => {
-    await documentsStore.getDocuments();
+    await documentsStore.getDocumentsByShelter();
 });
 </script>
 
