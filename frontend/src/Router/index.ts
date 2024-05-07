@@ -16,7 +16,11 @@ import CreateAssociation from '@/Views/Association/CreateAssociation.vue';
 import AssociationDetails from '@/Views/Association/AssociationDetails.vue';
 import CreateShelters from '@/Views/Shelters/CreateShelter.vue';
 import FamiliesDetails from '@/Views/Families/FamiliesDetails.vue';
-import SettingsController from '@/Controllers/Animals/Grids/SettingsController.vue';
+import SettingsController from '@/Controllers/Animals/SettingsController.vue';
+import AnimalsAddForm from '@/Views/Animals/AnimalsAddForm.vue';
+import DocumentsController from '@/Controllers/Documents/DocumentsController.vue';
+import CreateDocument from '@/Views/Documents/CreateDocument.vue';
+import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
 
 const routes = [
 	{
@@ -98,7 +102,17 @@ const routes = [
 	{
 		path: '/documents',
 		name: 'Documents',
-		component: HomeViewController,
+		component: DocumentsController,
+	},
+	{
+		path: '/documents/add/',
+		name: 'CreateDocument',
+		component: CreateDocument,
+	},
+	{
+		path: '/documents/:id',
+		name: 'EditDocument',
+		component: DocumentsDetails,
 	},
 	{
 		path: '/families',

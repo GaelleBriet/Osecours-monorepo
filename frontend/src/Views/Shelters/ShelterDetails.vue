@@ -8,7 +8,7 @@
 	import i18n from '@/Services/Translations';
 	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import ShelterDocuments from '@/Views/Shelters/ShelterDocuments.vue';
+	import ShelterPhotos from '@/Views/Shelters/ShelterPhotos.vue';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -37,7 +37,7 @@
 			id="sheltersTabsComponent"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
-				{ name: getCapitalizedText(t('navigation.documents')) },
+				{ name: getCapitalizedText(t('pages.documents.photos')) },
 			]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
@@ -48,7 +48,7 @@
 				<GeneralInformations :shelter="currentShelter" />
 			</template>
 			<template v-if="currentTab === 1 && currentShelter">
-				<ShelterDocuments :shelter="currentShelter" />
+				<ShelterPhotos :shelter="currentShelter" />
 			</template>
 		</div>
 	</div>

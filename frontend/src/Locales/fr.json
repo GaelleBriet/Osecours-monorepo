@@ -37,7 +37,8 @@
 		"cats": "chats",
 		"all-associations": "toutes les associations",
 		"families": "familles",
-		"animalsSettings": "paramètres"
+		"animalsSettings": "paramètres",
+		"all": "tous"
 	},
 	"form": {
 		"email": "email",
@@ -193,6 +194,17 @@
 			"childrenCount": "nombre d'enfants",
 			"adoptFamily": "famille adoptante",
 			"fosterFamily": "famille d'accueil"
+		},
+		"documents": {
+			"title": "liste de tous les fichiers de l'association",
+			"type": "type",
+			"date": "téléchargé",
+			"filename": "nom de fichier",
+			"description": "description du fichier",
+			"help": "Veuillez vous assurer que seuls les fichiers avec les extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf et .txt sont téléchargés.",
+			"file": "choisissez un fichier",
+			"photos": "photos",
+			"card": "fichier"
 		}
 	},
 	"enums": {
@@ -618,6 +630,14 @@
 			"Tonkinese": "Tonkinois",
 			"Turkish Angora": "Angora turc",
 			"Turkish Van": "Van turc"
+		},
+		"documentType": {
+			"healthRecords": "dossiers médicaux",
+			"photos": "photos",
+			"adoptionPapers": "papiers d'adoption",
+			"fosterCareRecord": "dossiers de soins en famille d'accueil",
+			"trainingAndBehaviorRecord": "dossiers de formation et de comportement",
+			"legalDocuments": "documents légaux"
 		}
 	}
 }

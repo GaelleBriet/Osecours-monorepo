@@ -1,0 +1,1373 @@
+openapi: 3.0.0
+info:
+  title: "O'Secours"
+  description: 'API pour gérer des ressources'
+  version: '1.0'
+servers:
+  -
+    url: 'http://localhost:8000/api'
+    description: 'API Server'
+paths:
+  /animals/all:
+    get:
+      tags:
+        - Animals
+      operationId: c7546f9cd96a5e416aca6b2c734067a4
+      responses:
+        '200':
+          description: 'get list of all animals'
+      security:
+        -
+          bearerAuth: []
+  /animals:
+    post:
+      tags:
+        - Animals
+      summary: 'register new animal'
+      description: 'Store animal informations with identification associated'
+      operationId: createAnimal
+      requestBody:
+        description: 'Animal fields'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - specie_id
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  example: Pupuce
+                description:
+                  type: string
+                  example: 'Really cute'
+                birth_date:
+                  type: string
+                  format: '1995-04-01'
+                  example: Pupuce
+                cats_friendly:
+                  type: boolean
+                  example: true
+                dogs_friendly:
+                  type: boolean
+                  example: true
+                children_friendly:
+                  type: boolean
+                  example: true
+                age:
+                  type: integer
+                  example: 4
+                behavioral_comment:
+                  type: string
+                  example: 'Love cuddle'
+                sterilized:
+                  type: boolean
+                  example: true
+                deceased:
+                  type: boolean
+                  example: false
+                specie_id:
+                  type: integer
+                  example: 1
+                gender_id:
+                  type: integer
+                  example: 2
+                color_id:
+                  type: integer
+                  example: 3
+                sizerange_id:
+                  type: integer
+                  example: 4
+                agerange_id:
+                  type: integer
+                  example: 2
+                breed_id:
+                  type: integer
+                  example: 2
+                number:
+                  type: string
+                  maxLength: 15
+                  example: 152A5P6
+              type: object
+      responses:
+        '200':
+          description: 'Animal created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
+        '400':
+          description: 'Bad request'
+        '401':
+          description: Unauthorized
+      security:
+        -
+          bearerAuth: []
+  '/animals/{id}':
+    get:
+      tags:
+        - Animals
+      summary: 'Get specific animal details'
+      description: 'Return informations for an animal with specific id'
+      operationId: getAnimalById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'animal Id to fetch'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Animal fetched successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
+        '404':
+          description: 'Animal not found'
+        '500':
+          description: 'Server Error'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Animals
+      summary: 'Update an animal'
+      operationId: updateAnimalById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'animal Id to update'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'Animal fields'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  example: Pupuce
+                description:
+                  type: string
+                  example: 'Really cute'
+                birth_date:
+                  type: string
+                  format: '1995-04-01'
+                  example: Pupuce
+                cats_friendly:
+                  type: boolean
+                  example: true
+                dogs_friendly:
+                  type: boolean
+                  example: true
+                children_friendly:
+                  type: boolean
+                  example: true
+                age:
+                  type: integer
+                  example: 4
+                behavioral_comment:
+                  type: string
+                  example: 'Love cuddle'
+                sterilized:
+                  type: boolean
+                  example: true
+                deceased:
+                  type: boolean
+                  example: false
+                specie_id:
+                  type: integer
+                  example: 1
+                gender_id:
+                  type: integer
+                  example: 2
+                color_id:
+                  type: integer
+                  example: 3
+                sizerange_id:
+                  type: integer
+                  example: 4
+                agerange_id:
+                  type: integer
+                  example: 2
+                breed_id:
+                  type: integer
+                  example: 2
+                number:
+                  type: string
+                  maxLength: 15
+                  example: 152A5P6
+              type: object
+      responses:
+        '200':
+          description: 'Animal created successfully'
+        '400':
+          description: 'Bad request'
+        '401':
+          description: Unauthorized
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Animals
+      summary: 'Delete specific animal (soft delete)'
+      description: 'Make a soft delete for an animal with specific id'
+      operationId: deleteAnimalById
+      parameters:
+        -
+          name: id
+          in: path
+          description: "ID de l'animal à récupérer"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Animal récupéré avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Animal'
+        '404':
+          description: 'Animal non trouvé'
+        '500':
+          description: 'Erreur interne'
+      security:
+        -
+          bearerAuth: []
+  /associations:
+    get:
+      tags:
+        - Associations
+      summary: 'Get all associations'
+      description: 'Returns a list of all associations'
+      operationId: getAllAssociations
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Association'
+      security:
+        -
+          bearerAuth: []
+    post:
+      tags:
+        - Associations
+      summary: 'Create a new association'
+      description: 'Stores a new association in the database'
+      operationId: storeAssociation
+      requestBody:
+        description: 'Data for the new association'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Association'
+      responses:
+        '201':
+          description: 'Association created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Association'
+      security:
+        -
+          bearerAuth: []
+  '/associations/{id}':
+    get:
+      tags:
+        - Associations
+      summary: 'Get an association by ID'
+      description: 'Returns a single association'
+      operationId: getAssociationById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the association to return'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Association'
+        '404':
+          description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Associations
+      summary: 'Update an existing association'
+      description: 'Updates data of a specified association'
+      operationId: updateAssociation
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the association to update'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'Data to update the association'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Association'
+      responses:
+        '200':
+          description: 'Association updated successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Association'
+        '404':
+          description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Associations
+      summary: 'Delete an association'
+      description: 'Soft deletes a specified association from the database'
+      operationId: deleteAssociation
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the association to delete'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Association deleted successfully'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string }
+                  association: { $ref: '#/components/schemas/Association' }
+                type: object
+        '404':
+          description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
+  /token/create:
+    post:
+      tags:
+        - Authentication
+      summary: 'Get token'
+      operationId: 938115c0186bb008a47800d0efe0c8fe
+      requestBody:
+        description: 'create token for specific association'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: admin-lerefugedeschimeres@osecours.org
+                password:
+                  type: string
+                  example: P@ssword_1
+                association_id:
+                  type: integer
+                  example: 1
+              type: object
+      responses:
+        '200':
+          description: 'Token created successfully'
+        '401':
+          description: Unauthorized
+  /documents:
+    get:
+      tags:
+        - Documents
+      summary: 'Get all documents'
+      description: 'Returns all documents'
+      operationId: cc1a4c9d805bc23574058112d2343930
+      responses:
+        '200':
+          description: 'Successful fetch'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
+  '/documents/{id}':
+    get:
+      tags:
+        - Documents
+      summary: 'Get a specific document'
+      description: 'Returns a single document by ID'
+      operationId: 9cf5289c9ad15ddb6da247477998f54b
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Document ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Documents
+      summary: 'Update a document'
+      description: 'Updates an existing document'
+      operationId: 8340a1a99f82c944b6c7b45b0794505f
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Document ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - filename
+                - file
+              properties:
+                filename:
+                  description: 'Name of the file'
+                  type: string
+                description:
+                  description: 'Description of the file'
+                  type: string
+                  nullable: true
+                file:
+                  description: 'File to upload'
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '200':
+          description: 'Document updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Documents
+      summary: 'Delete a document'
+      description: 'Deletes a specific document'
+      operationId: dbfb02aca266743c29805da7424360eb
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'Document ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Document deleted'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string, example: 'Document deleted successfully.' }
+                type: object
+        '404':
+          description: 'Document not found'
+      security:
+        -
+          bearerAuth: []
+  '/documents/store/animals/{animalId}':
+    post:
+      tags:
+        - Documents
+      summary: 'Add a document to an animal'
+      description: 'Creates a new document associated with an animal'
+      operationId: 40c0c96e0c8c87f98a6dfba899f3f6e8
+      parameters:
+        -
+          name: animalId
+          in: path
+          description: 'Animal ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - filename
+                - file
+              properties:
+                filename:
+                  description: 'Name of the file'
+                  type: string
+                description:
+                  description: 'Description of the file'
+                  type: string
+                  nullable: true
+                file:
+                  description: 'File to upload'
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '201':
+          description: 'Document created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
+  '/documents/find/animals/{animalId}':
+    get:
+      tags:
+        - Documents
+      summary: 'Retrieve all documents associated with an animal'
+      description: 'Fetches a list of documents associated with a specific animal'
+      operationId: 4e685463448f1975e3d1d57c3eb1602b
+      parameters:
+        -
+          name: animalId
+          in: path
+          description: 'Animal ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
+  '/documents/find/healthcares/{healthcareId}':
+    get:
+      tags:
+        - Documents
+      summary: 'Retrieve all documents associated with a healthcare provider'
+      description: 'Fetches a list of documents associated with a specific healthcare provider'
+      operationId: b0635583c1c2b99b4c5f627d85307636
+      parameters:
+        -
+          name: healthcareId
+          in: path
+          description: 'Healthcare ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
+  '/documents/find/shelters/{shelterId}':
+    get:
+      tags:
+        - Documents
+      summary: 'Retrieve all documents associated with a shelter'
+      description: 'Fetches a list of documents associated with a specific shelter'
+      operationId: db44d8ad03e180cdb5167ab6cc57ac84
+      parameters:
+        -
+          name: shelterId
+          in: path
+          description: 'Shelter ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+      security:
+        -
+          bearerAuth: []
+  '/documents/store/healthcares/{healthcareId}':
+    post:
+      tags:
+        - Documents
+      summary: 'Add a document to a healthcare provider'
+      description: 'Creates a new document associated with a healthcare provider'
+      operationId: adc35dc0983af4efdba26e9bf4bc9e6c
+      parameters:
+        -
+          name: healthcareId
+          in: path
+          description: 'Healthcare ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - filename
+                - file
+              properties:
+                filename:
+                  description: 'Name of the file'
+                  type: string
+                description:
+                  description: 'Description of the file'
+                  type: string
+                  nullable: true
+                file:
+                  description: 'File to upload'
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '201':
+          description: 'Document created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
+  '/documents/store/shelters/{shelterId}':
+    post:
+      tags:
+        - Documents
+      summary: 'Add a document to a shelter'
+      description: 'Creates a new document associated with a shelter'
+      operationId: b5881062629fdd99390d6c0a611f67fd
+      parameters:
+        -
+          name: shelterId
+          in: path
+          description: 'Shelter ID'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - filename
+                - file
+              properties:
+                filename:
+                  description: 'Name of the file'
+                  type: string
+                description:
+                  description: 'Description of the file'
+                  type: string
+                  nullable: true
+                file:
+                  description: 'File to upload'
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        '201':
+          description: 'Document created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
+components:
+  schemas:
+    Address:
+      title: Address
+      description: 'Address model'
+      properties:
+        id:
+          description: 'ID of the address'
+          type: integer
+          example: 1
+        street1:
+          description: 'First line of the street address'
+          type: string
+          example: '123 Main St'
+        street2:
+          description: 'Second line of the street address'
+          type: string
+          example: 'Apt 101'
+        city_id:
+          description: 'ID of the city'
+          type: integer
+          example: 1
+      type: object
+    AgeRange:
+      title: 'Age Range'
+      description: 'Age Range model'
+      properties:
+        id:
+          description: 'ID of the age range'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the age range'
+          type: string
+          example: Adult
+        description:
+          description: 'Description of the age range'
+          type: string
+          example: 'Between 3 to 7 years old'
+      type: object
+    Animal:
+      title: Animal
+      description: 'Animal model representing the detailed information of an animal in the system'
+      properties:
+        id:
+          description: 'Unique identifier for the Animal'
+          type: integer
+          format: int64
+          example: 1
+        name:
+          description: 'Name of the animal'
+          type: string
+          example: Bella
+        description:
+          description: 'Description of the animal'
+          type: string
+          example: 'A very playful young dog'
+        birth_date:
+          description: 'Birth date of the animal'
+          type: string
+          format: date
+          example: '2017-04-21'
+        cats_friendly:
+          description: 'Indicates if the animal is friendly towards cats'
+          type: boolean
+          example: true
+        dogs_friendly:
+          description: 'Indicates if the animal is friendly towards dogs'
+          type: boolean
+          example: false
+        children_friendly:
+          description: 'Indicates if the animal is friendly towards children'
+          type: boolean
+          example: true
+        age:
+          description: 'Age of the animal'
+          type: integer
+          format: int32
+          example: 3
+        behavioral_comment:
+          description: 'Behavioral comments about the animal'
+          type: string
+          example: 'Needs a lot of exercise'
+        sterilized:
+          description: 'Indicates if the animal is sterilized'
+          type: boolean
+          example: true
+        deceased:
+          description: 'Indicates if the animal is deceased'
+          type: boolean
+          example: false
+        specie_id:
+          description: 'Foreign key identifier for the species to which the animal belongs'
+          type: integer
+          format: int64
+          example: 1
+        breed_id:
+          description: 'Foreign key identifier for the breed to which the animal belongs'
+          type: integer
+          format: int64
+          example: 2
+        gender_id:
+          description: 'Foreign key identifier for the gender to which the animal belongs'
+          type: integer
+          format: int64
+          example: 1
+        color_id:
+          description: 'Foreign key identifier for the color to which the animal belongs'
+          type: integer
+          format: int64
+          example: 3
+        coat_id:
+          description: 'Foreign key identifier for the coat type of the animal'
+          type: integer
+          format: int64
+          example: 4
+        sizerange_id:
+          description: 'Foreign key identifier for the size range to which the animal belongs'
+          type: integer
+          format: int64
+          example: 5
+        agerange_id:
+          description: 'Foreign key identifier for the age range to which the animal belongs'
+          type: integer
+          format: int64
+          example: 6
+      type: object
+    Association:
+      title: Association
+      description: 'Association model'
+      properties:
+        id:
+          description: 'ID of the association'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the association'
+          type: string
+          example: 'Animal Rescue Association'
+        description:
+          description: 'Description of the association'
+          type: string
+          example: 'A non-profit organization dedicated to rescuing animals'
+        siret:
+          description: 'SIRET number of the association'
+          type: string
+          maxLength: 14
+          minLength: 14
+          example: '12345678901234'
+        rib:
+          description: "RIB (Relevé d'Identité Bancaire) of the association"
+          type: string
+          maxLength: 34
+          example: 'FRXX XXXX XXXX XXXX XXXX XXXX XXX'
+      type: object
+    Breed:
+      title: Breed
+      description: 'Breed model'
+      properties:
+        id:
+          description: 'ID of the breed'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the breed'
+          type: string
+          example: 'Labrador Retriever'
+        description:
+          description: 'Description of the breed'
+          type: string
+          example: 'A medium-large gun dog breed known for its friendly and outgoing nature'
+        specie_id:
+          description: 'ID of the species to which the breed belongs'
+          type: integer
+          example: 1
+      type: object
+    City:
+      title: City
+      description: 'City model'
+      properties:
+        id:
+          description: 'ID of the city'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the city'
+          type: string
+          example: 'New York'
+        zipcode:
+          description: 'Zip code of the city'
+          type: string
+          example: '10001'
+      type: object
+    Coat:
+      title: Coat
+      description: 'Coat model'
+      properties:
+        id:
+          description: 'ID of the coat'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the coat'
+          type: string
+          example: Short
+        description:
+          description: 'Description of the coat'
+          type: string
+          example: 'A short-haired coat'
+      type: object
+    Color:
+      title: Color
+      description: 'Color model'
+      properties:
+        id:
+          description: 'ID of the color'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the color'
+          type: string
+          example: Red
+        description:
+          description: 'Description of the color'
+          type: string
+          example: 'A vibrant red color'
+        specie_id:
+          description: 'ID of the species associated with this color'
+          type: integer
+          example: 1
+      type: object
+    Doctype:
+      title: Doctype
+      description: 'Document Type model'
+      properties:
+        id:
+          description: 'ID of the document type'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the document type'
+          type: string
+          example: Passport
+        description:
+          description: 'Description of the document type'
+          type: string
+          example: 'A passport document'
+      type: object
+    Document:
+      title: Document
+      description: 'Document model'
+      properties:
+        id:
+          description: 'ID of the document'
+          type: integer
+          example: 1
+        filename:
+          description: 'Name of the file'
+          type: string
+          example: document.pdf
+        description:
+          description: 'Description of the document'
+          type: string
+          example: 'A document describing the health status'
+        size:
+          description: 'Size of the document in bytes'
+          type: integer
+          example: 1024
+        url:
+          description: 'URL of the document'
+          type: string
+          example: 'http://example.com/document.pdf'
+        date:
+          description: 'Date of the document'
+          type: string
+          format: date
+          example: '2024-04-16'
+        mimetype_id:
+          description: 'ID of the MIME type'
+          type: integer
+          example: 1
+        doctype_id:
+          description: 'ID of the document type'
+          type: integer
+          example: 1
+      type: object
+    Gender:
+      title: Gender
+      description: 'Gender model'
+      properties:
+        id:
+          description: 'ID of the gender'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the gender'
+          type: string
+          example: Male
+        description:
+          description: 'Description of the gender'
+          type: string
+          example: 'Male gender'
+      type: object
+    Healthcare:
+      title: Healthcare
+      description: 'Healthcare model'
+      properties:
+        id:
+          description: 'ID of the healthcare record'
+          type: integer
+          example: 1
+        date:
+          description: 'Date of the healthcare consultation'
+          type: string
+          format: date
+          example: '2022-04-16'
+        report:
+          description: 'Report of the healthcare consultation'
+          type: string
+        weight:
+          description: 'Weight of the animal during the healthcare consultation'
+          type: number
+          format: float
+          example: 12.5
+        size:
+          description: 'Size of the animal during the healthcare consultation'
+          type: number
+          format: float
+          example: 30.2
+        animal_id:
+          description: 'ID of the associated animal'
+          type: integer
+          example: 1
+        document_id:
+          description: 'ID of the associated document'
+          type: integer
+          example: 1
+      type: object
+    Identification:
+      title: Identification
+      description: 'Identification model'
+      properties:
+        id:
+          description: 'ID of the identification record'
+          type: integer
+          example: 1
+        date:
+          description: 'Date of the identification'
+          type: string
+          format: date
+          example: '2022-04-16'
+        type:
+          description: 'Type of identification (Chip or Tatoo)'
+          type: string
+          enum:
+            - Chip
+            - Tatoo
+          example: Chip
+        number:
+          description: 'Identification number'
+          type: string
+          maxLength: 15
+          minLength: 6
+          example: '123456789'
+        animal_id:
+          description: 'ID of the associated animal'
+          type: integer
+          example: 1
+      type: object
+    Mimetype:
+      title: Mimetype
+      description: 'Mimetype model'
+      properties:
+        id:
+          description: 'ID of the mimetype'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the mimetype'
+          type: string
+          example: application/pdf
+      type: object
+    Person:
+      title: Person
+      description: 'Person model'
+      properties:
+        id:
+          description: 'ID of the person'
+          type: integer
+          example: 1
+        created_at:
+          description: 'Date and time when the person was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the person was last updated'
+          type: string
+          format: date-time
+        personable_type:
+          description: 'Type of the associated entity (morphed)'
+          type: string
+        personable_id:
+          description: 'ID of the associated entity (morphed)'
+          type: integer
+      type: object
+    Role:
+      title: Role
+      description: 'Role model'
+      properties:
+        id:
+          description: 'ID of the role'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the role'
+          type: string
+          example: admin
+        created_at:
+          description: 'Date and time when the role was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the role was last updated'
+          type: string
+          format: date-time
+      type: object
+    Shelter:
+      title: Shelter
+      description: 'Shelter model'
+      properties:
+        id:
+          description: 'ID of the shelter'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the shelter'
+          type: string
+          example: 'Animal Shelter'
+        description:
+          description: 'Description of the shelter'
+          type: string
+          example: 'A shelter for homeless animals'
+        phone:
+          description: 'Phone number of the shelter'
+          type: string
+          example: 123-456-7890
+        email:
+          description: 'Email address of the shelter'
+          type: string
+          example: info@example.com
+        siret:
+          description: 'SIRET number of the shelter'
+          type: string
+          maxLength: 14
+          minLength: 14
+          example: '12345678901234'
+        created_at:
+          description: 'Date and time when the shelter was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the shelter was last updated'
+          type: string
+          format: date-time
+      type: object
+    SizeRange:
+      title: SizeRange
+      description: 'SizeRange model'
+      properties:
+        id:
+          description: 'ID of the size range'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the size range'
+          type: string
+          example: Small
+        description:
+          description: 'Description of the size range'
+          type: string
+          example: 'Small-sized animals'
+        created_at:
+          description: 'Date and time when the size range was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the size range was last updated'
+          type: string
+          format: date-time
+      type: object
+    Specie:
+      title: Specie
+      description: 'Specie model'
+      properties:
+        id:
+          description: 'ID of the specie'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the specie'
+          type: string
+          example: Cat
+        description:
+          description: 'Description of the specie'
+          type: string
+          example: 'Domestic cat'
+        created_at:
+          description: 'Date and time when the specie was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the specie was last updated'
+          type: string
+          format: date-time
+      type: object
+    Status:
+      title: Status
+      description: 'Status model'
+      properties:
+        id:
+          description: 'ID of the status'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the status'
+          type: string
+          example: Adopted
+        description:
+          description: 'Description of the status'
+          type: string
+          example: 'The animal has been adopted'
+        created_at:
+          description: 'Date and time when the status was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the status was last updated'
+          type: string
+          format: date-time
+      type: object
+    User:
+      title: User
+      description: 'User model'
+      properties:
+        id:
+          description: 'ID of the user'
+          type: integer
+          example: 1
+        first_name:
+          description: 'First name of the user'
+          type: string
+          example: John
+        last_name:
+          description: 'Last name of the user'
+          type: string
+          example: Doe
+        phone:
+          description: 'Phone number of the user'
+          type: string
+          example: '123456789'
+        existing_cat_count:
+          description: 'Number of existing cats owned by the user'
+          type: integer
+          example: 2
+        existing_children_count:
+          description: 'Number of existing children of the user'
+          type: integer
+          example: 1
+        existing_dog_count:
+          description: 'Number of existing dogs owned by the user'
+          type: integer
+          example: 0
+        email:
+          description: 'Email address of the user'
+          type: string
+          example: john@example.com
+        created_at:
+          description: 'Date and time when the user was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the user was last updated'
+          type: string
+          format: date-time
+      type: object
+    Vaccine:
+      title: Vaccine
+      description: 'Vaccine model'
+      properties:
+        id:
+          description: 'ID of the vaccine'
+          type: integer
+          example: 1
+        name:
+          description: 'Name of the vaccine'
+          type: string
+          example: Rabies
+        description:
+          description: 'Description of the vaccine'
+          type: string
+          example: 'Prevents rabies infection in animals'
+        created_at:
+          description: 'Date and time when the vaccine was created'
+          type: string
+          format: date-time
+        updated_at:
+          description: 'Date and time when the vaccine was last updated'
+          type: string
+          format: date-time
+      type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: 'JWT Authorization header using the Bearer scheme.'
+      bearerFormat: JWT
+      scheme: bearer

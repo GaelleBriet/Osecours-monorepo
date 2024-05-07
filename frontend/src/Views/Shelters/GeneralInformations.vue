@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 	import { Shelter } from '@/Interfaces/Shelter.ts';
-	import SheltersFormComponent from '@/Components/SheltersFormComponent.vue';
+	import SheltersForm from '@/Views/Shelters/SheltersForm.vue';
 
 	const props = defineProps<{
 		shelter: Shelter;
@@ -8,7 +8,7 @@
 </script>
 
 <template>
-	<SheltersFormComponent
+	<SheltersForm
 		:shelter="props.shelter"
 		:is-create-mode="false"
 	/>

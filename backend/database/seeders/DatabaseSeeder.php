@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Enum\IdentificationTypeEnum;
 use App\Enum\RoleEnum;
 use App\Models\Address;
-use App\Models\Age_range;
+use App\Models\AgeRange;
 use App\Models\Animal;
 use App\Models\Association;
 use App\Models\Breed;
@@ -18,7 +18,7 @@ use App\Models\Identification;
 use App\Models\Person;
 use App\Models\Role;
 use App\Models\Shelter;
-use App\Models\Size_range;
+use App\Models\SizeRange;
 use App\Models\Specie;
 use App\Models\Status;
 use App\Models\User;
@@ -545,7 +545,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($sizeRanges as $size) {
-            $sizeCreated = Size_range::factory()->create([
+            $sizeCreated = SizeRange::factory()->create([
                 'name' => ucfirst($size),
                 'description' => '',
             ]);
@@ -559,7 +559,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($ageRanges as $age) {
-            $ageCreated = Age_range::factory()->create([
+            $ageCreated = AgeRange::factory()->create([
                 'name' => ucfirst($age),
                 'description' => '',
             ]);
