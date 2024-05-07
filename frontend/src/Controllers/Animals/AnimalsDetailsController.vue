@@ -46,7 +46,8 @@
 			</button>
 		</div>
 		<TabsComponent
-			id="animalsTabsComponent"
+			id="'animalsTabsComponent'"
+			:name="'animalsTabs'"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
 				{ name: getCapitalizedText(t('pages.animals.behaviour')) },

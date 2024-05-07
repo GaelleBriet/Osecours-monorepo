@@ -23,7 +23,7 @@
 		// Logique pour récupérer les données du document à afficher
 		currentDocument.value = await documentsStore.getDocument(documentId);
 	});
-	console.log(documentId)
+	console.log(documentId);
 </script>
 
 <template>
@@ -34,9 +34,8 @@
 		</div>
 		<TabsComponent
 			id="documentsTabsComponent"
-			:tabs="[
-				{ name: getCapitalizedText(t('pages.animals.details')) }
-			]"
+			name="DocumentsDetailsTabs"
+			:tabs="[{ name: getCapitalizedText(t('pages.animals.details')) }]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
 			@update:current-tab="updateCurrentTab"
@@ -45,8 +44,7 @@
 			<template v-if="currentTab === 0 && currentDocument">
 				<GeneralInformations :document="currentDocument" />
 			</template>
-			<template v-if="currentTab === 1 && currentDocument">
-			</template>
+			<template v-if="currentTab === 1 && currentDocument"> </template>
 		</div>
 	</div>
 </template>

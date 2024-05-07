@@ -34,6 +34,7 @@
 		</div>
 		<TabsComponent
 			id="sheltersTabsComponent"
+			name="sheltersTabs"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
 				{ name: getCapitalizedText(t('pages.documents.photos')) },
