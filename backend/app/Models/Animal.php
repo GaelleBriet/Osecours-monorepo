@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Animal extends Model
@@ -66,6 +67,11 @@ class Animal extends Model
     public function healthcares(): HasMany
     {
         return $this->hasMany(Healthcare::class);
+    }
+
+    public function identification(): HasOne
+    {
+        return $this->hasOne(Identification::class);
     }
 
     public function users1(): BelongsToMany
