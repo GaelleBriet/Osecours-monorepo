@@ -4,10 +4,8 @@
 		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
 	import { computed, ref } from 'vue';
-
-	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useRouter } from 'vue-router';
-
+	import { useUserStore } from '@/Stores/UserStore.ts';
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
@@ -156,12 +154,6 @@
 										/>
 										<span class="truncate hidden sm:block">
 											{{ item.name }}
-											<span
-												v-if="item.count"
-												class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-osecours-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-osecours-beige-darkring-1 ring-inset ring-gray-200"
-												aria-hidden="true"
-												>{{ item.count }}</span
-											>
 										</span>
 									</router-link>
 									<!--			arrow icon for subMenus						-->

@@ -13,13 +13,13 @@
 	}>();
 
 	const emit = defineEmits<{
-		(event: 'update:currentTab', index): void;
+		(event: 'update:currentTab', index: number): void;
 	}>();
 
 	const currentTab = ref(0);
 	const activeTabClass = ref(props.activeColorClass || '');
 
-	const selectTabs = (index) => {
+	const selectTabs = (index: number) => {
 		currentTab.value = index;
 		setToStorage(props.name, index);
 		emit('update:currentTab', index);

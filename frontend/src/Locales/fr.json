@@ -18,7 +18,8 @@
 		"search": "Chercher...",
 		"back": "retour",
 		"success": "succès",
-		"notImplemented": "fonctionnalité non implémentée"
+		"notImplemented": "fonctionnalité non implémentée",
+		"close": "fermer"
 	},
 	"navigation": {
 		"home": "accueil",

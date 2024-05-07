@@ -18,7 +18,8 @@
 		"search": "Search...",
 		"back": "back",
 		"succes": "success",
-		"notImplemented": "not implemented"
+		"notImplemented": "not implemented",
+		"close": "close"
 	},
 	"navigation": {
 		"home": "home",
