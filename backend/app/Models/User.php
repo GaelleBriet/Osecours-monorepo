@@ -125,14 +125,14 @@ class User extends Authenticatable
     public function person() {
         return $this->morphOne(Person::class, 'personable');
     }
-    
+
     public function associations()
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
                     ->withPivot('role_id')
                     ->withTimestamps();
     }
-    
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'association_role_user')
@@ -159,5 +159,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
             ->withPivot('shelter_id')
             ->withTimestamps();
+    }
+
+    public function association_role_user()
+    {
+        return $this->belongsToMany(Association::class, 'association_role_user')
+                    ->withPivot('role_id')
+                    ->withTimestamps();
     }
 }

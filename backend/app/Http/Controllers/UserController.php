@@ -6,6 +6,7 @@ use App\Contract\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -34,6 +35,29 @@ class UserController extends Controller
             return response()->json(["data" => $this->users->findByAssociationAndUser($associationId, Auth::user())],200);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage(), 500]);
+        }
+    }
+
+
+    public function getUserByRole(Request $request)
+    {
+        try {
+            $role = $request->get("role");
+            $currentAssociationId = $request->get('currentAssociationId');
+
+            if (!$role || !$currentAssociationId) {
+                return response()->json(["error" => "Role and currentAssociationId parameters are required"], 400);
+            }
+
+            $users = User::whereHas('roles', function ($query) use ($role) {
+                $query->where('roles.name', $role);
+            })->whereHas('associations', function ($query) use ($currentAssociationId) {
+                $query->where('associations.id', $currentAssociationId);
+            })->get();
+
+            return response()->json(["data" => $users], 200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage()], 500);
         }
     }
 }

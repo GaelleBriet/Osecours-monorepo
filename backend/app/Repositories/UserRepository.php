@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Contract\UserRepositoryInterface;
 use App\Models\User;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface 
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     public function __construct(User $user)
     {
@@ -25,7 +25,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user->whereHas('associations', function ($query) use ($associationId) {
             $query->where('associations.id', $associationId);
         })->where('users.id', $user->id)
-        ->first(); 
+        ->first();
+    }
+
+    public function findByRole(string $role)
+    {
+       return User::whereHas('roles', function ($query) use ($role) {
+           $query->where('name', $role);
+       })->get();
     }
 
     public function getAllAssociationsFromUser(User $user){

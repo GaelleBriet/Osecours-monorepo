@@ -28,11 +28,12 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::post('/animals', 'store');
           Route::put('/animals/{id}', 'update');
           Route::delete('/animals/{id}', 'destroy');
-          
+
      });
 
      Route::controller(UserController::class)->group(function () {
           Route::get('/users', 'getAll');
+          Route::get('/users/role', 'getUserByRole');
      });
 
      Route::controller(RoleController::class)->group(function () {
@@ -46,7 +47,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(SpecieController::class)->group(function () {
           Route::get('/species/all', 'getAll');
           Route::post('/species', 'create');
-          Route::get('/species/{id}', 'show');  
+          Route::get('/species/{id}', 'show');
           Route::put('/species/{id}', 'update');
           Route::delete('/species/{id}', 'delete');
      });
@@ -54,7 +55,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(ColorController::class)->group(function () {
           Route::get("/colors/all", "getAll");
           Route::post('/colors', 'create');
-          Route::get('/colors/{id}', 'show');  
+          Route::get('/colors/{id}', 'show');
           Route::put('/colors/{id}', 'update');
           Route::delete('/colors/{id}', 'delete');
      });
@@ -62,7 +63,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(CoatController::class)->group(function () {
           Route::get("/coats/all", "getAll");
           Route::post('/coats', 'create');
-          Route::get('/coats/{id}', 'show');  
+          Route::get('/coats/{id}', 'show');
           Route::put('/coats/{id}', 'update');
           Route::delete('/coats/{id}', 'delete');
      });
@@ -70,7 +71,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(BreedController::class)->group(function () {
           Route::get("/breeds/all", "getAll");
           Route::post('/breeds', 'create');
-          Route::get('/breeds/{id}', 'show');  
+          Route::get('/breeds/{id}', 'show');
           Route::put('/breeds/{id}', 'update');
           Route::delete('/breeds/{id}', 'delete');
      });
@@ -78,7 +79,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(ShelterController::class)->group(function () {
           Route::get("/shelters/all", "getAll");
           Route::post('/shelters', 'create');
-          Route::get('/shelters/{id}', 'show');  
+          Route::get('/shelters/{id}', 'show');
           Route::put('/shelters/{id}', 'update');
           Route::delete('/shelters/{id}', 'delete');
      });
@@ -86,7 +87,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(AssociationController::class)->group(function () {
           Route::get("/associations/all", "getAll");
           Route::post('/associations', 'create');
-          Route::get('/associations/{id}', 'show');  
+          Route::get('/associations/{id}', 'show');
           Route::put('/associations/{id}', 'update');
           Route::delete('/associations/{id}', 'delete');
      });
