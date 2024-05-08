@@ -63,9 +63,9 @@
 		console.log(members.value);
 		members.value = membersStore.members.map((member) => ({
 			...member,
-			fullName: `${member.firstName} ${member.lastName}`,
+			fullName: `${member.first_name} ${member.last_name}`,
 			animalCount:
-				(member.existingCatCount ?? 0) + (member.existingDogCount ?? 0),
+				(member.existing_cat_count ?? 0) + (member.existing_dog_count ?? 0),
 		}));
 	});
 </script>

@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { camelCase } from 'lodash';
 import { User } from '@/Interfaces/User.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { Members } from '@/Interfaces/Members.ts';
@@ -13,15 +12,11 @@ import {
 } from '@/Services/DataLayers/Member.ts';
 import { Role } from '@/Enums/Role.ts';
 
-interface IObjectKeys {
-	[key: string]: any;
-}
-
 export const useMembersStore = defineStore({
 	id: 'members',
 	state: (): {
-		members: User[];
-		member: User | null;
+		members: Members[];
+		member: Members | null;
 		adoptFamiliesCount: number;
 		fosterFamiliesCount: number;
 	} => ({
@@ -45,8 +40,9 @@ export const useMembersStore = defineStore({
 		},
 	},
 	actions: {
-		async getMembers(associationId: string): Promise<User[]> {
-			const members: User[] | ErrorResponse = await getMembers(associationId);
+		async getMembers(associationId: string): Promise<Members[]> {
+			const members: Members[] | ErrorResponse =
+				await getMembers(associationId);
 			if ('error' in members) {
 				return [];
 			} else {
@@ -54,8 +50,8 @@ export const useMembersStore = defineStore({
 				return members;
 			}
 		},
-		async getMemberById(id: string): Promise<User | null> {
-			const member: User | ErrorResponse = await getMemberById(id);
+		async getMemberById(): Promise<User | null> {
+			const member: User | ErrorResponse = await getMemberById();
 			if ('error' in member) {
 				return null;
 			} else {
@@ -66,8 +62,8 @@ export const useMembersStore = defineStore({
 		async getMembersByFamilyType(
 			familyType: 'adopt' | 'foster',
 			currentAssociationId: string,
-		): Promise<User[]> {
-			const families: User[] | ErrorResponse = await getMembersByFamilyType(
+		): Promise<Members[]> {
+			const families: Members[] | ErrorResponse = await getMembersByFamilyType(
 				familyType,
 				currentAssociationId,
 			);
@@ -97,13 +93,12 @@ export const useMembersStore = defineStore({
 						family?.pivot?.role_id === Role.ADOPTER ||
 						family?.pivot?.role_id === Role.FOSTER,
 				);
-				this.members = this.convertKeysToCamelCase(filteredFamilies);
-				console.log('filteredFamilies', filteredFamilies);
+				this.members = filteredFamilies;
 				return filteredFamilies;
 			}
 		},
-		async createMember(member: User): Promise<User> {
-			const newMember: User | ErrorResponse = await createMember(member);
+		async createMember(): Promise<User> {
+			const newMember: User | ErrorResponse = await createMember();
 			if ('error' in newMember) {
 				return {} as User;
 			} else {
@@ -111,8 +106,8 @@ export const useMembersStore = defineStore({
 				return newMember;
 			}
 		},
-		async updateMember(member: User): Promise<User> {
-			const updatedMember: User | ErrorResponse = await updateMember(member);
+		async updateMember(): Promise<User> {
+			const updatedMember: User | ErrorResponse = await updateMember();
 			if ('error' in updatedMember) {
 				return {} as User;
 			} else {
@@ -130,23 +125,6 @@ export const useMembersStore = defineStore({
 			} else {
 				return false;
 			}
-		},
-		convertKeysToCamelCase(
-			obj: IObjectKeys | IObjectKeys[],
-		): IObjectKeys | IObjectKeys[] {
-			// method to convert keys to camelCase
-			if (Array.isArray(obj)) {
-				return obj.map((v) => this.convertKeysToCamelCase(v));
-			} else if (obj !== null && obj.constructor === Object) {
-				return Object.keys(obj).reduce(
-					(result, key) => ({
-						...result,
-						[camelCase(key)]: this.convertKeysToCamelCase(obj[key]),
-					}),
-					{},
-				);
-			}
-			return obj;
 		},
 	},
 });

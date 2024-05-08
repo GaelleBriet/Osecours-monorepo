@@ -34,35 +34,8 @@ export const getMemberById = async () // id: string,
 
 export const getMembers = async (
 	associationId: string,
-): Promise<User[] | ErrorResponse> => {
+): Promise<Members[] | ErrorResponse> => {
 	try {
-		// const members: User[] = [
-		// 	{
-		// 		id: 1,
-		// 		firstName: 'John',
-		// 		lastName: 'Doe',
-		// 		email: 'john.doe@mail.fr',
-		// 		phone: '0612345678',
-		// 		existingCatCount: 0,
-		// 		existingDogCount: 0,
-		// 		existingChildrenCount: 0,
-		// 		adoptFamily: false,
-		// 		fosterFamily: true,
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		firstName: 'Jane',
-		// 		lastName: 'Doe',
-		// 		email: 'jane.doa@mail.fr',
-		// 		phone: '0612345678',
-		// 		existingCatCount: 0,
-		// 		existingDogCount: 1,
-		// 		existingChildrenCount: 0,
-		// 		adoptFamily: true,
-		// 		fosterFamily: false,
-		// 	},
-		// ];
-		// return members;
 		const { data }: AxiosResponse = await axiosInstance.get(
 			`${import.meta.env.VITE_ASSOCIATION_USERS_API_URL.replace('{id}', associationId.toString())}`,
 		);
@@ -76,41 +49,8 @@ export const getMembers = async (
 export const getMembersByFamilyType = async (
 	familyType: string,
 	currentAssociationId: string,
-): Promise<User[] | ErrorResponse> => {
+): Promise<Members[] | ErrorResponse> => {
 	try {
-		// const members: User[] = [
-		// 	{
-		// 		id: 1,
-		// 		firstName: 'John',
-		// 		lastName: 'Doe',
-		// 		email: 'john.doe@mail.fr',
-		// 		phone: '0612345678',
-		// 		existingCatCount: 0,
-		// 		existingDogCount: 0,
-		// 		existingChildrenCount: 0,
-		// 		adoptFamily: false,
-		// 		fosterFamily: true,
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		firstName: 'Jane',
-		// 		lastName: 'Doe',
-		// 		email: 'jane.doa@mail.fr',
-		// 		phone: '0612345678',
-		// 		existingCatCount: 0,
-		// 		existingDogCount: 1,
-		// 		existingChildrenCount: 0,
-		// 		adoptFamily: true,
-		// 		fosterFamily: false,
-		// 	},
-		// ];
-		// return members.filter((member: User) => {
-		// 	if (familyType === 'foster') {
-		// 		return member.fosterFamily;
-		// 	} else if (familyType === 'adopt') {
-		// 		return member.adoptFamily;
-		// 	}
-		// });
 		const { data } = await axiosInstance.get(
 			`${import.meta.env.VITE_USERS_ROLE_API_URL}`,
 			{
