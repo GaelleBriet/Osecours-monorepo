@@ -39,4 +39,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user->associations;
     }
 
+    public function softDelete($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return $user;
+    }
+
 }

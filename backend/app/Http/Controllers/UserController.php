@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Contract\UserRepositoryInterface;
+use App\Models\User;
+use App\Http\Services\ErrorService;
+use App\Http\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use OpenApi\Annotations as OA;
 
 class UserController extends Controller
 {
     protected $users;
+    protected UserService $userService;
+    protected ErrorService $errorService;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, UserService $userService, ErrorService $errorService)
     {
         $this->users = $userRepository;
+        $this->userService = $userService;
+        $this->errorService = $errorService;
     }
 
     public function getAll()
@@ -85,6 +91,19 @@ class UserController extends Controller
             return response()->json(["data" => $users], 200);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $deletedUser = $this->userService->softDelete($id);
+            return response()->json([
+                'message' => 'User deleted successfully',
+                'data' => $deletedUser
+            ]);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
         }
     }
 }

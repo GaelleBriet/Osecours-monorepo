@@ -18,4 +18,5 @@ interface UserRepositoryInterface
 
     public function getAllAssociationsFromUser(User $user);
 
+    public function softDelete($id);
 }
