@@ -127,7 +127,7 @@
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
 			"messages": {
-				"delete": "êtes-vous sûr de vouloir supprimer cet animal ?",
+				"delete": "voulez-vous vraiment supprimer cet animal ?",
 				"deleteSuccess": "l'animal a bien été supprimé",
 				"deleteError": "une erreur est survenue lors de la suppression de l'animal",
 				"updateSuccess": "l'animal a bien été mis à jour",
@@ -142,7 +142,8 @@
 				"updateDocSuccess": "le document a bien été mis à jour",
 				"updateDocError": "une erreur est survenue lors de la mise à jour du document",
 				"createDocSuccess": "le document a bien été créé",
-				"createDocError": "une erreur est survenue lors de la création du document"
+				"createDocError": "une erreur est survenue lors de la création du document",
+				"deleteAnimal": "supprimer un animal"
 			}
 		},
 		"associations": {
@@ -185,7 +186,17 @@
 			"details": "détails",
 			"personal": "informations personnelles",
 			"name": "nom",
-			"animalsNumber": "nombre d'animaux"
+			"animalsNumber": "nombre d'animaux",
+			"messages": {
+				"delete": "voulez-vous vraiment supprimer cette famille ?",
+				"deleteFamily": "supprimer une famille",
+				"deleteSuccess": "la famille a bien été supprimée",
+				"deleteError": "une erreur est survenue lors de la suppression de la famille",
+				"updateSuccess": "la famille a bien été mise à jour",
+				"updateError": "une erreur est survenue lors de la mise à jour de la famille",
+				"createSuccess": "la famille a bien été créée",
+				"createError": "une erreur est survenue lors de la création de la famille"
+			}
 		},
 		"users": {
 			"title": "liste des utilisateurs de l'association.",

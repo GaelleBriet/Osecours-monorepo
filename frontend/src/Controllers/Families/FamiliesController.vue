@@ -8,11 +8,17 @@
 	import router from '@/Router';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { Members } from '@/Interfaces/Members.ts';
+	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import ModalComponent from '@/Components/ModalComponent.vue';
 
-	const t = i18n.global.t;
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
+
 	let members = ref<Members[]>([]);
+	const showModal = ref(false);
+	const familyToDelete = ref(null);
+
+	const t = i18n.global.t;
 	const currentAssociationId = userStore.user?.associationId;
 
 	const columns = ref([
@@ -31,11 +37,21 @@
 		},
 	]);
 
-	const editItem = (item: User) => {
+	const editItem = (item: Members) => {
 		router.push({
 			name: 'EditFamilies',
 			params: { id: item.id },
 		});
+	};
+
+	const openModal = (item: Members) => {
+		familyToDelete.value = item;
+		showModal.value = true;
+	};
+
+	const onConfirmDelete = () => {
+		console.log('deleted', familyToDelete.value.id);
+		showModal.value = false;
 	};
 
 	onMounted(async () => {
@@ -60,7 +76,19 @@
 			:description="getCapitalizedText(t('pages.families.title'))"
 			:columns="columns"
 			@edit="editItem"
+			@delete="openModal"
 		/>
+		<ModalComponent
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.families.messages.deleteFamily'))"
+			:description="getCapitalizedText(t('pages.families.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
 	</div>
 </template>
 

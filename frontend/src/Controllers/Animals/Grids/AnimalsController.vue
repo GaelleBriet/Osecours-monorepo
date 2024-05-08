@@ -94,8 +94,8 @@
 		/>
 		<ModalComponent
 			:isOpen="showModal"
-			:title="'Supprimer un animal'"
-			:description="'Voulez-vous vraiment supprimer cet animal ?'"
+			:title="getCapitalizedText(t('pages.animals.messages.deleteAnimal'))"
+			:description="getCapitalizedText(t('pages.animals.messages.delete'))"
 			:center="true"
 			:confirmButton="true"
 			:cancelButton="true"
