@@ -50,7 +50,8 @@
 	};
 
 	const onConfirmDelete = () => {
-		console.log('deleted', familyToDelete.value.id);
+		console.log('to delete : ', familyToDelete.value.id);
+		membersStore.deleteMember(familyToDelete.value.id);
 		showModal.value = false;
 	};
 

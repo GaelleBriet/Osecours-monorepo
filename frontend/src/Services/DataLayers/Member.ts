@@ -3,6 +3,7 @@ import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { AxiosError, AxiosResponse } from 'axios';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
+import { Members } from '@/Interfaces/Members.ts';
 // import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getMemberById = async () // id: string,
@@ -180,17 +181,20 @@ export const updateMember = async () // member: User,
 	}
 };
 
-export const deleteMember = async () // id: string
-: Promise<boolean> => {
+export const deleteMember = async (
+	id: string,
+): Promise<Members | ErrorResponse> => {
 	try {
-		const response: boolean = true;
-		return response;
-		// const response: AxiosResponse<boolean> = await axiosInstance.delete<boolean>(
-		// 	`${import.meta.env.VITE_USERS_API_URL}/${id}`,
-		// );
-		// return response.data;
+		// const response: boolean = true;
+		// return response;
+		const response: AxiosResponse = await axiosInstance.delete(
+			`${import.meta.env.VITE_USERS_API_URL}/${id}`,
+		);
+		console.log('response', response);
+		return response.data;
 	} catch (error) {
-		// const axiosError: AxiosError = error as AxiosError;
-		return false;
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+		// return false;
 	}
 };

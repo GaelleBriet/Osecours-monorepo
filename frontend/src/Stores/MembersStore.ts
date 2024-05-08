@@ -82,7 +82,6 @@ export const useMembersStore = defineStore({
 		async getAllFamilies(associationId: string): Promise<Members[]> {
 			const families: Members[] | ErrorResponse =
 				await getMembers(associationId);
-			console.log(families);
 			if ('error' in families) {
 				return [];
 			} else {
@@ -94,33 +93,33 @@ export const useMembersStore = defineStore({
 				return filteredFamilies;
 			}
 		},
-		async createMember(member: User): Promise<User> {
-			const newMember: User | ErrorResponse = await createMember(member);
-			if ('error' in newMember) {
-				return {} as User;
-			} else {
-				this.members.push(newMember);
-				return newMember;
-			}
-		},
-		async updateMember(member: User): Promise<User> {
-			const updatedMember: User | ErrorResponse = await updateMember(member);
-			if ('error' in updatedMember) {
-				return {} as User;
-			} else {
-				this.members = this.members.map((m: User) =>
-					m.id === updatedMember.id ? updatedMember : m,
-				);
-				return updatedMember;
-			}
-		},
+		// async createMember(member: User): Promise<User> {
+		// 	const newMember: User | ErrorResponse = await createMember(member);
+		// 	if ('error' in newMember) {
+		// 		return {} as User;
+		// 	} else {
+		// 		this.members.push(newMember);
+		// 		return newMember;
+		// 	}
+		// },
+		// async updateMember(member: User): Promise<User> {
+		// 	const updatedMember: User | ErrorResponse = await updateMember(member);
+		// 	if ('error' in updatedMember) {
+		// 		return {} as User;
+		// 	} else {
+		// 		this.members = this.members.map((m: User) =>
+		// 			m.id === updatedMember.id ? updatedMember : m,
+		// 		);
+		// 		return updatedMember;
+		// 	}
+		// },
 		async deleteMember(id: string): Promise<boolean> {
-			const deletedMember: boolean = await deleteMember(id);
-			if (deletedMember) {
-				this.members = this.members.filter((m: User) => m.id !== id);
-				return true;
-			} else {
+			const deletedMember: Members | ErrorResponse = await deleteMember(id);
+			if ('error' in deletedMember) {
 				return false;
+			} else {
+				this.members = this.members.filter((m: Members) => m.id !== id);
+				return true;
 			}
 		},
 	},
