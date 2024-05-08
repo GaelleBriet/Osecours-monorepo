@@ -98,8 +98,8 @@
 		<DataGridComponent
 			:store="membersStore"
 			:model-value="members"
-			:title="getCapitalizedText(t('navigation.families'))"
-			:description="getCapitalizedText(t('pages.families.title'))"
+			:title="getCapitalizedText(t('navigation.members'))"
+			:description="getCapitalizedText(t('pages.users.title'))"
 			:columns="columns"
 			@edit="editItem"
 			@delete="openModal"

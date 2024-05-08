@@ -200,7 +200,7 @@
 			}
 		},
 		"users": {
-			"title": "list of users",
+			"title": "list of members",
 			"card": "user card",
 			"role": "role",
 			"email": "email",

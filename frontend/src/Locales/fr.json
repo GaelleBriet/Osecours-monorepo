@@ -200,7 +200,7 @@
 			}
 		},
 		"users": {
-			"title": "liste des utilisateurs de l'association.",
+			"title": "liste des membres de l'association.",
 			"card": "fiche utilisateur",
 			"role": "rôle",
 			"email": "email",
