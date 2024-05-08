@@ -95,6 +95,49 @@ class UserController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/users/{id}",
+     *    security={{"bearerAuth":{}}},
+     *     summary="Get specific user details",
+     *     description="Return informations for an user with specific id",
+     *     operationId="getUserById",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="user Id to fetch",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User fetched successfully",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/User"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server Error"
+     *     )
+     * )
+     */
+    public function show(string $id)
+    {
+        try {
+            return $this->userService->getById($id);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
+    }
+
+    /**
      * @OA\Delete(
      *     path="/users/{id}",
      *   security={{"bearerAuth":{}}},

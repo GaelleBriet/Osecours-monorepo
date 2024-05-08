@@ -12,6 +12,10 @@ class UserService {
         $this->userRepository = $userRepository;
     }
 
+    public function getById($id){
+        return $this->userRepository->find($id);
+    }
+
     public function softDelete($id){
         return $this->userRepository->softDelete($id);
     }

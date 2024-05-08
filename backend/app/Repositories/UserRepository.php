@@ -35,6 +35,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
        })->get();
     }
 
+    public function find($id)
+    {
+        return User::with('associations')->findOrFail($id);
+    }
+
     public function getAllAssociationsFromUser(User $user){
         return $user->associations;
     }

@@ -34,6 +34,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(UserController::class)->group(function () {
           Route::get('/users', 'getAll');
           Route::get('/users/role', 'getUserByRole');
+          Route::get('/users/{id}', 'show');
           Route::delete('/users/{id}', 'delete');
      });
 
