@@ -1,15 +1,15 @@
 interface RelationInterface {
-	association_id?: number | string;
-	role_id?: number | string;
-	user_id?: number | string;
+	associationId?: number | string;
+	roleId?: number | string;
+	userId?: number | string;
 	createAt?: string;
 	updateAt?: string;
 }
 
 export interface Members {
 	id?: number | string;
-	last_name?: string;
-	first_name?: string;
+	lastName?: string;
+	firstName?: string;
 	email?: string;
 	emailVerifiedAt?: string;
 	existingCatCount?: number;
@@ -18,5 +18,6 @@ export interface Members {
 	phone?: string;
 	createAt?: string;
 	updateAt?: string;
+	deleteAt?: string;
 	pivot?: RelationInterface;
 }

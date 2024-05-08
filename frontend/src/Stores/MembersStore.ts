@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
+import { camelCase } from 'lodash';
 import { User } from '@/Interfaces/User.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { Members } from '@/Interfaces/Members.ts';
 import {
 	createMember,
 	deleteMember,
@@ -9,7 +11,11 @@ import {
 	getMembersByFamilyType,
 	updateMember,
 } from '@/Services/DataLayers/Member.ts';
-import { Members } from '@/Interfaces/Members.ts';
+import { Role } from '@/Enums/Role.ts';
+
+interface IObjectKeys {
+	[key: string]: any;
+}
 
 export const useMembersStore = defineStore({
 	id: 'members',
@@ -82,47 +88,65 @@ export const useMembersStore = defineStore({
 		async getAllFamilies(associationId: string): Promise<Members[]> {
 			const families: Members[] | ErrorResponse =
 				await getMembers(associationId);
+
 			if ('error' in families) {
 				return [];
 			} else {
 				const filteredFamilies: Members[] = families.filter(
 					(family) =>
-						family?.pivot?.role_id === 5 || family?.pivot?.role_id === 7,
+						family?.pivot?.role_id === Role.ADOPTER ||
+						family?.pivot?.role_id === Role.FOSTER,
 				);
-				this.members = filteredFamilies;
+				this.members = this.convertKeysToCamelCase(filteredFamilies);
+				console.log('filteredFamilies', filteredFamilies);
 				return filteredFamilies;
 			}
 		},
-		// async createMember(member: User): Promise<User> {
-		// 	const newMember: User | ErrorResponse = await createMember(member);
-		// 	if ('error' in newMember) {
-		// 		return {} as User;
-		// 	} else {
-		// 		this.members.push(newMember);
-		// 		return newMember;
-		// 	}
-		// },
-		// async updateMember(member: User): Promise<User> {
-		// 	const updatedMember: User | ErrorResponse = await updateMember(member);
-		// 	if ('error' in updatedMember) {
-		// 		return {} as User;
-		// 	} else {
-		// 		this.members = this.members.map((m: User) =>
-		// 			m.id === updatedMember.id ? updatedMember : m,
-		// 		);
-		// 		return updatedMember;
-		// 	}
-		// },
-		async deleteMember(id: string): Promise<boolean> {
-			const deletedMember: Members | ErrorResponse = await deleteMember(id);
-			console.log(deletedMember);
-			if ('error' in deletedMember) {
-				return false;
+		async createMember(member: User): Promise<User> {
+			const newMember: User | ErrorResponse = await createMember(member);
+			if ('error' in newMember) {
+				return {} as User;
 			} else {
-				this.members = this.members.filter((m: Members) => m.id !== id);
-				console.log(this.members);
-				return true;
+				this.members.push(newMember);
+				return newMember;
 			}
+		},
+		async updateMember(member: User): Promise<User> {
+			const updatedMember: User | ErrorResponse = await updateMember(member);
+			if ('error' in updatedMember) {
+				return {} as User;
+			} else {
+				this.members = this.members.map((m: User) =>
+					m.id === updatedMember.id ? updatedMember : m,
+				);
+				return updatedMember;
+			}
+		},
+		async deleteMember(id: number | undefined | string): Promise<boolean> {
+			const deletedMember: Members | ErrorResponse = await deleteMember(id);
+			if ('data' in deletedMember) {
+				this.members = this.members.filter((m: Members) => m.id !== id);
+				return true;
+			} else {
+				return false;
+			}
+		},
+		convertKeysToCamelCase(
+			obj: IObjectKeys | IObjectKeys[],
+		): IObjectKeys | IObjectKeys[] {
+			// method to convert keys to camelCase
+			if (Array.isArray(obj)) {
+				return obj.map((v) => this.convertKeysToCamelCase(v));
+			} else if (obj !== null && obj.constructor === Object) {
+				return Object.keys(obj).reduce(
+					(result, key) => ({
+						...result,
+						[camelCase(key)]: this.convertKeysToCamelCase(obj[key]),
+					}),
+					{},
+				);
+			}
+			return obj;
 		},
 	},
 });

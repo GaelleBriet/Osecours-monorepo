@@ -1,22 +1,20 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { onMounted, onUpdated, ref } from 'vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations';
-	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import { User } from '@/Interfaces/User.ts';
-	import router from '@/Router';
-	import { useUserStore } from '@/Stores/UserStore.ts';
-	import { Members } from '@/Interfaces/Members.ts';
-	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import ModalComponent from '@/Components/ModalComponent.vue';
+	import { Members } from '@/Interfaces/Members.ts';
+	import router from '@/Router';
+	import { onMounted, ref } from 'vue';
+	import { useUserStore } from '@/Stores/UserStore.ts';
+	import { useMembersStore } from '@/Stores/MembersStore.ts';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
 
 	let members = ref<Members[]>([]);
 	const showModal = ref(false);
-	const familyToDelete = ref(null);
+	const familyIDToDelete = ref<number | undefined | string>(undefined);
 
 	const t = i18n.global.t;
 	const currentAssociationId = userStore.user?.associationId;
@@ -45,27 +43,27 @@
 	};
 
 	const openModal = (item: Members) => {
-		familyToDelete.value = item;
+		familyIDToDelete.value = item.id;
 		showModal.value = true;
 	};
 
-	const onConfirmDelete = () => {
-		const response = membersStore.deleteMember(familyToDelete.value.id, true);
+	const onConfirmDelete = async () => {
+		const response = await membersStore.deleteMember(familyIDToDelete.value);
 		if (response) {
 			members.value = members.value.filter(
-				(member) => member.id !== familyToDelete.value.id,
+				(member) => member.id !== familyIDToDelete.value,
 			);
+			showModal.value = false;
 		}
-		showModal.value = false;
 	};
 
 	onMounted(async () => {
 		await membersStore.getAllFamilies(currentAssociationId ?? '');
 		members.value = membersStore.members;
-
+		console.log(members.value);
 		members.value = membersStore.members.map((member) => ({
 			...member,
-			fullName: `${member.first_name} ${member.last_name}`,
+			fullName: `${member.firstName} ${member.lastName}`,
 			animalCount:
 				(member.existingCatCount ?? 0) + (member.existingDogCount ?? 0),
 		}));

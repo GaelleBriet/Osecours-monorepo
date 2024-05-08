@@ -3,7 +3,7 @@ export enum Role {
 	USER = 'user',
 	ACCOUNTANT = 'accountant',
 	PRESIDENT = 'president',
-	ADOPTER = 'adopt',
-	FOSTER = 'foster',
+	ADOPTER = 5,
+	FOSTER = 7,
 	OTHER = 'other',
 }
