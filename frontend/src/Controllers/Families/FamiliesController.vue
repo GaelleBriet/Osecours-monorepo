@@ -6,8 +6,8 @@
 	import { onMounted, ref } from 'vue';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
 
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
@@ -60,7 +60,7 @@
 	onMounted(async () => {
 		await membersStore.getAllFamilies(currentAssociationId ?? '');
 		members.value = membersStore.members;
-		console.log(members.value);
+
 		members.value = membersStore.members.map((member) => ({
 			...member,
 			fullName: `${member.first_name} ${member.last_name}`,
