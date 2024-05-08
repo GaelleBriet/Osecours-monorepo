@@ -94,6 +94,40 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/users/{id}",
+     *   security={{"bearerAuth":{}}},
+     *     summary="Delete specific user (soft delete)",
+     *     description="Make a soft delete for an user with specific id",
+     *     operationId="deleteUserById",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID de l'utilisateur à supprimer",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User supprimé avec succès",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/User"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="User non trouvé"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erreur interne"
+     *     )
+     * )
+     */
     public function delete($id)
     {
         try {

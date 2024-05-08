@@ -377,6 +377,35 @@ paths:
       security:
         -
           bearerAuth: []
+  /associations/{id}/members:
+    get:
+      tags:
+        - Associations
+      summary: 'Get all members of an association'
+      description: 'Returns a list of all members of a specific association'
+      operationId: getAssociationMembers
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the association to fetch members'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: 'Association not found'
+      security:
+        -
+          bearerAuth: []
   /token/create:
     post:
       tags:
@@ -752,6 +781,69 @@ paths:
                 $ref: '#/components/schemas/Document'
         '400':
           description: 'Invalid input'
+      security:
+        -
+          bearerAuth: []
+  '/users/role':
+    get:
+      tags:
+        - Users
+      summary: 'Get curent association users by role'
+      description: 'Returns a list of users with a specific role'
+      operationId: 8e23bedf4767644ec77dad2617b97e41
+      parameters:
+        -
+          name: role
+          in: query
+          description: 'The role of the user'
+          required: true
+          schema:
+            type: string
+        -
+          name: currentAssociationId
+          in: query
+          description: 'The current association ID'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Successful operation : get users by role & association'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      security:
+        -
+          bearerAuth: []
+  '/users/{id}':
+    delete:
+      tags:
+        - Users
+      summary: 'Delete specific user (soft delete)'
+      description: 'Make a soft delete for an user with specific id'
+      operationId: deleteUserById
+      parameters:
+        -
+          name: id
+          in: path
+          description: "ID de l'utilisateur à supprimer"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'User supprimé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 'User non trouvé'
+        '500':
+          description: 'Erreur interne'
       security:
         -
           bearerAuth: []
