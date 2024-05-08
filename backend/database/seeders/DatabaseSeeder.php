@@ -637,8 +637,36 @@ class DatabaseSeeder extends Seeder
             "sizerange_id" => 4,
             "specie_id" => 2,
         ]);
+        $thirdAnimal = Animal::create([
+            "name" => "Biscuit",
+            "description" => "Friendly dog",
+            "birth_date" => "2023-06-15",
+            "cats_friendly" => false,
+            "dogs_friendly" => true,
+            "children_friendly" => true,
+            "behavioral_comment" => "Loves to play fetch",
+            "sterilized" => true,
+            "sizerange_id" => 3,
+            "specie_id" => 2,
+            "breed_id" => 98,
+        ]);
+        $fourthAnimal = Animal::create([
+            "name" => "Whiskers",
+            "description" => "Independent cat",
+            "birth_date" => "2022-01-01",
+            "cats_friendly" => true,
+            "dogs_friendly" => false,
+            "children_friendly" => false,
+            "behavioral_comment" => "Prefers quiet environments",
+            "sterilized" => true,
+            "sizerange_id" => 1,
+            "specie_id" => 1,
+            "breed_id" => 29,
+        ]);
 
         $numberChip = "555555555555555";
+        $numberChip2 = "123854769524159";
+        $numberChip3 = "123456789123456";
         $numberTatoo = "A45B56";
 
         Identification::create([
@@ -652,6 +680,18 @@ class DatabaseSeeder extends Seeder
             "number" =>  $numberTatoo,
             "date" => Date::now(),
             "animal_id" => $secondAnimal->id
+        ]);
+        Identification::create([
+            "type" =>  IdentificationTypeEnum::CHIP->value,
+            "number" =>  $numberChip2,
+            "date" => Date::now(),
+            "animal_id" => $thirdAnimal->id
+        ]);
+        Identification::create([
+            "type" =>  IdentificationTypeEnum::CHIP->value,
+            "number" =>  $numberChip3,
+            "date" => Date::now(),
+            "animal_id" => $fourthAnimal->id
         ]);
 
         $healthcare = Healthcare::create([
