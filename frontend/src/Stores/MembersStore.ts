@@ -115,10 +115,12 @@ export const useMembersStore = defineStore({
 		// },
 		async deleteMember(id: string): Promise<boolean> {
 			const deletedMember: Members | ErrorResponse = await deleteMember(id);
+			console.log(deletedMember);
 			if ('error' in deletedMember) {
 				return false;
 			} else {
 				this.members = this.members.filter((m: Members) => m.id !== id);
+				console.log(this.members);
 				return true;
 			}
 		},

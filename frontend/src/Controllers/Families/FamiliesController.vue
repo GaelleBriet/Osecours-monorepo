@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { onMounted, ref } from 'vue';
+	import { onMounted, onUpdated, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
@@ -50,8 +50,12 @@
 	};
 
 	const onConfirmDelete = () => {
-		console.log('to delete : ', familyToDelete.value.id);
-		membersStore.deleteMember(familyToDelete.value.id);
+		const response = membersStore.deleteMember(familyToDelete.value.id, true);
+		if (response) {
+			members.value = members.value.filter(
+				(member) => member.id !== familyToDelete.value.id,
+			);
+		}
 		showModal.value = false;
 	};
 
