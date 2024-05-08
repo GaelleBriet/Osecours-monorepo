@@ -187,6 +187,7 @@
 			"personal": "informations personnelles",
 			"name": "nom",
 			"animalsNumber": "nombre d'animaux",
+			"role": "rôle",
 			"messages": {
 				"delete": "voulez-vous vraiment supprimer cette famille ?",
 				"deleteFamily": "supprimer une famille",
@@ -230,6 +231,15 @@
 		}
 	},
 	"enums": {
+		"role": {
+			"admin": "administrateur",
+			"user": "membre",
+			"accountant": "trésorier",
+			"president": "président",
+			"adopter": "adoptant",
+			"other": "autre",
+			"foster": "famille d'accueil"
+		},
 		"animalSpecies": {
 			"Dog": "chien",
 			"Cat": "chat"
