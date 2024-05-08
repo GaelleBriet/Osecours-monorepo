@@ -15,7 +15,7 @@
 
 	let members = ref<Members[]>([]);
 	const showModal = ref(false);
-	// const familyIDToDelete = ref<number | undefined | string>(undefined);
+	const memberIDToDelete = ref<number | undefined | string>(undefined);
 
 	const t = i18n.global.t;
 	const currentAssociationId = userStore.user?.associationId;
@@ -44,18 +44,18 @@
 	};
 
 	const openModal = (item: Members) => {
-		// familyIDToDelete.value = item.id;
+		memberIDToDelete.value = item.id;
 		showModal.value = true;
 	};
 
 	const onConfirmDelete = async () => {
-		// const response = await membersStore.deleteMember(familyIDToDelete.value);
-		// if (response) {
-		// 	members.value = members.value.filter(
-		// 		(member) => member.id !== familyIDToDelete.value,
-		// 	);
-		// 	showModal.value = false;
-		// }
+		const response = await membersStore.deleteMember(memberIDToDelete.value);
+		if (response) {
+			members.value = members.value.filter(
+				(member) => member.id !== memberIDToDelete.value,
+			);
+			showModal.value = false;
+		}
 	};
 
 	const getRoleName = (roleId: number | string | undefined) => {
@@ -82,7 +82,7 @@
 	onMounted(async () => {
 		await membersStore.getMembers(currentAssociationId ?? '');
 		members.value = membersStore.members;
-		console.log(members.value);
+
 		members.value = membersStore.members.map((member) => ({
 			...member,
 			fullName: `${member.first_name} ${member.last_name}`,
@@ -106,8 +106,8 @@
 		/>
 		<ModalComponent
 			:isOpen="showModal"
-			:title="getCapitalizedText(t('pages.families.messages.deleteFamily'))"
-			:description="getCapitalizedText(t('pages.families.messages.delete'))"
+			:title="getCapitalizedText(t('pages.users.messages.deleteMember'))"
+			:description="getCapitalizedText(t('pages.users.messages.delete'))"
 			:center="true"
 			:confirmButton="true"
 			:cancelButton="true"

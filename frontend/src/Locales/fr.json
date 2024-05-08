@@ -216,7 +216,11 @@
 			"dogCount": "nombre de chiens",
 			"childrenCount": "nombre d'enfants",
 			"adoptFamily": "famille adoptante",
-			"fosterFamily": "famille d'accueil"
+			"fosterFamily": "famille d'accueil",
+			"messages": {
+				"delete": "voulez-vous vraiment supprimer ce membre ?",
+				"deleteMember": "supprimer un membre"
+			}
 		},
 		"documents": {
 			"title": "liste de tous les fichiers de l'association",
