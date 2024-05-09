@@ -755,6 +755,130 @@ paths:
       security:
         -
           bearerAuth: []
+  /healthcares/all:
+    get:
+      tags:
+        - Healthcares
+      summary: 'Get all healthcare'
+      description: 'Returns a list of all healthcare'
+      operationId: getAllHealthcares
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Healthcare'
+      security:
+        -
+          bearerAuth: []
+  '/healthcares/{id}':
+    get:
+      tags:
+        - Healthcares
+      summary: 'Get specific healthcare'
+      description: 'Return finded healthcare'
+      operationId: getSpecificHealthcare
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Healthcare'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Healthcares
+      summary: 'Update an existing Healthcare'
+      description: 'Updates data of a specified Healthcare'
+      operationId: updateHealthcare
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the Healthcare to update'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'Data to update the Healthcare'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Healthcare'
+      responses:
+        '200':
+          description: 'Healthcare updated successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcare'
+        '404':
+          description: 'Healthcare not found'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Healthcares
+      summary: 'Delete an Healthcare'
+      description: 'Soft deletes a specified Healthcare from the database'
+      operationId: deleteHealthcare
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the Healthcare to delete'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Healthcare deleted successfully'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string }
+                  Healthcare: { $ref: '#/components/schemas/Healthcare' }
+                type: object
+        '404':
+          description: 'Healthcare not found'
+      security:
+        -
+          bearerAuth: []
+  /healthcares:
+    post:
+      tags:
+        - Healthcares
+      summary: 'Create a new Healthcare'
+      description: 'Stores a new Healthcare in the database'
+      operationId: storeHealthcare
+      requestBody:
+        description: 'Data for the new Healthcare'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Healthcare'
+      responses:
+        '201':
+          description: 'Healthcare created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Healthcare'
+      security:
+        -
+          bearerAuth: []
   /vaccines/all:
     get:
       tags:
