@@ -188,9 +188,9 @@ class Animal extends Model implements HasDocumentsInterface
         return $this->belongsTo(AgeRange::class);
     }
 
-    public function vaccines(): HasMany
+    public function vaccines(): BelongsToMany
     {
-        return $this->hasMany(Vaccine::class);
+        return $this->belongsToMany(Vaccine::class,"animal_vaccine");
     }
 
     public function healthcares(): HasMany
