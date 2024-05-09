@@ -16,7 +16,7 @@ class VaccineController extends Controller
  *     path="/vaccines/all",
  *   security={{"bearerAuth":{}}},
  *     operationId="getAllvaccines",
- *     tags={"vaccines"},
+ *     tags={"Vaccines"},
  *     summary="Get all vaccines",
  *     description="Returns a list of all vaccines",
  *     @OA\Response(
@@ -101,7 +101,7 @@ class VaccineController extends Controller
  *     path="/vaccines/{id}",
  *   security={{"bearerAuth":{}}},
  *     operationId="updateVaccine",
- *     tags={"vaccines"},
+ *     tags={"Vaccines"},
  *     summary="Update an existing vaccine",
  *     description="Updates data of a specified vaccine",
  *     @OA\Parameter(
@@ -179,7 +179,8 @@ class VaccineController extends Controller
  *         required=true,
  *         description="Data for the new Vaccine",
  *        @OA\JsonContent(
-     *             @OA\Property(property="animal_id", type="integer", example=1),
+ *             @OA\Property(property="animal_id", type="integer", example=1),
+ *      ),
  *     ),
  *     @OA\Response(
  *         response=201,

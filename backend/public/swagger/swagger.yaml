@@ -755,6 +755,166 @@ paths:
       security:
         -
           bearerAuth: []
+  /vaccines/all:
+    get:
+      tags:
+        - Vaccines
+      summary: 'Get all vaccines'
+      description: 'Returns a list of all vaccines'
+      operationId: getAllvaccines
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vaccine'
+      security:
+        -
+          bearerAuth: []
+  '/vaccines/{id}':
+    get:
+      tags:
+        - Vaccines
+      summary: 'Get an vaccine by ID'
+      description: 'Returns a single vaccine'
+      operationId: getVaccineById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the vaccine to return'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccine'
+        '404':
+          description: 'Vaccine not found'
+      security:
+        -
+          bearerAuth: []
+    put:
+      tags:
+        - Vaccines
+      summary: 'Update an existing vaccine'
+      description: 'Updates data of a specified vaccine'
+      operationId: updateVaccine
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the vaccine to update'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: 'Data to update the vaccine'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vaccine'
+      responses:
+        '200':
+          description: 'Vaccine updated successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccine'
+        '404':
+          description: 'Vaccine not found'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Vaccines
+      summary: 'Delete an vaccine'
+      description: 'Soft deletes a specified vaccine from the database'
+      operationId: deleteVaccine
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID of the vaccine to delete'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Vaccine deleted successfully'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string }
+                  Vaccine: { $ref: '#/components/schemas/Vaccine' }
+                type: object
+        '404':
+          description: 'Vaccine not found'
+      security:
+        -
+          bearerAuth: []
+  /vaccines:
+    post:
+      tags:
+        - Vaccines
+      summary: 'Create a new Vaccine'
+      description: 'Stores a new Vaccine in the database'
+      operationId: storeVaccine
+      requestBody:
+        description: 'Data for the new Vaccine'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vaccine'
+      responses:
+        '201':
+          description: 'Vaccine created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccine'
+      security:
+        -
+          bearerAuth: []
+  '/vaccines/{id}/animal/':
+    post:
+      tags:
+        - Vaccines
+      summary: 'Add vaccine to an animal'
+      description: 'Add vaccine to an animal'
+      operationId: addVaccineToAnAnimal
+      requestBody:
+        description: 'Data for the new Vaccine'
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                animal_id:
+                  type: integer
+                  example: 1
+              type: object
+      responses:
+        '201':
+          description: 'Vaccine created successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vaccine'
+      security:
+        -
+          bearerAuth: []
 components:
   schemas:
     Address:
