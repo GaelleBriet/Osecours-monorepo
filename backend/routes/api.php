@@ -8,10 +8,12 @@ use App\Http\Controllers\CoatController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\GenderController;
+use App\Http\Controllers\HealthcareController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccineController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -93,6 +95,23 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::put('/associations/{id}', 'update');
           Route::delete('/associations/{id}', 'delete');
           Route::get('/associations/{id}/members', 'getMembers');
+     });
+
+     Route::controller(HealthcareController::class)->group(function () {
+          Route::get("/healthcares/all", "getAll");
+          Route::post('/healthcares', 'create');
+          Route::get('/healthcares/{healthcare}', 'show');  
+          Route::put('/healthcares/{healthcare}', 'update');
+          Route::delete('/healthcares/{healthcare}', 'delete');
+     });
+
+     Route::controller(VaccineController::class)->group(function () {
+          Route::get("/vaccines/all", "getAll");
+          Route::post('/vaccines', 'create');
+          Route::get('/vaccines/{vaccine}', 'show');  
+          Route::put('/vaccines/{vaccine}', 'update');
+          Route::delete('/vaccines/{vaccine}', 'delete');
+          Route::post('/vaccines/{vaccine}/animal', 'vacinneAnimal');
      });
 
      Route::controller(DocumentController::class)->group(function () {

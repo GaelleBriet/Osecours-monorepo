@@ -55,9 +55,9 @@ class Vaccine extends Model
         'description',
     ];
 
-    public function animals(): HasMany
+    public function animals(): BelongsToMany
     {
-        return $this->hasMany(Animal::class);
+        return $this->belongsToMany(Animal::class,"animal_vaccine");
     }
 
     public function species(): BelongsToMany
