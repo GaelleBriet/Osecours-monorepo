@@ -12,18 +12,6 @@ export const getDocument = async (
 	id: string | RouteParamValue[],
 ): Promise<Document | ErrorResponse> => {
 	try {
-		// const response = {
-		// 	id: 1,
-		//     filename: 'example1.txt',
-		//     description: 'This is the first example file.',
-		//     size: '10 KB',
-		//     url: 'https://example.com/files/example1.txt',
-		//     date: '2024-04-17',
-		//     mimeType: '3',
-		//     docType: '2'
-		// };
-		// return response;
-
 		const { data } = await axiosInstance.get(
 			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
 		);
@@ -161,11 +149,12 @@ export const createDocumentForShelter = async (
 };
 
 export const updateDocument = async (
+	id: string | RouteParamValue[],
 	document: Document,
 ): Promise<Document | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.put(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${document.id}`,
+			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
 			document,
 		);
 		return response.data;
@@ -176,7 +165,7 @@ export const updateDocument = async (
 };
 
 export const deleteDocument = async (
-	id: number,
+	id: string,
 ): Promise<Document | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.delete(

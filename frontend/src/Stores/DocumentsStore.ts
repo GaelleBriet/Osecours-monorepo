@@ -12,6 +12,7 @@ import {
 	deleteDocument,
 } from '@/Services/DataLayers/Document.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { RouteParamValue } from 'vue-router';
 
 export const useDocumentsStore = defineStore('documents', {
 	state: (): {
@@ -27,7 +28,7 @@ export const useDocumentsStore = defineStore('documents', {
 		},
 	},
 	actions: {
-		async getDocument(id: number): Promise<Document | null> {
+		async getDocument(id: string | RouteParamValue[]): Promise<Document | null> {
 			const document: Document | ErrorResponse = await getDocument(id);
 			if ('error' in document) {
 				return null;
@@ -82,7 +83,6 @@ export const useDocumentsStore = defineStore('documents', {
 			id: number,
 			document: Document,
 		): Promise<Document | null> {
-			console.log('store', id, document);
 			const newDocument: Document | ErrorResponse =
 				await createDocumentForAnimal(id, document);
 			if ('error' in newDocument) {
@@ -104,14 +104,28 @@ export const useDocumentsStore = defineStore('documents', {
 				return newDocument;
 			}
 		},
-		async updateDocument(document: Document): Promise<Document | null> {
+		async updateDocument(
+			id: number,
+			document: Document
+		): Promise<Document | null> {
 			const updatedDocument: Document | ErrorResponse =
-				await updateDocument(document);
+				await updateDocument(id, document);
 			if ('error' in updatedDocument) {
 				return null;
 			} else {
 				this.documents.push(updatedDocument);
 				return updatedDocument;
+			}
+		},
+		async deleteDocument(id: string): Promise<boolean> {
+			const documentToDelete: Document | ErrorResponse = await deleteDocument(id);
+			if ('error' in documentToDelete) {
+				return false;
+			} else {
+				this.documents = this.documents.filter(
+					(document: Document) => document.id !== Number(id),
+				);
+				return true;
 			}
 		},
 	},

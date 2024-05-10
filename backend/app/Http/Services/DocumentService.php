@@ -50,7 +50,7 @@ class DocumentService{
     }
 
     public function createDocumentForShelter(Request $request,Shelter $shelter){
-        
+
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData); 
         $shelter->documents()->attach($newDoc);

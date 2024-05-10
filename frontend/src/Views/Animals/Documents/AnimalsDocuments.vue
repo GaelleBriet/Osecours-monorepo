@@ -13,7 +13,6 @@
 	onMounted(async () => {
 		documents.value = await documentsStore.getDocumentsByAnimal(route.params.id);
 	});
-	console.log(documents)
 	const addPhoto = () => {
 		// @todo Logique pour ajouter une photo
 	};
@@ -25,7 +24,7 @@
 <template>
 	<DocumentsForm
 		:document="documents"
-		:is-create-mode="false"
+		:is-create-mode="true"
 	/>
 </template>
 <style scoped lang="postcss">

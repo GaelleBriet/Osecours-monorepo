@@ -34,7 +34,6 @@ export const useDocumentsSettingsStore = defineStore('documentsSettings', {
 		},
 		async getAllDoctypes(): Promise<Doctypes[]> {
 			const doctypes: Doctypes[] | ErrorResponse = await getAllDoctypes();
-			console.log("dt " + doctypes)
 			if ('error' in doctypes) {
 				return [];
 			} else {
