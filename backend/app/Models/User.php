@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Traits\RoleAssociation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -81,7 +82,7 @@ use OpenApi\Annotations as OA;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens,RoleAssociation;
+    use HasFactory, Notifiable, HasApiTokens, RoleAssociation, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -125,14 +126,14 @@ class User extends Authenticatable
     public function person() {
         return $this->morphOne(Person::class, 'personable');
     }
-    
+
     public function associations()
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
                     ->withPivot('role_id')
                     ->withTimestamps();
     }
-    
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'association_role_user')
@@ -159,5 +160,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
             ->withPivot('shelter_id')
             ->withTimestamps();
+    }
+
+    public function association_role_user()
+    {
+        return $this->belongsToMany(Association::class, 'association_role_user')
+                    ->withPivot('role_id')
+                    ->withTimestamps();
     }
 }

@@ -1,12 +1,11 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
 	import GeneralInformations from '@/Views/Documents/GeneralInformations.vue';
-
+	import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import i18n from '@/Services/Translations';
-	import { Document } from '@/Interfaces/Document.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const t = i18n.global.t;

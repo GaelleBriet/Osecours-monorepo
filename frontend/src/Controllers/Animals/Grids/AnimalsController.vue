@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { computed, onMounted } from 'vue';
+	import ModalComponent from '@/Components/ModalComponent.vue';
+	import { computed, onMounted, ref } from 'vue';
 	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
@@ -10,6 +11,9 @@
 	const t = i18n.global.t;
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
+
+	const showModal = ref(false);
+	const animalToDelete = ref(null);
 
 	// On transforme les données pour les afficher dans le tableau
 	const animalsTransformed = computed(() => {
@@ -27,6 +31,7 @@
 			};
 		});
 	});
+
 	const editItem = (item: Animal) => {
 		router.push({
 			name: 'EditAnimal',
@@ -40,8 +45,14 @@
 		});
 	};
 
-	const deleteItem = (item: Animal) => {
-		animalsStore.deleteAnimal(item.id);
+	const openModal = (item: Animal) => {
+		animalToDelete.value = item;
+		showModal.value = true;
+	};
+
+	const onConfirmDelete = () => {
+		animalsStore.deleteAnimal(animalToDelete.value.id);
+		showModal.value = false;
 	};
 
 	onMounted(async () => {
@@ -79,8 +90,19 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
-			@delete="deleteItem"
+			@delete="openModal"
 		/>
+		<ModalComponent
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.animals.messages.deleteAnimal'))"
+			:description="getCapitalizedText(t('pages.animals.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
 	</div>
 </template>
 

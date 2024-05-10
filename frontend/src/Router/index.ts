@@ -20,6 +20,8 @@ import SettingsController from '@/Controllers/Animals/Grids/SettingsController.v
 import DocumentsController from '@/Controllers/Documents/DocumentsController.vue';
 import CreateDocument from '@/Views/Documents/CreateDocument.vue';
 import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
+import MembersController from '@/Controllers/Members/MembersController.vue';
+import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
 
 const routes = [
 	{
@@ -96,7 +98,7 @@ const routes = [
 	{
 		path: '/members',
 		name: 'Members',
-		component: HomeViewController,
+		component: MembersController,
 	},
 	{
 		path: '/documents',
@@ -122,6 +124,12 @@ const routes = [
 		path: '/families/:id',
 		name: 'EditFamilies',
 		component: FamiliesDetails,
+	},
+	{
+		path: '/families/add',
+		name: 'CreateFamily',
+		component: FamiliesForm,
+		props: { isCreateMode: true },
 	},
 	{
 		path: '/profile',

@@ -21,6 +21,7 @@ export interface User {
 	token?: string;
 	scopes?: string;
 	associationName?: string;
+	associationId?: string;
 	address?: string;
 	city?: string;
 	zipCode?: string;

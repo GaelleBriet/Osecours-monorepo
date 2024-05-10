@@ -7,9 +7,23 @@
 		TransitionRoot,
 	} from '@headlessui/vue';
 
-	const props = defineProps({
-		isOpen: Boolean,
-	});
+	// const props = defineProps({
+	// 	isOpen: Boolean,
+	// });
+
+	const props = defineProps<{
+		isOpen: boolean;
+		title?: string;
+		description?: string;
+		center?: boolean;
+		confirmButton?: boolean;
+		cancelButton?: boolean;
+	}>();
+
+	const emit = defineEmits<{
+		(event: 'close'): void;
+		(event: 'confirm'): void;
+	}>();
 
 	const isOpen = ref(props.isOpen);
 
@@ -22,6 +36,14 @@
 
 	const closeModal = () => {
 		isOpen.value = false;
+	};
+
+	const onConfirm = () => {
+		emit('confirm');
+	};
+
+	const onClose = () => {
+		emit('close');
 	};
 </script>
 
@@ -52,7 +74,11 @@
 
 			<div class="fixed inset-0 z-30 w-screen overflow-y-auto">
 				<div
-					class="flex min-h-full lg:items-end justify-center p-4 text-center sm:items-center sm:p-0"
+					:class="{
+						'flex min-h-full justify-center p-4 text-center sm:items-center sm:p-0': true,
+						'lg:items-center': props.center,
+						'lg:items-end': !props.center,
+					}"
 				>
 					<TransitionChild
 						as="template"
@@ -66,6 +92,40 @@
 						<DialogPanel
 							class="dialog-color relative transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"
 						>
+							<div>
+								<p
+									v-if="title"
+									class="text-osecours-beige-dark font-bold"
+								>
+									{{ title }}
+								</p>
+								<p
+									v-if="description"
+									class="text-gray-700"
+								>
+									{{ description }}
+								</p>
+							</div>
+							<div class="flex flex-row gap-2 mt-5 mb-2 justify-around">
+								<button
+									v-if="confirmButton"
+									id="save-changes"
+									type="button"
+									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
+									@click="onConfirm"
+								>
+									{{ 'Supprimer' }}
+								</button>
+								<button
+									v-if="cancelButton"
+									id="cancel"
+									type="button"
+									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
+									@click="onClose"
+								>
+									{{ 'Annuler' }}
+								</button>
+							</div>
 							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
 								<button
 									type="button"
@@ -87,5 +147,31 @@
 <style scoped lang="postcss">
 	.dialog-color {
 		background-color: rgb(254, 241, 228);
+	}
+
+	#save-changes {
+		background-color: rgba(242, 138, 128);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #f28a80;
+			outline: 1px solid #f28a80;
+		}
+		&:focus {
+			outline: none;
+		}
+	}
+
+	#cancel {
+		background-color: #d99962;
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
+		&:focus {
+			outline: none;
+		}
 	}
 </style>

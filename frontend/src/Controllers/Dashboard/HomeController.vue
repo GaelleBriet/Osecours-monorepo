@@ -16,6 +16,7 @@
 	const membersStore = useMembersStore();
 
 	const associationName = userStore.user?.associationName as string;
+	const currentAssociationId = userStore.user?.associationId;
 	const animalsQuantity = ref(0);
 	const catsQuantity = ref(0);
 	const dogsQuantity = ref(0);
@@ -37,14 +38,20 @@
 		await shelterStore.getShelters();
 		sheltersQuantity.value = shelterStore.sheltersQuantity;
 
-		await membersStore.getMembers();
+		await membersStore.getMembers(currentAssociationId ?? '');
 		membersQuantity.value = membersStore.membersQuantity;
 
-		await membersStore.getMembersByFamilyType('foster');
-		fosterQuantity.value = membersStore.membersQuantity;
+		await membersStore.getMembersByFamilyType(
+			'foster',
+			currentAssociationId ?? '',
+		);
+		fosterQuantity.value = membersStore.fosterFamiliesQuantity;
 
-		await membersStore.getMembersByFamilyType('adopt');
-		adoptQuantity.value = membersStore.membersQuantity;
+		await membersStore.getMembersByFamilyType(
+			'adopt',
+			currentAssociationId ?? '',
+		);
+		adoptQuantity.value = membersStore.adoptFamiliesQuantity;
 	});
 </script>
 <template>
