@@ -77,6 +77,7 @@ onMounted(async () => {
                         ]"
                         @edit="editItem"
                         @add="addItem"
+                        @delete="deleteItem"
                     />
                 </div>
             </template>
