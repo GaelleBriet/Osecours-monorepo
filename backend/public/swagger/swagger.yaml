@@ -377,18 +377,18 @@ paths:
       security:
         -
           bearerAuth: []
-  /associations/{id}/members:
+  '/associations/{id}/members':
     get:
       tags:
         - Associations
-      summary: 'Get all members of an association'
-      description: 'Returns a list of all members of a specific association'
-      operationId: getAssociationMembers
+      summary: 'Get members of an association'
+      description: 'Returns a list of association members'
+      operationId: e6e9dec478127208b3e064dad1c9c154
       parameters:
         -
           name: id
           in: path
-          description: 'ID of the association to fetch members'
+          description: 'ID of the association'
           required: true
           schema:
             type: string
@@ -398,11 +398,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/User'
         '404':
-          description: 'Association not found'
+          description: 'Not found'
       security:
         -
           bearerAuth: []
@@ -784,12 +782,10 @@ paths:
       security:
         -
           bearerAuth: []
-  '/users/role':
+  /users/role:
     get:
       tags:
         - Users
-      summary: 'Get curent association users by role'
-      description: 'Returns a list of users with a specific role'
       operationId: 8e23bedf4767644ec77dad2617b97e41
       parameters:
         -
@@ -802,19 +798,13 @@ paths:
         -
           name: currentAssociationId
           in: query
-          description: 'The current association ID'
+          description: 'The ID of the current association'
           required: true
           schema:
             type: integer
       responses:
         '200':
-          description: 'Successful operation : get users by role & association'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+          description: 'get users by role & association'
       security:
         -
           bearerAuth: []
@@ -826,7 +816,8 @@ paths:
       description: 'Return informations for an user with specific id'
       operationId: getUserById
       parameters:
-        - name: id
+        -
+          name: id
           in: path
           description: 'user Id to fetch'
           required: true
@@ -844,7 +835,8 @@ paths:
         '500':
           description: 'Server Error'
       security:
-        - bearerAuth: [ ]
+        -
+          bearerAuth: []
     delete:
       tags:
         - Users

@@ -42,6 +42,12 @@
 		});
 	};
 
+	const addItem = () => {
+		router.push({
+			name: 'CreateFamily',
+		});
+	};
+
 	const openModal = (item: Members) => {
 		familyIDToDelete.value = item.id;
 		showModal.value = true;
@@ -79,6 +85,7 @@
 			:description="getCapitalizedText(t('pages.families.title'))"
 			:columns="columns"
 			@edit="editItem"
+			@add="addItem"
 			@delete="openModal"
 		/>
 		<ModalComponent

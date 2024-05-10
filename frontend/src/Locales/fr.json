@@ -203,6 +203,8 @@
 			"title": "liste des membres de l'association.",
 			"card": "fiche utilisateur",
 			"role": "rôle",
+			"firstName": "prénom",
+			"lastName": "nom de famille",
 			"email": "email",
 			"phone": "téléphone",
 			"address": "adresse",

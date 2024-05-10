@@ -4,28 +4,30 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 import { Members } from '@/Interfaces/Members.ts';
+import { RouteParamValue } from 'vue-router';
 // import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-export const getMemberById = async () // id: string,
-: Promise<Partial<User> | ErrorResponse> => {
+export const getMemberById = async (
+	id: string | RouteParamValue[],
+): Promise<Partial<User> | ErrorResponse> => {
 	try {
-		const response = {
-			id: 1,
-			firstName: 'John',
-			lastName: 'Doe',
-			email: 'john.doe@mail.fr',
-			phone: '0612345678',
-			existingCatCount: 0,
-			existingDogCount: 0,
-			existingChildrenCount: 0,
-			adoptFamily: false,
-			fosterFamily: true,
-		};
-		return response;
-		// const response: AxiosResponse<User> = await axiosInstance.get<User>(
-		// 	`${import.meta.env.VITE_USERS_API_URL}/${id}`,
-		// );
-		// return response.data;
+		// const response = {
+		// 	id: 1,
+		// 	firstName: 'John',
+		// 	lastName: 'Doe',
+		// 	email: 'john.doe@mail.fr',
+		// 	phone: '0612345678',
+		// 	existingCatCount: 0,
+		// 	existingDogCount: 0,
+		// 	existingChildrenCount: 0,
+		// 	adoptFamily: false,
+		// 	fosterFamily: true,
+		// };
+		// return response;
+		const response: AxiosResponse<User> = await axiosInstance.get<User>(
+			`${import.meta.env.VITE_USERS_API_URL}/${id}`,
+		);
+		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);

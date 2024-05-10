@@ -203,6 +203,8 @@
 			"title": "list of members",
 			"card": "user card",
 			"role": "role",
+			"firstName": "first name",
+			"lastName": "last name",
 			"email": "email",
 			"phone": "phone",
 			"address": "address",

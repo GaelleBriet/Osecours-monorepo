@@ -11,6 +11,7 @@ import {
 	updateMember,
 } from '@/Services/DataLayers/Member.ts';
 import { Role } from '@/Enums/Role.ts';
+import { RouteParamValue } from 'vue-router';
 
 export const useMembersStore = defineStore({
 	id: 'members',
@@ -50,8 +51,8 @@ export const useMembersStore = defineStore({
 				return members;
 			}
 		},
-		async getMemberById(): Promise<User | null> {
-			const member: User | ErrorResponse = await getMemberById();
+		async getMemberById(id: string | RouteParamValue[]): Promise<User | null> {
+			const member: User | ErrorResponse = await getMemberById(id);
 			if ('error' in member) {
 				return null;
 			} else {
