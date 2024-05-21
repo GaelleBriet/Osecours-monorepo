@@ -1,9 +1,6 @@
 # Utilisation d'une image PHP.
 FROM php:8.2-apache
 
-# Désactiver tous les autres MPM avant d'activer mpm_prefork
-RUN a2dismod mpm_event mpm_worker && a2enmod mpm_prefork
-
 # Copie du fichier de configuration Apache.
 COPY .docker/apache/000-default.conf /etc/apache2/sites-available/
 
@@ -38,6 +35,3 @@ RUN echo 'alias @="php artisan"' >> ~/.bashrc
 RUN a2enmod rewrite
 WORKDIR /var/www/html
 RUN composer install --optimize-autoloader
-
-# Démarrage d'Apache en premier plan
-CMD ["apache2-foreground"]
