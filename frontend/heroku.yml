@@ -1,0 +1,7 @@
+build:
+  docker:
+    frontend: Dockerfile.prod
+
+run:
+  web:
+    frontend: nginx -g "daemon off;"
