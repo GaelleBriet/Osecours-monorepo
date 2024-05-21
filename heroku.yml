@@ -1,3 +1,3 @@
 build:
   docker:
-    web: Dockerfile.heroku.old
+    web: Dockerfile.heroku
