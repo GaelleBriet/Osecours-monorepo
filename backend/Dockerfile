@@ -1,10 +1,10 @@
 # Utilisation d'une image PHP.
 FROM php:8.2-apache
 
-# Désactivation des MPM par défaut et activation de prefork
-RUN a2dismod mpm_event mpm_worker mpm_prefork && a2enmod mpm_prefork
+# Copier le script de démarrage
+COPY start-apache.sh /usr/local/bin/
 
-# Copie du fichier de configuration Apache.
+# Copier le fichier de configuration Apache.
 COPY .docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copie du code source de l'application.
@@ -37,7 +37,6 @@ RUN echo 'alias @="php artisan"' >> ~/.bashrc
 # Activation de la réécriture d'URL pour Apache.
 RUN a2enmod rewrite
 
-
 # Installation des dépendances Composer.
 WORKDIR /var/www/html
 RUN composer install --optimize-autoloader
@@ -46,4 +45,4 @@ RUN composer install --optimize-autoloader
 EXPOSE 80
 
 # Commande pour démarrer Apache.
-CMD ["apache2-foreground"]
+CMD ["start-apache.sh"]
