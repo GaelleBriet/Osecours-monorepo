@@ -4,7 +4,10 @@ FROM php:8.2-apache
 # Copier le script de démarrage
 COPY start-apache.sh /usr/local/bin/
 
-# Copier le fichier de configuration Apache.
+# Désactivation des MPM par défaut et activation de prefork
+RUN a2dismod mpm_event mpm_worker mpm_prefork && a2enmod mpm_prefork
+
+# Copie du fichier de configuration Apache.
 COPY .docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copie du code source de l'application.
@@ -45,4 +48,4 @@ RUN composer install --optimize-autoloader
 EXPOSE 80
 
 # Commande pour démarrer Apache.
-CMD ["start-apache.sh"]
+CMD ["apache2-foreground"]
