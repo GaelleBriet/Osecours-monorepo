@@ -4,6 +4,9 @@ cp ./backend/.env.example ./backend/.env
 cd backend
 composer install
 
+cd frontend
+npm install
+cp .env.example .env
 ```
 
 On root of project create a .env file with the following info: 
