@@ -782,89 +782,6 @@ paths:
       security:
         -
           bearerAuth: []
-  /users/role:
-    get:
-      tags:
-        - Users
-      operationId: 8e23bedf4767644ec77dad2617b97e41
-      parameters:
-        -
-          name: role
-          in: query
-          description: 'The role of the user'
-          required: true
-          schema:
-            type: string
-        -
-          name: currentAssociationId
-          in: query
-          description: 'The ID of the current association'
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: 'get users by role & association'
-      security:
-        -
-          bearerAuth: []
-  '/users/{id}':
-    get:
-      tags:
-        - Users
-      summary: 'Get specific user details'
-      description: 'Return informations for an user with specific id'
-      operationId: getUserById
-      parameters:
-        -
-          name: id
-          in: path
-          description: 'user Id to fetch'
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'User fetched successfully'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          description: 'User not found'
-        '500':
-          description: 'Server Error'
-      security:
-        -
-          bearerAuth: []
-    delete:
-      tags:
-        - Users
-      summary: 'Delete specific user (soft delete)'
-      description: 'Make a soft delete for an user with specific id'
-      operationId: deleteUserById
-      parameters:
-        -
-          name: id
-          in: path
-          description: "ID de l'utilisateur à supprimer"
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'User supprimé avec succès'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '404':
-          description: 'User non trouvé'
-        '500':
-          description: 'Erreur interne'
-      security:
-        -
-          bearerAuth: []
   /healthcares/all:
     get:
       tags:
@@ -986,6 +903,89 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Healthcare'
+      security:
+        -
+          bearerAuth: []
+  /users/role:
+    get:
+      tags:
+        - Users
+      operationId: 8e23bedf4767644ec77dad2617b97e41
+      parameters:
+        -
+          name: role
+          in: query
+          description: 'The role of the user'
+          required: true
+          schema:
+            type: string
+        -
+          name: currentAssociationId
+          in: query
+          description: 'The ID of the current association'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'get users by role & association'
+      security:
+        -
+          bearerAuth: []
+  '/users/{id}':
+    get:
+      tags:
+        - Users
+      summary: 'Get specific user details'
+      description: 'Return informations for an user with specific id'
+      operationId: getUserById
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'user Id to fetch'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'User fetched successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 'User not found'
+        '500':
+          description: 'Server Error'
+      security:
+        -
+          bearerAuth: []
+    delete:
+      tags:
+        - Users
+      summary: 'Delete specific user (soft delete)'
+      description: 'Make a soft delete for an user with specific id'
+      operationId: deleteUserById
+      parameters:
+        -
+          name: id
+          in: path
+          description: "ID de l'utilisateur à supprimer"
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'User supprimé avec succès'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: 'User non trouvé'
+        '500':
+          description: 'Erreur interne'
       security:
         -
           bearerAuth: []
