@@ -3,7 +3,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: vue_frontend
     volumes:
       - ./frontend:/app
@@ -18,7 +18,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: backend/Dockerfile.dev
+      dockerfile: backend/Dockerfile
       
     container_name: laravel_backend
     ports:
