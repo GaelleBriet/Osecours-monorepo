@@ -8,8 +8,6 @@ RUN npm run build
 
 # Pour la partie backend
 FROM php:8.2-apache as build-backend
-# Désactivation des MPM par défaut et activation de prefork
-RUN a2dismod mpm_event mpm_worker mpm_prefork && a2enmod mpm_prefork
 WORKDIR /var/www/html
 COPY ./backend .
 RUN apt-get update && apt-get install -y \
@@ -28,7 +26,7 @@ RUN apt-get update && apt-get install -y \
 # Pour la partie nginx
 FROM nginx:stable-alpine
 COPY --from=build-frontend /app/dist /usr/share/nginx/html
-COPY --from=build-backend /var/www/html /var/www/html
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
 
