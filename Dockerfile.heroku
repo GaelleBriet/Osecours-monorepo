@@ -12,6 +12,11 @@ COPY ./frontend .
 
 RUN npm run build
 
+# Étape de production
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY ./frontend/nginx.conf /etc/nginx/conf.d/default.conf
+
 ## Pour la partie backend
 
 FROM php:8.2-apache as build-backend
