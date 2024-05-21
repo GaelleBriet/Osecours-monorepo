@@ -46,4 +46,5 @@ WORKDIR /var/www/html
 RUN composer install --optimize-autoloader
 
 # Commande pour démarrer Apache.
-CMD ["/usr/local/bin/start-apache.sh"]
+# CMD ["/usr/local/bin/start-apache.sh"]
+CMD ["start-apache.sh"]
