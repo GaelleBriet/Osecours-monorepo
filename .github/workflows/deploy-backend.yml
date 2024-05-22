@@ -19,7 +19,10 @@ jobs:
       env:
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
 
-    - name: Build and push Docker images
+    - name: Build Docker image
+      run: docker build -t web ./backend
+
+    - name: Push and release Docker images
       run: |
         heroku container:push web --app osecours-api
         heroku container:release web --app osecours-api
