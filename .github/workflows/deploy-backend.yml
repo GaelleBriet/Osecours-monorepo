@@ -24,7 +24,7 @@ jobs:
 
     - name: Push and release Docker images
       run: |
-        heroku container:push web --context-path ./backend --app osecours-api
+        docker push registry.heroku.com/osecours-api/web
         heroku container:release web --app osecours-api
       env:
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}

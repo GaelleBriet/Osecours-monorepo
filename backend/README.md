@@ -8,15 +8,15 @@ sh > ./vendor/bin/openapi app -o public/swagger/swagger.yaml
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-[//]: # (    - name: Build Docker image)
+    - name: Build Docker image
 
-[//]: # (      run: docker build -t registry.heroku.com/osecours-api/web ./backend)
+      run: docker build -t registry.heroku.com/osecours-api/web ./backend
 
-[//]: # ()
-[//]: # (    - name: Push and release Docker images)
 
-[//]: # (      run: |)
+    - name: Push and release Docker images
 
-[//]: # (        docker push registry.heroku.com/osecours-api/web)
+      run: |
 
-[//]: # (        heroku container:release web --app osecours-api)
+        docker push registry.heroku.com/osecours-api/web
+
+        heroku container:release web --app osecours-api
