@@ -20,14 +20,11 @@ jobs:
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
 
     - name: Build Docker image
-      run: docker build -t web ./backend
-
-    - name: Change directory
-      run: cd backend
+      run: docker build -t registry.heroku.com/osecours-api/web ./backend
 
     - name: Push and release Docker images
       run: |
-        heroku container:push web --app osecours-api
+        heroku container:push web --context-path ./backend --app osecours-api
         heroku container:release web --app osecours-api
       env:
         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
