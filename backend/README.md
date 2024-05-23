@@ -1,4 +1,5 @@
 ## Update Swagger documentation
+
 ```
 sh > cd backend
 sh > ./vendor/bin/openapi app -o public/swagger/swagger.yaml

@@ -27,7 +27,9 @@ jobs:
           composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run migrations
-        run: php artisan migrate:fresh --seed
+        run: |
+          cd backend
+          php artisan migrate:fresh --seed
         env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_HOST: ${{ secrets.DB_HOST }}
