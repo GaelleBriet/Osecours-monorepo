@@ -1,4 +1,4 @@
 build:
   docker:
-    web: Dockerfile.heroku
+    web: backend/Dockerfile
     frontend: frontend/Dockerfile.prod
