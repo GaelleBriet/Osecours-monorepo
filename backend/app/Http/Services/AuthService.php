@@ -47,8 +47,6 @@ class AuthService
                 'scopes' => $status
             ];
         } else {
-            Log::error('An error occurred in getTokenForSpecificAssociation: ' . $e->getMessage());
-            throw $e;
             throw new UnauthorizedException("Unauthorized");
         }
     }
