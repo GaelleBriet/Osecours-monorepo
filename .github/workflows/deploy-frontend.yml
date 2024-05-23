@@ -14,9 +14,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build project
+      run: |
+        cd frontend
+        npm run build
+
     - name: Deploy to Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: "osecours-front" # Replace with your Heroku app name
-        heroku_email: "gaelle.briet.69@gmail.com" # Replace with your Heroku email
+        heroku_app_name: "osecours-front"
+        heroku_email: "gaelle.briet.69@gmail.com"
