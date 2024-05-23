@@ -26,6 +26,7 @@ jobs:
     - name: Build and push Docker image
       run: |
         cd backend
+        docker build -t registry.heroku.com/osecours-api/web .
         docker push registry.heroku.com/${{ secrets.HEROKU_APP_API_NAME }}/web
 
     - name: Deploy to Heroku
