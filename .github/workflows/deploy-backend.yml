@@ -34,6 +34,9 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
+      - name: Unshallow the clone
+        run: git fetch --all --unshallow
+
       - name: Deploy to Heroku
         run: |
           git push https://heroku:$HEROKU_API_KEY@git.heroku.com/${{ secrets.HEROKU_APP_API_NAME }}.git HEAD:main
