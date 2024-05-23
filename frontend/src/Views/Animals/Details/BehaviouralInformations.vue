@@ -106,7 +106,7 @@
 					/>
 				</div>
 				<div
-					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 md:items-end"
+					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 items-end"
 				>
 					<button
 						id="edit-mode"

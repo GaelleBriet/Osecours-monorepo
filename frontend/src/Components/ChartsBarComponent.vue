@@ -23,19 +23,17 @@
 	);
 
 	const props = defineProps<{
-		catsCount: number;
-		dogsCount: number;
+		data: number[];
+		labels: string[];
+		title: string;
+		titleDisplay?: boolean;
 	}>();
 
-	const catsCount = ref(props.catsCount);
-	const dogsCount = ref(props.dogsCount);
-
 	const chartData = ref({
-		labels: ['Chiens', 'Chats'],
+		labels: props.labels,
 		datasets: [
 			{
-				label: "Nombre d'animaux",
-				data: [catsCount.value, dogsCount.value],
+				data: props.data,
 			},
 		],
 	});
@@ -43,18 +41,23 @@
 	const chartOptions = ref({
 		responsive: true,
 		maintainAspectRatio: false,
+		plugins: {
+			legend: {
+				position: 'top',
+			},
+			title: {
+				display: true,
+				text: props.title,
+			},
+		},
 	});
 
 	watchEffect(() => {
-		catsCount.value = props.catsCount;
-		dogsCount.value = props.dogsCount;
-
 		chartData.value = {
-			labels: ['Chiens', 'Chats'],
+			labels: props.labels,
 			datasets: [
 				{
-					label: "Nombre d'animaux",
-					data: [catsCount.value, dogsCount.value],
+					data: props.data,
 					backgroundColor: [
 						'rgba(242, 208, 167, 0.5)',
 						'rgba(242, 138, 128, 0.5)',

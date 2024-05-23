@@ -94,7 +94,7 @@ export const useAnimalsStore = defineStore('animals', {
 				return newAnimal;
 			}
 		},
-		async deleteAnimal(id: string): Promise<boolean> {
+		async deleteAnimal(id: number | undefined): Promise<boolean> {
 			const animalToDelete: Animal | ErrorResponse = await deleteAnimal(id);
 			if ('error' in animalToDelete) {
 				return false;

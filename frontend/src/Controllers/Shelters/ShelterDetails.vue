@@ -1,14 +1,13 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Shelters/GeneralInformations.vue';
-
+	import ShelterGeneralInformations from '@/Views/Shelters/Details/ShelterGeneralInformations.vue';
+	import ShelterPhotos from '@/Views/Shelters/Documents/ShelterPhotos.vue';
+	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
-	import i18n from '@/Services/Translations';
-	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import ShelterPhotos from '@/Views/Shelters/ShelterPhotos.vue';
+	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -35,6 +34,7 @@
 		</div>
 		<TabsComponent
 			id="sheltersTabsComponent"
+			name="sheltersTabs"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
 				{ name: getCapitalizedText(t('pages.documents.photos')) },
@@ -45,7 +45,7 @@
 		/>
 		<div class="content">
 			<template v-if="currentTab === 0 && currentShelter">
-				<GeneralInformations :shelter="currentShelter" />
+				<ShelterGeneralInformations :shelter="currentShelter" />
 			</template>
 			<template v-if="currentTab === 1 && currentShelter">
 				<ShelterPhotos :shelter="currentShelter" />

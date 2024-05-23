@@ -48,7 +48,8 @@
 		notificationConfig.value = {
 			show: true,
 			message: !props.isCreateMode
-				? `${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate?.name} ${getCapitalizedText(t('common.update'))}`
+				? // eslint-disable-next-line no-undef
+					`${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate?.name} ${getCapitalizedText(t('common.update'))}`
 				: `${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate?.name} ${getCapitalizedText(t('common.creation'))}`,
 			type: 'success',
 		};

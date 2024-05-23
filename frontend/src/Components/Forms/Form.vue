@@ -37,12 +37,6 @@
 		@submit-invalid="submitInvalid"
 	>
 		<slot> </slot>
-		<!--		<FormKit-->
-		<!--			:id="`${id}-submit`"-->
-		<!--			:wrapper-class="{ 'd-none': true }"-->
-		<!--			:outer-class="outerClass"-->
-		<!--			type="submit"-->
-		<!--		></FormKit>-->
 	</FormKit>
 </template>
 
