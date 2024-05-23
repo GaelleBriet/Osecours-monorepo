@@ -12,38 +12,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Docker
-      run: |
-        curl -fsSL https://get.docker.com -o get-docker.sh
-        sh get-docker.sh
-      env:
-        DOCKER_CE_VERSION: latest
-        DOCKER_CLI_VERSION: latest
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo_mysql, dom, xml
+          tools: composer:v2
 
-    - name: Check Docker version
-      run: docker --version
+      - name: Install dependencies
+        run: |
+          cd backend
+          composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Login to Heroku Container registry
-      run: |
-        echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
-        HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }} heroku container:login
-#        docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Run database migrations
+        run: |
+          cd backend
+          php artisan migrate --force
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
-    - name: Build and push Docker image
-      run: |
-        cd backend
-        docker build --no-cache -t registry.heroku.com/osecours-api/web .
-        docker push registry.heroku.com/osecours-api/web
-
-    - name: Deploy to Heroku
-      run: |
-        heroku container:release web --app osecours-api
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_API_NAME }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      - name: Deploy to Heroku
+        run: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/${{ secrets.HEROKU_APP_API_NAME }}.git HEAD:main
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
