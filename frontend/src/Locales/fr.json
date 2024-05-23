@@ -18,8 +18,7 @@
 		"search": "Chercher...",
 		"back": "retour",
 		"success": "succès",
-		"notImplemented": "fonctionnalité non implémentée",
-		"close": "fermer"
+		"notImplemented": "fonctionnalité non implémentée"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -82,15 +81,7 @@
 	},
 	"pages": {
 		"home": {
-			"welcomeMessage": "bienvenue sur notre site !",
-			"animalsNumber": "nombre d'animaux",
-			"familiesNumber": "nombre de familles",
-			"sheltersNumber": "nombre de refuges",
-			"shelters": "refuges",
-			"membersNumber": "nombre de membres",
-			"members": "membres",
-			"adoptFamily": "famille d'adoption",
-			"fosterFamily": "famille d'accueil"
+			"welcomeMessage": "bienvenue sur notre site !"
 		},
 		"about": {
 			"header": "à propos de nous",
@@ -127,7 +118,7 @@
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
 			"messages": {
-				"delete": "voulez-vous vraiment supprimer cet animal ?",
+				"delete": "êtes-vous sûr de vouloir supprimer cet animal ?",
 				"deleteSuccess": "l'animal a bien été supprimé",
 				"deleteError": "une erreur est survenue lors de la suppression de l'animal",
 				"updateSuccess": "l'animal a bien été mis à jour",
@@ -142,8 +133,7 @@
 				"updateDocSuccess": "le document a bien été mis à jour",
 				"updateDocError": "une erreur est survenue lors de la mise à jour du document",
 				"createDocSuccess": "le document a bien été créé",
-				"createDocError": "une erreur est survenue lors de la création du document",
-				"deleteAnimal": "supprimer un animal"
+				"createDocError": "une erreur est survenue lors de la création du document"
 			}
 		},
 		"associations": {
@@ -184,27 +174,12 @@
 			"phone": "téléphone",
 			"email": "email",
 			"details": "détails",
-			"personal": "informations personnelles",
-			"name": "nom",
-			"animalsNumber": "nombre d'animaux",
-			"role": "rôle",
-			"messages": {
-				"delete": "voulez-vous vraiment supprimer cette famille ?",
-				"deleteFamily": "supprimer une famille",
-				"deleteSuccess": "la famille a bien été supprimée",
-				"deleteError": "une erreur est survenue lors de la suppression de la famille",
-				"updateSuccess": "la famille a bien été mise à jour",
-				"updateError": "une erreur est survenue lors de la mise à jour de la famille",
-				"createSuccess": "la famille a bien été créée",
-				"createError": "une erreur est survenue lors de la création de la famille"
-			}
+			"personal": "informations personnelles"
 		},
 		"users": {
-			"title": "liste des membres de l'association.",
+			"title": "liste des utilisateurs de l'association.",
 			"card": "fiche utilisateur",
 			"role": "rôle",
-			"firstName": "prénom",
-			"lastName": "nom de famille",
 			"email": "email",
 			"phone": "téléphone",
 			"address": "adresse",
@@ -218,11 +193,7 @@
 			"dogCount": "nombre de chiens",
 			"childrenCount": "nombre d'enfants",
 			"adoptFamily": "famille adoptante",
-			"fosterFamily": "famille d'accueil",
-			"messages": {
-				"delete": "voulez-vous vraiment supprimer ce membre ?",
-				"deleteMember": "supprimer un membre"
-			}
+			"fosterFamily": "famille d'accueil"
 		},
 		"documents": {
 			"title": "liste de tous les fichiers de l'association",
@@ -237,22 +208,13 @@
 		}
 	},
 	"enums": {
-		"role": {
-			"admin": "administrateur",
-			"user": "membre",
-			"accountant": "trésorier",
-			"president": "président",
-			"adopter": "adoptant",
-			"other": "autre",
-			"foster": "famille d'accueil"
-		},
 		"animalSpecies": {
 			"Dog": "chien",
 			"Cat": "chat"
 		},
 		"animalVaccines": {
 			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS": "leptospirose",
+			"LEPTOSPIROSIS"	: "leptospirose",
 			"BORDETELLA/INFLUENZA": "bordetella/influenza",
 			"LYME": "maladie de lyme",
 			"RABIES": "rage",

@@ -21,7 +21,7 @@
 		innerClass?: string;
 	}>();
 
-	defineEmits<{
+	const emit = defineEmits<{
 		(e: 'update:modelValue', value: string): void;
 		(e: 'blur', event: Event): void;
 	}>();

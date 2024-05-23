@@ -4,8 +4,10 @@
 		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
 	import { computed, ref } from 'vue';
-	import { useRouter } from 'vue-router';
+
 	import { useUserStore } from '@/Stores/UserStore.ts';
+	import { useRouter } from 'vue-router';
+
 	import i18n from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
@@ -112,6 +114,7 @@
 		id="sidebar"
 		class="fixed top-0 left-0 flex h-screen flex-col :sm:w-20 max-w-56 transition-width ease-in-out duration-1000"
 	>
+		<!--		class:fixed-->
 		<div
 			class="flex flex-1 grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-6"
 		>
@@ -154,6 +157,12 @@
 										/>
 										<span class="truncate hidden sm:block">
 											{{ item.name }}
+											<span
+												v-if="item.count"
+												class="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-osecours-white px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-osecours-beige-darkring-1 ring-inset ring-gray-200"
+												aria-hidden="true"
+												>{{ item.count }}</span
+											>
 										</span>
 									</router-link>
 									<!--			arrow icon for subMenus						-->

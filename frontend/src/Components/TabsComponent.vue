@@ -1,33 +1,38 @@
 <script setup lang="ts">
 	import { onMounted, ref } from 'vue';
-	import {
-		getFromStorage,
-		setToStorage,
-	} from '@/Services/Helpers/LocalStorage.ts';
+
+	// defineProps({
+	// 	tabs: {
+	// 		type: Array,
+	// 		default: () => [],
+	// 		required: true,
+	// 	},
+	// 	activeColorClass?: string,
+	// 	secondaryColorClass?: string,
+	// });
 
 	const props = defineProps<{
-		name: string;
 		tabs: Array<{ name: string }>;
 		activeColorClass?: string;
 		secondaryColorClass?: string;
 	}>();
 
 	const emit = defineEmits<{
-		(event: 'update:currentTab', index: number): void;
+		(event: 'update:currentTab', index): void;
 	}>();
 
 	const currentTab = ref(0);
 	const activeTabClass = ref(props.activeColorClass || '');
 
-	const selectTabs = (index: number) => {
+	const selectTabs = (index) => {
 		currentTab.value = index;
-		setToStorage(props.name, index);
+		localStorage.setItem('currentTab', index);
 		emit('update:currentTab', index);
 	};
 
 	onMounted(() => {
-		if (getFromStorage('currentTab')) {
-			currentTab.value = Number(getFromStorage(props.name));
+		if (localStorage.getItem('currentTab')) {
+			currentTab.value = Number(localStorage.getItem('currentTab'));
 		}
 		emit('update:currentTab', currentTab.value);
 	});

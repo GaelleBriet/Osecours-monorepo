@@ -3,6 +3,7 @@
 	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import i18n from '@/Services/Translations';
+	import { Document } from '@/Interfaces/Document.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
 

@@ -56,12 +56,10 @@ export const useUserStore = defineStore({
 					scopes: userTokenScope.scopes,
 					email: email,
 					associationName: associationName ? associationName : '',
-					associationId: associationId ? associationId : '',
 				};
 				setToStorage('token', this.user.token);
 				setToStorage('user', this.user);
 				setToStorage('userLoggedIn', true);
-				setToStorage('associationId', this.user.associationId);
 				this.isLoggedIn = true;
 			} else {
 				throw new Error('No user found.');
@@ -74,10 +72,7 @@ export const useUserStore = defineStore({
 			removeFromStorage('token');
 			removeFromStorage('user');
 			removeFromStorage('userLoggedIn');
-			removeFromStorage('sheltersTabs');
-			removeFromStorage('documentsTabs');
-			removeFromStorage('animalsTabs');
-			removeFromStorage('associationId');
+			removeFromStorage('currentTab');
 			this.isLoggedIn = false;
 		},
 	},

@@ -132,7 +132,7 @@
 </script>
 
 <template>
-	<div class="documents-view bg-osecours-beige-dark bg-opacity-10">
+	<div class="general-informations">
 		<Form
 			:id="
 				!isCreateMode
@@ -272,7 +272,31 @@
 	</div>
 </template>
 <style scoped lang="postcss">
-	.documents-view {
+	#edit-mode {
+		background-color: rgba(242, 138, 128);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #f28a80;
+			outline: 1px solid #f28a80;
+		}
+	}
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+
+	.formkit-outer[data-disabled] {
+		opacity: 0.8;
+		pointer-events: none;
+	}
+
+	.general-informations {
 		//max-height: calc(100% - 4rem);
 		display: flex;
 		flex-direction: column;

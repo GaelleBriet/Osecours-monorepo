@@ -59,16 +59,14 @@
 	});
 </script>
 <template>
-	<div
-		class="shelter-general-informations bg-osecours-beige-dark bg-opacity-10"
-	>
+	<div class="general-informations">
 		<Form
 			:id="!isCreateMode ? `edit-shelter${localShelter.id}` : 'create-shelter'"
 			:submit-label="'edit-shelter'"
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-3 rounded-b-lg flex-grow shadow-md p-2"
+				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-3 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
@@ -161,7 +159,7 @@
 						/>
 					</div>
 				</div>
-				<div class="my-1 row-start-2 lg:row-start-2 grid items-end">
+				<div class="my-1 row-start-2 lg:row-start-2">
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-end lg:col-start-2">
 							<button
@@ -193,9 +191,35 @@
 </template>
 
 <style scoped lang="postcss">
-	.shelter-general-informations {
+	#edit-mode {
+		background-color: rgba(242, 138, 128);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #f28a80;
+			outline: 1px solid #f28a80;
+		}
+	}
+	#save-changes {
+		background-color: #d99962;
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
+	}
+
+	.formkit-outer[data-disabled] {
+		opacity: 0.8;
+		pointer-events: none;
+	}
+
+	.general-informations {
+		//max-height: calc(100% - 4rem);
 		display: flex;
 		flex-direction: column;
+		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
 	}
 

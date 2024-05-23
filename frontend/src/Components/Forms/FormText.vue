@@ -8,7 +8,7 @@
 		disabled?: boolean;
 		id?: string;
 		label?: string;
-		modelValue?: never;
+		modelValue?: any;
 		name?: string;
 		placeholder?: string;
 		help?: string;

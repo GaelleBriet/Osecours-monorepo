@@ -20,7 +20,7 @@
 	const currentTab = ref(0);
 	const currentAnimal = ref<Animal | null>(null);
 
-	const updateCurrentTab = (index: number) => {
+	const updateCurrentTab = (index) => {
 		currentTab.value = index;
 	};
 
@@ -46,8 +46,7 @@
 			</button>
 		</div>
 		<TabsComponent
-			id="'animalsTabsComponent'"
-			:name="'animalsTabs'"
+			id="animalsTabsComponent"
 			:tabs="[
 				{ name: getCapitalizedText(t('pages.animals.details')) },
 				{ name: getCapitalizedText(t('pages.animals.behaviour')) },

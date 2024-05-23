@@ -3,5 +3,7 @@
 </script>
 
 <template>
-	<DocumentsForm :is-create-mode="true" />
+	<DocumentsForm
+		:is-create-mode="true"
+	/>
 </template>
