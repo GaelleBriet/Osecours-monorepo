@@ -15,6 +15,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install specific Docker version
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-ce=5:26.1.0~3-0~ubuntu-focal docker-ce-cli=5:26.1.0~3-0~ubuntu-focal containerd.io
+      env:
+        DOCKER_CE_VERSION: 5:26.1.0~3-0~ubuntu-focal
+        DOCKER_CLI_VERSION: 5:26.1.0~3-0~ubuntu-focal
+
     - name: Check Docker version
       run: docker --version
 
