@@ -29,3 +29,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}} # Remplacez par votre email Heroku
           usedocker: true
           appdir: backend"
+      - run: |
+          heroku container:login && \
+          heroku container:push web --app ${{secrets.HEROKU_APP_API_NAME}} && \
+          heroku container:release web --app ${{secrets.HEROKU_APP_API_NAME}}
