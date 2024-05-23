@@ -14,6 +14,9 @@ RUN chmod +x /usr/local/bin/start-apache.sh
 # Copie du code source de l'application.
 COPY ./ /var/www/html
 
+# Set environment variables
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Mise à jour de la liste des paquets et installation des bibliothèques/logiciels nécessaires.
 RUN apt-get update && apt-get install -y \
     libxml2-dev \
