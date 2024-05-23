@@ -12,29 +12,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: mbstring, pdo_mysql, dom, xml
-          tools: composer:v2
-
-      - name: Install dependencies
-        run: |
-          cd backend
-          composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Run migrations
-        run: |
-          cd backend
-          php artisan migrate:fresh --seed --force
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+#      - name: Setup PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: '8.2'
+#          extensions: mbstring, pdo_mysql, dom, xml
+#          tools: composer:v2
+#
+#      - name: Install dependencies
+#        run: |
+#          cd backend
+#          composer install --prefer-dist --no-progress --no-suggest
+#
+#      - name: Run migrations
+#        run: |
+#          cd backend
+#          php artisan migrate:fresh --seed --force
+#        env:
+#          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Build, Push and Release a Docker container to Heroku
-        uses: gonuit/heroku-docker-deploy@v1.3.3
+        uses: dennerkrans/heroku-docker-deploy@v1.4.2
         with:
           email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
