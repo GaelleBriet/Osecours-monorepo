@@ -1,8 +1,5 @@
 <script setup lang="ts">
-	import { getNode } from '@formkit/core';
-
-	const props = defineProps<{
-		id: string;
+	defineProps<{
 		modelValue?: string | undefined;
 		value?: string | number;
 		name?: string;
@@ -25,18 +22,11 @@
 		(e: 'update:modelValue', value: string): void;
 		(e: 'blur', event: Event): void;
 	}>();
-
-	const onInput = (e: Event) => {
-		const inputElement = e.target as HTMLInputElement;
-		const node = getNode(inputElement.id);
-		if (!node) return;
-		emit('update:modelValue', inputElement.value);
-	};
 </script>
 
 <template>
 	<FormKit
-		:id="id"
+		id="id"
 		:name="name"
 		:label="label"
 		:validation="validation"
@@ -50,7 +40,6 @@
 		:wrapper-class="wrapperClass"
 		:inner-class="innerClass"
 		type="file"
-		@change="onInput"
 	/>
 </template>
 

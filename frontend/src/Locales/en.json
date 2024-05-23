@@ -201,7 +201,8 @@
 			"date": "uploaded",
 			"filename": "file name",
 			"description": "description of the file",
-			"help": "please ensure that only files with the extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf and .txt are uploaded.",
+			"helpPhotos": "please ensure that only files with the extensions .jpeg, .jpg et .png are uploaded.",
+			"help": "please ensure that only files with the extensions .pdf, .doc, .docx are uploaded.",
 			"file": "choose a file",
 			"photos": "photos",
 			"card": "documents"

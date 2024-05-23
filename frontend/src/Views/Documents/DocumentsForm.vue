@@ -6,7 +6,7 @@
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { onMounted, ref, computed } from 'vue';
+	import { onMounted, ref, computed, watch } from 'vue';
 	import i18n from '@/Services/Translations';
 	import { Document } from '@/Interfaces/Document.ts';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
@@ -22,9 +22,9 @@
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
+		isPhotoMode?: boolean;
 		document?: Document;
 	}>();
-	console.log(props)
 	let localDocument = ref({ ...props.document });
 	let createdDocument = ref<Document>({});
 	const newDocument = ref<Document>({});
@@ -159,8 +159,12 @@
 							:model-value="
 								!isCreateMode ? localDocument.file : createdDocument.file
 							"
-							:label="getCapitalizedText(t('pages.documents.file'))"
-							accept=".jpg,.bmp,.png,.pdf,.doc,.docx"
+							:label="
+								isPhotoMode ? getCapitalizedText(t('pages.documents.filePhotos')) : getCapitalizedText(t('pages.documents.file'))
+							"
+							:accept="
+								isPhotoMode ? '.pdf,.doc,.docx' : '.jpg,.bmp,.png'
+							"
 							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
 							:multiple="true"

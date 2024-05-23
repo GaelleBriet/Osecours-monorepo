@@ -64,6 +64,7 @@
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm
 			:is-create-mode="true"
+			:is-photo-mode="false"
 		/>
 	</ModalComponent>
 </template>

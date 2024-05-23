@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="container">
-				<DocumentsForm :document="currentDocument" :is-create-mode="false" />
+				<DocumentsForm v-if="currentDocument" :document="currentDocument" :is-create-mode="false" />
 			</div>
 		</div>
 	</template>

@@ -201,7 +201,8 @@
 			"date": "téléchargé",
 			"filename": "nom de fichier",
 			"description": "description du fichier",
-			"help": "Veuillez vous assurer que seuls les fichiers avec les extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf et .txt sont téléchargés.",
+			"help": "Veuillez vous assurer que seuls les fichiers avec les extensions .pdf, .doc, et .docx sont téléchargés.",
+			"helpPhotos": "Veuillez vous assurer que seuls les fichiers avec les extensions .jpeg, .jpg et .png sont téléchargés.",
 			"file": "choisissez un fichier",
 			"photos": "photos",
 			"card": "fichier"
