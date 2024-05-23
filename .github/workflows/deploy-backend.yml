@@ -26,21 +26,12 @@ jobs:
           cd backend
           composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Get DATABASE_URL from Heroku
-        id: heroku
-        uses: akhileshns/heroku-config-var-get@v1.1
-        with:
-          email: ${{ secrets.HEROKU_EMAIL }}
-          apikey: ${{ secrets.HEROKU_API_KEY }}
-          appname: ${{ secrets.HEROKU_APP_API_NAME }}
-          key: DATABASE_URL
-
       - name: Run migrations
         run: |
           cd backend
           php artisan migrate:fresh --seed --force
         env:
-          DATABASE_URL: ${{ steps.heroku.outputs.value }}
+          DATABASE_URL: ${{ steps.DATABASE_URL }}
 
       - name: Build, Push and Release a Docker container to Heroku
         uses: gonuit/heroku-docker-deploy@v1.3.3
