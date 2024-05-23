@@ -59,7 +59,6 @@ class AuthController extends Controller
             }
             return response()->json(["data" => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
         } catch (Exception $e) {
-            Log::error('An error occurred: ' . $e->getMessage());
             return $this->errorService->handle($e);
         }
     }
