@@ -31,7 +31,7 @@ jobs:
           cd backend
           php artisan migrate:fresh --seed --force
         env:
-          DATABASE_URL: ${{ steps.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Build, Push and Release a Docker container to Heroku
         uses: gonuit/heroku-docker-deploy@v1.3.3
