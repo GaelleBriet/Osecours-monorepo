@@ -47,6 +47,3 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_API_NAME }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-    - name: Check Docker container logs
-      run: docker logs $(docker ps -q --filter ancestor=registry.heroku.com/${{ secrets.HEROKU_APP_API_NAME }}/web)
