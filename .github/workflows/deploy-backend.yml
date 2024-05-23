@@ -26,8 +26,7 @@ jobs:
     - name: Build and push Docker image
       run: |
         cd backend
-        heroku container:login
-        heroku container:push web --app ${{ secrets.HEROKU_APP_API_NAME }}
+        docker push registry.heroku.com/${{ secrets.HEROKU_APP_API_NAME }}/web
 
     - name: Deploy to Heroku
       run: |
