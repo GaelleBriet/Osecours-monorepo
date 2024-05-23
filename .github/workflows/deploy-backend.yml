@@ -1,4 +1,4 @@
-name: Deploy backend to Heroku
+name: Deploy to Heroku
 
 on:
   push:
@@ -8,28 +8,26 @@ on:
       - 'backend/**'
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+    - name: Login to Heroku Container registry
+      run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
-      - name: Login to Heroku Container Registry
-        run: echo ${{secrets.HEROKU_API_KEY}} | docker login --username=_ --password-stdin registry.heroku.com
+    - name: Build and push Docker image
+      run: |
+        docker build -t registry.heroku.com/$HEROKU_APP_API_NAME/web ./backend
+        docker push registry.heroku.com/$HEROKU_APP_API_NAME/web
 
-      - name: Deploy to Heroku using Docker
-        uses: akhileshns/heroku-deploy@v3.13.15
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_API_NAME}} # Remplacez par le nom de votre application Heroku
-          heroku_email: ${{secrets.HEROKU_EMAIL}} # Remplacez par votre email Heroku
-          usedocker: true
-          appdir: backend"
-      - run: |
-          heroku container:login && \
-          heroku container:push web --app ${{secrets.HEROKU_APP_API_NAME}} && \
-          heroku container:release web --app ${{secrets.HEROKU_APP_API_NAME}}
+    - name: Deploy to Heroku
+      run: |
+        heroku container:release web --app $HEROKU_APP_NAME
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_API_NAME }}
