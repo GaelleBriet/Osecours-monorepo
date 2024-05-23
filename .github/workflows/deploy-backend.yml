@@ -25,6 +25,7 @@ jobs:
 
     - name: Build and push Docker image
       run: |
+        heroku container:login
         cd backend
         heroku container:push web --app ${{ secrets.HEROKU_APP_API_NAME }}
 
