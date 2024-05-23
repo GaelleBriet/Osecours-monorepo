@@ -15,15 +15,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Login to Heroku Container registry
-        run: heroku container:login
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-      - name: Deploy to Heroku
+      - name: Login to Heroku Container Registry
+        run: echo ${{secrets.HEROKU_API_KEY}} | docker login --username=_ --password-stdin registry.heroku.com
+
+      - name: Deploy to Heroku using Docker
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_API_NAME }}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_API_NAME}} # Remplacez par le nom de votre application Heroku
+          heroku_email: ${{secrets.HEROKU_EMAIL}} # Remplacez par votre email Heroku
           usedocker: true
-          appdir: "backend"
+          appdir: backend"
