@@ -1,7 +1,15 @@
 build:
   docker:
-    frontend: Dockerfile.prod
-
+    web: Dockerfile.prod
 run:
-  web:
-    frontend: nginx -g "daemon off;"
+  web: npm start
+
+
+
+
+
+
+
+
+
+

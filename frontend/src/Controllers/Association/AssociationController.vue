@@ -43,9 +43,11 @@
 	};
 
 	onMounted(async () => {
-		currentAssociation.value = await associationsStore.getAssociation(
-			userStore.user?.associations[0]?.id,
-		);
+    if (userStore.user && userStore.user.associations && userStore.user.associations[0]) {
+      currentAssociation.value = await associationsStore.getAssociation(
+          userStore.user.associations[0].id,
+      );
+    }
 		await associationsStore.getAssociations();
 	});
 </script>

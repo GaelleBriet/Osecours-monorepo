@@ -15,6 +15,7 @@
 	import { useI18n } from 'vue-i18n';
 
 	const userStore = useUserStore();
+  console.log(userStore);
 	const router = useRouter();
 	const { t } = useI18n();
 
@@ -31,16 +32,26 @@
 	}
 
 	const onSubmit = async () => {
-		const user: User = await userStore.loginUser(email.value, password.value);
+		const user: User | null = await userStore.loginUser(email.value, password.value);
+    if (!user) {
+      errorMessages.value = getCapitalizedText(t('login.error'));
+      return;
+    }
 		if (user.error) {
 			errorMessages.value = getCapitalizedText(t('login.error'));
 		}
 		if (!user || user.associations?.length === 0) {
 			await router.push({ name: 'Login' });
 		}
-		if (user && user.associations) {
-			associations.value = user.associations;
-		}
+    if (user) {
+      if (user.associations) {
+        associations.value = user.associations;
+      } else {
+        associations.value = [];
+      }
+    } else {
+      associations.value = [];
+    }
 	};
 
 	const handleAssociationChange = async (value: never) => {
@@ -49,11 +60,11 @@
 	};
 
 	const onAssociationChange = async () => {
+    if (selectedAssociation.value !== null) {
 		const associationName = associations.value.find(
 			(association) => association.id === Number(selectedAssociation.value),
 		);
-
-		if (selectedAssociation.value) {
+		if (associationName) {
 			await userStore.loginWithAssociation(
 				email.value,
 				password.value,
@@ -62,9 +73,12 @@
 			);
 			await router.push({ name: 'Home' });
 		}
+    }
+
 	};
 
 	const getAssociations = () => {
+    console.log(associations.value);
 		return [
 			...associations.value.map((association) => {
 				return {
@@ -176,7 +190,7 @@
 								@close="errorMessages = ''"
 							/>
 							<!-- Association select input -->
-							<div v-if="associations.length > 0">
+							<div v-if="associations && associations.length > 0">
 								<div
 									v-for="association in associations"
 									:key="association.id"
