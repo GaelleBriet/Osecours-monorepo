@@ -5,6 +5,7 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 import { Members } from '@/Interfaces/Members.ts';
 import { RouteParamValue } from 'vue-router';
+import { replace } from 'lodash';
 // import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
 export const getMemberById = async (
@@ -129,6 +130,20 @@ export const deleteMember = async (
 	try {
 		const response: AxiosResponse = await axiosInstance.delete(
 			`${import.meta.env.VITE_USERS_API_URL}/${id}`,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
+export const getMemberRoles = async (
+	id: number,
+): Promise<string[] | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.get(
+			`${import.meta.env.VITE_USERS_ID_ROLE_API_URL.replace('{id}', id.toString())}`,
 		);
 		return response.data;
 	} catch (error) {
