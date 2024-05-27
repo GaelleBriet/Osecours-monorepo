@@ -50,4 +50,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user;
     }
 
+    public function create($user){
+        return User::create($user);
+    }
+
 }

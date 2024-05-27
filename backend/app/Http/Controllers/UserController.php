@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Contract\UserRepositoryInterface;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Association;
 use App\Http\Services\ErrorService;
 use App\Http\Services\UserService;
+use App\Http\Services\RoleService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +19,14 @@ class UserController extends Controller
     protected $users;
     protected UserService $userService;
     protected ErrorService $errorService;
+    protected RoleService $roleService;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserService $userService, ErrorService $errorService)
+    public function __construct(UserRepositoryInterface $userRepository, UserService $userService, ErrorService $errorService, RoleService $roleService)
     {
         $this->users = $userRepository;
         $this->userService = $userService;
         $this->errorService = $errorService;
+        $this->roleService = $roleService;
     }
 
     public function getAll()
@@ -178,6 +183,42 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'User deleted successfully',
                 'data' => $deletedUser
+            ]);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
+    }
+
+    public function create(Request $request)
+    {
+        try {
+            // Validation des données
+            $validatedData = $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'phone' => 'required',
+                'existing_cat_count' => 'required',
+                'existing_children_count' => 'required',
+                'existing_dog_count' => 'required',
+                'email' => 'required|email|unique:users',
+                'password' => ['required','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/'],
+                'role_id' => 'required|exists:roles,id', // on s'assure que le rôle existe
+                'association_id' => 'required|exists:associations,id', // on s'assure que l'association existe
+            ]);
+
+            $user = $this->userService->create($validatedData);
+
+            if ($user) {
+                // Récupérer les instances de Role et Association
+                $roleToAttach = Role::findOrFail($validatedData['role_id']);
+                $boundedAssociation = Association::findOrFail($validatedData['association_id']);
+
+                // Attacher le rôle à l'utilisateur
+                $this->roleService->attachRoleOnUser($roleToAttach, $user, $boundedAssociation);
+            }
+            return response()->json([
+                'message' => 'User ans role created successfully',
+                'data' => $user
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
