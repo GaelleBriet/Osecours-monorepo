@@ -197,6 +197,7 @@
 		},
 		"documents": {
 			"title": "liste de tous les fichiers de l'association",
+			"titleAnimal": "liste de tous les fichiers de l'animal",
 			"type": "type",
 			"date": "téléchargé",
 			"filename": "nom de fichier",

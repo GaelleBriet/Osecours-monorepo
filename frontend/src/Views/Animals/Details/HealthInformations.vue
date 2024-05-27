@@ -5,11 +5,13 @@
 	import VaccinesList from '@/Views/Animals/Health/VaccinesList.vue';
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
-	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
-	import { ref } from 'vue';
+	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import { onMounted, ref, computed } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
+	import { useRoute, useRouter } from 'vue-router';
+	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 
 	// defineProps<{
 	// 	animal: Animal;
@@ -23,9 +25,14 @@
 		vaccine: '',
 		date: '',
 	});
-
+	
+	const documents = ref<Document[]>([]);
+	const route = useRoute();
+	const documentsStore = useDocumentsStore();
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
+	const router = useRouter();
+	const showForm = ref(false);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -35,8 +42,38 @@
 		type: 'info',
 	});
 
+	
+	onMounted(async () => {
+		//!\\ TODO: recuperer correctement le HealthcareID
+		const docsByHealthcare = await documentsStore.getDocumentsByAnimal(route.params.id);
+		documents.value = docsByHealthcare;
+	});
+
+	const documentsTransformed = computed(() => {
+		return documents.value.map((document) => ({
+			...document
+		}));
+	});
+
 	const onButtonClick = () => {
 		isEditMode.value = !isEditMode.value;
+	};
+
+	const editItem = (item) => {
+		router.push({
+			name: 'EditDocument',
+			params: { id: item.id },
+		});
+	};
+
+	const addItem = () => {
+		console.log("hello")
+		showForm.value = true;
+		return false;
+	};
+
+	const removeItem = (item) => {
+		documentsStore.deleteDocument(item.id);
 	};
 
 	const onSave = () => {
@@ -95,11 +132,32 @@
 						@update:modelValue="healthReport = $event"
 					/>
 				</div>
-				<div class="px-2 md:col-start-1 md:row-start-3">
-					<AddDocument :edit-mode="isEditMode" />
-				</div>
+
+				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3">
+					<p>
+						<span
+							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+						>
+							Health documents
+						</span>
+					</p>
+					<DataGridComponent
+						:store="documentsStore" 
+						:model-value="documentsTransformed"
+						:description="getCapitalizedText(t('pages.documents.titleHealthAnimal'))"
+						:columns="[
+							{ label: getCapitalizedText(t('common.name')), key: 'filename' },
+							{ label: getCapitalizedText(t('pages.documents.type')), key: 'mimeType' },
+							{ label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
+							{ label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
+						]"
+						@edit="editItem"
+						@add="addItem"
+						@delete="removeItem"
+					/>   
+				</div>				
 				<div
-					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 md:items-end"
+					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-4 md:items-end"
 				>
 					<button
 						id="edit-mode"

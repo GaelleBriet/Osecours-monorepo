@@ -6,6 +6,7 @@ import {
 	createDocumentForAnimal,
 	createDocumentForShelter,
 	getDocument,
+	getDocumentsByHealthcare,
 	getDocumentsByShelter,
 	getDocumentsByAnimal,
 	updateDocument,
@@ -37,9 +38,29 @@ export const useDocumentsStore = defineStore('documents', {
 				return document;
 			}
 		},
-		async getDocumentsByShelter(): Promise<Document[]> {
+		async getDocumentsByHealthcare(id: number): Promise<Document[]> {
 			const documents: Document[] | ErrorResponse =
-				await getDocumentsByShelter();
+				await getDocumentsByHealthcare(id);
+			if ('error' in documents) {
+				return [];
+			} else {
+				this.documents = documents;
+				return documents;
+			}
+		},
+		// async getDocumentsByShelter(id: number): Promise<Document[]> {
+		// 	const documents: Document[] | ErrorResponse =
+		// 		await getDocumentsByShelter(id);
+		// 	if ('error' in documents) {
+		// 		return [];
+		// 	} else {
+		// 		this.documents = documents;
+		// 		return documents;
+		// 	}
+		// },
+		async getDocumentsByShelter(id: number): Promise<Document[]> {
+			const documents: Document[] | ErrorResponse =
+				await getDocumentsByShelter(id);
 			if ('error' in documents) {
 				return [];
 			} else {
@@ -68,10 +89,11 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async createDocumentForHealthCare(
+			id: number,
 			document: Document,
 		): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse =
-				await createDocumentForHealthCare(document);
+				await createDocumentForHealthCare(id, document);
 			if ('error' in newDocument) {
 				return null;
 			} else {
@@ -93,10 +115,11 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async createDocumentForShelter(
+			id: number,
 			document: Document,
 		): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse =
-				await createDocumentForShelter(document);
+				await createDocumentForShelter(id, document);
 			if ('error' in newDocument) {
 				return null;
 			} else {

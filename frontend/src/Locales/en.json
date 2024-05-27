@@ -196,7 +196,8 @@
 			"fosterFamily": "foster family"
 		},
 		"documents": {
-			"title": "list of all association documents",
+			"title": "list of all association's documents",
+			"titleAnimal": "list of all animal's documents",
 			"type": "type",
 			"date": "uploaded",
 			"filename": "file name",

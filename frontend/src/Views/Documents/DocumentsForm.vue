@@ -100,7 +100,6 @@
 		newDocument.value = props.isCreateMode
 			? await documentsStore.createDocumentForAnimal(id, formData)
 			: await documentsStore.updateDocument(id, formData);
-		console.log(localDocument.value.filename)
 
 		// on affiche une notification en fonction du résultat de la requête
 		if (!newDocument.value) {
@@ -163,7 +162,7 @@
 								isPhotoMode ? getCapitalizedText(t('pages.documents.filePhotos')) : getCapitalizedText(t('pages.documents.file'))
 							"
 							:accept="
-								isPhotoMode ? '.pdf,.doc,.docx' : '.jpg,.bmp,.png'
+								isPhotoMode ? '.jpg,.bmp,.png' : '.pdf,.doc,.docx'
 							"
 							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"

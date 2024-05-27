@@ -40,7 +40,6 @@
 	};
 
 	const removeItem = (item) => {
-		console.log(item)
 		documentsStore.deleteDocument(item.id);
 	};
 </script>
@@ -49,7 +48,7 @@
 		<DataGridComponent
 			:store="documentsStore" 
 			:model-value="documentsTransformed"
-			:description="getCapitalizedText(t('pages.documents.title'))"
+			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'filename' },
 				{ label: getCapitalizedText(t('pages.documents.type')), key: 'mimeType' },

@@ -1,9 +1,15 @@
 <script lang="ts" setup>
+	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
+
+	const t = i18n.global.t;
+
 	const props = defineProps<{
 		editMode: boolean;
 	}>();
 </script>
-<template>
+<template>      
 	<div>
 		<p class="mb-5">
 			<span

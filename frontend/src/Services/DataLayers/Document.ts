@@ -85,6 +85,20 @@ export const getDocumentsByAnimal = async (
 	}
 };
 
+export const getDocumentsByHealthcare = async (
+	id: string | RouteParamValue[],
+): Promise<Document[] | ErrorResponse> => {
+	try {
+		const { data } = await axiosInstance.get(
+			`${import.meta.env.VITE_DOCUMENTS_API_URL}/find/healthcares/${id}`,
+		);
+		return data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
 export const createDocument = async (
 	document: Document,
 ): Promise<Document | ErrorResponse> => {
