@@ -19,6 +19,24 @@ if (
 	associationId = currentAssociation.associations[0].id;
 }
 
+const sendDocumentRequest = async (
+	method: 'post' | 'put',
+	url: string,
+	document: Document
+): Promise<Document | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance[method](url, document, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
 export const getDocument = async (
 	id: string | RouteParamValue[],
 ): Promise<Document | ErrorResponse> => {
@@ -111,82 +129,42 @@ export const getDocumentsByHealthcare = async (
 };
 
 export const createDocument = async (
-	document: Document,
+	document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}`,
-			document,
-		);
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}`;
+	return await sendDocumentRequest('post', url, document);
 };
 
 export const createDocumentForHealthCare = async (
 	id: string | RouteParamValue[],
-	document: Document,
+	document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}/store/healthcares/${id}`,
-			document,
-		);
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/healthcares/${id}`;
+	return await sendDocumentRequest('post', url, document);
 };
 
 export const createDocumentForAnimal = async (
 	id: string | RouteParamValue[],
-	document: Document,
+	document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}/store/animals/${id}`,
-			document,
-		);
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/animals/${id}`;
+	return await sendDocumentRequest('post', url, document);
 };
 
 export const createDocumentForShelter = async (
 	id: string | RouteParamValue[],
-	document: Document,
+	document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}/store/shelters/${id}`,
-			document,
-		);
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/shelters/${id}`;
+	return await sendDocumentRequest('post', url, document);
 };
 
 export const updateDocument = async (
 	id: string | RouteParamValue[],
-	document: Document,
+	document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance.put(
-			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
-			document,
-		);
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`;
+	return await sendDocumentRequest('put', url, document);
 };
 
 export const deleteDocument = async (
