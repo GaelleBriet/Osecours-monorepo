@@ -78,7 +78,7 @@ class UserController extends Controller
      *
      * )
      */
-    public function getUserByRole(Request $request)
+    public function getAllUsersByRoleAndAssociation(Request $request)
     {
         try {
             $role = $request->get("role");
@@ -89,7 +89,7 @@ class UserController extends Controller
             }
 
             $users = User::whereHas('roles', function ($query) use ($role) {
-                $query->where('roles.name', $role);
+                $query->where('roles.id', $role);
             })->whereHas('associations', function ($query) use ($currentAssociationId) {
                 $query->where('associations.id', $currentAssociationId);
             })->get();

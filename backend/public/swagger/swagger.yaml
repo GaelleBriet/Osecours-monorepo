@@ -911,7 +911,7 @@ paths:
       tags:
         - Users
       summary: 'Get list of users by role & association'
-      operationId: 8e23bedf4767644ec77dad2617b97e41
+      operationId: 03614ca8920dd5a18713e08ee6b6e9f1
       parameters:
         -
           name: role
