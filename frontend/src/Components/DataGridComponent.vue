@@ -17,6 +17,7 @@
 				md?: boolean;
 				lg?: boolean;
 			};
+			truncate?: boolean;
 		}[];
 		animalsChars?: boolean;
 	}>();
@@ -217,7 +218,9 @@
 										'whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500',
 										column.visibility?.md ? 'hidden customMd:block' : '',
 										column.visibility?.sm ? 'hidden customSm:block' : '',
+										column.truncate ? 'truncate max-w-[200px]' : '',
 									]"
+									v-tooltip="column.truncate ? item[column.key] : ''"
 								>
 									{{
 										typeof column.key === 'function'

@@ -28,11 +28,12 @@
 		{
 			label: getCapitalizedText(t('pages.families.role')),
 			key: 'role',
+			visibility: { sm: true },
 		},
 		{
 			label: getCapitalizedText(t('pages.families.email')),
 			key: 'email',
-			visibility: { sm: true },
+			truncate: true,
 		},
 	]);
 
