@@ -34,28 +34,28 @@ class DocumentService{
 
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData);
-        $newDoc->animals()->attach($animal->id);              
+        $newDoc->animals()->attach($animal->id);
 
         return new DocumentResource($newDoc);
     }
 
     public function createDocumentForHealthCare(Request $request,Healthcare $healtcare){
-        
+
         $documentData = $this->getDocumentData($request);
-        $newDoc =  $this->documentRepo->createDocument($documentData);       
+        $newDoc =  $this->documentRepo->createDocument($documentData);
         $healtcare->document()->associate($newDoc);
         $healtcare->save();
-        
+
         return new DocumentResource($newDoc);
     }
 
     public function createDocumentForShelter(Request $request,Shelter $shelter){
 
         $documentData = $this->getDocumentData($request);
-        $newDoc =  $this->documentRepo->createDocument($documentData); 
+        $newDoc =  $this->documentRepo->createDocument($documentData);
         $shelter->documents()->attach($newDoc);
         $shelter->save();
-        
+
         return new DocumentResource($newDoc);
     }
 
@@ -86,7 +86,7 @@ class DocumentService{
         $file = $request->file('file');
         $path = $file->storeAs('public/files', $uniqFilename . "." . $file->getClientOriginalExtension());
         $imagesMimeType = ['jpeg,jpg,bmp,png,image.pdf'];
-        $url = env('APP_DEBUG') ? env('APP_URL') . ":" . env('APP_PORT') .Storage::url($path) : env('APP_URL');
+        $url = env('APP_DEBUG') ? env('APP_URL') . ":" . env('APP_PORT') . '/storage/files/' . $uniqFilename . "." . $file->getClientOriginalExtension() : env('APP_URL');
 
         return [
             'date' => Date::now(),
