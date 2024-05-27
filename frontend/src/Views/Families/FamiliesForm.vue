@@ -8,6 +8,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormNumber from '@/Components/Forms/FormNumber.vue';
+	import { number } from '@formkit/icons';
 
 	const props = defineProps<{
 		family?: Members;
@@ -108,7 +109,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nom'"
 						:disabled="!isEditMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'number|length:0,10'"
 						@update:modelValue="!isCreateMode ? currentFamily.phone : ''"
 					/>
 				</div>
@@ -122,7 +123,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nombre d\'enfants'"
 						:disabled="!isEditMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'number|length:0,2'"
 						@update:modelValue="
 							!isCreateMode ? currentFamily.existing_children_count : ''
 						"
@@ -136,7 +137,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nombre de chats'"
 						:disabled="!isEditMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'number|length:0,2'"
 						@update:modelValue="
 							!isCreateMode ? currentFamily.existing_cat_count : ''
 						"
@@ -150,7 +151,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="'Nombre de chiens'"
 						:disabled="!isEditMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'number|length:0,2'"
 						@update:modelValue="
 							!isCreateMode ? currentFamily.existing_dog_count : ''
 						"
