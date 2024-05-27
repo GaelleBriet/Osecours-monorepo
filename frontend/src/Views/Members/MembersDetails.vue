@@ -5,7 +5,7 @@
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
+	import MembersForm from '@/Views/Members/MembersForm.vue';
 
 	const router = useRouter();
 	const membersStore = useMembersStore();
@@ -36,7 +36,7 @@
 		</div>
 		<div class="content">
 			<template v-if="currentFamily">
-				<FamiliesForm :family="currentFamily" />
+				<MembersForm :family="currentFamily" />
 			</template>
 		</div>
 	</div>
