@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Contract\UserRepositoryInterface;
 use App\Models\User;
+use App\Models\Role;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -54,4 +55,23 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return User::create($user);
     }
 
+    public function getUserRole($userId, $associationId){
+
+        $user = User::find($userId);
+
+        if ($user) {
+            $role = $user->roles()
+                         ->wherePivot('association_id', $associationId)
+                         ->withPivot('role_id')
+                         ->first();
+
+            if ($role) {
+                return $role->pivot->role_id;
+            } else {
+                throw new Exception('Role not found for the given association');
+            }
+        } else {
+            throw new Exception('User not found');
+        }
+    }
 }

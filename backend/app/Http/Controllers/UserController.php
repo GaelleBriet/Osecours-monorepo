@@ -53,6 +53,7 @@ class UserController extends Controller
     /**
      * @OA\Get(
      *     path="/users/role",
+     *     summary="Get list of users by role & association",
      *     security={{"bearerAuth":{}}},
      *     tags={"Users"},
       *     @OA\Parameter(
@@ -189,6 +190,105 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/users",
+     *     summary="Create a new user",
+     *     tags={"Users"},
+     *     @OA\RequestBody(
+     *         description="User data",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="first_name",
+     *                 type="string",
+     *                 description="The first name of the user",
+     *                 example="John"
+     *             ),
+     *             @OA\Property(
+     *                 property="last_name",
+     *                 type="string",
+     *                 description="The last name of the user",
+     *                 example="Doe"
+     *             ),
+     *             @OA\Property(
+     *                 property="phone",
+     *                 type="string",
+     *                 description="The phone number of the user",
+     *                 example="1234567890"
+     *             ),
+     *             @OA\Property(
+     *                 property="existing_cat_count",
+     *                 type="integer",
+     *                 description="The number of existing cats the user has",
+     *                 example=2
+     *             ),
+     *             @OA\Property(
+     *                 property="existing_children_count",
+     *                 type="integer",
+     *                 description="The number of existing children the user has",
+     *                 example=3
+     *             ),
+     *             @OA\Property(
+     *                 property="existing_dog_count",
+     *                 type="integer",
+     *                 description="The number of existing dogs the user has",
+     *                 example=1
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 description="The email of the user",
+     *                 example="john.doe@example.com"
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 description="The password of the user",
+     *                 example="Password123!"
+     *             ),
+     *             @OA\Property(
+     *                 property="role_id",
+     *                 type="integer",
+     *                 description="The ID of the role of the user",
+     *                 example=1
+     *             ),
+     *             @OA\Property(
+     *                 property="association_id",
+     *                 type="integer",
+     *                 description="The ID of the association of the user",
+     *                 example=1
+     *             ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 description="Success message",
+     *                 example="User and role created successfully"
+     *             ),
+     *             @OA\Property(
+     *                 property="data",
+     *                 ref="#/components/schemas/User"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     ),
+     * )
+     */
     public function create(Request $request)
     {
         try {
@@ -222,6 +322,61 @@ class UserController extends Controller
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/users/{id}/role",
+     *     summary="Get the role of a user for a specific association",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the user",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="association_id",
+     *         in="query",
+     *         description="ID of the association",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Role of the user for the specific association",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 ref="#/components/schemas/Role"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
+    public function getUserRole(Request $request)
+    {
+        try {
+            $userId = $request->route("id");
+            $associationId = $request->get("association_id");
+
+            $role = $this->users->getUserRole($userId, $associationId);
+
+            return response()->json(["role_id" => $role],200);
+        } catch (Exception $e) {
+            return response()->json(["error" => $e->getMessage(), 500]);
         }
     }
 }
