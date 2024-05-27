@@ -22,16 +22,16 @@
 
 	const columns = ref([
 		{
-			label: getCapitalizedText(t('pages.families.name')),
+			label: getCapitalizedText(t('pages.members.name')),
 			key: 'fullName',
 		},
 		{
-			label: getCapitalizedText(t('pages.families.role')),
+			label: getCapitalizedText(t('pages.members.role')),
 			key: 'role',
 			visibility: { sm: true },
 		},
 		{
-			label: getCapitalizedText(t('pages.families.email')),
+			label: getCapitalizedText(t('pages.members.email')),
 			key: 'email',
 			truncate: true,
 		},
@@ -39,7 +39,7 @@
 
 	const editItem = (item: Members) => {
 		router.push({
-			name: 'EditFamilies',
+			name: 'EditMembers',
 			params: { id: item.id },
 		});
 	};

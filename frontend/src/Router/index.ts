@@ -22,6 +22,7 @@ import CreateDocument from '@/Views/Documents/CreateDocument.vue';
 import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
 import MembersController from '@/Controllers/Members/MembersController.vue';
 import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
+import MembersDetails from '@/Views/Members/MembersDetails.vue';
 
 const routes = [
 	{
@@ -99,6 +100,11 @@ const routes = [
 		path: '/members',
 		name: 'Members',
 		component: MembersController,
+	},
+	{
+		path: '/members/:id',
+		name: 'EditMembers',
+		component: MembersDetails,
 	},
 	{
 		path: '/documents',

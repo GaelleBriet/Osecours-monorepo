@@ -199,6 +199,31 @@
 				"createError": "une erreur est survenue lors de la création de la famille"
 			}
 		},
+		"members": {
+			"title": "liste des membres de l'association.",
+			"card": "fiche membre",
+			"address": "adresse",
+			"city": "ville",
+			"zip": "code postal",
+			"country": "pays",
+			"phone": "téléphone",
+			"email": "email",
+			"details": "détails",
+			"personal": "informations personnelles",
+			"name": "nom",
+			"animalsNumber": "nombre d'animaux",
+			"role": "rôle",
+			"messages": {
+				"delete": "voulez-vous vraiment supprimer ce membre ?",
+				"deleteFamily": "supprimer un membre",
+				"deleteSuccess": "le membre a bien été supprimé",
+				"deleteError": "une erreur est survenue lors de la suppression du membre",
+				"updateSuccess": "le membre a bien été mise à jour",
+				"updateError": "une erreur est survenue lors de la mise à jour du membre",
+				"createSuccess": "le membre a bien été créée",
+				"createError": "une erreur est survenue lors de la création du membre"
+			}
+		},
 		"users": {
 			"title": "liste des membres de l'association.",
 			"card": "fiche utilisateur",

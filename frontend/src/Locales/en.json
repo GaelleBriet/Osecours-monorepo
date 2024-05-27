@@ -199,6 +199,31 @@
 				"createError": "an error occurred while creating the family"
 			}
 		},
+		"members": {
+			"title": "list of members.",
+			"card": "member card",
+			"address": "address",
+			"city": "city",
+			"zip": "zip code",
+			"country": "country",
+			"phone": "phone",
+			"email": "email",
+			"details": "details",
+			"personal": "personal information",
+			"name": "name",
+			"animalsNumber": "number of animals",
+			"role": "role",
+			"messages": {
+				"delete": "are you sure you want to delete this member ?",
+				"deleteFamily": "delete member",
+				"deleteSuccess": "the member has been successfully deleted",
+				"deleteError": "an error occurred while deleting the member",
+				"updateSuccess": "the member has been successfully updated",
+				"updateError": "an error occurred while updating the member",
+				"createSuccess": "the member has been successfully created",
+				"createError": "an error occurred while creating the member"
+			}
+		},
 		"users": {
 			"title": "list of members",
 			"card": "user card",
