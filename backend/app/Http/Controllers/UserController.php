@@ -89,12 +89,12 @@ class UserController extends Controller
             }
 
             $users = User::whereHas('roles', function ($query) use ($role) {
-                $query->where('roles.id', $role);
+                $query->where('roles.name', $role);
             })->whereHas('associations', function ($query) use ($currentAssociationId) {
                 $query->where('associations.id', $currentAssociationId);
             })->get();
 
-            return response()->json(["data" => $users], 200);
+           return response()->json(["data" => $users], 200);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage()], 500);
         }
@@ -373,7 +373,6 @@ class UserController extends Controller
             $associationId = $request->get("association_id");
 
             $role = $this->users->getUserRole($userId, $associationId);
-
             return response()->json(["role_id" => $role],200);
         } catch (Exception $e) {
             return response()->json(["error" => $e->getMessage(), 500]);

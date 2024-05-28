@@ -67,11 +67,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
             if ($role) {
                 return $role->pivot->role_id;
-            } else {
-                throw new Exception('Role not found for the given association');
             }
-        } else {
-            throw new Exception('User not found');
         }
     }
 }
