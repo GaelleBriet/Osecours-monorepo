@@ -58,9 +58,7 @@
 		const roleOption = roleOptions.find(
 			(option) => option.value === roleValue.toString(),
 		);
-		return roleOption
-			? getCapitalizedText(t(`${roleOption.label.toLowerCase()}`))
-			: '';
+		return roleOption ? getCapitalizedText(`${roleOption.label}`) : '';
 	};
 </script>
 

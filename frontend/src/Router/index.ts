@@ -160,13 +160,11 @@ router.beforeEach((to) => {
 
 	if (token !== null) {
 		// si le token est présent on laisse passer
-		console.log('1- token is present');
 		return true;
 	}
 	if (to.name !== 'Login') {
 		// si le token est absent et que la route n'est pas Login
 		// on redirige vers la page de login
-		console.log('2- token is not present');
 		return { name: 'Login' };
 	}
 });

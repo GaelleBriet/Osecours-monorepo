@@ -2,10 +2,10 @@ export enum AnimalStatus {
 	found = 1,
 	available = 2,
 	// hosted,
-	fosterFamily = 3,
+	foster_family = 3,
 	adopted = 4,
 	deceased = 5,
-	underObservation = 6,
+	under_observation = 6,
 	lost = 8,
 }
 

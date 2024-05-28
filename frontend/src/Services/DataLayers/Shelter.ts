@@ -19,8 +19,6 @@ export const getShelter = async () // id: number,
 			phone: '07 551 900 438',
 		};
 		return response;
-
-		return response;
 		// const response: AxiosResponse<Shelter> = await axiosInstance.get<Shelter>(
 		// 	`${import.meta.env.VITE_SHELTERS_API_URL}/${id}`,
 		// );

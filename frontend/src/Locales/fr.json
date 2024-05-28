@@ -292,8 +292,8 @@
 			"lost": "perdu",
 			"found": "trouvé",
 			"deceased": "décédé",
-			"underObservation": "sous observation",
-			"fosterFamily": "en famille d'accueil"
+			"under_observation": "sous observation",
+			"foster_family": "en famille d'accueil"
 		},
 		"animalGenders": {
 			"Male": "mâle",
@@ -451,7 +451,7 @@
 			"Chinook": "Chinook",
 			"Chocolate Labrador Retriever": "Labrador Retriever chocolat",
 			"Chow Chow": "Chow Chow",
-			"Cirneco dell'Etna": "Cirneco de l'Etna",
+			"Cirneco dell Etna": "Cirneco de l'Etna",
 			"Clumber Spaniel": "Clumber Spaniel",
 			"Cocker Spaniel": "Cocker Spaniel",
 			"Collie": "Colley",
