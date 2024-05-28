@@ -400,7 +400,7 @@ class DocumentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //dd($request);
+        
         $request->validate([
             'filename' => 'required|max:255',
             'description' => 'nullable|string',

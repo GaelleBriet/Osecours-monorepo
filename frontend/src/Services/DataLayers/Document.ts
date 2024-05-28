@@ -20,21 +20,33 @@ if (
 }
 
 const sendDocumentRequest = async (
-	method: 'post' | 'put',
-	url: string,
-	document: Document
+    method: 'post' | 'put',
+    url: string,
+    document: Document
 ): Promise<Document | ErrorResponse> => {
-	try {
-		const response: AxiosResponse = await axiosInstance[method](url, document, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			},
-		});
-		return response.data;
-	} catch (error) {
-		const axiosError: AxiosError = error as AxiosError;
-		return errorResponse(axiosError);
-	}
+    try {
+        // Create a new FormData object
+        const formData = new FormData();
+
+        // Append all fields from the document to the FormData object
+        for (const key in document) {
+            if (document.hasOwnProperty(key)) {
+                formData.append(key, (document as any)[key]);
+            }
+        }
+
+        // Make the request using Axios
+        const response: AxiosResponse = await axiosInstance[method](url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        const axiosError: AxiosError = error as AxiosError;
+        return errorResponse(axiosError);
+    }
 };
 
 export const getDocument = async (
@@ -163,6 +175,7 @@ export const updateDocument = async (
 	id: string | RouteParamValue[],
 	document: Document
 ): Promise<Document | ErrorResponse> => {
+	console.log(document);
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`;
 	return await sendDocumentRequest('put', url, document);
 };
