@@ -167,6 +167,7 @@
 						@edit="editItem"
 						@add="addItem"
 						@delete="removeItem"
+						@documentSaved="handleDocumentSaved"
 					/>   
 				</div>	
 				<ModalComponent :isOpen="showForm" @close="showForm = false">

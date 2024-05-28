@@ -49,6 +49,7 @@
 	};
 
 	const removeItem = (item) => {
+		console.log(item.id)
 		documentsStore.deleteDocument(item.id);
 	};
 </script>
@@ -67,6 +68,7 @@
 			@edit="editItem"
 			@add="addItem"
 			@delete="removeItem"
+			@documentSaved="handleDocumentSaved"
 		/>                
     </div>
 	<ModalComponent :isOpen="showForm" @close="showForm = false">

@@ -49,6 +49,7 @@ const addPhoto = () => {
 };
 
 const removePhoto = (item) => {
+    console.log(item.id)
     documentsStore.deleteDocument(item.id);
 };
 </script>

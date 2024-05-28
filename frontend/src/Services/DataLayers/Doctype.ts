@@ -22,17 +22,17 @@ export const getAllDoctypes = async (): Promise<Doctypes[] | ErrorResponse> => {
 	try {
 		const doctype: Doctypes[] = [
             {
-				id: 1,
+				id: 3,
                 name: 'healthRecords',
                 description: 'This is the first example filetype.',
             },
             {
-				id: 2,
+				id: 1,
                 name: 'photos',
                 description: 'This is the second example filetype.',
             },
             {
-				id: 3,
+				id: 2,
                 name: 'adoptionPapers',
                 description: 'This is the third example filetype.',
             },

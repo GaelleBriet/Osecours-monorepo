@@ -174,9 +174,6 @@ export const deleteDocument = async (
 		const response: AxiosResponse = await axiosInstance.delete(
 			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
 		);
-		if (response.status === 200) {
-            return { id: Number(id), file_name: '', description: '', size: 0, url: '', date: '', mimetype_id: 0, doctype_id: 0 };
-        }
 		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
