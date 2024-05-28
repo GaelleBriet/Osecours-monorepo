@@ -45,14 +45,23 @@
 	});
 
 	
-	onMounted(async () => {
+	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id as string);
     	const imageDocs = docsByAnimal.filter(doc => {
 			return doc.doctype_id === 3;
 		});
     	documents.value = imageDocs;
+	};
+
+	onMounted(async () => {
+		fetchDocuments();
 	});
 
+	const handleDocumentSaved = () => {
+		fetchDocuments();
+		showForm.value = false;
+	};
+	
 	const documentsTransformed = computed(() => {
 		return documents.value.map((document) => ({
 			...document
@@ -164,6 +173,7 @@
 					<DocumentsForm
 						:is-create-mode="true"
 						:is-photo-mode="false"
+						@documentSaved="handleDocumentSaved"
 					/>
 				</ModalComponent>			
 				<div

@@ -16,10 +16,19 @@
 	const router = useRouter();
 	const showForm = ref(false);
 
-	onMounted(async () => {
+	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
 		documents.value = docsByAnimal;
+	};
+
+	onMounted(async () => {
+		fetchDocuments();
 	});
+
+	const handleDocumentSaved = () => {
+		fetchDocuments();
+		showForm.value = false;
+	};
 
 	const documentsTransformed = computed(() => {
 		return documents.value.map((document) => ({
@@ -64,6 +73,7 @@
 		<DocumentsForm
 			:is-create-mode="true"
 			:is-photo-mode="false"
+			@documentSaved="handleDocumentSaved"
 		/>
 	</ModalComponent>
 </template>

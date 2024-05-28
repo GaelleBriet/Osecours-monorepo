@@ -14,7 +14,7 @@ const documents = ref<Document[]>([]);
 const route = useRoute();
 const router = useRouter();
 
-onMounted(async () => {
+const fetchDocuments = async () => {
     const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id as string);
     const imageDocs = docsByAnimal.filter(doc => {
         const isImageDocType = doc.doctype_id === 1;
@@ -22,8 +22,16 @@ onMounted(async () => {
         return isImageDocType && isImageUrl;
     });
     documents.value = imageDocs;
+};
+
+onMounted(async () => {
+    fetchDocuments();
 });
 
+const handleDocumentSaved = () => {
+    fetchDocuments();
+    showForm.value = false;
+};
 
 const props = defineProps<{
 		animal: Animal;
@@ -76,7 +84,11 @@ const removePhoto = (item) => {
                         <span>+</span>
                     </button>
                     <ModalComponent :isOpen="showForm" @close="showForm = false">
-                        <DocumentsForm :is-create-mode="true" :is-photo-mode="true" />
+                        <DocumentsForm 
+                            :is-create-mode="true" 
+                            :is-photo-mode="true"
+                            @documentSaved="handleDocumentSaved"
+                        />
                     </ModalComponent>
                 </div>
             </div>

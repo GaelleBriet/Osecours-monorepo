@@ -14,11 +14,13 @@
 	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
 	import { fetchDataAndFormatOptions } from '@/Services/Helpers/SelectOptions.ts';
 	import { useRoute } from 'vue-router';
-	
+	import { defineEmits } from 'vue';
+
 	const route = useRoute();
 	const t = i18n.global.t;
 	const documentSettingsStore = useDocumentsSettingsStore();
 	const documentsStore = useDocumentsStore();
+	const emit = defineEmits(['documentSaved']);
 
 	const props = defineProps<{
 		isCreateMode?: boolean;
@@ -126,6 +128,7 @@
 				localDocument.value = { ...newDocument.value };
 				isEditMode.value = false;
 			}
+			emit('documentSaved');
 		}
 	};
 </script>
