@@ -49,7 +49,6 @@
 
 	const handleAssociationChange = async (value: never) => {
 		selectedAssociation.value = value;
-		//await onAssociationChange();
 	};
 
 	const loginWithSelectedAssociation = async () => {
