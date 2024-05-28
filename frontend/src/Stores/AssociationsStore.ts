@@ -16,11 +16,6 @@ export const useAssociationsStore = defineStore('associations', {
 		associations: [],
 		association: null,
 	}),
-	getters: {
-		getCurrentAssociation(): Association | null {
-			return this.association;
-		},
-	},
 	actions: {
 		async getAssociation(id: number): Promise<Association | null> {
 			const association: Association | ErrorResponse = await getAssociation(id);
