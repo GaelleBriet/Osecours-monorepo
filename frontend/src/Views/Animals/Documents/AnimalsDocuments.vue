@@ -44,7 +44,7 @@
 	};
 </script>
 <template>
-	<div class="container">
+	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
 		<DataGridComponent
 			:store="documentsStore" 
 			:model-value="documentsTransformed"
@@ -63,7 +63,7 @@
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm
 			:is-create-mode="true"
-			:is-photo-mode="true"
+			:is-photo-mode="false"
 		/>
 	</ModalComponent>
 </template>

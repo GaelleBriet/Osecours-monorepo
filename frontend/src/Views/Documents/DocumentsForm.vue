@@ -162,7 +162,7 @@
 								isPhotoMode ? getCapitalizedText(t('pages.documents.filePhotos')) : getCapitalizedText(t('pages.documents.file'))
 							"
 							:accept="
-								isPhotoMode ? '.jpg,.bmp,.png' : '.pdf,.doc,.docx'
+								isPhotoMode ? '.jpg,.bmp,.png' : '.pdf,.doc,.docx,.jpg,.bmp,.png'
 							"
 							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"

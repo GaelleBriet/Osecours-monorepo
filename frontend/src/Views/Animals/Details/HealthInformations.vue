@@ -5,6 +5,8 @@
 	import VaccinesList from '@/Views/Animals/Health/VaccinesList.vue';
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
+	import ModalComponent from '@/Components/ModalComponent.vue';
+	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import { onMounted, ref, computed } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
@@ -44,9 +46,11 @@
 
 	
 	onMounted(async () => {
-		//!\\ TODO: recuperer correctement le HealthcareID
-		const docsByHealthcare = await documentsStore.getDocumentsByAnimal(route.params.id);
-		documents.value = docsByHealthcare;
+		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id as string);
+    	const imageDocs = docsByAnimal.filter(doc => {
+			return doc.doctype_id === 3;
+		});
+    	documents.value = imageDocs;
 	});
 
 	const documentsTransformed = computed(() => {
@@ -67,8 +71,8 @@
 	};
 
 	const addItem = () => {
-		console.log("hello")
 		showForm.value = true;
+		console.log(showForm.value)
 		return false;
 	};
 
@@ -155,7 +159,13 @@
 						@add="addItem"
 						@delete="removeItem"
 					/>   
-				</div>				
+				</div>	
+				<ModalComponent :isOpen="showForm" @close="showForm = false">
+					<DocumentsForm
+						:is-create-mode="true"
+						:is-photo-mode="false"
+					/>
+				</ModalComponent>			
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-4 md:items-end"
 				>

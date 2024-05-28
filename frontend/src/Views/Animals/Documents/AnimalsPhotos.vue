@@ -6,6 +6,7 @@ import { Document } from '@/Interfaces/Documents';
 import Form from '@/Components/Forms/Form.vue';
 import ModalComponent from '@/Components/ModalComponent.vue';
 import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
+import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 const showForm = ref(false);
 const documentsStore = useDocumentsStore();
@@ -14,22 +15,31 @@ const route = useRoute();
 const router = useRouter();
 
 onMounted(async () => {
-    const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
-    documents.value = docsByAnimal;
+    const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id as string);
+    const imageDocs = docsByAnimal.filter(doc => {
+        const isImageDocType = doc.doctype_id === 1;
+        const isImageUrl = /\.(jpg|jpeg|png|gif)$/i.test(doc.url);
+        return isImageDocType && isImageUrl;
+    });
+    documents.value = imageDocs;
 });
 
-const editItem = (item) => {
-		router.push({
-			name: 'EditDocument',
-			params: { id: item.id },
-		});
-	};
 
+const props = defineProps<{
+		animal: Animal;
+	}>();
+
+const editItem = (item) => {
+    router.push({
+        name: 'EditDocument',
+        params: { id: item.id },
+    });
+};
 
 const addPhoto = () => {
     showForm.value = true;
-    return false;
 };
+
 const removePhoto = (item) => {
     documentsStore.deleteDocument(item.id);
 };
@@ -44,17 +54,24 @@ const removePhoto = (item) => {
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-4">
                     <!-- Miniatures des photos -->
                     <div v-for="(photo, index) in documents" :key="index" class="relative">
-                        <img :src="photo.url" alt="Photo du animal"
-                            class="w-full h-28 object-cover rounded-lg shadow-md" />
+                        <a :href="photo.url" target="_blank" rel="noopener noreferrer">
+                            <img :src="photo.url" :alt="'Photo de ' + getCapitalizedText(props.animal.name)"
+                               class="w-full h-28 object-cover rounded-lg shadow-md" />
+                        </a>
                         <button
-                            class="absolute top-1 right-1 bg-osecours-pink text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
-                            @click="removePhoto(index)">
+                            class="absolute top-1 right-1 bg-osecours-pink text-osecours-white hover:bg-white hover:text-osecours-pink rounded-full p-1 w-5 h-5 flex items-center justify-center"
+                            @click="removePhoto(photo)">
                             &times;
                             <!-- Symbole de multiplication utilisé pour l'icône de suppression -->
                         </button>
+                        <button
+                            class="absolute top-7 right-1 bg-yellow-500 hover:bg-white text-osecours-white rounded-full p-1 w-5 h-5 flex items-center justify-center"
+                            @click="editItem(photo)">
+                            <i class="icon-pencil hover:text-yellow-500 text-xs" />
+                        </button>
                     </div>
                     <button type="button"
-                        class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
+                        class="w-full h-28 bg-gray-200 hover:bg-gray-100 rounded-lg shadow-md flex justify-center items-center"
                         @click="addPhoto()">
                         <span>+</span>
                     </button>
