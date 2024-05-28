@@ -21,7 +21,6 @@ import DocumentsController from '@/Controllers/Documents/DocumentsController.vue
 import CreateDocument from '@/Views/Documents/CreateDocument.vue';
 import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
 import MembersController from '@/Controllers/Members/MembersController.vue';
-import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
 import MembersDetails from '@/Views/Members/MembersDetails.vue';
 import FamiliesCreateForm from '@/Views/Families/FamiliesCreateForm.vue';
 

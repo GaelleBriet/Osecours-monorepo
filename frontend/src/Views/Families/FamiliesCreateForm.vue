@@ -1,14 +1,8 @@
 <script setup lang="ts">
-	import { Members } from '@/Interfaces/Members.ts';
-	import { onMounted, ref } from 'vue';
-	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
 
-	const router = useRouter();
-	const membersStore = useMembersStore();
 	const t = i18n.global.t;
 </script>
 
