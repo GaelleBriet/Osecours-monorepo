@@ -8,7 +8,6 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormNumber from '@/Components/Forms/FormNumber.vue';
-	import { number } from '@formkit/icons';
 
 	const props = defineProps<{
 		family?: Members;
@@ -19,7 +18,7 @@
 	const router = useRouter();
 	const isEditMode = ref(false);
 	const currentFamily = ref<Members>(props.family);
-	const createdFamily = ref<Members | null>(null);
+	// const createdFamily = ref<Members | null>(null);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
