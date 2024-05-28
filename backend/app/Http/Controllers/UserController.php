@@ -88,11 +88,7 @@ class UserController extends Controller
                 return response()->json(["error" => "Role and currentAssociationId parameters are required"], 400);
             }
 
-            $users = User::whereHas('roles', function ($query) use ($role) {
-                $query->where('roles.name', $role);
-            })->whereHas('associations', function ($query) use ($currentAssociationId) {
-                $query->where('associations.id', $currentAssociationId);
-            })->get();
+            $users = $this->users->findByRoleAndAssociation($role, $currentAssociationId);
 
            return response()->json(["data" => $users], 200);
         } catch (Exception $e) {

@@ -57,7 +57,11 @@ class AuthService
             $scope = "";
             switch (Role::find($id)->name) {
                 case "user":
-                    $scope = AccessScopeEnum::USER_ACCESS_SCOPE->value;
+                case "accountant":
+                case "president":
+                case "adopt":
+                case "foster":
+                $scope = AccessScopeEnum::USER_ACCESS_SCOPE->value;
                     break;
                 case "admin":
                     $scope = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;

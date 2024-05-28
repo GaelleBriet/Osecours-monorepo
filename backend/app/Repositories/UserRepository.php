@@ -29,6 +29,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         ->first();
     }
 
+    public function findByRoleAndAssociation($role, $currentAssociationId)
+    {
+        return $users = User::whereHas('roles', function ($query) use ($role) {
+            $query->where('roles.name', $role);
+        })->whereHas('associations', function ($query) use ($currentAssociationId) {
+            $query->where('associations.id', $currentAssociationId);
+        })->get();
+    }
+
     public function findByRole(string $role)
     {
        return User::whereHas('roles', function ($query) use ($role) {
