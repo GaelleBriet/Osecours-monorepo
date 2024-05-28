@@ -8,13 +8,9 @@
 	import { Members } from '@/Interfaces/Members.ts';
 	import { Role } from '@/Enums/Role.ts';
 	import { ref } from 'vue';
-	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import {
-		generateOptionsFromEnum,
-		generateOptionsWithDefault,
-	} from '@/Services/Helpers/Enums.ts';
+	import { generateOptionsWithDefault } from '@/Services/Helpers/Enums.ts';
 	import { getNode } from '@formkit/core';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { useUserStore } from '@/Stores/UserStore.ts';
@@ -27,7 +23,6 @@
 	}>();
 
 	const t = i18n.global.t;
-	const router = useRouter();
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
 

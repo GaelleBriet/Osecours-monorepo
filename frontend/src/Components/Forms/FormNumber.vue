@@ -24,7 +24,7 @@
 
 	const inputRef = ref(null);
 
-	const onInput = (value: any) => {
+	const onInput = (value: never) => {
 		const node = inputRef.value.node;
 		if (!node) return;
 		emit('update:modelValue', value);
