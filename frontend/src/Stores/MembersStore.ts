@@ -117,8 +117,8 @@ export const useMembersStore = defineStore({
 				return filteredFamilies;
 			}
 		},
-		async createMember(): Promise<User> {
-			const newMember: User | ErrorResponse = await createMember();
+		async createMember(member: Members): Promise<User> {
+			const newMember: User | ErrorResponse = await createMember(member);
 			if ('error' in newMember) {
 				return {} as User;
 			} else {

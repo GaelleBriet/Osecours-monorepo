@@ -20,4 +20,7 @@ export interface Members {
 	updateAt?: string;
 	deleteAt?: string;
 	pivot?: RelationInterface;
+	password?: string;
+	role_id?: number | string;
+	association_id?: number | string;
 }

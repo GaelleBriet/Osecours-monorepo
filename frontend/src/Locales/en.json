@@ -20,7 +20,8 @@
 		"succes": "success",
 		"notImplemented": "not implemented",
 		"close": "close",
-		"consult": "consult"
+		"consult": "consult",
+		"error": "error"
 	},
 	"navigation": {
 		"home": "home",

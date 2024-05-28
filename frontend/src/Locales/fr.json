@@ -20,7 +20,8 @@
 		"success": "succès",
 		"notImplemented": "fonctionnalité non implémentée",
 		"close": "fermer",
-		"consult": "consulter"
+		"consult": "consulter",
+		"error": "erreur"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -221,7 +222,7 @@
 				"deleteError": "une erreur est survenue lors de la suppression du membre",
 				"updateSuccess": "le membre a bien été mise à jour",
 				"updateError": "une erreur est survenue lors de la mise à jour du membre",
-				"createSuccess": "le membre a bien été créée",
+				"createSuccess": "le membre a bien été créé",
 				"createError": "une erreur est survenue lors de la création du membre"
 			}
 		},

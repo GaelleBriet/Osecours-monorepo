@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { FormKit } from '@formkit/vue';
-	import { defineProps, defineEmits } from 'vue';
+	import { defineProps, defineEmits, ref } from 'vue';
 	import { getNode } from '@formkit/core';
 
 	const props = defineProps<{
@@ -22,9 +22,17 @@
 		(e: 'blur', event: Event): void;
 	}>();
 
+	const inputRef = ref(null);
+
+	const onInput = (value: any) => {
+		const node = inputRef.value.node;
+		if (!node) return;
+		emit('update:modelValue', value);
+	};
+
 	const onBlur = (e: Event) => {
 		const inputElement = e.target as HTMLInputElement;
-		emit('update:modelValue', inputElement.value);
+
 		if (!inputElement.id) return;
 		const node = getNode(inputElement.id);
 		if (!node) return;
@@ -45,6 +53,7 @@
 <template>
 	<FormKit
 		:id="id"
+		ref="inputRef"
 		:model-value="modelValue"
 		:value="modelValue"
 		:name="name"
@@ -60,6 +69,7 @@
 		}"
 		type="number"
 		@blur="onBlur"
+		@input="onInput($event)"
 	/>
 </template>
 <style scoped>

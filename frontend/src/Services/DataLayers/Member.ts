@@ -69,27 +69,28 @@ export const getMembersByFamilyType = async (
 	}
 };
 
-export const createMember = async () // member: User,
-: Promise<User | ErrorResponse> => {
+export const createMember = async (
+	member: Members, // member: User,
+): Promise<User | ErrorResponse> => {
 	try {
-		const response: User = {
-			id: 3,
-			firstName: 'Jack',
-			lastName: 'Doe',
-			email: 'jack.doe@mail.fr',
-			phone: '0612345678',
-			existingCatCount: 0,
-			existingDogCount: 0,
-			existingChildrenCount: 0,
-			adoptFamily: false,
-			fosterFamily: true,
-		};
-		return response;
-		// const response: AxiosResponse<User> = await axiosInstance.post<User>(
-		// 	`${import.meta.env.VITE_USERS_API_URL}`,
-		// 	member,
-		// );
-		// return response.data;
+		// const response: User = {
+		// 	id: 3,
+		// 	firstName: 'Jack',
+		// 	lastName: 'Doe',
+		// 	email: 'jack.doe@mail.fr',
+		// 	phone: '0612345678',
+		// 	existingCatCount: 0,
+		// 	existingDogCount: 0,
+		// 	existingChildrenCount: 0,
+		// 	adoptFamily: false,
+		// 	fosterFamily: true,
+		// };
+		// return response;
+		const response: AxiosResponse<User> = await axiosInstance.post<User>(
+			`${import.meta.env.VITE_USERS_API_URL}`,
+			member,
+		);
+		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);
