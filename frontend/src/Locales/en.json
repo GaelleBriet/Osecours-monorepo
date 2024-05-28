@@ -277,14 +277,14 @@
 			"Cat": "cat"
 		},
 		"animalVaccines": {
-			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS": "leptospirosis",
-			"BORDETELLA/INFLUENZA": "bordetella/influenza",
-			"LYME": "lyme",
-			"RABIES": "rabies",
-			"FVRCP/RCP": "FVRCP/RCP",
-			"FeLV": "FeLV",
-			"CHLAMYDOPHILA": "chlamydophila"
+			"chppil4/dhpp": "CHPPiL4/DHPP",
+			"leptospirosis": "leptospirosis",
+			"bordetella/influenza": "bordetella/influenza",
+			"lyme": "lyme",
+			"rabies": "rabies",
+			"fvrcp/rcp": "FVRCP/RCP",
+			"felv": "FeLV",
+			"chlamydophila": "chlamydophila"
 		},
 		"animalStatus": {
 			"available": "available",
@@ -451,7 +451,7 @@
 			"Chinook": "Chinook",
 			"Chocolate Labrador Retriever": "Chocolate Labrador Retriever",
 			"Chow Chow": "Chow Chow",
-			"Cirneco dell'Etna": "Cirneco dell'Etna",
+			"Cirneco dell Etna": "Cirneco dell'Etna",
 			"Clumber Spaniel": "Clumber Spaniel",
 			"Cocker Spaniel": "Cocker Spaniel",
 			"Collie": "Collie",
