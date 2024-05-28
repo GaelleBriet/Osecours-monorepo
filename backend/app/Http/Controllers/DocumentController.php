@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\DocumentService;
+use App\Http\Services\ErrorService;
 use App\Models\Animal;
 use App\Models\Document;
 use App\Models\Healthcare;
@@ -13,10 +14,13 @@ use Illuminate\Support\Facades\Date;
 class DocumentController extends Controller
 {
     protected DocumentService $documentService;
+    protected ErrorService $errorService;
 
-    public function __construct(DocumentService $documentService)
+
+    public function __construct(DocumentService $documentService, ErrorService $eService)
     {
         $this->documentService = $documentService;
+        $this->errorService = $eService;
     }
 
     /**
@@ -438,8 +442,16 @@ class DocumentController extends Controller
      *     )
      * )
      */
-    public function delete(Request $request, Document $document)
+    public function delete($id)
     {
-        return $document->delete();
+        try {
+            $deleteDocument = $this->documentService->softDeleteDocument($id);
+            return response()->json([
+                'message' => 'Le document a été supprimé avec succès.',
+                'document' => $deleteDocument
+            ]);
+        } catch (Exception $e) {
+            return $this->errorService->handle($e);
+        }
     }
 }

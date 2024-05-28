@@ -59,8 +59,8 @@ class DocumentService{
         return new DocumentResource($newDoc);
     }
 
-    public function deleteDocument(String $path){
-        return $this->documentRepo->deleteDocument($path);
+    public function softDeleteDocument($id){
+        return $this->documentRepo->softDeleteDocument($id);
     }
 
     public function updateDocument(String $path,Document $newDoc){
@@ -95,7 +95,7 @@ class DocumentService{
             'url' => $url,
             'filename' => $uniqFilename,
             'description' => $request->description,
-            'docType' => in_array($file->getMimeType(),$imagesMimeType) ? 'image' : 'doc'
+            'docType' => $request->doctype
         ];
     }
 }
