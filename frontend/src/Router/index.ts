@@ -23,6 +23,7 @@ import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
 import MembersController from '@/Controllers/Members/MembersController.vue';
 import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
 import MembersDetails from '@/Views/Members/MembersDetails.vue';
+import FamiliesCreateForm from '@/Views/Families/FamiliesCreateForm.vue';
 
 const routes = [
 	{
@@ -134,8 +135,7 @@ const routes = [
 	{
 		path: '/families/add',
 		name: 'CreateFamily',
-		component: FamiliesForm,
-		props: { isCreateMode: true },
+		component: FamiliesCreateForm,
 	},
 	{
 		path: '/profile',

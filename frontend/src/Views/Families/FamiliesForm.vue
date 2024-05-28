@@ -2,7 +2,7 @@
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
 	import { Members } from '@/Interfaces/Members.ts';
-	import { ref } from 'vue';
+	import { computed, ref } from 'vue';
 	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
@@ -12,11 +12,12 @@
 	const props = defineProps<{
 		family?: Members;
 		isCreateMode?: boolean;
+		isEditMode?: boolean;
 	}>();
 
 	const t = i18n.global.t;
 	const router = useRouter();
-	const isEditMode = ref(false);
+	let isEditMode = ref(props.isEditMode);
 	const currentFamily = ref<Members>(props.family);
 	// const createdFamily = ref<Members | null>(null);
 
@@ -29,20 +30,15 @@
 	});
 
 	const onButtonClick = () => {
-		// en mode création : retour à la page précédente
-		// en mode visualisation : basculer en mode édition
-		if (!props.isCreateMode) {
-			isEditMode.value = !isEditMode.value;
-		} else {
-			router.go(-1);
-		}
+		isEditMode.value = !isEditMode.value;
 	};
 
 	const onSubmit = async () => {
 		notificationConfig.value = {
 			show: true,
 			title: getCapitalizedText(t('common.success')),
-			message: getCapitalizedText(t('pages.families.messages.updateSuccess')),
+			//message: getCapitalizedText(t('pages.families.messages.updateSuccess')),
+			message: getCapitalizedText('fonctionnalité pas encore implémentée'),
 			type: 'success',
 		};
 		isEditMode.value = false;
