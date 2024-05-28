@@ -277,14 +277,14 @@
 			"Cat": "chat"
 		},
 		"animalVaccines": {
-			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS": "leptospirose",
-			"BORDETELLA/INFLUENZA": "bordetella/influenza",
-			"LYME": "maladie de lyme",
-			"RABIES": "rage",
-			"FVRCP/RCP": "FVRCP/RCP",
-			"FeLV": "leucose féline",
-			"CHLAMYDOPHILA": "chlamydophilose"
+			"chppil4/dhpp": "CHPPiL4/DHPP",
+			"leptospirosis": "leptospirose",
+			"bordetella/influenza": "bordetella/influenza",
+			"lyme": "maladie de lyme",
+			"rabies": "rage",
+			"fvrcp/rcp": "FVRCP/RCP",
+			"felv": "leucose féline",
+			"chlamydophila": "chlamydophilose"
 		},
 		"animalStatus": {
 			"available": "disponible",

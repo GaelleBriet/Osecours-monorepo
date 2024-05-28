@@ -63,14 +63,12 @@
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
-		console.log(props.isCreateMode);
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
 		doctypes.value = await fetchDataAndFormatOptions(
 			documentSettingsStore.getAllDoctypes,
 			'enums.documentType',
 			'Sélectionner une type de document',
 		);
-		console.log(doctypes);
 	});
 
 	const onSubmit = async () => {

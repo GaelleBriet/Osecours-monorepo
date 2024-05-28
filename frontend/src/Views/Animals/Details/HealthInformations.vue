@@ -11,10 +11,6 @@
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
 
-	// defineProps<{
-	// 	animal: Animal;
-	// }>();
-
 	const animal = ref({ ...animalHealthMock });
 	const animalVaccines = ref(animal.value.vaccines);
 	const animalHealth = ref(animal.value.health);

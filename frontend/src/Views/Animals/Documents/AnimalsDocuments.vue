@@ -14,7 +14,7 @@
 			route.params.id,
 		);
 	});
-	console.log(documents);
+
 	// const addPhoto = () => {
 	// 	// @todo Logique pour ajouter une photo
 	// };
