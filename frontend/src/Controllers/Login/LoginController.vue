@@ -156,10 +156,11 @@
 											['required'],
 											[
 												'matches',
-												/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+												/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/,
 											],
 										]"
 										:validation-visibility="'blur'"
+										:show-confirm="false"
 										@update:model-value="password = $event"
 									/>
 								</div>

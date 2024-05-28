@@ -20,6 +20,7 @@
 		validationVisibility?: string;
 		validationMessages?: object;
 		classes?: object;
+		showConfirm?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -102,6 +103,7 @@
 		@blur="onBlur"
 	/>
 	<FormKit
+		v-if="showConfirm"
 		:id="confirmationId"
 		name="password_confirm"
 		:is-required="isRequired()"
