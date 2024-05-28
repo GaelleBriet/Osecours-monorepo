@@ -152,7 +152,13 @@
 										:name="password"
 										:id="'password'"
 										:label="getCapitalizedText(t('form.password'))"
-										:validation="'required'"
+										:validation="[
+											['required'],
+											[
+												'matches',
+												/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+											],
+										]"
 										:validation-visibility="'blur'"
 										@update:model-value="password = $event"
 									/>

@@ -33,6 +33,7 @@
 	let createdMember = ref<Members>({});
 	let memberToCreate = ref<Members>({});
 	let currentAssociationId = userStore.getCurrentUser?.associationId;
+	let confirmPassword = ref('');
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -46,7 +47,7 @@
 	const userRoleOptions = generateOptionsWithDefault(
 		Role,
 		'enums.role',
-		getCapitalizedText(t('common.selectRole')),
+		getCapitalizedText(t('form.selectRole')),
 	);
 
 	const isFormValid = () => {
@@ -132,7 +133,7 @@
 				/>
 				<div class="px-2 w-full md:col-start-1">
 					<FormText
-						id="family-firstname"
+						id="member-firstname"
 						:model-value="
 							!isCreateMode
 								? currentMember.first_name
@@ -140,9 +141,9 @@
 						"
 						:label="getCapitalizedText(t('pages.users.firstName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Prénom'"
+						:placeholder="getCapitalizedText(t('pages.users.firstName'))"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'contains_alpha_spaces|length:0,100|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.first_name = $event)
@@ -152,15 +153,15 @@
 				</div>
 				<div class="px-2 w-full md:col-start-2">
 					<FormText
-						id="family-lastname"
+						id="member-lastname"
 						:model-value="
 							!isCreateMode ? currentMember.last_name : createdMember?.last_name
 						"
 						:label="getCapitalizedText(t('pages.users.lastName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nom'"
+						:placeholder="getCapitalizedText(t('pages.users.lastName'))"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'contains_alpha_spaces|length:0,100|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.last_name = $event)
@@ -170,15 +171,15 @@
 				</div>
 				<div class="w-full px-2 md:col-start-1 md:row-start-2">
 					<FormText
-						id="family-email"
+						id="member-email"
 						:model-value="
 							!isCreateMode ? currentMember.email : createdMember?.email
 						"
 						:label="getCapitalizedText(t('pages.users.email'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Email'"
+						:placeholder="'email@example.com'"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'contains_alpha_spaces|length:0,100'"
+						:validation="'contains_alpha_spaces|length:0,100|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.email = $event)
@@ -188,15 +189,15 @@
 				</div>
 				<div class="px-2 w-full md:col-start-2 md:row-start-2">
 					<FormNumber
-						id="family-phone"
+						id="member-phone"
 						:model-value="
 							!isCreateMode ? currentMember.phone : createdMember?.phone
 						"
 						:label="getCapitalizedText(t('pages.users.phone'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Phone number'"
+						:placeholder="'060102030102'"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'number|length:10,10'"
+						:validation="'number|length:10,10|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.phone = $event)
@@ -206,14 +207,14 @@
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-3">
 					<FormSelect
-						id="user-role"
+						id="member-role"
 						name="role"
 						:model-value="!isCreateMode ? role : createdMember?.role"
 						:label="getCapitalizedText(t('pages.members.role'))"
 						:options="userRoleOptions"
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:disabled="!isCreateMode"
-						:validation="'number|length:0,2'"
+						:validation="'number|length:0,2|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.role = $event)
@@ -223,7 +224,7 @@
 				</div>
 				<div class="px-2 md:col-start-2 md:row-start-3">
 					<FormNumber
-						id="family-child-count"
+						id="member-child-count"
 						:model-value="
 							!isCreateMode
 								? currentMember.existing_children_count
@@ -231,9 +232,10 @@
 						"
 						:label="getCapitalizedText(t('pages.users.childrenCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre d\'enfants'"
+						:placeholder="getCapitalizedText(t('pages.users.minZero'))"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'number|length:0,2'"
+						:validation="'number|length:0,2|required'"
+						min="0"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.existing_children_count = $event)
@@ -243,7 +245,7 @@
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-4">
 					<FormNumber
-						id="family-cat-count"
+						id="member-cat-count"
 						:model-value="
 							!isCreateMode
 								? currentMember.existing_cat_count
@@ -251,9 +253,9 @@
 						"
 						:label="getCapitalizedText(t('pages.users.catCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre de chats'"
+						:placeholder="getCapitalizedText(t('pages.users.minZero'))"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'number|length:0,2'"
+						:validation="'number|length:0,2|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.existing_cat_count = $event)
@@ -263,7 +265,7 @@
 				</div>
 				<div class="px-2 md:col-start-2 md:row-start-4">
 					<FormNumber
-						id="family-dog-count"
+						id="number-dog-count"
 						:model-value="
 							!isCreateMode
 								? currentMember.existing_dog_count
@@ -271,9 +273,9 @@
 						"
 						:label="getCapitalizedText(t('pages.users.dogCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre de chiens'"
+						:placeholder="getCapitalizedText(t('pages.users.minZero'))"
 						:disabled="!isEditMode && !isCreateMode"
-						:validation="'number|length:0,2'"
+						:validation="'number|length:0,2|required'"
 						@update:modelValue="
 							!isCreateMode
 								? (currentMember.existing_dog_count = $event)
@@ -284,13 +286,20 @@
 				<div class="px-2 md:col-start-1 md:row-start-5">
 					<FormPassword
 						id="create-password"
+						:name="'password'"
 						:model-value="createdMember?.password"
-						:label="getCapitalizedText(t('pages.users.password'))"
-						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Mot de passe'"
+						:label="getCapitalizedText(t('form.password'))"
+						:confirm-label="getCapitalizedText(t('form.confirmPassword'))"
 						:disabled="!isCreateMode"
-						:validation="'length:8,100'"
+						:validation="[
+							['required'],
+							[
+								'matches',
+								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+							],
+						]"
 						@update:modelValue="createdMember.password = $event"
+						@update:passwordConfirmation="confirmPassword = $event"
 					/>
 				</div>
 				<template v-if="!isCreateMode">
@@ -332,7 +341,6 @@
 					>
 						<button
 							id="save-changes"
-							v-tooltip="getCapitalizedText(t('common.notImplemented'))"
 							type="submit"
 							class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 							@click.prevent="onCreateMember"

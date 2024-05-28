@@ -3,12 +3,14 @@
 	import { defineProps, defineEmits } from 'vue';
 	import { getNode } from '@formkit/core';
 	import { getValidationMessages } from '@formkit/validation';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const props = defineProps<{
 		id: string;
 		modelValue?: string | undefined;
 		value?: string | number;
 		label?: string;
+		confirmLabel?: string;
 		labelClass?: string;
 		name?: string;
 		prefixIcon?: string;
@@ -27,6 +29,8 @@
 		(e: 'blur', event: Event): void;
 	}>();
 
+	const confirmationId = 'confirmation' + getCapitalizedText(props.id);
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleIconClick = (node: any) => {
 		node.props.suffixIcon =
@@ -40,9 +44,9 @@
 			emit('update:modelValue', inputElement.value);
 		}
 		// Send the password confirmation
-		// else {
-		// 	emit('update:passwordConfirmation', inputElement.value);
-		// }
+		else {
+			emit('update:passwordConfirmation', inputElement.value);
+		}
 
 		const node = getNode(inputElement.id);
 		if (!node) return;
@@ -56,6 +60,22 @@
 			});
 		}
 	};
+
+	const isRequired = () => {
+		let isRequired = false;
+		if (typeof props.validation === 'string') {
+			isRequired = props.validation.includes('required');
+		}
+
+		if (typeof props.validation === 'object') {
+			props.validation.forEach((rule: string[]) => {
+				if (rule.includes('required')) {
+					isRequired = true;
+				}
+			});
+		}
+		return isRequired;
+	};
 </script>
 <template>
 	<FormKit
@@ -63,12 +83,32 @@
 		:model-value="modelValue"
 		:value="modelValue"
 		:name="name"
+		:is-required="isRequired()"
 		:prefix-icon="prefixIcon"
 		:label="label"
 		:label-class="labelClass"
 		:validation="validation"
 		:validation-messages="validationMessages"
 		:validation-visibility="validationVisibility"
+		:disabled="disabled"
+		suffix-icon="eyeClosed"
+		@suffix-icon-click="handleIconClick"
+		suffix-icon-class="hover:text-osecours-beige-dark"
+		:classes="{
+			inner: 'max-h-10 mb-4',
+			input: 'text-sm',
+		}"
+		type="password"
+		@blur="onBlur"
+	/>
+	<FormKit
+		:id="confirmationId"
+		name="password_confirm"
+		:is-required="isRequired()"
+		:prefix-icon="prefixIcon"
+		:label="confirmLabel"
+		:label-class="labelClass"
+		validation="required|confirm"
 		:disabled="disabled"
 		suffix-icon="eyeClosed"
 		@suffix-icon-click="handleIconClick"

@@ -46,11 +46,13 @@
 	"form": {
 		"email": "email",
 		"password": "mot de passe",
+		"confirmPassword": "confirmer le mot de passe",
 		"rememberMe": "Se souvenir de moi",
 		"name": "nom",
 		"firstName": "prénom",
 		"lastName": "nom de famille",
 		"phone": "téléphone",
+		"selectRole": "sélectionner un rôle",
 		"messages": {
 			"required": "ce champ est obligatoire",
 			"email": "veuillez entrer une adresse email valide",
@@ -244,6 +246,7 @@
 			"catCount": "nombre de chats",
 			"dogCount": "nombre de chiens",
 			"childrenCount": "nombre d'enfants",
+			"minZero": "minimum 0",
 			"adoptFamily": "famille adoptante",
 			"fosterFamily": "famille d'accueil",
 			"messages": {
