@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { Members } from '@/Interfaces/Members.ts';
-	import { computed, ref } from 'vue';
-	import { useRouter } from 'vue-router';
-	import i18n from '@/Services/Translations';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormNumber from '@/Components/Forms/FormNumber.vue';
+	import { Members } from '@/Interfaces/Members.ts';
+	import { ref } from 'vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const props = defineProps<{
 		family?: Members;
@@ -16,9 +15,8 @@
 	}>();
 
 	const t = i18n.global.t;
-	const router = useRouter();
 	let isEditMode = ref(props.isEditMode);
-	const currentFamily = ref<Members>(props.family);
+	const currentFamily = ref<Members | undefined>(props.family);
 	// const createdFamily = ref<Members | null>(null);
 
 	// paramètres de la notification
