@@ -102,6 +102,8 @@
 			:title="getCapitalizedText(t('navigation.members'))"
 			:description="getCapitalizedText(t('pages.users.title'))"
 			:columns="columns"
+			:disable-add-btn="true"
+			:disable-edit-icon="true"
 			@edit="editItem"
 			@delete="openModal"
 		/>

@@ -1,21 +1,29 @@
 <script setup lang="ts">
+	import MembersForm from '@/Views/Members/MembersForm.vue';
 	import { Members } from '@/Interfaces/Members.ts';
 	import { onMounted, ref } from 'vue';
+	import { useMembersStore } from '@/Stores/MembersStore.ts';
+	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import MembersForm from '@/Views/Members/MembersForm.vue';
 
 	const router = useRouter();
 	const membersStore = useMembersStore();
+	const userStore = useUserStore();
 	const t = i18n.global.t;
 	const route = router.currentRoute;
 	const currentId = route.value.params.id;
 	const currentFamily = ref<Members | null>(null);
+	const currentMemberRole = ref<number | undefined>(undefined);
+	const currentAssociation = userStore.getCurrentUser;
 
 	onMounted(async () => {
 		currentFamily.value = await membersStore.getMemberById(currentId);
+		currentMemberRole.value = await membersStore.getMemberRole(
+			currentFamily.value?.id as number,
+			Number(currentAssociation?.associationId),
+		);
 	});
 </script>
 
@@ -35,8 +43,11 @@
 			</button>
 		</div>
 		<div class="content">
-			<template v-if="currentFamily">
-				<MembersForm :family="currentFamily" />
+			<template v-if="currentFamily && currentMemberRole">
+				<MembersForm
+					:family="currentFamily"
+					:role="currentMemberRole"
+				/>
 			</template>
 		</div>
 	</div>

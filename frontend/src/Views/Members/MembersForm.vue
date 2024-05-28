@@ -1,26 +1,30 @@
 <script lang="ts" setup>
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
+	import FormText from '@/Components/Forms/FormText.vue';
+	import FormNumber from '@/Components/Forms/FormNumber.vue';
 	import { Members } from '@/Interfaces/Members.ts';
+	import { Role } from '@/Enums/Role.ts';
 	import { ref } from 'vue';
 	import { useRouter } from 'vue-router';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import FormText from '@/Components/Forms/FormText.vue';
-	import FormNumber from '@/Components/Forms/FormNumber.vue';
-	import { number } from '@formkit/icons';
+	import { generateOptionsFromEnum } from '@/Services/Helpers/Enums.ts';
 
 	const props = defineProps<{
 		family?: Members;
+		role?: number | undefined;
 		isCreateMode?: boolean;
 	}>();
 
 	const t = i18n.global.t;
 	const router = useRouter();
 	const isEditMode = ref(false);
-	const currentFamily = ref<Members>(props.family);
-	const createdFamily = ref<Members | null>(null);
-	console.log(props.family);
+	const currentFamily = ref<Members>(
+		props.family ? props.family : ({} as Members),
+	);
+	// const createdFamily = ref<Members | null>(null);
+
 	// paramètres de la notification
 	const notificationConfig = ref({
 		show: false,
@@ -47,6 +51,16 @@
 			type: 'success',
 		};
 		isEditMode.value = false;
+	};
+
+	const getRoleLabel = (roleValue: number) => {
+		const roleOptions = generateOptionsFromEnum(Role, 'enums.role');
+		const roleOption = roleOptions.find(
+			(option) => option.value === roleValue.toString(),
+		);
+		return roleOption
+			? getCapitalizedText(t(`${roleOption.label.toLowerCase()}`))
+			: '';
 	};
 </script>
 
@@ -114,12 +128,11 @@
 					/>
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-3">
-					<FormNumber
+					<FormText
 						id="user-role"
-						:model-value="!isCreateMode ? currentFamily.role : ''"
+						:model-value="!isCreateMode ? getRoleLabel(role) : ''"
 						:label="getCapitalizedText(t('pages.members.role'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Rôle'"
 						:disabled="true"
 						:validation="'number|length:0,2'"
 						@update:modelValue="
@@ -178,6 +191,7 @@
 					]"
 				>
 					<button
+						:hidden="true"
 						id="edit-mode"
 						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
 						@click.prevent="onButtonClick"
@@ -189,6 +203,7 @@
 						}}
 					</button>
 					<button
+						:hidden="true"
 						id="save-changes"
 						v-tooltip="getCapitalizedText(t('common.notImplemented'))"
 						type="submit"

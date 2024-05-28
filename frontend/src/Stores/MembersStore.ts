@@ -6,12 +6,17 @@ import {
 	createMember,
 	deleteMember,
 	getMemberById,
+	getMemberRole,
 	getMembers,
 	getMembersByFamilyType,
 	updateMember,
 } from '@/Services/DataLayers/Member.ts';
 import { Role } from '@/Enums/Role.ts';
 import { RouteParamValue } from 'vue-router';
+
+interface Role {
+	role_id?: number;
+}
 
 export const useMembersStore = defineStore({
 	id: 'members',
@@ -80,6 +85,20 @@ export const useMembersStore = defineStore({
 				}
 
 				return families;
+			}
+		},
+		async getMemberRole(
+			memberId: number,
+			associationId: number,
+		): Promise<number | undefined> {
+			const role: Role | ErrorResponse = await getMemberRole(
+				memberId,
+				associationId,
+			);
+			if ('error' in role) {
+				return undefined;
+			} else {
+				return role.role_id;
 			}
 		},
 		async getAllFamilies(associationId: string): Promise<Members[]> {
