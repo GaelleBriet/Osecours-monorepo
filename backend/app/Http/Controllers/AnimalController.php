@@ -199,6 +199,7 @@ class AnimalController extends Controller
      */
     public function update(AnimalUpdateRequest $request, string $id)
     {
+        dd($request);
         try {
             if (is_null(Animal::find($id))) {
                 throw new AnimalNotFoundException("Animal #" . $id . " not found");

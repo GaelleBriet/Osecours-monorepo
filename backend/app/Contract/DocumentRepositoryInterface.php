@@ -13,7 +13,7 @@ interface DocumentRepositoryInterface
    public function createDocument(array $array);
    public function findDocument(String $id);
    public function softDeleteDocument($id);
-   public function updateDocument(String $path, Document $newDocu);
+   public function updateDocument($id, Document $newDocu);
    public function getAllDocuments(HasDocumentsInterface $model);
 
 }

@@ -63,8 +63,8 @@ class DocumentService{
         return $this->documentRepo->softDeleteDocument($id);
     }
 
-    public function updateDocument(String $path,Document $newDoc){
-        return $this->documentRepo->updateDocument($path, $newDoc);
+    public function updateDocument($id, $updateData){
+        return $this->documentRepo->updateDocument($id, $updateData);
 
     }
 

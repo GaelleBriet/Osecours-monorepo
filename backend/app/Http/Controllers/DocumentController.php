@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\DocumentService;
+use App\Http\Resources\DocumentResource;
 use App\Http\Services\ErrorService;
 use App\Models\Animal;
 use App\Models\Document;
@@ -397,22 +398,24 @@ class DocumentController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, Document $document)
+    public function update(Request $request, string $id)
     {
+        //dd($request);
         $request->validate([
-            'name' => 'required|max:255',
-            'description' => '',
-            'size' => '',
-            'url' => '',
-            'date' => '',
+            'filename' => 'required|max:255',
+            'description' => 'nullable|string',
+            'size' => 'nullable|integer',
+            'url' => 'nullable|url',
+            'date' => 'nullable|date',
         ]);
-        return $document->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'size' => $request->size,
-            'url' => $request->url,
-            'date' => $request->date,
-        ]);
+
+        $updatedDocument = $this->documentService->updateDocument($id, $request->all());
+
+        if (!$updatedDocument) {
+            return response()->json(['message' => 'Document not found or update failed'], 404);
+        }
+
+        return new DocumentResource($updatedDocument);
     }
 
     /**

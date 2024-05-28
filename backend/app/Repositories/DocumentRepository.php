@@ -55,8 +55,12 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
         return $document;
     }
 
-    public function updateDocument($path,$newDoc){
-
+    public function updateDocument($id, $updateDatas){
+        $document = Document::find($id);
+        if($document){
+            $document->update($updateDatas);            
+        }
+        return $document;
     }
 
  
