@@ -19,7 +19,8 @@
 		"back": "back",
 		"succes": "success",
 		"notImplemented": "not implemented",
-		"close": "close"
+		"close": "close",
+		"consult": "consult"
 	},
 	"navigation": {
 		"home": "home",

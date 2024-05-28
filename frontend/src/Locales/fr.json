@@ -19,7 +19,8 @@
 		"back": "retour",
 		"success": "succès",
 		"notImplemented": "fonctionnalité non implémentée",
-		"close": "fermer"
+		"close": "fermer",
+		"consult": "consulter"
 	},
 	"navigation": {
 		"home": "accueil",
