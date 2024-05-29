@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 	import { formatDate } from '@/Services/Helpers/Date.ts';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { useI18n } from 'vue-i18n';
+
+	const t = useI18n().t;
 
 	defineProps<{
 		vaccines: Array<{
@@ -15,7 +19,7 @@
 		<p class="mb-5">
 			<span
 				class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-				>Vaccins</span
+				>{{ getCapitalizedText(t('pages.animals.vaccines')) }}</span
 			>
 		</p>
 

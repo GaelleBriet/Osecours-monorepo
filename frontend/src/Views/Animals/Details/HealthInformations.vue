@@ -11,10 +11,6 @@
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
 
-	// defineProps<{
-	// 	animal: Animal;
-	// }>();
-
 	const animal = ref({ ...animalHealthMock });
 	const animalVaccines = ref(animal.value.vaccines);
 	const animalHealth = ref(animal.value.health);
@@ -85,12 +81,14 @@
 						<span
 							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 						>
-							Ajouter un commentaire
+							{{ getCapitalizedText(t('pages.animals.addComment')) }}
 						</span>
 					</p>
 					<FormTextArea
 						id="health-information"
-						placeholder="Ajouter une information de santé"
+						:placeholder="
+							getCapitalizedText(t('pages.animals.addCommentPlaceholder'))
+						"
 						:disabled="!isEditMode"
 						@update:modelValue="healthReport = $event"
 					/>
