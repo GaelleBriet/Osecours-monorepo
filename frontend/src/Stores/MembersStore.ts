@@ -14,7 +14,7 @@ import {
 import { Role } from '@/Enums/Role.ts';
 import { RouteParamValue } from 'vue-router';
 
-interface Role {
+interface RoleId {
 	role_id?: number;
 }
 
@@ -91,7 +91,7 @@ export const useMembersStore = defineStore({
 			memberId: number,
 			associationId: number,
 		): Promise<number | undefined> {
-			const role: Role | ErrorResponse = await getMemberRole(
+			const role: RoleId | ErrorResponse = await getMemberRole(
 				memberId,
 				associationId,
 			);

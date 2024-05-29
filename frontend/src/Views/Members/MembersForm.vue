@@ -298,6 +298,7 @@
 								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/,
 							],
 						]"
+						:show-confirm="true"
 						@update:modelValue="createdMember.password = $event"
 						@update:passwordConfirmation="confirmPassword = $event"
 					/>

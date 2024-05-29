@@ -14,7 +14,7 @@
 		labelClass?: string;
 		name?: string;
 		prefixIcon?: string;
-		validation?: string | never[];
+		validation?: string;
 		disabled?: boolean;
 		confirmationLabel?: string;
 		validationVisibility?: string;
@@ -83,7 +83,7 @@
 		:id="id"
 		:model-value="modelValue"
 		:value="modelValue"
-		:name="name"
+		name="password"
 		:is-required="isRequired()"
 		:prefix-icon="prefixIcon"
 		:label="label"
