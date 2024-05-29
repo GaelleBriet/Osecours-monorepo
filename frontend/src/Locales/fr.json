@@ -22,7 +22,8 @@
 		"notImplemented": "fonctionnalité non implémentée",
 		"close": "fermer",
 		"consult": "consulter",
-		"error": "erreur"
+		"error": "erreur",
+		"switchLang": "changer de langue"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -119,10 +120,14 @@
 			"coat": "robe",
 			"color": "couleur",
 			"size": "taille",
+			"weight": "poids",
 			"ageRange": "tranche d'âge",
 			"birthdate": "date de naissance",
 			"details": "détails",
 			"health": "santé",
+			"vaccines": "vaccins",
+			"addVaccine": "ajouter un vaccin",
+			"vaccineDate": "date de vaccination",
 			"behaviour": "comportement",
 			"docs": "documents",
 			"addChar": "ajouter une caractéristique",
@@ -131,6 +136,9 @@
 			"settingBreeds": "gestion des races",
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
+			"lastReports": "derniers rapports",
+			"addComment": "ajouter un commentaire",
+			"addCommentPlaceholder": "ajouter une information de santé ...",
 			"messages": {
 				"delete": "voulez-vous vraiment supprimer cet animal ?",
 				"deleteSuccess": "l'animal a bien été supprimé",
@@ -268,7 +276,8 @@
 			"file": "choisissez un fichier",
 			"image": "choisissez un image",
 			"photos": "photos",
-			"card": "fichier"
+			"card": "fichier",
+			"addDoc": "ajouter un document"
 		}
 	},
 	"enums": {
