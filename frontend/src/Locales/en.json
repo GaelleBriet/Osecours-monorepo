@@ -147,6 +147,7 @@
 			"addComment": "add a comment",
 			"addCommentPlaceholder": "add a comment...",
 			"messages": {
+				"errorGeneral": "une erreur est survenue",
 				"delete": "are you sure you want to delete this animal ?",
 				"deleteSuccess": "the animal has been successfully deleted",
 				"deleteError": "an error occurred while deleting the animal",
@@ -262,6 +263,7 @@
 			"catCount": "number of cats",
 			"dogCount": "number of dogs",
 			"childrenCount": "number of children",
+			"minZero": "minimum 0",
 			"adoptFamily": "adopt family",
 			"fosterFamily": "foster family",
 			"messages": {
