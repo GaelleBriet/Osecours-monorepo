@@ -1,5 +1,7 @@
 {
 	"common": {
+		"yes": "oui",
+		"no": "non",
 		"next": "suivant",
 		"cancel": "annuler",
 		"logIn": "connexion",
@@ -18,7 +20,6 @@
 		"search": "Chercher...",
 		"back": "retour",
 		"success": "succès",
-		"error": "erreur",
 		"notImplemented": "fonctionnalité non implémentée",
 		"close": "fermer",
 		"consult": "consulter",
@@ -55,6 +56,7 @@
 		"phone": "téléphone",
 		"selectRole": "sélectionner un rôle",
 		"messages": {
+			"support": "veuillez contacter le support",
 			"required": "ce champ est obligatoire",
 			"email": "veuillez entrer une adresse email valide",
 			"min": "ce champ doit contenir au moins {min} caractères",
@@ -127,7 +129,12 @@
 			"vaccines": "vaccins",
 			"addVaccine": "ajouter un vaccin",
 			"vaccineDate": "date de vaccination",
+			"friendliness" : "entente de l'animal",
+			"friendlinessKids" : "entente avec les enfants",
+			"friendlinessCats" : "entente avec les chats",
+			"friendlinessDogs" : "entente avec les chiens",
 			"behaviour": "comportement",
+			"animalBehaviour": "Comportement de l'animal",
 			"docs": "documents",
 			"addChar": "ajouter une caractéristique",
 			"settingChars": "gestion des caractéristiques",
@@ -136,9 +143,11 @@
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
 			"lastMeasures": "dernières mesures",
+			"comment": "commentaires",
 			"addComment": "ajouter un commentaire",
 			"addCommentPlaceholder": "ajouter une information de santé ...",
 			"messages": {
+				"errorGeneral": "une erreur est survenue",
 				"delete": "voulez-vous vraiment supprimer cet animal ?",
 				"deleteSuccess": "l'animal a bien été supprimé",
 				"deleteError": "une erreur est survenue lors de la suppression de l'animal",
@@ -263,6 +272,9 @@
 			}
 		},
 		"documents": {
+			"selectTypeDocs" : "sélectionner une type de document",
+			"selectDocs" : "sélectionnez autant de documents que vous le souhaitez",
+			"addDoc": "Ajouter un document",
 			"title": "liste de tous les fichiers de l'association",
 			"titleAnimal": "liste de tous les fichiers de l'animal",
 			"titleHealthAnimal": "liste de tous les fichiers de santé de l'animal",

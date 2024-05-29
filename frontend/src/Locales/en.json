@@ -1,5 +1,7 @@
 {
 	"common": {
+		"yes": "yes",
+		"no": "no",
 		"next": "next",
 		"cancel": "cancel",
 		"logIn": "log in",
@@ -18,7 +20,6 @@
 		"search": "Search...",
 		"back": "back",
 		"success": "success",
-		"error": "error",
 		"notImplemented": "not implemented",
 		"close": "close",
 		"consult": "consult",
@@ -55,6 +56,7 @@
 		"phone": "phone",
 		"selectRole": "select a role",
 		"messages": {
+			"support": "please contact the support team",
 			"required": "this field is required",
 			"email": "please enter a valid email address",
 			"min": "this field must contain at least {min} characters",
@@ -127,7 +129,12 @@
 			"vaccines": "vaccines",
 			"addVaccine": "add vaccine",
 			"vaccineDate": "vaccine date",
+			"friendliness" : "animal friendlyness",
+			"friendlinessKids" : "friendlyness with kids",
+			"friendlinessCats" : "friendlyness with cats",
+			"friendlinessDogs" : "friendlyness with dogs",
 			"behaviour": "behaviour",
+			"animalBehaviour": "animal behaviour",
 			"docs": "documents",
 			"addChar": "add characteristics",
 			"settingChars": "characteristics settings",
@@ -136,6 +143,7 @@
 			"settingColors": "colors settings",
 			"settingCoats": "coats settings",
 			"lastMeasures": "last measures",
+			"comment": "comments",
 			"addComment": "add a comment",
 			"addCommentPlaceholder": "add a comment...",
 			"messages": {
@@ -262,6 +270,9 @@
 			}
 		},
 		"documents": {
+			"selectTypeDocs" : "select a type of document",
+			"selectDocs" : "select as many documents as you would like",
+			"addDoc": "Add a document",
 			"title": "list of all association's documents",
 			"titleAnimal": "list of all animal's documents",
 			"titleHealthAnimal": "list of all animal health documents",

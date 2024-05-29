@@ -1,6 +1,10 @@
 <script setup lang="ts">
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+
+	const t = i18n.global.t;
 
 	defineProps<{
 		editMode: boolean;
@@ -21,16 +25,16 @@
 			<p class="mb-5">
 				<span
 					class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-					>Comportement de l'animal</span
+					>{{ getCapitalizedText(t('pages.animals.animalBehaviour')) }}</span
 				>
 			</p>
 		</div>
 		<div>
 			<FormTextArea
 				:model-value="animal.behavioral_comment"
-				label="Commentaires"
+				:label="getCapitalizedText(t('pages.animals.comment'))"
 				id="comments"
-				placeholder="Ajouter des commentaires"
+				:placeholder="getCapitalizedText(t('pages.animals.addComment'))"
 				:disabled="!editMode"
 				@update:modelValue="onUpdatedComments"
 			/>

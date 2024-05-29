@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 	import { formatDate } from '@/Services/Helpers/Date.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { useI18n } from 'vue-i18n';
+	import i18n from '@/Services/Translations';
 
-	const { t } = useI18n();
+	const t = i18n.global.t;
 
 	defineProps<{
 		measures: Array<{
@@ -42,8 +42,8 @@
 								v-if="measure.size && measure.weight"
 								class="text-sm font-medium text-gray-900"
 							>
-								Taille:
-								<span class="text-gray-500">{{ measure.size }} cm.</span> Poids:
+								{{getCapitalizedText(t('pages.animals.size'))}}
+								<span class="text-gray-500">{{ measure.size }} cm.</span> {{getCapitalizedText(t('pages.animals.weight'))}}:
 								<span class="text-gray-500">{{ measure.weight }} kg.</span>
 							</p>
 							<p class="truncate text-sm text-gray-500">
