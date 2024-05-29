@@ -112,7 +112,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::get('/vaccines/{vaccine}', 'show');
           Route::put('/vaccines/{vaccine}', 'update');
           Route::delete('/vaccines/{vaccine}', 'delete');
-          Route::post('/vaccines/{vaccine}/animal', 'vacinneAnimal');
+          Route::post('/vaccines/{vaccine}/animal', 'vaccineAnimal');
      });
 
      Route::controller(DocumentController::class)->group(function () {
@@ -126,6 +126,11 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::delete("/documents/{id}","delete");
           Route::put("/documents/{id}","update");
      });
+//      Route::post('documents/store/animals/{animal}', [DocumentController::class, 'addDocumentForAnimal']);
+
+     Route::get('/test', function () {
+        return response()->json(['message' => 'Test route works']);
+    });
 
 });
 

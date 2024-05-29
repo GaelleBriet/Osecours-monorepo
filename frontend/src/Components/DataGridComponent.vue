@@ -28,6 +28,7 @@
 		(event: 'edit', item: object): void;
 		(event: 'add'): void;
 		(event: 'delete', item: object): void;
+		(event: 'documentSaved'): void;
 	}>();
 
 	const editItem = (item: object) => {
@@ -40,6 +41,7 @@
 
 	const deleteItem = (item: object) => {
 		emit('delete', item);
+		emit('documentSaved');
 	};
 
 	const searchQuery = ref('');

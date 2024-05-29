@@ -34,37 +34,37 @@ class DocumentService{
 
         $documentData = $this->getDocumentData($request);
         $newDoc =  $this->documentRepo->createDocument($documentData);
-        $newDoc->animals()->attach($animal->id);              
+        $newDoc->animals()->attach($animal->id);
 
         return new DocumentResource($newDoc);
     }
 
     public function createDocumentForHealthCare(Request $request,Healthcare $healtcare){
-        
+
         $documentData = $this->getDocumentData($request);
-        $newDoc =  $this->documentRepo->createDocument($documentData);       
+        $newDoc =  $this->documentRepo->createDocument($documentData);
         $healtcare->document()->associate($newDoc);
         $healtcare->save();
-        
+
         return new DocumentResource($newDoc);
     }
 
     public function createDocumentForShelter(Request $request,Shelter $shelter){
-        
+
         $documentData = $this->getDocumentData($request);
-        $newDoc =  $this->documentRepo->createDocument($documentData); 
+        $newDoc =  $this->documentRepo->createDocument($documentData);
         $shelter->documents()->attach($newDoc);
         $shelter->save();
-        
+
         return new DocumentResource($newDoc);
     }
 
-    public function deleteDocument(String $path){
-        return $this->documentRepo->deleteDocument($path);
+    public function softDeleteDocument($id){
+        return $this->documentRepo->softDeleteDocument($id);
     }
 
-    public function updateDocument(String $path,Document $newDoc){
-        return $this->documentRepo->updateDocument($path, $newDoc);
+    public function updateDocument($id, $updateData){
+        return $this->documentRepo->updateDocument($id, $updateData);
 
     }
 
@@ -86,7 +86,7 @@ class DocumentService{
         $file = $request->file('file');
         $path = $file->storeAs('public/files', $uniqFilename . "." . $file->getClientOriginalExtension());
         $imagesMimeType = ['jpeg,jpg,bmp,png,image.pdf'];
-        $url = env('APP_DEBUG') ? env('APP_URL') . ":" . env('APP_PORT') .Storage::url($path) : env('APP_URL');
+        $url = env('APP_DEBUG') ? env('APP_URL') . ":" . env('APP_PORT') . '/storage/files/' . $uniqFilename . "." . $file->getClientOriginalExtension() : env('APP_URL');
 
         return [
             'date' => Date::now(),
@@ -95,7 +95,7 @@ class DocumentService{
             'url' => $url,
             'filename' => $uniqFilename,
             'description' => $request->description,
-            'docType' => in_array($file->getMimeType(),$imagesMimeType) ? 'image' : 'doc'
+            'docType' => $request->doctype
         ];
     }
 }

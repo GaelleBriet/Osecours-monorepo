@@ -1,16 +1,19 @@
 import { defineStore } from 'pinia';
-import { Document } from '@/Interfaces/Documents/Documents';
+import { Document } from '@/Interfaces/Documents/Documents.ts';
 import {
 	createDocument,
 	createDocumentForHealthCare,
 	createDocumentForAnimal,
 	createDocumentForShelter,
 	getDocument,
+	getDocumentsByHealthcare,
 	getDocumentsByShelter,
 	getDocumentsByAnimal,
 	updateDocument,
+	deleteDocument
 } from '@/Services/DataLayers/Document.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
+import { RouteParamValue } from 'vue-router';
 
 export const useDocumentsStore = defineStore('documents', {
 	state: (): {
@@ -26,7 +29,7 @@ export const useDocumentsStore = defineStore('documents', {
 		},
 	},
 	actions: {
-		async getDocument(id: number): Promise<Document | null> {
+		async getDocument(id: string | RouteParamValue[]): Promise<Document | null> {
 			const document: Document | ErrorResponse = await getDocument(id);
 			if ('error' in document) {
 				return null;
@@ -35,9 +38,29 @@ export const useDocumentsStore = defineStore('documents', {
 				return document;
 			}
 		},
-		async getDocumentsByShelter(): Promise<Document[]> {
+		async getDocumentsByHealthcare(id: number): Promise<Document[]> {
 			const documents: Document[] | ErrorResponse =
-				await getDocumentsByShelter();
+				await getDocumentsByHealthcare(id);
+			if ('error' in documents) {
+				return [];
+			} else {
+				this.documents = documents;
+				return documents;
+			}
+		},
+		// async getDocumentsByShelter(id: number): Promise<Document[]> {
+		// 	const documents: Document[] | ErrorResponse =
+		// 		await getDocumentsByShelter(id);
+		// 	if ('error' in documents) {
+		// 		return [];
+		// 	} else {
+		// 		this.documents = documents;
+		// 		return documents;
+		// 	}
+		// },
+		async getDocumentsByShelter(id: number): Promise<Document[]> {
+			const documents: Document[] | ErrorResponse =
+				await getDocumentsByShelter(id);
 			if ('error' in documents) {
 				return [];
 			} else {
@@ -66,10 +89,11 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async createDocumentForHealthCare(
+			id: number,
 			document: Document,
 		): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse =
-				await createDocumentForHealthCare(document);
+				await createDocumentForHealthCare(id, document);
 			if ('error' in newDocument) {
 				return null;
 			} else {
@@ -78,10 +102,11 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async createDocumentForAnimal(
+			id: number,
 			document: Document,
 		): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse =
-				await createDocumentForAnimal(document);
+				await createDocumentForAnimal(id, document);
 			if ('error' in newDocument) {
 				return null;
 			} else {
@@ -90,10 +115,11 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async createDocumentForShelter(
+			id: number,
 			document: Document,
 		): Promise<Document | null> {
 			const newDocument: Document | ErrorResponse =
-				await createDocumentForShelter(document);
+				await createDocumentForShelter(id, document);
 			if ('error' in newDocument) {
 				return null;
 			} else {
@@ -101,14 +127,30 @@ export const useDocumentsStore = defineStore('documents', {
 				return newDocument;
 			}
 		},
-		async updateDocument(document: Document): Promise<Document | null> {
+		async updateDocument(
+			id: string,
+			document: Document
+		): Promise<Document | null> {
 			const updatedDocument: Document | ErrorResponse =
-				await updateDocument(document);
+				await updateDocument(id, document);
 			if ('error' in updatedDocument) {
+			console.log("hola")
 				return null;
 			} else {
+				console.log("adios")
 				this.documents.push(updatedDocument);
 				return updatedDocument;
+			}
+		},
+		async deleteDocument(id: string): Promise<boolean> {
+			const documentToDelete: Document | ErrorResponse = await deleteDocument(id);
+			if ('error' in documentToDelete) {
+				return false;
+			} else {
+				this.documents = this.documents.filter(
+					(document: Document) => document.id !== Number(id),
+				);
+				return true;
 			}
 		},
 	},

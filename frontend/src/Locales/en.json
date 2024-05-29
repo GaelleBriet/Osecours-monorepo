@@ -14,10 +14,11 @@
 		"other": "other",
 		"delete": "delete",
 		"update": "has been updated",
-		"creation": "hass been created",
+		"creation": "has been created",
 		"search": "Search...",
 		"back": "back",
-		"succes": "success",
+		"success": "success",
+		"error": "error",
 		"notImplemented": "not implemented",
 		"close": "close",
 		"consult": "consult",
@@ -254,13 +255,17 @@
 			}
 		},
 		"documents": {
-			"title": "list of all association documents",
+			"title": "list of all association's documents",
+			"titleAnimal": "list of all animal's documents",
+			"titleHealthAnimal": "list of all animal health documents",
 			"type": "type",
 			"date": "uploaded",
 			"filename": "file name",
 			"description": "description of the file",
-			"help": "please ensure that only files with the extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf and .txt are uploaded.",
+			"helpPhotos": "please ensure that only files with the extensions .jpeg, .jpg et .png are uploaded.",
+			"help": "please ensure that only files with the extensions .pdf, .doc, .docx, .jpeg, .jpg and .png are uploaded.",
 			"file": "choose a file",
+			"image": "choose an image",
 			"photos": "photos",
 			"card": "documents"
 		}
