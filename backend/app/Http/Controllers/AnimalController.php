@@ -31,7 +31,7 @@ class AnimalController extends Controller
      *     security={{"bearerAuth":{}}},
      *     tags={"Animals"},
      *     @OA\Response(response="200", description="get list of all animals")
-     * 
+     *
      * )
      */
     public function getAll()
@@ -199,7 +199,6 @@ class AnimalController extends Controller
      */
     public function update(AnimalUpdateRequest $request, string $id)
     {
-        dd($request);
         try {
             if (is_null(Animal::find($id))) {
                 throw new AnimalNotFoundException("Animal #" . $id . " not found");

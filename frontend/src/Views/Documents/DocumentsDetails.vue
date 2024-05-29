@@ -1,4 +1,4 @@
-	<script setup lang="ts">
+<script setup lang="ts">
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
@@ -17,31 +17,33 @@
 		// Logique pour récupérer les données du document à afficher
 		currentDocument.value = await documentsStore.getDocument(documentId);
 	});
-	console.log(currentDocument)
-	</script>
+</script>
 
-	<template>
-		<div class="container">
-			<div class="flex flex-row justify-between">
-				<div class="text-2xl mb-1">
-					{{ getCapitalizedText(t('pages.documents.card')) }}:
-					{{ currentDocument?.filename }}
-				</div>
-				<button
-					id="back-btn"
-					class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"
-					@click="$router.go(-1)"
-				>
-					{{ getCapitalizedText(t('common.back')) }}
-				</button>
+<template>
+	<div class="container">
+		<div class="flex flex-row justify-between">
+			<div class="text-2xl mb-1">
+				{{ getCapitalizedText(t('pages.documents.card')) }}:
+				{{ currentDocument?.filename }}
 			</div>
-				<div class="container">
-					<DocumentsForm v-if="currentDocument" :document="currentDocument" :is-create-mode="false" />
-				</div>
-
+			<button
+				id="back-btn"
+				class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"
+				@click="$router.go(-1)"
+			>
+				{{ getCapitalizedText(t('common.back')) }}
+			</button>
 		</div>
-	</template>
-	<style scoped lang="postcss">
+		<div class="container">
+			<DocumentsForm
+				v-if="currentDocument"
+				:document="currentDocument"
+				:is-create-mode="false"
+			/>
+		</div>
+	</div>
+</template>
+<style scoped lang="postcss">
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -63,4 +65,4 @@
 			outline: 1px solid #d99962;
 		}
 	}
-	</style>
+</style>

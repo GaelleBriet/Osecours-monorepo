@@ -21,33 +21,33 @@ if (
 }
 
 const sendDocumentRequest = async (
-    method: 'post' | 'put',
-    url: string,
-    document: Document
+	method: 'post' | 'put',
+	url: string,
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
-    try {
-        // Create a new FormData object
-        const formData = new FormData();
+	try {
+		// Create a new FormData object
+		const formData = new FormData();
 
-        // Append all fields from the document to the FormData object
-        for (const key in document) {
-            if (document.hasOwnProperty(key)) {
-                formData.append(key, (document as any)[key]);
-            }
-        }
+		// Append all fields from the document to the FormData object
+		for (const key in document) {
+			if (document.hasOwnProperty(key)) {
+				formData.append(key, (document as any)[key]);
+			}
+		}
 
-        // Make the request using Axios
-        const response: AxiosResponse = await axiosInstance[method](url, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+		// Make the request using Axios
+		const response: AxiosResponse = await axiosInstance[method](url, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
 
-        return response.data;
-    } catch (error) {
-        const axiosError: AxiosError = error as AxiosError;
-        return errorResponse(axiosError);
-    }
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
 };
 
 export const getDocument = async (
@@ -154,7 +154,7 @@ export const getDocumentsByHealthcare = async (
 };
 
 export const createDocument = async (
-	document: Document
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}`;
 	return await sendDocumentRequest('post', url, document);
@@ -162,7 +162,7 @@ export const createDocument = async (
 
 export const createDocumentForHealthCare = async (
 	id: string | RouteParamValue[],
-	document: Document
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/healthcares/${id}`;
 	return await sendDocumentRequest('post', url, document);
@@ -170,7 +170,7 @@ export const createDocumentForHealthCare = async (
 
 export const createDocumentForAnimal = async (
 	id: string | RouteParamValue[],
-	document: Document
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/animals/${id}`;
 	return await sendDocumentRequest('post', url, document);
@@ -178,7 +178,7 @@ export const createDocumentForAnimal = async (
 
 export const createDocumentForShelter = async (
 	id: string | RouteParamValue[],
-	document: Document
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/store/shelters/${id}`;
 	return await sendDocumentRequest('post', url, document);
@@ -186,9 +186,8 @@ export const createDocumentForShelter = async (
 
 export const updateDocument = async (
 	id: string | RouteParamValue[],
-	document: Document
+	document: Document,
 ): Promise<Document | ErrorResponse> => {
-	console.log(document);
 	const url = `${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`;
 	return await sendDocumentRequest('put', url, document);
 };
@@ -196,7 +195,7 @@ export const updateDocument = async (
 export const deleteDocument = async (
 	id: string,
 ): Promise<Document | ErrorResponse> => {
-	try {		
+	try {
 		const response: AxiosResponse = await axiosInstance.delete(
 			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
 		);
