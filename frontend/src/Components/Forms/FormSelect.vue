@@ -11,11 +11,6 @@
 		name: string;
 		label?: string;
 		options: never;
-		// | string[]
-		// | number[]
-		// | Record<string | number, string>
-		// | FormKitOptionsLoader
-		// | undefined;
 		placeholder?: string;
 		validation?: string;
 		validationVisibility?: string;
@@ -44,7 +39,7 @@
 				});
 			}
 			node.input(selectElement.value);
-			let value: any = props.value ?? props.modelValue;
+			let value: never = props.value ?? props.modelValue;
 
 			switch (typeof value) {
 				case 'boolean':

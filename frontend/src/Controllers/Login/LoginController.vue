@@ -12,12 +12,10 @@
 	import { ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	// import i18n from '@/Services/Translations';
 	import { useI18n } from 'vue-i18n';
 
 	const userStore = useUserStore();
 	const router = useRouter();
-	// const t = i18n.global.t;
 	const { t } = useI18n();
 
 	const email = ref('');
@@ -45,7 +43,7 @@
 		}
 	};
 
-	const handleAssociationChange = async (value) => {
+	const handleAssociationChange = async (value: never) => {
 		selectedAssociation.value = value;
 		await onAssociationChange();
 	};
@@ -193,7 +191,6 @@
 										"
 										@update:model-value="handleAssociationChange"
 									/>
-									<!--										@input="onAssociationChange"-->
 								</div>
 							</div>
 						</div>

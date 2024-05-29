@@ -67,4 +67,3 @@
 		margin-bottom: 4px !important;
 	}
 </style>
-<!--		@update:model-value="emit('update:modelValue', $event as string)"-->

@@ -17,6 +17,7 @@
 		// Logique pour récupérer les données du document à afficher
 		currentDocument.value = await documentsStore.getDocument(documentId);
 	});
+	console.log(currentDocument)
 	</script>
 
 	<template>

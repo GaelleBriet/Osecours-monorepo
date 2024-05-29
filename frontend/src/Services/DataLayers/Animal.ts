@@ -54,7 +54,6 @@ export const updateAnimal = async (
 			`${import.meta.env.VITE_ANIMALS_API_URL}/${animal.id}`,
 			animal,
 		);
-		console.log('response', response.data.data);
 		return response.data.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
@@ -63,7 +62,7 @@ export const updateAnimal = async (
 };
 
 export const deleteAnimal = async (
-	id: string,
+	id: number | undefined,
 ): Promise<Animal | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.delete(
