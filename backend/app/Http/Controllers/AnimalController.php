@@ -31,7 +31,7 @@ class AnimalController extends Controller
      *     security={{"bearerAuth":{}}},
      *     tags={"Animals"},
      *     @OA\Response(response="200", description="get list of all animals")
-     * 
+     *
      * )
      */
     public function getAll()

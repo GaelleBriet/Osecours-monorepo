@@ -43,7 +43,7 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
             'url' => $array['url'],
             'date' => $array['date'],
             'mimetype_id' => 1,
-            'doctype_id' => 1
+            'doctype_id' => $array['docType']
         ]);
         return $newDoc;
 
@@ -55,8 +55,12 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
         return $document;
     }
 
-    public function updateDocument($path,$newDoc){
-
+    public function updateDocument($id, $updateDatas){
+        $document = Document::find($id);
+        if($document){
+            $document->update($updateDatas);            
+        }
+        return $document;
     }
 
  
