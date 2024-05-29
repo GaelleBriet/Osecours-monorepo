@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 	import { formatDate } from '@/Services/Helpers/Date.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { useI18n } from 'vue-i18n';
+	import i18n from '@/Services/Translations';
 
-	const { t } = useI18n();
+	const t = i18n.global.t;
 
 	defineProps<{
 		measures: Array<{

@@ -195,7 +195,7 @@
 							<span
 								class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 							>
-								{{ getCapitalizedText(t('pages.animals.docs')) }}
+								{{ getCapitalizedText(t('enums.documentType.healthRecords')) }}
 							</span>
 						</p>
 						<div class="ml-22">

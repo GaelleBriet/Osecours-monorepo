@@ -2,6 +2,10 @@
 	import FormToggle from '@/Components/Forms/FormToggle.vue';
 	import { defineEmits } from 'vue';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+
+	const t = i18n.global.t;
 
 	defineProps<{
 		editMode: boolean;
@@ -39,33 +43,33 @@
 		<div>
 			<FormToggle
 				:model-value="animal.children_friendly"
-				label="Entente avec les enfants"
+				:label="getCapitalizedText(t('pages.animals.friendlinessKids'))"
 				id="children-agreement"
 				label-position="secondary"
-				off-value-label="NON"
-				on-value-label="OUI"
+				:off-value-label="t('common.no').toUpperCase()"
+				:on-value-label="t('common.yes').toUpperCase()"
 				value-label-display="inner"
 				:disabled="!editMode"
 				@update:modelValue="updateChildrenAgreements"
 			/>
 			<FormToggle
 				:model-value="animal.cats_friendly"
-				label="Entente avec les chats"
+				:label="getCapitalizedText(t('pages.animals.friendlinessCats'))"
 				id="cat-agreement"
 				label-position="secondary"
-				off-value-label="NON"
-				on-value-label="OUI"
+				:off-value-label="t('common.no').toUpperCase()"
+				:on-value-label="t('common.yes').toUpperCase()"
 				value-label-display="inner"
 				:disabled="!editMode"
 				@update:modelValue="updateCatsAgreements"
 			/>
 			<FormToggle
 				:model-value="animal.dogs_friendly"
-				label="Entente avec les chiens"
+				:label="getCapitalizedText(t('pages.animals.friendlinessDogs'))"
 				id="dog-agreement"
 				label-position="secondary"
-				off-value-label="NON"
-				on-value-label="OUI"
+				:off-value-label="t('common.no').toUpperCase()"
+				:on-value-label="t('common.yes').toUpperCase()"
 				value-label-display="inner"
 				:disabled="!editMode"
 				@update:modelValue="updateDogsAgreements"

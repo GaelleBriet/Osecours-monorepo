@@ -54,7 +54,7 @@
 		doctypes.value = await fetchDataAndFormatOptions(
 			documentSettingsStore.getAllDoctypes,
 			'enums.documentType',
-			'Sélectionner une type de document',
+			`${getCapitalizedText(t('pages.documents.selectTypeDocs'))}`,
 		);
 	});
 
@@ -73,8 +73,8 @@
 		if (!isFormValid) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Un ou plusieurs champs sont invalides',
-				message: 'Veuillez vérifier les champs',
+				title: `${getCapitalizedText(t('form.messages.warning'))}`,
+				message: `${getCapitalizedText(t('form.messages.check'))}`,
 				type: 'warning',
 			};
 			return;
@@ -111,18 +111,18 @@
 		if (!newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Une erreur est survenue',
-				message: 'Veuillez contacter le support',
+				title: `${getCapitalizedText(t('form.messages.errorGeneral'))}`,
+				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
 				type: 'error',
 			};
 			return;
 		} else if (newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Succès',
+				title: `${getCapitalizedText(t('common.success'))}`,
 				message: !props.isCreateMode
-					? `Le document ${localDocument.value?.name || ''} a bien été mis à jour`
-					: `Le document ${createdDocument.value?.name || ''} a bien été créé`,
+					? `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`
+					: `${getCapitalizedText(t('pages.animals.messages.createDocSuccess'))}`,
 				type: 'success',
 			};
 			// on réinitialise les valeurs du formulaire
