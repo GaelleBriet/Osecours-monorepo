@@ -173,7 +173,7 @@
 							"
 							:label="
 								isPhotoMode
-									? getCapitalizedText(t('pages.documents.filePhotos'))
+									? getCapitalizedText(t('pages.documents.image'))
 									: getCapitalizedText(t('pages.documents.file'))
 							"
 							:accept="
