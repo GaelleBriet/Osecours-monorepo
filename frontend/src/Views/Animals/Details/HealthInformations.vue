@@ -37,7 +37,7 @@
 	};
 
 	const onSave = () => {
-		const result = addVaccine(
+		const result = addVaccineAndHealth(
 			vaccineToAdd.value.vaccine,
 			currentAnimalId.value,
 			healthReport.value,
@@ -62,12 +62,14 @@
 		isEditMode.value = false;
 	};
 
-	const addVaccine = async (
+	const addVaccineAndHealth = async (
 		vaccineToAdd: string,
 		currentAnimalId: number,
 		healthReport: string,
 		vaccineDate: string,
 	) => {
+		let updatedAnimal = undefined;
+
 		if (!vaccineDate) {
 			vaccineDate = new Date().toISOString();
 		}
@@ -75,10 +77,12 @@
 			healthReport = `vaccine ${vaccineToAdd} added.`;
 		}
 
-		const updatedAnimal = await animalsStore.vaccineAnimal(
-			vaccineToAdd,
-			currentAnimalId,
-		);
+		if (vaccineToAdd) {
+			updatedAnimal = await animalsStore.vaccineAnimal(
+				vaccineToAdd,
+				currentAnimalId,
+			);
+		}
 
 		const updatedHealth = await animalsStore.addAnimalHealth(
 			prepareHealthCare(healthReport, vaccineDate, currentAnimalId),
