@@ -4,7 +4,7 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
-	import { Document } from '@/Interfaces/Documents';
+	import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import ModalComponent from '@/Components/ModalComponent.vue';

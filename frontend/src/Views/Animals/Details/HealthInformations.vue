@@ -49,7 +49,7 @@
 			route.params.id as string,
 		);
 		const imageDocs = docsByAnimal.filter((doc) => {
-			return doc.doctype_id === 3;
+			return doc.doctype_id === 1;
 		});
 		documents.value = imageDocs;
 	};

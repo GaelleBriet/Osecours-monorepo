@@ -2,7 +2,7 @@
 	import Form from '@/Components/Forms/Form.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
-	import { Document } from '@/Interfaces/Documents';
+	import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
 	import { ref, onMounted } from 'vue';
 	import { useRoute, useRouter } from 'vue-router';
@@ -20,7 +20,7 @@
 			route.params.id as string,
 		);
 		const imageDocs = docsByAnimal.filter((doc) => {
-			const isImageDocType = doc.doctype_id === 1;
+			const isImageDocType = doc.doctype_id === 2;
 			const isImageUrl = /\.(jpg|jpeg|png|gif)$/i.test(doc.url);
 			return isImageDocType && isImageUrl;
 		});

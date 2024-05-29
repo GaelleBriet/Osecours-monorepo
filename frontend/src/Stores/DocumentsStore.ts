@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Document } from '@/Interfaces/Documents/Documents';
+import { Document } from '@/Interfaces/Documents/Documents.ts';
 import {
 	createDocument,
 	createDocumentForHealthCare,
@@ -10,6 +10,7 @@ import {
 	getDocumentsByShelter,
 	getDocumentsByAnimal,
 	updateDocument,
+	deleteDocument
 } from '@/Services/DataLayers/Document.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
@@ -127,14 +128,16 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async updateDocument(
-			id: number,
+			id: string,
 			document: Document
 		): Promise<Document | null> {
 			const updatedDocument: Document | ErrorResponse =
 				await updateDocument(id, document);
 			if ('error' in updatedDocument) {
+			console.log("hola")
 				return null;
 			} else {
+				console.log("adios")
 				this.documents.push(updatedDocument);
 				return updatedDocument;
 			}

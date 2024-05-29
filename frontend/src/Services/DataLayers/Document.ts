@@ -1,4 +1,4 @@
-import { Document } from '@/Interfaces/Documents/Documents';
+import { Document } from '@/Interfaces/Documents/Documents.ts';
 import { AxiosResponse } from 'axios';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';

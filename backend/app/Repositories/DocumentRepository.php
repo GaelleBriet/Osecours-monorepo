@@ -43,7 +43,7 @@ class DocumentRepository extends BaseRepository implements  DocumentRepositoryIn
             'url' => $array['url'],
             'date' => $array['date'],
             'mimetype_id' => 1,
-            'doctype_id' => 1
+            'doctype_id' => $array['docType']
         ]);
         return $newDoc;
 
