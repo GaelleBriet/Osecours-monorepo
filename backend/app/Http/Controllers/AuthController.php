@@ -9,6 +9,7 @@ use App\Http\Services\ErrorService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
     {
         $this->errorService = $eService;
     }
-   
+
      /**
      * @OA\Post(
      *     path="/token/create",

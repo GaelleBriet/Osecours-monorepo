@@ -16,6 +16,7 @@
 	import ModalComponent from '@/Components/ModalComponent.vue';
 
 	const userStore = useUserStore();
+  console.log(userStore);
 	const router = useRouter();
 	const { t } = useI18n();
 
@@ -34,13 +35,18 @@
 	}
 
 	const onSubmit = async () => {
-		const user: User = await userStore.loginUser(email.value, password.value);
+		const user: User | null = await userStore.loginUser(email.value, password.value);
+    if (!user) {
+      errorMessages.value = getCapitalizedText(t('login.error'));
+      return;
+    }
 		if (user.error) {
 			errorMessages.value = getCapitalizedText(t('login.error'));
 		}
 		if (!user || user.associations?.length === 0) {
 			await router.push({ name: 'Login' });
 		}
+
 		if (user && user.associations) {
 			associations.value = user.associations;
 			showModal.value = true;
@@ -50,6 +56,7 @@
 	const handleAssociationChange = async (value: never) => {
 		selectedAssociation.value = value;
 	};
+
 
 	const loginWithSelectedAssociation = async () => {
 		const associationName = associations.value.find(
@@ -64,6 +71,8 @@
 			);
 			await router.push({ name: 'Home' });
 		}
+    }
+
 	};
 
 	const onAssociationChange = async () => {
@@ -74,6 +83,7 @@
 	};
 
 	const getAssociations = () => {
+    console.log(associations.value);
 		return [
 			...associations.value.map((association) => {
 				return {

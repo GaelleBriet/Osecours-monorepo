@@ -5,7 +5,8 @@ info:
   version: '1.0'
 servers:
   -
-    url: 'http://localhost:8000/api'
+#    url: 'http://localhost:8000/api'
+    url: 'https://osecours-api-a9ad404f7a89.herokuapp.com/api'
     description: 'API Server'
 paths:
   /animals/all:
@@ -1093,6 +1094,7 @@ paths:
       security:
         -
           bearerAuth: []
+
   /vaccines/all:
     get:
       tags:

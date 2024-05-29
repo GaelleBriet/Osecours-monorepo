@@ -5,11 +5,13 @@ import { RouteParamValue } from 'vue-router';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
+
 let currentAssociation;
 const userItem = localStorage.getItem('user');
 if (userItem) {
 	currentAssociation = JSON.parse(userItem);
 }
+
 let associationId: number;
 if (
 	currentAssociation &&

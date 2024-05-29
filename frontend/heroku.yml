@@ -1,0 +1,15 @@
+build:
+  docker:
+    web: Dockerfile.prod
+run:
+  web: npm start
+
+
+
+
+
+
+
+
+
+

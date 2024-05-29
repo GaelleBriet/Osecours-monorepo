@@ -1,6 +1,7 @@
 ## Lancer le serveur de developpement
 - `docker-compose up -d` à la racine du projet
 
+
 ## Configurer prettier pour qu'il soit éxécuté à chaque sauvegarde
 ### WebStorm
 - Allez dans File > Settings (ou WebStorm > Preferences pour macOS)
@@ -12,9 +13,11 @@
 - Recherchez Editor: Format On Save et activez l'option
 - Recherchez Editor: Default Formatter et sélectionnez esbenp.prettier-vscode
 
+
 ## Scripts utiles à lancer régulièrement :
 - `npm run lint` : Lance le linter
 - `npm run format` : Formate le code
+
 
 ## Structure du projet
 - `Assets/scss` : Fichiers de styles globaux
@@ -31,6 +34,7 @@
 - `Stores/` : Stores de l'application
 - `Views/` : Pages de l'application
 
+
 ## Construction d'un fichier
 - script : `script setup lang="ts"` 
   - setup : permet d'utiliser les options de composition API
@@ -41,11 +45,13 @@
   - lang : permet de spécifier le langage du fichier, à définir si l'un utilise Sass
 - exemple :
 
+
 ```
 <script setup lang="ts"></script>
 <template></template>
 <style lang="scss" scoped></style>
 ```
+
 
 ## Bonnes pratiques (à remplir au fur et à mesure)
 ### CSS
