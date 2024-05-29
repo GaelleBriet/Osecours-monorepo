@@ -18,7 +18,8 @@
 		"search": "Search...",
 		"back": "back",
 		"succes": "success",
-		"notImplemented": "not implemented"
+		"notImplemented": "not implemented",
+		"close": "close"
 	},
 	"navigation": {
 		"home": "home",
@@ -81,7 +82,15 @@
 	},
 	"pages": {
 		"home": {
-			"welcomeMessage": "welcome to our site!"
+			"welcomeMessage": "welcome to our site!",
+			"animalsNumber": "number of animals",
+			"familiesNumber": "number of families",
+			"sheltersNumber": "number of shelters",
+			"shelters": "shelters",
+			"membersNumber": "number of members",
+			"members": "members",
+			"adoptFamily": "adopt family",
+			"fosterFamily": "foster family"
 		},
 		"about": {
 			"header": "about us",
@@ -133,7 +142,8 @@
 				"updateDocSuccess": "the document has been successfully updated",
 				"updateDocError": "an error occurred while updating the document",
 				"createDocSuccess": "the document has been successfully created",
-				"createDocError": "an error occurred while creating the document"
+				"createDocError": "an error occurred while creating the document",
+				"deleteAnimal": "delete animal"
 			}
 		},
 		"associations": {
@@ -174,12 +184,27 @@
 			"phone": "phone",
 			"email": "email",
 			"details": "details",
-			"personal": "personal information"
+			"personal": "personal information",
+			"name": "name",
+			"animalsNumber": "number of animals",
+			"role": "role",
+			"messages": {
+				"delete": "are you sure you want to delete this family ?",
+				"deleteFamily": "delete family",
+				"deleteSuccess": "the family has been successfully deleted",
+				"deleteError": "an error occurred while deleting the family",
+				"updateSuccess": "the family has been successfully updated",
+				"updateError": "an error occurred while updating the family",
+				"createSuccess": "the family has been successfully created",
+				"createError": "an error occurred while creating the family"
+			}
 		},
 		"users": {
-			"title": "list of users",
+			"title": "list of members",
 			"card": "user card",
 			"role": "role",
+			"firstName": "first name",
+			"lastName": "last name",
 			"email": "email",
 			"phone": "phone",
 			"address": "address",
@@ -193,7 +218,11 @@
 			"dogCount": "number of dogs",
 			"childrenCount": "number of children",
 			"adoptFamily": "adopt family",
-			"fosterFamily": "foster family"
+			"fosterFamily": "foster family",
+			"messages": {
+				"delete": "are you sure you want to delete this user ?",
+				"deleteMember": "delete user"
+			}
 		},
 		"documents": {
 			"title": "list of all association's documents",
@@ -212,13 +241,22 @@
 		}
 	},
 	"enums": {
+		"role": {
+			"admin": "admin",
+			"user": "user",
+			"accountant": "accountant",
+			"president": "president",
+			"adopter": "adopter",
+			"other": "other",
+			"foster": "foster"
+		},
 		"animalSpecies": {
 			"Dog": "dog",
 			"Cat": "cat"
 		},
 		"animalVaccines": {
 			"CHPPiL4/DHPP": "CHPPiL4/DHPP",
-			"LEPTOSPIROSIS"	: "leptospirosis",
+			"LEPTOSPIROSIS": "leptospirosis",
 			"BORDETELLA/INFLUENZA": "bordetella/influenza",
 			"LYME": "lyme",
 			"RABIES": "rabies",

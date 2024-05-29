@@ -1,13 +1,12 @@
 <script setup lang="ts">
 	import TabsComponent from '@/Components/TabsComponent.vue';
-	import GeneralInformations from '@/Views/Association/GeneralInformation.vue';
-
+	import AssociationGeneralInformations from '@/Views/Association/AssociationGeneralInformation.vue';
+	import { Association } from '@/Interfaces/Associations.ts';
 	import { onMounted, ref } from 'vue';
 	import { useRoute } from 'vue-router';
 	import { useAssociationsStore } from '@/Stores/AssociationsStore.ts';
-	import i18n from '@/Services/Translations';
-	import { Association } from '@/Interfaces/Associations.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
 
 	const t = i18n.global.t;
 	const route = useRoute();
@@ -35,6 +34,7 @@
 		</div>
 		<TabsComponent
 			id="associationsTabsComponent"
+			:name="'associationsTabs'"
 			:tabs="[{ name: getCapitalizedText(t('pages.animals.details')) }]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
@@ -42,7 +42,7 @@
 		/>
 		<div class="content">
 			<template v-if="currentTab === 0 && currentAssociation">
-				<GeneralInformations :association="currentAssociation" />
+				<AssociationGeneralInformations :association="currentAssociation" />
 			</template>
 			<template v-if="currentTab === 1 && currentAssociation"> </template>
 		</div>

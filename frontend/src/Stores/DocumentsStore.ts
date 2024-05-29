@@ -10,7 +10,6 @@ import {
 	getDocumentsByShelter,
 	getDocumentsByAnimal,
 	updateDocument,
-	deleteDocument,
 } from '@/Services/DataLayers/Document.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';

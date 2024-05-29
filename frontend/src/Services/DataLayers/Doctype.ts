@@ -21,22 +21,22 @@ export const getOneDoctypes = async (
 export const getAllDoctypes = async (): Promise<Doctypes[] | ErrorResponse> => {
 	try {
 		const doctype: Doctypes[] = [
-            {
-				id: 3,
-                name: 'healthRecords',
-                description: 'This is the first example filetype.',
-            },
-            {
+			{
 				id: 1,
-                name: 'photos',
-                description: 'This is the second example filetype.',
-            },
-            {
+				name: 'healthRecords',
+				description: 'This is the first example filetype.',
+			},
+			{
 				id: 2,
-                name: 'adoptionPapers',
-                description: 'This is the third example filetype.',
-            },
-        ];
+				name: 'photos',
+				description: 'This is the second example filetype.',
+			},
+			{
+				id: 3,
+				name: 'adoptionPapers',
+				description: 'This is the third example filetype.',
+			},
+		];
 		return doctype;
 
 		// const response: AxiosResponse = await axiosInstance.get(
