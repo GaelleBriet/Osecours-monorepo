@@ -2,6 +2,7 @@
 	import TabsComponent from '@/Components/TabsComponent.vue';
 	import GeneralInformations from '@/Views/Animals/Details/GeneralInformations.vue';
 	import AnimalsDocuments from '@/Views/Animals/Documents/AnimalsDocuments.vue';
+	import AnimalsPhotos from '@/Views/Animals/Documents/AnimalsPhotos.vue';
 	import HealthInformations from '@/Views/Animals/Details/HealthInformations.vue';
 	import AnimalsBehaviour from '@/Views/Animals/Details/BehaviouralInformations.vue';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
@@ -53,6 +54,7 @@
 				{ name: getCapitalizedText(t('pages.animals.behaviour')) },
 				{ name: getCapitalizedText(t('pages.animals.health')) },
 				{ name: getCapitalizedText(t('pages.animals.docs')) },
+				{ name: getCapitalizedText(t('pages.documents.photos')) },
 			]"
 			:activeColorClass="'bg-osecours-beige-dark bg-opacity-10 text-gray-700'"
 			:secondaryColorClass="'text-gray-500 hover:text-gray-500'"
@@ -70,6 +72,9 @@
 			</template>
 			<template v-if="currentTab === 3 && currentAnimal">
 				<AnimalsDocuments :animal="currentAnimal" />
+			</template>
+			<template v-if="currentTab === 4 && currentAnimal">
+				<AnimalsPhotos :animal="currentAnimal" />
 			</template>
 		</div>
 	</div>

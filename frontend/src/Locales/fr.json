@@ -227,12 +227,16 @@
 		},
 		"documents": {
 			"title": "liste de tous les fichiers de l'association",
+			"titleAnimal": "liste de tous les fichiers de l'animal",
+			"titleHealthAnimal": "liste de tous les fichiers de santé de l'animal",
 			"type": "type",
 			"date": "téléchargé",
 			"filename": "nom de fichier",
 			"description": "description du fichier",
-			"help": "Veuillez vous assurer que seuls les fichiers avec les extensions .pdf, .doc, .docx, .xls, .xlsx, .rtf et .txt sont téléchargés.",
+			"help": "Veuillez vous assurer que seuls les fichiers avec les extensions .pdf, .doc, .docx, .jpeg, .jpg et .png sont téléchargés.",
+			"helpPhotos": "Veuillez vous assurer que seuls les fichiers avec les extensions .jpeg, .jpg et .png sont téléchargés.",
 			"file": "choisissez un fichier",
+			"image": "choisissez un image",
 			"photos": "photos",
 			"card": "fichier"
 		}

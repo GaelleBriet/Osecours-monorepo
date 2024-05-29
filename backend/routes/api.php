@@ -125,6 +125,11 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
           Route::delete("/documents/{id}","delete");
           Route::put("/documents/{id}","update");
      });
+//      Route::post('documents/store/animals/{animal}', [DocumentController::class, 'addDocumentForAnimal']);
+
+     Route::get('/test', function () {
+        return response()->json(['message' => 'Test route works']);
+    });
 
 });
 

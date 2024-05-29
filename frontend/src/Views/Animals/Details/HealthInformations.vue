@@ -5,10 +5,16 @@
 	import VaccinesList from '@/Views/Animals/Health/VaccinesList.vue';
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
+	import ModalComponent from '@/Components/ModalComponent.vue';
+	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
+	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import { onMounted, ref, computed } from 'vue';
 	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
-	import { onMounted, ref, watch } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
+	import { useRoute, useRouter } from 'vue-router';
+	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
 	const animalsStore = useAnimalsStore();
@@ -21,8 +27,13 @@
 		date: '',
 	});
 	const currentAnimalId = ref(animalsStore.animal.id);
+	const documents = ref<Document[]>([]);
+	const route = useRoute();
+	const documentsStore = useDocumentsStore();
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
+	const router = useRouter();
+	const showForm = ref(false);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -32,8 +43,50 @@
 		type: 'info',
 	});
 
+	const fetchDocuments = async () => {
+		const docsByAnimal = await documentsStore.getDocumentsByAnimal(
+			route.params.id as string,
+		);
+		const imageDocs = docsByAnimal.filter((doc) => {
+			return doc.doctype_id === 1;
+		});
+		documents.value = imageDocs;
+	};
+
+	onMounted(async () => {
+		fetchDocuments();
+	});
+
+	const handleDocumentSaved = () => {
+		fetchDocuments();
+		showForm.value = false;
+	};
+
+	const documentsTransformed = computed(() => {
+		return documents.value.map((document) => ({
+			...document,
+		}));
+	});
+
 	const onButtonClick = () => {
 		isEditMode.value = !isEditMode.value;
+	};
+
+	const editItem = (item) => {
+		router.push({
+			name: 'EditDocument',
+			params: { id: item.id },
+		});
+	};
+
+	const addItem = () => {
+		showForm.value = true;
+		console.log(showForm.value);
+		return false;
+	};
+
+	const removeItem = (item) => {
+		documentsStore.deleteDocument(item.id);
 	};
 
 	const onSave = () => {
@@ -163,11 +216,41 @@
 						@update:modelValue="healthReport = $event"
 					/>
 				</div>
-				<div class="px-2 md:col-start-1 md:row-start-3">
-					<AddDocument :edit-mode="isEditMode" />
+
+				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2">
+					<div class=" grid grid-cols-2">
+
+						<p>
+							<span
+							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+							>
+							Health documents
+						</span>
+						</p>
+						<div class="ml-22">
+							<button
+							id="add-animal-btn"
+							type="button"
+							class="rounded-md px-3 py-2 text-center text-sm"
+							@click="addItem"
+							>
+							{{ getCapitalizedText(t('common.add')) }}
+						</button>
+					</div>
 				</div>
+				</div>
+				<ModalComponent
+					:isOpen="showForm"
+					@close="showForm = false"
+				>
+					<DocumentsForm
+						:is-create-mode="true"
+						:is-photo-mode="false"
+						@documentSaved="handleDocumentSaved"
+					/>
+				</ModalComponent>
 				<div
-					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 md:items-end"
+					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-4 md:items-end"
 				>
 					<button
 						id="edit-mode"
@@ -206,5 +289,15 @@
 		display: flex;
 		flex-grow: 1;
 		flex-direction: column;
+	}
+
+	#add-animal-btn {
+		background-color: rgba(217, 153, 98);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
 	}
 </style>
