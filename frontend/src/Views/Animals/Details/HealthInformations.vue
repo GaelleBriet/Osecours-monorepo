@@ -7,11 +7,8 @@
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
-	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { onMounted, ref, computed } from 'vue';
-	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
+	import { onMounted, ref, watch } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
 	import { useRoute, useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
@@ -62,31 +59,14 @@
 		showForm.value = false;
 	};
 
-	const documentsTransformed = computed(() => {
-		return documents.value.map((document) => ({
-			...document,
-		}));
-	});
-
 	const onButtonClick = () => {
 		isEditMode.value = !isEditMode.value;
-	};
-
-	const editItem = (item) => {
-		router.push({
-			name: 'EditDocument',
-			params: { id: item.id },
-		});
 	};
 
 	const addItem = () => {
 		showForm.value = true;
 		console.log(showForm.value);
 		return false;
-	};
-
-	const removeItem = (item) => {
-		documentsStore.deleteDocument(item.id);
 	};
 
 	const onSave = () => {
@@ -165,13 +145,6 @@
 		};
 		return healthCare;
 	};
-
-	watch(
-		() => animalHealth.value,
-		(newValue) => {
-			console.log('animalHealth', newValue);
-		},
-	);
 </script>
 <template>
 	<div class="animal-health bg-osecours-beige-dark bg-opacity-10">
@@ -217,27 +190,28 @@
 					/>
 				</div>
 
-				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2">
-					<div class=" grid grid-cols-2">
-
+				<div
+					class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2"
+				>
+					<div class="grid grid-cols-2">
 						<p>
 							<span
-							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+								class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 							>
-							Health documents
-						</span>
+								Health documents
+							</span>
 						</p>
 						<div class="ml-22">
 							<button
-							id="add-animal-btn"
-							type="button"
-							class="rounded-md px-3 py-2 text-center text-sm"
-							@click="addItem"
+								id="add-animal-btn"
+								type="button"
+								class="rounded-md px-3 py-2 text-center text-sm"
+								@click="addItem"
 							>
-							{{ getCapitalizedText(t('common.add')) }}
-						</button>
+								{{ getCapitalizedText(t('common.add')) }}
+							</button>
+						</div>
 					</div>
-				</div>
 				</div>
 				<ModalComponent
 					:isOpen="showForm"

@@ -4,7 +4,6 @@ import {
 	createAnimal,
 	deleteAnimal,
 	getAnimalById,
-	getAnimalHealth,
 	getAnimals,
 	updateAnimal,
 	vaccineAnimal,
@@ -12,7 +11,6 @@ import {
 import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
-import { Vaccine } from '@/Interfaces/Animals/Vaccine.ts';
 
 export const useAnimalsStore = defineStore('animals', {
 	state: (): {

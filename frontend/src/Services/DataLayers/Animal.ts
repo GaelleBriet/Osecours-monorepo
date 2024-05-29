@@ -4,7 +4,6 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 import { RouteParamValue } from 'vue-router';
-import { Vaccine } from '@/Interfaces/Animals/Vaccine.ts';
 
 export const getAnimalById = async (
 	id: string | RouteParamValue[],
