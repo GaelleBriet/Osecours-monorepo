@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia';
 import {
+	addAnimalHealth,
 	createAnimal,
 	deleteAnimal,
 	getAnimalById,
+	getAnimalHealth,
 	getAnimals,
 	updateAnimal,
+	vaccineAnimal,
 } from '@/Services/DataLayers/Animal.ts';
 import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
@@ -116,6 +119,28 @@ export const useAnimalsStore = defineStore('animals', {
 				this.animals.push(updatedAnimal);
 				this.animal = updatedAnimal;
 				return updatedAnimal;
+			}
+		},
+		async vaccineAnimal(vaccineId: number, animalId: number): Promise<boolean> {
+			const animalVaccine: Animal | ErrorResponse = await vaccineAnimal(
+				vaccineId,
+				animalId,
+			);
+			if ('error' in animalVaccine) {
+				return false;
+			} else {
+				// this.animal = animalVaccine;
+				return true;
+			}
+		},
+		async addAnimalHealth(animalHealthcare): Promise<boolean> {
+			const animalHealth: Animal | ErrorResponse =
+				await addAnimalHealth(animalHealthcare);
+			if ('error' in animalHealth) {
+				return false;
+			} else {
+				this.animal = animalHealth;
+				return true;
 			}
 		},
 		initializeCreatedAnimalProperties(animal: Animal): Animal {

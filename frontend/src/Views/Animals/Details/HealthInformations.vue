@@ -6,24 +6,22 @@
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
-	import { ref } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import * as v8 from 'node:v8';
 
-	// defineProps<{
-	// 	animal: Animal;
-	// }>();
-
-	const animal = ref({ ...animalHealthMock });
+	const animalsStore = useAnimalsStore();
+	const animal = ref({ ...animalsStore.animal });
 	const animalVaccines = ref(animal.value.vaccines);
-	const animalHealth = ref(animal.value.health);
+	const animalHealth = ref(animal.value.healthcares);
 	let healthReport = ref('');
 	let vaccineToAdd = ref({
 		vaccine: '',
 		date: '',
 	});
-
+	const currentAnimalId = ref(animalsStore.animal.id);
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
 
@@ -40,9 +38,13 @@
 	};
 
 	const onSave = () => {
-		// animal.value.vaccines.push(vaccineToAdd.value);
-		// animal.value.health = healthReport.value;
-		// TODO: send animal health data to store
+		addVacine(
+			vaccineToAdd.value.vaccine,
+			currentAnimalId.value,
+			healthReport.value,
+			vaccineToAdd.value.date,
+		);
+
 		notificationConfig.value = {
 			show: true,
 			title: getCapitalizedText(t('common.success')),
@@ -51,6 +53,36 @@
 		};
 		isEditMode.value = false;
 	};
+
+	const addVacine = async (
+		vaccineToAdd,
+		currentAnimalId,
+		healthReport,
+		vaccineDate,
+	) => {
+		console.log('vaccineToAdd', vaccineToAdd);
+		console.log('currentAnimalId', currentAnimalId);
+		console.log('healthReport', healthReport);
+		console.log('vaccineDate', vaccineDate);
+
+		if (!vaccineDate) {
+			vaccineDate = new Date().toISOString();
+			if (!healthReport) {
+				healthReport = `vaccine ${vaccineToAdd} added on ${vaccineDate}`;
+			}
+		}
+		await animalsStore.vaccineAnimal(vaccineToAdd, currentAnimalId);
+	};
+
+	const addAnimalHealth = async (healthReport) => {
+		await animalsStore.addAnimalHealth(healthReport);
+	};
+
+	onMounted(async () => {
+		console.log('measures', animalHealth.value);
+		console.log('vaccines', animalVaccines.value);
+		console.log('animal', animal);
+	});
 </script>
 <template>
 	<div class="animal-health bg-osecours-beige-dark bg-opacity-10">
