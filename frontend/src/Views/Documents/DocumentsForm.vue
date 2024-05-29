@@ -44,6 +44,7 @@
 		message: '',
 		type: 'info',
 	});
+	console.log(localDocument)
 
 	onMounted(async () => {
 		if (props.isCreateMode) {
@@ -236,7 +237,7 @@
 								id="document-type"
 								:model-value="
 									!isCreateMode
-										? localDocument?.doctype
+										? localDocument?.doctype_id
 										: createdDocument.doctype
 								"
 								:name="'document-type'"
@@ -247,7 +248,7 @@
 								:validation-visibility="'blur'"
 								@update:model-value="
 									!isCreateMode
-										? (localDocument.doctype = $event)
+										? (localDocument.doctype_id = $event)
 										: (createdDocument.doctype = $event)
 								"
 							/>

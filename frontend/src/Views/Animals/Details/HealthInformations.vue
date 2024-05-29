@@ -147,40 +147,27 @@
 					/>
 				</div>
 
-				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3">
-					<p>
-						<span
+				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2">
+					<div class=" grid grid-cols-2">
+
+						<p>
+							<span
 							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-						>
+							>
 							Health documents
 						</span>
-					</p>
-					<DataGridComponent
-						:store="documentsStore"
-						:model-value="documentsTransformed"
-						:description="
-							getCapitalizedText(t('pages.documents.titleHealthAnimal'))
-						"
-						:columns="[
-							{ label: getCapitalizedText(t('common.name')), key: 'filename' },
-							{
-								label: getCapitalizedText(t('pages.documents.type')),
-								key: 'mimeType',
-							},
-							{
-								label: getCapitalizedText(t('pages.animals.size')),
-								key: 'size',
-							},
-							{
-								label: getCapitalizedText(t('pages.documents.date')),
-								key: 'date',
-							},
-						]"
-						@edit="editItem"
-						@add="addItem"
-						@delete="removeItem"
-						@documentSaved="handleDocumentSaved"
-					/>
+						</p>
+						<div class="ml-22">
+							<button
+							id="add-animal-btn"
+							type="button"
+							class="rounded-md px-3 py-2 text-center text-sm"
+							@click="addItem"
+							>
+							{{ getCapitalizedText(t('common.add')) }}
+						</button>
+					</div>
+				</div>
 				</div>
 				<ModalComponent
 					:isOpen="showForm"
@@ -232,5 +219,15 @@
 		display: flex;
 		flex-grow: 1;
 		flex-direction: column;
+	}
+
+	#add-animal-btn {
+		background-color: rgba(217, 153, 98);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: #d99962;
+			outline: 1px solid #d99962;
+		}
 	}
 </style>
