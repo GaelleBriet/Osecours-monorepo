@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
             'Chinook',
             'Chocolate Labrador Retriever',
             'Chow Chow',
-            'Cirneco dell\'Etna',
+            'Cirneco dell Etna',
             'Clumber Spaniel',
             'Cocker Spaniel',
             'Collie',

@@ -30,7 +30,9 @@ export function generateOptionsFromEnum<T extends Record<string, unknown>>(
 			label: string;
 		}): { value: string; label: string } => ({
 			value: option.value.toString(),
-			label: getCapitalizedText(t(`${translationPath}.${option.label}`)),
+			label: getCapitalizedText(
+				t(`${translationPath}.${option.label.toLowerCase()}`),
+			),
 		}),
 	);
 }

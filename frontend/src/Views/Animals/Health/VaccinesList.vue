@@ -37,7 +37,10 @@
 					<p class="text-sm font-medium text-gray-900">
 						{{ vaccine.name }}
 					</p>
-					<p class="truncate text-sm text-gray-500">
+					<p
+						v-if="vaccine.date"
+						class="truncate text-sm text-gray-500"
+					>
 						{{ formatDate(vaccine.date, 'medium') }}
 					</p>
 				</div>
