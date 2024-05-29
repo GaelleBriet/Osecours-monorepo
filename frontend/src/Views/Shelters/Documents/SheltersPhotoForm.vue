@@ -20,7 +20,6 @@
 	const isEditMode = ref(false);
 
 	let localShelter = ref({ ...props.shelter });
-	console.log(localShelter);
 	// const removePhoto = () => {
 	// 	// @todo  Logique pour supprimer une photo
 	// };

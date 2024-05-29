@@ -48,7 +48,6 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async getAnimals(): Promise<Animal[]> {
 			const animals: Animal[] | ErrorResponse = await getAnimals();
-			// console.log('animals', animals);
 			if ('error' in animals) {
 				return [];
 			} else {

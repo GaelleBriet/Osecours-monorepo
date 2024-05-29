@@ -7,8 +7,7 @@
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
-	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { onMounted, ref, computed } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
@@ -63,12 +62,6 @@
 		showForm.value = false;
 	};
 
-	const documentsTransformed = computed(() => {
-		return documents.value.map((document) => ({
-			...document,
-		}));
-	});
-
 	const onButtonClick = () => {
 		isEditMode.value = !isEditMode.value;
 	};
@@ -82,7 +75,6 @@
 
 	const addItem = () => {
 		showForm.value = true;
-		console.log(showForm.value);
 		return false;
 	};
 
