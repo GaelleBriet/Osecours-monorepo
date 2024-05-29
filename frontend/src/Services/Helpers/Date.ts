@@ -2,27 +2,29 @@ export const formatDate = (
 	date: Date | string,
 	format: 'short' | 'medium' | 'long',
 ): string => {
+	const dateObj = typeof date === 'string' ? new Date(date) : date;
+
 	switch (format) {
 		case 'short':
-			return date.toLocaleString('fr-FR', {
+			return dateObj.toLocaleString('fr-FR', {
 				year: 'numeric',
 				month: 'numeric',
 				day: 'numeric',
 			});
 		case 'medium':
-			return date.toLocaleString('fr-FR', {
+			return dateObj.toLocaleString('fr-FR', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			});
 		case 'long':
-			return date.toLocaleString('fr-FR', {
+			return dateObj.toLocaleString('fr-FR', {
 				weekday: 'long',
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric',
 			});
 		default:
-			return date.toLocaleString();
+			return dateObj.toLocaleString();
 	}
 };

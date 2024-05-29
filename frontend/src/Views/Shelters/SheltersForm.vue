@@ -29,14 +29,10 @@
 
 	const onSubmit = async () => {
 		if (props.isCreateMode) {
-			const newShelter = await sheltersStore.createShelter(
-				createdShelter.value,
-			);
+			await sheltersStore.createShelter(createdShelter.value);
 		}
 		if (!props.isCreateMode) {
-			const shelterToUpdate = await sheltersStore.updateShelter(
-				localShelter.value,
-			);
+			await sheltersStore.updateShelter(localShelter.value);
 			// const shelterToUpdate = props.shelter;
 		}
 		// Si l'api à bien répondu, on affiche la notification
@@ -51,7 +47,6 @@
 		};
 		isEditMode.value = false;
 	};
-
 	onMounted(() => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;

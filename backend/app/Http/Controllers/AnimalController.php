@@ -25,6 +25,7 @@ class AnimalController extends Controller
 
         $this->errorService = $eService;
     }
+
     /**
      * @OA\Get(
      *     path="/animals/all",

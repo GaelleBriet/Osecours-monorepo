@@ -9,30 +9,26 @@
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
 	import { onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { animalHealthMock } from '@/Services/DatasMock/AnimalsHealthDatasMock.ts';
 	import i18n from '@/Services/Translations';
-	import { useRoute, useRouter } from 'vue-router';
+	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
+	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
-	// defineProps<{
-	// 	animal: Animal;
-	// }>();
-
-	const animal = ref({ ...animalHealthMock });
+	const animalsStore = useAnimalsStore();
+	const animal = ref({ ...animalsStore.animal });
 	const animalVaccines = ref(animal.value.vaccines);
-	const animalHealth = ref(animal.value.health);
+	const animalHealth = ref(animal.value.healthcares);
 	let healthReport = ref('');
 	let vaccineToAdd = ref({
 		vaccine: '',
 		date: '',
 	});
-
+	const currentAnimalId = ref(animalsStore.animal.id);
 	const documents = ref<Document[]>([]);
 	const route = useRoute();
 	const documentsStore = useDocumentsStore();
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
-	const router = useRouter();
 	const showForm = ref(false);
 
 	// paramètres de la notification
@@ -66,33 +62,82 @@
 		isEditMode.value = !isEditMode.value;
 	};
 
-	const editItem = (item) => {
-		router.push({
-			name: 'EditDocument',
-			params: { id: item.id },
-		});
-	};
-
 	const addItem = () => {
 		showForm.value = true;
 		return false;
 	};
 
-	const removeItem = (item) => {
-		documentsStore.deleteDocument(item.id);
+	const onSave = () => {
+		const result = addVaccineAndHealth(
+			vaccineToAdd.value.vaccine,
+			currentAnimalId.value,
+			healthReport.value,
+			vaccineToAdd.value.date,
+		);
+
+		if (!result) {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('common.error')),
+				message: getCapitalizedText(t('pages.animals.messages.updateError')),
+				type: 'error',
+			};
+		} else {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('common.success')),
+				message: getCapitalizedText(t('pages.animals.messages.updateSuccess')),
+				type: 'success',
+			};
+		}
+		isEditMode.value = false;
 	};
 
-	const onSave = () => {
-		// animal.value.vaccines.push(vaccineToAdd.value);
-		// animal.value.health = healthReport.value;
-		// TODO: send animal health data to store
-		notificationConfig.value = {
-			show: true,
-			title: getCapitalizedText(t('common.success')),
-			message: getCapitalizedText(t('common.saved')),
-			type: 'warning',
+	const addVaccineAndHealth = async (
+		vaccineToAdd: string,
+		currentAnimalId: number,
+		healthReport: string,
+		vaccineDate: string,
+	) => {
+		let updatedAnimal = undefined;
+
+		if (!vaccineDate) {
+			vaccineDate = new Date().toISOString();
+		}
+		if (!healthReport) {
+			healthReport = `vaccine ${vaccineToAdd} added.`;
+		}
+
+		if (vaccineToAdd) {
+			updatedAnimal = await animalsStore.vaccineAnimal(
+				vaccineToAdd,
+				currentAnimalId,
+			);
+		}
+
+		const updatedHealth = await animalsStore.addAnimalHealth(
+			prepareHealthCare(healthReport, vaccineDate, currentAnimalId),
+		);
+
+		if (updatedAnimal && updatedHealth) {
+			animalVaccines.value = animalsStore.animal.vaccines;
+			animalHealth.value.push(updatedHealth);
+			return true;
+		}
+		return false;
+	};
+
+	const prepareHealthCare = (
+		healthReport: string,
+		vaccineDate: string,
+		currentAnimalId: number,
+	) => {
+		const healthCare = {
+			report: healthReport,
+			date: vaccineDate,
+			animal_id: currentAnimalId,
 		};
-		isEditMode.value = false;
+		return healthCare;
 	};
 </script>
 <template>
@@ -139,27 +184,28 @@
 					/>
 				</div>
 
-				<div class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2">
-					<div class=" grid grid-cols-2">
-
+				<div
+					class="px-2 pt-2 md:col-start-1 md:col-span-2 md:row-start-3 md:grid md:grid-cols-2"
+				>
+					<div class="grid grid-cols-2">
 						<p>
 							<span
-							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
+								class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 							>
-							Health documents
-						</span>
+								Health documents
+							</span>
 						</p>
 						<div class="ml-22">
 							<button
-							id="add-animal-btn"
-							type="button"
-							class="rounded-md px-3 py-2 text-center text-sm"
-							@click="addItem"
+								id="add-animal-btn"
+								type="button"
+								class="rounded-md px-3 py-2 text-center text-sm"
+								@click="addItem"
 							>
-							{{ getCapitalizedText(t('common.add')) }}
-						</button>
+								{{ getCapitalizedText(t('common.add')) }}
+							</button>
+						</div>
 					</div>
-				</div>
 				</div>
 				<ModalComponent
 					:isOpen="showForm"

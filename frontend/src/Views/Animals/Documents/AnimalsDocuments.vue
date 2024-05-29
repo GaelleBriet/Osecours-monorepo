@@ -48,8 +48,6 @@
 			doctype_name: getDoctypeNameById(document.doctype_id)
 		}));
 	});
-	console.log(documentsTransformed);
-	
 	const editItem = (item) => {
 		router.push({
 			name: 'EditDocument',
