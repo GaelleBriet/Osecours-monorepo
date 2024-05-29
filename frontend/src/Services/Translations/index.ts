@@ -16,9 +16,6 @@ if (getFromStorage('locale') === null) {
 const locale = ref(
 	(getFromStorage('locale') as AvailableLanguagesInterface) || 'fr-FR',
 );
-// if (!locale.value) {
-// 	locale.value = 'fr-FR';
-// }
 
 const i18n = createI18n({
 	legacy: false,
