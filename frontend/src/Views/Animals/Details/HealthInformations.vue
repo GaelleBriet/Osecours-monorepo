@@ -7,10 +7,10 @@
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
-	import { onMounted, ref, watch } from 'vue';
+	import { onMounted, ref } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-	import { useRoute, useRouter } from 'vue-router';
+	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
@@ -29,7 +29,6 @@
 	const documentsStore = useDocumentsStore();
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
-	const router = useRouter();
 	const showForm = ref(false);
 
 	// paramètres de la notification
@@ -127,10 +126,6 @@
 			return true;
 		}
 		return false;
-	};
-
-	const addAnimalHealth = async (healthReport: object) => {
-		await animalsStore.addAnimalHealth(healthReport);
 	};
 
 	const prepareHealthCare = (

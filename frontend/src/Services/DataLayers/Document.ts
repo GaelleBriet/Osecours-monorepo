@@ -30,12 +30,16 @@ const sendDocumentRequest = async (
 		const formData = new FormData();
 
 		// Append all fields from the document to the FormData object
+		// for (const key in document) {
+		// 	if (document.hasOwnProperty(key)) {
+		// 		formData.append(key, (document as any)[key]);
+		// 	}
+		// }
 		for (const key in document) {
-			if (document.hasOwnProperty(key)) {
+			if (Object.prototype.hasOwnProperty.call(document, key)) {
 				formData.append(key, (document as any)[key]);
 			}
 		}
-
 		// Make the request using Axios
 		const response: AxiosResponse = await axiosInstance[method](url, formData, {
 			headers: {
