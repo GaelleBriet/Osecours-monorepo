@@ -12,6 +12,7 @@ import {
 import { Animal } from '@/Interfaces/Animals/Animal.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
+import { Vaccine } from '@/Interfaces/Animals/Vaccine.ts';
 
 export const useAnimalsStore = defineStore('animals', {
 	state: (): {
@@ -121,25 +122,28 @@ export const useAnimalsStore = defineStore('animals', {
 				return updatedAnimal;
 			}
 		},
-		async vaccineAnimal(vaccineId: number, animalId: number): Promise<boolean> {
+		async vaccineAnimal(vaccineId: string, animalId: number): Promise<boolean> {
 			const animalVaccine: Animal | ErrorResponse = await vaccineAnimal(
 				vaccineId,
 				animalId,
 			);
-			if ('error' in animalVaccine) {
+			if (animalVaccine && 'error' in animalVaccine) {
 				return false;
 			} else {
-				// this.animal = animalVaccine;
+				if (animalVaccine) {
+					this.animal.vaccines = animalVaccine;
+				}
 				return true;
 			}
 		},
-		async addAnimalHealth(animalHealthcare): Promise<boolean> {
+		async addAnimalHealth(animalHealthcare: object): Promise<boolean> {
 			const animalHealth: Animal | ErrorResponse =
 				await addAnimalHealth(animalHealthcare);
 			if ('error' in animalHealth) {
 				return false;
 			} else {
-				this.animal = animalHealth;
+				console.log('animalHealthStore', animalHealth);
+				this.animal.healthcares.push(animalHealth);
 				return true;
 			}
 		},

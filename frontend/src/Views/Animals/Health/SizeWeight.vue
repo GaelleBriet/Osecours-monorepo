@@ -52,23 +52,27 @@
 		</div>
 		<div>
 			<div class="grid grid-cols-1 gap-4">
-				<div
+				<template
 					v-for="measure in measures"
 					:key="measure.id"
-					class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-osecours-pink"
 				>
-					<div class="min-w-0 flex-1">
-						<p
-							v-if="measure.report"
-							class="truncate text-sm text-gray-500"
-						>
-							{{ measure.report }}
-						</p>
-						<p class="truncate text-sm text-gray-500">
-							{{ formatDate(measure.date, 'medium') }}
-						</p>
+					<div
+						v-if="measure.report && measure.date"
+						class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm hover:border-osecours-pink"
+					>
+						<div class="min-w-0 flex-1">
+							<p
+								v-if="measure.report"
+								class="truncate text-sm text-gray-500"
+							>
+								{{ measure.report }}
+							</p>
+							<p class="truncate text-sm text-gray-500">
+								{{ formatDate(measure.date, 'medium') }}
+							</p>
+						</div>
 					</div>
-				</div>
+				</template>
 			</div>
 		</div>
 	</div>

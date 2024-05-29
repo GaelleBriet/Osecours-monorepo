@@ -7,6 +7,7 @@ import { Coat } from '@/Interfaces/Animals/Coat.ts';
 import { SizeRange } from '@/Interfaces/Animals/SizeRange.ts';
 import { AgeRange } from '@/Interfaces/Animals/AgeRange.ts';
 import { Vaccines } from '@/Enums/Vaccines.ts';
+import { AnimalHealth } from '@/Interfaces/Animals/AnimalHealth.ts';
 
 export interface Animal {
 	id?: number | undefined;
@@ -38,4 +39,5 @@ export interface Animal {
 	status?: number | string;
 	sterilized?: boolean;
 	vaccines?: Vaccines[];
+	healthcares?: AnimalHealth[];
 }

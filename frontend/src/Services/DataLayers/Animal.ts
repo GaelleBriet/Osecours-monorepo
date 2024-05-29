@@ -4,6 +4,7 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 import { RouteParamValue } from 'vue-router';
+import { Vaccine } from '@/Interfaces/Animals/Vaccine.ts';
 
 export const getAnimalById = async (
 	id: string | RouteParamValue[],
@@ -76,7 +77,7 @@ export const deleteAnimal = async (
 };
 
 export const vaccineAnimal = async (
-	vaccineId: number,
+	vaccineId: string,
 	animalId: number,
 ): Promise<Animal | ErrorResponse> => {
 	try {
@@ -84,7 +85,7 @@ export const vaccineAnimal = async (
 			`${import.meta.env.VITE_ANIMALS_VACCINES_API_URL.replace('{id}', vaccineId.toString())}`,
 			{ animal_id: animalId },
 		);
-		return response.data.data;
+		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);
@@ -92,14 +93,14 @@ export const vaccineAnimal = async (
 };
 
 export const addAnimalHealth = async (
-	animalHealthcare,
+	animalHealthcare: object,
 ): Promise<Animal | ErrorResponse> => {
 	try {
 		const response: AxiosResponse = await axiosInstance.post(
-			`${import.meta.env.VITE_ANIMALS_HEALTHCARE_API_URL}`,
+			`${import.meta.env.VITE_HEALTHCARES_API_URL}`,
 			animalHealthcare,
 		);
-		return response.data.data;
+		return response.data;
 	} catch (error) {
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);

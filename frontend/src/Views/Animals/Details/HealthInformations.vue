@@ -6,11 +6,10 @@
 	import SizeWeight from '@/Views/Animals/Health/SizeWeight.vue';
 	import VaccinesForm from '@/Views/Animals/Health/VaccinesForm.vue';
 	import AddDocument from '@/Views/Animals/Health/AddDocument.vue';
-	import { onMounted, ref } from 'vue';
+	import { onMounted, ref, watch } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
-	import * as v8 from 'node:v8';
 
 	const animalsStore = useAnimalsStore();
 	const animal = ref({ ...animalsStore.animal });
@@ -38,51 +37,84 @@
 	};
 
 	const onSave = () => {
-		addVacine(
+		const result = addVaccine(
 			vaccineToAdd.value.vaccine,
 			currentAnimalId.value,
 			healthReport.value,
 			vaccineToAdd.value.date,
 		);
 
-		notificationConfig.value = {
-			show: true,
-			title: getCapitalizedText(t('common.success')),
-			message: getCapitalizedText(t('common.saved')),
-			type: 'warning',
-		};
+		if (!result) {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('common.error')),
+				message: getCapitalizedText(t('pages.animals.messages.updateError')),
+				type: 'error',
+			};
+		} else {
+			notificationConfig.value = {
+				show: true,
+				title: getCapitalizedText(t('common.success')),
+				message: getCapitalizedText(t('pages.animals.messages.updateSuccess')),
+				type: 'success',
+			};
+		}
 		isEditMode.value = false;
 	};
 
-	const addVacine = async (
-		vaccineToAdd,
-		currentAnimalId,
-		healthReport,
-		vaccineDate,
+	const addVaccine = async (
+		vaccineToAdd: string,
+		currentAnimalId: number,
+		healthReport: string,
+		vaccineDate: string,
 	) => {
-		console.log('vaccineToAdd', vaccineToAdd);
-		console.log('currentAnimalId', currentAnimalId);
-		console.log('healthReport', healthReport);
-		console.log('vaccineDate', vaccineDate);
-
 		if (!vaccineDate) {
 			vaccineDate = new Date().toISOString();
-			if (!healthReport) {
-				healthReport = `vaccine ${vaccineToAdd} added on ${vaccineDate}`;
-			}
 		}
-		await animalsStore.vaccineAnimal(vaccineToAdd, currentAnimalId);
+		if (!healthReport) {
+			healthReport = `vaccine ${vaccineToAdd} added.`;
+		}
+
+		const updatedAnimal = await animalsStore.vaccineAnimal(
+			vaccineToAdd,
+			currentAnimalId,
+		);
+
+		const updatedHealth = await animalsStore.addAnimalHealth(
+			prepareHealthCare(healthReport, vaccineDate, currentAnimalId),
+		);
+
+		if (updatedAnimal && updatedHealth) {
+			animalVaccines.value = animalsStore.animal.vaccines;
+			animalHealth.value.push(updatedHealth);
+			return true;
+		}
+		return false;
 	};
 
-	const addAnimalHealth = async (healthReport) => {
+	const addAnimalHealth = async (healthReport: object) => {
 		await animalsStore.addAnimalHealth(healthReport);
 	};
 
-	onMounted(async () => {
-		console.log('measures', animalHealth.value);
-		console.log('vaccines', animalVaccines.value);
-		console.log('animal', animal);
-	});
+	const prepareHealthCare = (
+		healthReport: string,
+		vaccineDate: string,
+		currentAnimalId: number,
+	) => {
+		const healthCare = {
+			report: healthReport,
+			date: vaccineDate,
+			animal_id: currentAnimalId,
+		};
+		return healthCare;
+	};
+
+	watch(
+		() => animalHealth.value,
+		(newValue) => {
+			console.log('animalHealth', newValue);
+		},
+	);
 </script>
 <template>
 	<div class="animal-health bg-osecours-beige-dark bg-opacity-10">
