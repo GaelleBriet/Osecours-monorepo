@@ -14,10 +14,11 @@
 		"other": "other",
 		"delete": "delete",
 		"update": "has been updated",
-		"creation": "hass been created",
+		"creation": "has been created",
 		"search": "Search...",
 		"back": "back",
-		"succes": "success",
+		"success": "success",
+		"error": "error",
 		"notImplemented": "not implemented",
 		"close": "close"
 	},

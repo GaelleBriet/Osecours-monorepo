@@ -74,3 +74,34 @@ export const deleteAnimal = async (
 		return errorResponse(axiosError);
 	}
 };
+
+export const vaccineAnimal = async (
+	vaccineId: string,
+	animalId: number,
+): Promise<Animal | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.post(
+			`${import.meta.env.VITE_ANIMALS_VACCINES_API_URL.replace('{id}', vaccineId.toString())}`,
+			{ animal_id: animalId },
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};
+
+export const addAnimalHealth = async (
+	animalHealthcare: object,
+): Promise<Animal | ErrorResponse> => {
+	try {
+		const response: AxiosResponse = await axiosInstance.post(
+			`${import.meta.env.VITE_HEALTHCARES_API_URL}`,
+			animalHealthcare,
+		);
+		return response.data;
+	} catch (error) {
+		const axiosError: AxiosError = error as AxiosError;
+		return errorResponse(axiosError);
+	}
+};

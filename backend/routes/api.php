@@ -100,7 +100,7 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(HealthcareController::class)->group(function () {
           Route::get("/healthcares/all", "getAll");
           Route::post('/healthcares', 'create');
-          Route::get('/healthcares/{healthcare}', 'show');  
+          Route::get('/healthcares/{healthcare}', 'show');
           Route::put('/healthcares/{healthcare}', 'update');
           Route::delete('/healthcares/{healthcare}', 'delete');
      });
@@ -108,10 +108,10 @@ Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(func
      Route::controller(VaccineController::class)->group(function () {
           Route::get("/vaccines/all", "getAll");
           Route::post('/vaccines', 'create');
-          Route::get('/vaccines/{vaccine}', 'show');  
+          Route::get('/vaccines/{vaccine}', 'show');
           Route::put('/vaccines/{vaccine}', 'update');
           Route::delete('/vaccines/{vaccine}', 'delete');
-          Route::post('/vaccines/{vaccine}/animal', 'vacinneAnimal');
+          Route::post('/vaccines/{vaccine}/animal', 'vaccineAnimal');
      });
 
      Route::controller(DocumentController::class)->group(function () {

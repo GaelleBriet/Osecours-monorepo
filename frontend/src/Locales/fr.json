@@ -18,6 +18,7 @@
 		"search": "Chercher...",
 		"back": "retour",
 		"success": "succès",
+		"error": "erreur",
 		"notImplemented": "fonctionnalité non implémentée",
 		"close": "fermer"
 	},
