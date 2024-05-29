@@ -11,7 +11,7 @@ const userItem = localStorage.getItem('user');
 if (userItem) {
 	currentAssociation = JSON.parse(userItem);
 }
-let associationId: any;
+let associationId: number;
 if (
 	currentAssociation &&
 	currentAssociation.associations &&

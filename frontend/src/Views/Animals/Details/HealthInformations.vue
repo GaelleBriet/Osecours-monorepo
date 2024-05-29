@@ -27,7 +27,7 @@
 		vaccine: '',
 		date: '',
 	});
-	
+
 	const documents = ref<Document[]>([]);
 	const route = useRoute();
 	const documentsStore = useDocumentsStore();
@@ -44,13 +44,14 @@
 		type: 'info',
 	});
 
-	
 	const fetchDocuments = async () => {
-		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id as string);
-    	const imageDocs = docsByAnimal.filter(doc => {
+		const docsByAnimal = await documentsStore.getDocumentsByAnimal(
+			route.params.id as string,
+		);
+		const imageDocs = docsByAnimal.filter((doc) => {
 			return doc.doctype_id === 3;
 		});
-    	documents.value = imageDocs;
+		documents.value = imageDocs;
 	};
 
 	onMounted(async () => {
@@ -61,10 +62,10 @@
 		fetchDocuments();
 		showForm.value = false;
 	};
-	
+
 	const documentsTransformed = computed(() => {
 		return documents.value.map((document) => ({
-			...document
+			...document,
 		}));
 	});
 
@@ -81,7 +82,7 @@
 
 	const addItem = () => {
 		showForm.value = true;
-		console.log(showForm.value)
+		console.log(showForm.value);
 		return false;
 	};
 
@@ -155,28 +156,42 @@
 						</span>
 					</p>
 					<DataGridComponent
-						:store="documentsStore" 
+						:store="documentsStore"
 						:model-value="documentsTransformed"
-						:description="getCapitalizedText(t('pages.documents.titleHealthAnimal'))"
+						:description="
+							getCapitalizedText(t('pages.documents.titleHealthAnimal'))
+						"
 						:columns="[
 							{ label: getCapitalizedText(t('common.name')), key: 'filename' },
-							{ label: getCapitalizedText(t('pages.documents.type')), key: 'mimeType' },
-							{ label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
-							{ label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
+							{
+								label: getCapitalizedText(t('pages.documents.type')),
+								key: 'mimeType',
+							},
+							{
+								label: getCapitalizedText(t('pages.animals.size')),
+								key: 'size',
+							},
+							{
+								label: getCapitalizedText(t('pages.documents.date')),
+								key: 'date',
+							},
 						]"
 						@edit="editItem"
 						@add="addItem"
 						@delete="removeItem"
 						@documentSaved="handleDocumentSaved"
-					/>   
-				</div>	
-				<ModalComponent :isOpen="showForm" @close="showForm = false">
+					/>
+				</div>
+				<ModalComponent
+					:isOpen="showForm"
+					@close="showForm = false"
+				>
 					<DocumentsForm
 						:is-create-mode="true"
 						:is-photo-mode="false"
 						@documentSaved="handleDocumentSaved"
 					/>
-				</ModalComponent>			
+				</ModalComponent>
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-4 md:items-end"
 				>

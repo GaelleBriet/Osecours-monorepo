@@ -5,21 +5,23 @@
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { onMounted, ref, computed, watch } from 'vue';
-	import i18n from '@/Services/Translations';
+	import { DoctypesForSelects } from '@/Interfaces/Documents/Doctypes.ts';
 	import { Document } from '@/Interfaces/Documents/Documents.ts';
-	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
+	import i18n from '@/Services/Translations';
+	import { onMounted, ref, computed } from 'vue';
 	import { getNode } from '@formkit/core';
+	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
+	import { defineEmits } from 'vue';
+	import { useRoute } from 'vue-router';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
 	import { fetchDataAndFormatOptions } from '@/Services/Helpers/SelectOptions.ts';
-	import { useRoute } from 'vue-router';
-	import { defineEmits } from 'vue';
 
 	const route = useRoute();
 	const t = i18n.global.t;
 	const documentSettingsStore = useDocumentsSettingsStore();
 	const documentsStore = useDocumentsStore();
+
 	const emit = defineEmits(['documentSaved']);
 
 	const props = defineProps<{
@@ -27,10 +29,11 @@
 		isPhotoMode?: boolean;
 		document?: Document;
 	}>();
+
 	let localDocument = ref({ ...props.document });
 	let createdDocument = ref<Document>({});
 	const newDocument = ref<Document>({});
-	const doctypes = ref<DoctypesForSelects[]>([]);	
+	const doctypes = ref<DoctypesForSelects[]>([]);
 	const id = route.params.id;
 	const isEditMode = ref(false);
 	const showFileForm = computed(() => {
@@ -87,7 +90,7 @@
 		// formData.append('filename', localDocument.value.filename);
 		// formData.append('description', localDocument.value.description);
 		formData.file = file;
-		
+
 		const documentData = props.isCreateMode
 			? createdDocument.value
 			: localDocument.value;
@@ -162,10 +165,14 @@
 								!isCreateMode ? localDocument.file : createdDocument.file
 							"
 							:label="
-								isPhotoMode ? getCapitalizedText(t('pages.documents.filePhotos')) : getCapitalizedText(t('pages.documents.file'))
+								isPhotoMode
+									? getCapitalizedText(t('pages.documents.filePhotos'))
+									: getCapitalizedText(t('pages.documents.file'))
 							"
 							:accept="
-								isPhotoMode ? '.jpg,.bmp,.png' : '.pdf,.doc,.docx,.jpg,.bmp,.png'
+								isPhotoMode
+									? '.jpg,.bmp,.png'
+									: '.pdf,.doc,.docx,.jpg,.bmp,.png'
 							"
 							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
@@ -175,7 +182,7 @@
 							wrapper-class="h-full"
 							inner-class="h-full"
 							@update:modelValue="
-								!isCreateMode 
+								!isCreateMode
 									? (localDocument.file = $event)
 									: (createdDocument.file = $event)
 							"
@@ -244,7 +251,7 @@
 										: (createdDocument.doctype = $event)
 								"
 							/>
-						</div>						
+						</div>
 					</div>
 				</div>
 				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2">
