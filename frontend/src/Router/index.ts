@@ -21,7 +21,9 @@ import DocumentsController from '@/Controllers/Documents/DocumentsController.vue
 import CreateDocument from '@/Views/Documents/CreateDocument.vue';
 import DocumentsDetails from '@/Views/Documents/DocumentsDetails.vue';
 import MembersController from '@/Controllers/Members/MembersController.vue';
-import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
+import MembersDetails from '@/Views/Members/MembersDetails.vue';
+import FamiliesCreateForm from '@/Views/Families/FamiliesCreateForm.vue';
+import MembersCreateForm from '@/Views/Members/MembersCreateForm.vue';
 
 const routes = [
 	{
@@ -101,6 +103,16 @@ const routes = [
 		component: MembersController,
 	},
 	{
+		path: '/members/:id',
+		name: 'EditMembers',
+		component: MembersDetails,
+	},
+	{
+		path: '/members/add/',
+		name: 'AddMembers',
+		component: MembersCreateForm,
+	},
+	{
 		path: '/documents',
 		name: 'Documents',
 		component: DocumentsController,
@@ -128,8 +140,7 @@ const routes = [
 	{
 		path: '/families/add',
 		name: 'CreateFamily',
-		component: FamiliesForm,
-		props: { isCreateMode: true },
+		component: FamiliesCreateForm,
 	},
 	{
 		path: '/profile',
@@ -154,13 +165,11 @@ router.beforeEach((to) => {
 
 	if (token !== null) {
 		// si le token est présent on laisse passer
-		console.log('1- token is present');
 		return true;
 	}
 	if (to.name !== 'Login') {
 		// si le token est absent et que la route n'est pas Login
 		// on redirige vers la page de login
-		console.log('2- token is not present');
 		return { name: 'Login' };
 	}
 });

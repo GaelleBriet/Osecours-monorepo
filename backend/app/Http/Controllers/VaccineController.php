@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
 
 class VaccineController extends Controller
 {
-    
+
        /**
  * @OA\Get(
  *     path="/vaccines/all",
@@ -65,7 +65,7 @@ class VaccineController extends Controller
         return $Vaccine;
     }
 
-    
+
 /**
  * @OA\Post(
  *     path="/vaccines",
@@ -88,10 +88,10 @@ class VaccineController extends Controller
  */
     public function create(Request $request)
     {
-        $request->validate([            
+        $request->validate([
                 "name" => "required",
                 "description" => "nullable",
-                      
+
         ]);
         return Vaccine::create($request->all());
     }
@@ -129,7 +129,7 @@ class VaccineController extends Controller
  */
 
     public function update(Request $request, Vaccine $Vaccine)
-    {    
+    {
         return $Vaccine->update($request->all());
     }
 
@@ -190,15 +190,15 @@ class VaccineController extends Controller
  * )
  */
 
-    public function vacinneAnimal(Request $request,Vaccine $vaccine){
+    public function vaccineAnimal(Request $request,Vaccine $vaccine){
         $request->validate([
             "animal_id" => "required|integer|exists:animals,id"
         ]);
-        
+
         $vaccine->animals()->syncWithoutDetaching($request->get("animal_id"));
-     
+
         return Animal::find($request->get("animal_id"))->vaccines;
     }
 
-   
+
 }

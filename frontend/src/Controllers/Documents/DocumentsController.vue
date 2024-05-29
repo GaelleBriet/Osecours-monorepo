@@ -65,31 +65,23 @@
 		/>
 		<div class="content">
 			<template v-if="currentTab === 0">
-				<div class="content bg-osecours-beige-dark bg-opacity-10 p-4">
-					<DataGridComponent
-						:store="documentsStore"
-						:model-value="documentsTransformed"
-						:description="getCapitalizedText(t('pages.documents.title'))"
-						:columns="[
-							{ label: getCapitalizedText(t('common.name')), key: 'filename' },
-							{
-								label: getCapitalizedText(t('pages.documents.type')),
-								key: 'mimeType',
-							},
-							{
-								label: getCapitalizedText(t('pages.animals.size')),
-								key: 'size',
-							},
-							{
-								label: getCapitalizedText(t('pages.documents.date')),
-								key: 'date',
-							},
-						]"
-						@edit="editItem"
-						@add="addItem"
-					/>
-				</div>
-			</template>
+                <div class="content bg-osecours-beige-dark bg-opacity-10 p-4">
+                    <DataGridComponent
+                        :store="documentsStore" 
+                        :model-value="documentsTransformed"
+                        :description="getCapitalizedText(t('pages.documents.title'))"
+                        :columns="[
+                            { label: getCapitalizedText(t('common.name')), key: 'filename' },
+                            { label: getCapitalizedText(t('pages.documents.type')), key: 'mimeType' },
+                            { label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
+                            { label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
+                        ]"
+                        @edit="editItem"
+                        @add="addItem"
+                        @delete="deleteItem"
+                    />
+                </div>
+            </template>
 			<template v-if="currentTab === 1">
 				<AnimalDocuments :animal="currentAnimal" />
 			</template>

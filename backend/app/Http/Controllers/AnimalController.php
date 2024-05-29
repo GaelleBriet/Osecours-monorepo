@@ -25,13 +25,14 @@ class AnimalController extends Controller
 
         $this->errorService = $eService;
     }
+
     /**
      * @OA\Get(
      *     path="/animals/all",
      *     security={{"bearerAuth":{}}},
      *     tags={"Animals"},
      *     @OA\Response(response="200", description="get list of all animals")
-     * 
+     *
      * )
      */
     public function getAll()
