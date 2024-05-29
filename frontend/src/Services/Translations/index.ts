@@ -6,22 +6,25 @@ import {
 	getFromStorage,
 	setToStorage,
 } from '@/Services/Helpers/LocalStorage.ts';
+import { ref } from 'vue';
 
 export type AvailableLanguagesInterface = 'fr-FR' | 'en-GB';
 
 if (getFromStorage('locale') === null) {
 	setToStorage('locale', 'fr-FR');
 }
-let locale = getFromStorage('locale') as AvailableLanguagesInterface;
-if (!locale) {
-	locale = 'fr-FR';
-}
+const locale = ref(
+	(getFromStorage('locale') as AvailableLanguagesInterface) || 'fr-FR',
+);
+// if (!locale.value) {
+// 	locale.value = 'fr-FR';
+// }
 
 const i18n = createI18n({
 	legacy: false,
 	allowComposition: true,
 	globalInjection: true,
-	locale,
+	locale: locale.value,
 	fallbackLocale: 'fr-FR',
 	messages: {
 		'fr-FR': fr,
@@ -29,4 +32,11 @@ const i18n = createI18n({
 	},
 });
 
+export function switchLanguage(newLocale: AvailableLanguagesInterface) {
+	locale.value = newLocale;
+	i18n.global.locale.value = newLocale;
+	setToStorage('locale', newLocale);
+}
+
 export default i18n;
+export { locale };

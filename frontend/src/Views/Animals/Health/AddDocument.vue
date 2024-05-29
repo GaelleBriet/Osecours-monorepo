@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+	import { getCapitalizedText } from '/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
+
+	const t = i18n.global.t;
 	const props = defineProps<{
 		editMode: boolean;
 	}>();
@@ -9,7 +13,7 @@
 			<span
 				class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 			>
-				Ajouter un document
+				{{ getCapitalizedText(t('pages.documents.addDoc')) }}
 			</span>
 		</p>
 		<FormKit

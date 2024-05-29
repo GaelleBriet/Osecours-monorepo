@@ -21,7 +21,7 @@
 			<p class="mb-5">
 				<span
 					class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
-					>Derniers rapports</span
+					>{{ getCapitalizedText(t('pages.animals.lastReports')) }}</span
 				>
 			</p>
 			<div class="grid grid-cols-1 gap-4">
@@ -42,8 +42,9 @@
 								v-if="measure.size && measure.weight"
 								class="text-sm font-medium text-gray-900"
 							>
-								Taille:
-								<span class="text-gray-500">{{ measure.size }} cm.</span> Poids:
+								{{ getCapitalizedText(t('pages.animals.size')) }}:
+								<span class="text-gray-500">{{ measure.size }} cm.</span>
+								{{ getCapitalizedText(t('pages.animals.weight')) }}:
 								<span class="text-gray-500">{{ measure.weight }} kg.</span>
 							</p>
 							<p class="truncate text-sm text-gray-500">

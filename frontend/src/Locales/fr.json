@@ -22,7 +22,8 @@
 		"notImplemented": "fonctionnalité non implémentée",
 		"close": "fermer",
 		"consult": "consulter",
-		"error": "erreur"
+		"error": "erreur",
+		"switchLang": "changer de langue"
 	},
 	"navigation": {
 		"home": "accueil",
@@ -135,7 +136,7 @@
 			"settingBreeds": "gestion des races",
 			"settingColors": "gestion des couleurs",
 			"settingCoats": "gestion des robes",
-			"lastMeasures": "dernières mesures",
+			"lastReports": "derniers rapports",
 			"addComment": "ajouter un commentaire",
 			"addCommentPlaceholder": "ajouter une information de santé ...",
 			"messages": {
@@ -275,7 +276,8 @@
 			"file": "choisissez un fichier",
 			"image": "choisissez un image",
 			"photos": "photos",
-			"card": "fichier"
+			"card": "fichier",
+			"addDoc": "ajouter un document"
 		}
 	},
 	"enums": {

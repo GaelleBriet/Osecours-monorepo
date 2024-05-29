@@ -17,7 +17,6 @@
 	const t = i18n.global.t;
 	let isEditMode = ref(props.isEditMode);
 	const currentFamily = ref<Members | undefined>(props.family);
-	// const createdFamily = ref<Members | null>(null);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -64,7 +63,7 @@
 						:model-value="!isCreateMode ? currentFamily.first_name : ''"
 						:label="getCapitalizedText(t('pages.users.firstName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Prénom'"
+						:placeholder="getCapitalizedText(t('pages.users.firstName'))"
 						:disabled="!isEditMode"
 						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:modelValue="!isCreateMode ? currentFamily.first_name : ''"
@@ -76,7 +75,7 @@
 						:model-value="!isCreateMode ? currentFamily.last_name : ''"
 						:label="getCapitalizedText(t('pages.users.lastName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nom'"
+						:placeholder="getCapitalizedText(t('pages.users.lastName'))"
 						:disabled="!isEditMode"
 						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:modelValue="!isCreateMode ? currentFamily.last_name : ''"
@@ -88,7 +87,7 @@
 						:model-value="!isCreateMode ? currentFamily.email : ''"
 						:label="getCapitalizedText(t('pages.users.email'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Email'"
+						:placeholder="getCapitalizedText(t('pages.users.email'))"
 						:disabled="!isEditMode"
 						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:modelValue="!isCreateMode ? currentFamily.email : ''"
@@ -100,9 +99,9 @@
 						:model-value="!isCreateMode ? currentFamily.phone : ''"
 						:label="getCapitalizedText(t('pages.users.phone'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Phone'"
+						:placeholder="getCapitalizedText(t('pages.users.phone'))"
 						:disabled="!isEditMode"
-						:validation="'number|length:0,10'"
+						:validation="'number|length:10,10'"
 						@update:modelValue="!isCreateMode ? currentFamily.phone : ''"
 					/>
 				</div>
@@ -114,7 +113,7 @@
 						"
 						:label="getCapitalizedText(t('pages.users.childrenCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre d\'enfants'"
+						:placeholder="getCapitalizedText(t('pages.users.childrenCount'))"
 						:disabled="!isEditMode"
 						:validation="'number|length:0,2'"
 						@update:modelValue="
@@ -128,7 +127,7 @@
 						:model-value="!isCreateMode ? currentFamily.existing_cat_count : ''"
 						:label="getCapitalizedText(t('pages.users.catCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre de chats'"
+						:placeholder="getCapitalizedText(t('pages.users.catCount'))"
 						:disabled="!isEditMode"
 						:validation="'number|length:0,2'"
 						@update:modelValue="
@@ -142,7 +141,7 @@
 						:model-value="!isCreateMode ? currentFamily.existing_dog_count : ''"
 						:label="getCapitalizedText(t('pages.users.dogCount'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="'Nombre de chiens'"
+						:placeholder="getCapitalizedText(t('pages.users.dogCount'))"
 						:disabled="!isEditMode"
 						:validation="'number|length:0,2'"
 						@update:modelValue="
