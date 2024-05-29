@@ -3,7 +3,7 @@
 		ArrowLeftStartOnRectangleIcon,
 		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
-	import { computed, onMounted, ref, watch } from 'vue';
+	import { computed, ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { AvailableLanguagesInterface } from '@/Services/Translations/index.ts';
