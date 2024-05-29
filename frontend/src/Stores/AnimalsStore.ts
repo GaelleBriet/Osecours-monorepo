@@ -139,7 +139,6 @@ export const useAnimalsStore = defineStore('animals', {
 			if ('error' in animalHealth) {
 				return false;
 			} else {
-				console.log('animalHealthStore', animalHealth);
 				this.animal.healthcares.push(animalHealth);
 				return true;
 			}

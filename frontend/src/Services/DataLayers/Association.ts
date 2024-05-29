@@ -4,8 +4,6 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-// const API_URL: string = 'http://localhost:8000/api';
-
 export const getAssociation = async (): Promise<
 	Association | ErrorResponse
 > => {

@@ -25,7 +25,6 @@
 		documents.value = docsByAnimal;
 		doctypes.value = allDocTypes;
 	};
-	console.log(doctypes)
 
 	onMounted(async () => {
 		fetchDocuments();
@@ -39,7 +38,6 @@
 	const getDoctypeNameById = (id: number): string | undefined => {
 		const doctype = doctypes.value.find((doctype) => doctype.id === id);
 		return doctype ? doctype.name : undefined;
-		// return doctype ? getCapitalizedText(t(`documentType.${doctype.name}`)) : undefined;
 	};
 
 	const documentsTransformed = computed(() => {

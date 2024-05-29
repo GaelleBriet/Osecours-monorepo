@@ -44,7 +44,6 @@
 			name: getCapitalizedText(t('navigation.dashboard')),
 			to: '/',
 			icon: 'icon-chart-bar',
-			//count: '5',
 			current: currentActiveRoute,
 		},
 		{

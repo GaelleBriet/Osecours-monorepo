@@ -35,7 +35,6 @@ const routes = [
 		path: '/login',
 		name: 'Login',
 		component: LoginController,
-		// props: { default: true },
 	},
 	{
 		path: '/animals',
