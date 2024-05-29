@@ -6,10 +6,6 @@
 	const props = defineProps<{
 		editMode: boolean;
 	}>();
-	import i18n from '@/Services/Translations';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-
-	const t = i18n.global.t;
 
 </script>
 <template>
