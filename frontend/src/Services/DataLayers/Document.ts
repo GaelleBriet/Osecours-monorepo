@@ -27,22 +27,20 @@ const sendDocumentRequest = async (
 	try {
 		// Create a new FormData object
 		const formData = new FormData();
-
+		
 		// Append all fields from the document to the FormData object
-		// for (const key in document) {
-		// 	if (document.hasOwnProperty(key)) {
-		// 		formData.append(key, (document as any)[key]);
-		// 	}
-		// }
 		for (const key in document) {
 			if (Object.prototype.hasOwnProperty.call(document, key)) {
 				formData.append(key, (document as any)[key]);
 			}
 		}
+		
+		const headers = formData.get('file') === 'undefined' ? "application/json" : "multipart/form-data";
+
 		// Make the request using Axios
 		const response: AxiosResponse = await axiosInstance[method](url, formData, {
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				'Content-Type': headers,
 			},
 		});
 
@@ -57,18 +55,6 @@ export const getDocument = async (
 	id: string | RouteParamValue[],
 ): Promise<Document | ErrorResponse> => {
 	try {
-		// const response = {
-		// 	id: 1,
-		//     filename: 'example1.txt',
-		//     description: 'This is the first example file.',
-		//     size: '10 KB',
-		//     url: 'https://example.com/files/example1.txt',
-		//     date: '2024-04-17',
-		//     mimeType: '3',
-		//     docType: '2'
-		// };
-		// return response;
-
 		const { data } = await axiosInstance.get(
 			`${import.meta.env.VITE_DOCUMENTS_API_URL}/${id}`,
 		);

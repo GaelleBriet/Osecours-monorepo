@@ -64,7 +64,6 @@
 
 	const addItem = () => {
 		showForm.value = true;
-		console.log(showForm.value);
 		return false;
 	};
 

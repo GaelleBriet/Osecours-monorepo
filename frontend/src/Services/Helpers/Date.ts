@@ -1,7 +1,3 @@
-// const dateStr = '2021-12-31';
-// const dateObj = new Date(dateStr);
-// console.log(dateObj);
-
 export const formatDate = (
 	date: Date | string,
 	format: 'short' | 'medium' | 'long',

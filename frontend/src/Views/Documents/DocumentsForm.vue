@@ -8,7 +8,7 @@
 	import { DoctypesForSelects } from '@/Interfaces/Documents/Doctypes.ts';
 	import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import i18n from '@/Services/Translations';
-	import { onMounted, ref, computed } from 'vue';
+	import { onMounted, ref, computed, watchEffect, toRefs } from 'vue';
 	import { getNode } from '@formkit/core';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { defineEmits } from 'vue';
@@ -30,7 +30,14 @@
 		document?: Document;
 	}>();
 
-	let localDocument = ref({ ...props.document });
+	const { document: initialDocument, isCreateMode } = toRefs(props);
+
+	const localDocument = ref({ ...(initialDocument.value || {}) });
+
+	watchEffect(() => {
+		localDocument.value = { ...(initialDocument.value || {}) };
+	});
+
 	let createdDocument = ref<Document>({});
 	const newDocument = ref<Document>({});
 	const doctypes = ref<DoctypesForSelects[]>([]);
@@ -44,7 +51,6 @@
 		message: '',
 		type: 'info',
 	});
-	console.log(localDocument)
 
 	onMounted(async () => {
 		if (props.isCreateMode) {

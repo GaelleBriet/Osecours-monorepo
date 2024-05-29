@@ -5,20 +5,25 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import DocumentsForm from '@/Views/Documents/DocumentsForm.vue';
 	import { Document } from '@/Interfaces/Documents/Documents.ts';
+	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 
 	const t = i18n.global.t;
 	const documentsStore = useDocumentsStore();
+	const doctypesStore = useDocumentsSettingsStore();
 	const documents = ref<Document[]>([]);
+	const doctypes = ref<Doctypes[]>([]);
 	const route = useRoute();
 	const router = useRouter();
 	const showForm = ref(false);
 
 	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
+		const allDocTypes = await doctypesStore.getAllDoctypes();
 		documents.value = docsByAnimal;
+		doctypes.value = allDocTypes;
 	};
 
 	onMounted(async () => {
@@ -30,12 +35,17 @@
 		showForm.value = false;
 	};
 
+	const getDoctypeNameById = (id: number): string | undefined => {
+		const doctype = doctypes.value.find((doctype) => doctype.id === id);
+		return doctype ? doctype.name : undefined;
+	};
+
 	const documentsTransformed = computed(() => {
 		return documents.value.map((document) => ({
-			...document
+			...document,
+			doctype_name: getDoctypeNameById(document.doctype_id)
 		}));
 	});
-
 	const editItem = (item) => {
 		router.push({
 			name: 'EditDocument',
@@ -49,19 +59,18 @@
 	};
 
 	const removeItem = (item) => {
-		console.log(item.id)
 		documentsStore.deleteDocument(item.id);
 	};
 </script>
 <template>
 	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
 		<DataGridComponent
-			:store="documentsStore"
+			:store="documentsStore" 
 			:model-value="documentsTransformed"
 			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'filename' },
-				{ label: getCapitalizedText(t('pages.documents.type')), key: 'mimeType' },
+				{ label: getCapitalizedText(t('pages.documents.type')), key: 'doctype_name' },
 				{ label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
 				{ label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
 			]"
@@ -69,7 +78,7 @@
 			@add="addItem"
 			@delete="removeItem"
 			@documentSaved="handleDocumentSaved"
-		/>
+		/>                
     </div>
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm

@@ -7,10 +7,6 @@
 		TransitionRoot,
 	} from '@headlessui/vue';
 
-	// const props = defineProps({
-	// 	isOpen: Boolean,
-	// });
-
 	const props = defineProps<{
 		isOpen: boolean;
 		title?: string;

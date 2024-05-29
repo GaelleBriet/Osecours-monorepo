@@ -50,7 +50,6 @@ export const useAnimalsStore = defineStore('animals', {
 		},
 		async getAnimals(): Promise<Animal[]> {
 			const animals: Animal[] | ErrorResponse = await getAnimals();
-			// console.log('animals', animals);
 			if ('error' in animals) {
 				return [];
 			} else {
@@ -140,7 +139,6 @@ export const useAnimalsStore = defineStore('animals', {
 			if ('error' in animalHealth) {
 				return false;
 			} else {
-				console.log('animalHealthStore', animalHealth);
 				this.animal.healthcares.push(animalHealth);
 				return true;
 			}

@@ -52,7 +52,6 @@
 	};
 
 	const removePhoto = (item) => {
-		console.log(item.id);
 		documentsStore.deleteDocument(item.id);
 	};
 </script>
@@ -65,8 +64,6 @@
 			:actions="false"
 		>
 			<div class="h-full">
-				<!-- <img src="`/storage/files/stringasdasd__6651c31a5a22a.jpg`" alt="Image"> -->
-
 				<div
 					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-4"
 				>

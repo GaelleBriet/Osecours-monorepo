@@ -134,10 +134,8 @@ export const useDocumentsStore = defineStore('documents', {
 			const updatedDocument: Document | ErrorResponse =
 				await updateDocument(id, document);
 			if ('error' in updatedDocument) {
-			console.log("hola")
 				return null;
 			} else {
-				console.log("adios")
 				this.documents.push(updatedDocument);
 				return updatedDocument;
 			}

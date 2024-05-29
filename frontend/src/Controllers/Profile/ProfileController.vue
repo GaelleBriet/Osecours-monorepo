@@ -188,10 +188,8 @@
 	}
 
 	.general-informations {
-		//max-height: calc(100% - 4rem);
 		display: flex;
 		flex-direction: column;
-		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
 	}
 
@@ -202,4 +200,3 @@
 		height: 100%;
 	}
 </style>
-//form { // display: flex; // flex-grow: 1; // flex-direction: column; //}
