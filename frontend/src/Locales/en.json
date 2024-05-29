@@ -23,7 +23,8 @@
 		"notImplemented": "not implemented",
 		"close": "close",
 		"consult": "consult",
-		"error": "error"
+		"error": "error",
+		"switchLang": "change language"
 	},
 	"navigation": {
 		"home": "home",
@@ -142,7 +143,7 @@
 			"settingBreeds": "breeds settings",
 			"settingColors": "colors settings",
 			"settingCoats": "coats settings",
-			"lastMeasures": "last measures",
+			"lastReports": "last reports",
 			"comment": "comments",
 			"addComment": "add a comment",
 			"addCommentPlaceholder": "add a comment...",
@@ -179,6 +180,7 @@
 			"association": "the association"
 		},
 		"shelters": {
+			"shelter": "the shelter",
 			"title": "list of shelters under the association's responsibility.",
 			"card": "refuge details",
 			"siret": "numéro de SIRET",
@@ -287,7 +289,8 @@
 			"file": "choose a file",
 			"image": "choose an image",
 			"photos": "photos",
-			"card": "documents"
+			"card": "documents",
+			"addDoc": "add a document"
 		}
 	},
 	"enums": {

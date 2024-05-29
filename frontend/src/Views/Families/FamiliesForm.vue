@@ -17,7 +17,6 @@
 	const t = i18n.global.t;
 	let isEditMode = ref(props.isEditMode);
 	const currentFamily = ref<Members | undefined>(props.family);
-	// const createdFamily = ref<Members | null>(null);
 
 	// paramètres de la notification
 	const notificationConfig = ref({
@@ -64,7 +63,7 @@
 						:model-value="!isCreateMode ? currentFamily.first_name : ''"
 						:label="getCapitalizedText(t('pages.users.firstName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="getCapitalizedText(t('form.firstName'))"
+						:placeholder="getCapitalizedText(t('pages.users.firstName'))"
 						:disabled="!isEditMode"
 						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:modelValue="!isCreateMode ? currentFamily.first_name : ''"
@@ -76,7 +75,7 @@
 						:model-value="!isCreateMode ? currentFamily.last_name : ''"
 						:label="getCapitalizedText(t('pages.users.lastName'))"
 						class="w-full border border-gray-300 rounded shadow-sm"
-						:placeholder="getCapitalizedText(t('form.lastName'))"
+						:placeholder="getCapitalizedText(t('pages.users.lastName'))"
 						:disabled="!isEditMode"
 						:validation="'contains_alpha_spaces|length:0,100'"
 						@update:modelValue="!isCreateMode ? currentFamily.last_name : ''"
@@ -102,7 +101,7 @@
 						class="w-full border border-gray-300 rounded shadow-sm"
 						:placeholder="getCapitalizedText(t('pages.users.phone'))"
 						:disabled="!isEditMode"
-						:validation="'number|length:0,10'"
+						:validation="'number|length:10,10'"
 						@update:modelValue="!isCreateMode ? currentFamily.phone : ''"
 					/>
 				</div>
