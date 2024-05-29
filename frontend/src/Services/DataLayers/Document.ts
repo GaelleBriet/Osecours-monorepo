@@ -28,18 +28,20 @@ const sendDocumentRequest = async (
 	try {
 		// Create a new FormData object
 		const formData = new FormData();
-
+		
 		// Append all fields from the document to the FormData object
 		for (const key in document) {
 			if (document.hasOwnProperty(key)) {
 				formData.append(key, (document as any)[key]);
 			}
 		}
+		
+		const headers = formData.get('file') === 'undefined' ? "application/json" : "multipart/form-data";
 
 		// Make the request using Axios
 		const response: AxiosResponse = await axiosInstance[method](url, formData, {
 			headers: {
-				'Content-Type': 'multipart/form-data',
+				'Content-Type': headers,
 			},
 		});
 

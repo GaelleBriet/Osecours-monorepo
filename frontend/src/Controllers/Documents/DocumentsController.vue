@@ -17,7 +17,7 @@
 			...document,
 		}));
 	});
-	//console.log(documentsTransformed)
+
 	const currentTab = ref(0);
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
