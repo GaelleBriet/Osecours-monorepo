@@ -35,7 +35,7 @@
 			...document
 		}));
 	});
-	
+
 	const editItem = (item) => {
 		router.push({
 			name: 'EditDocument',
@@ -56,7 +56,7 @@
 <template>
 	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
 		<DataGridComponent
-			:store="documentsStore" 
+			:store="documentsStore"
 			:model-value="documentsTransformed"
 			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
 			:columns="[
@@ -69,7 +69,7 @@
 			@add="addItem"
 			@delete="removeItem"
 			@documentSaved="handleDocumentSaved"
-		/>                
+		/>
     </div>
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm

@@ -17,8 +17,11 @@
 				md?: boolean;
 				lg?: boolean;
 			};
+			truncate?: boolean;
 		}[];
 		animalsChars?: boolean;
+		disableAddBtn?: boolean;
+		disableEditIcon?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -107,7 +110,10 @@
 						</svg>
 					</button>
 				</div>
-				<div class="mt-4 ml-22">
+				<div
+					v-if="!disableAddBtn"
+					class="mt-4 ml-22"
+				>
 					<button
 						id="add-animal-btn"
 						type="button"
@@ -177,7 +183,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- vue table for screens -->
+			<!-- vue table for large screens -->
 			<div class="hidden custonmXs:block overflow-x-auto">
 				<table class="min-w-full divide-y divide-gray-300">
 					<thead class="bg-gray-50">
@@ -219,7 +225,9 @@
 										'whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-500',
 										column.visibility?.md ? 'hidden customMd:block' : '',
 										column.visibility?.sm ? 'hidden customSm:block' : '',
+										column.truncate ? 'truncate max-w-[200px]' : '',
 									]"
+									v-tooltip="column.truncate ? item[column.key] : ''"
 								>
 									{{
 										typeof column.key === 'function'
@@ -233,12 +241,17 @@
 							>
 								<div class="flex gap-3">
 									<a
-										v-tooltip="getCapitalizedText(t('common.edit'))"
+										v-tooltip="
+											disableEditIcon
+												? getCapitalizedText(t('common.consult'))
+												: getCapitalizedText(t('common.edit'))
+										"
 										class="cursor-pointer"
 										@click="editItem(item)"
 									>
 										<i
-											class="icon-pencil text-indigo-600 hover:text-indigo-900 text-lg"
+											class="text-indigo-600 hover:text-indigo-900 text-lg"
+											:class="[disableEditIcon ? 'icon-oeil' : 'icon-pencil ']"
 										/>
 									</a>
 									<a
