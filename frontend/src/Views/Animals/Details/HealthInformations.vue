@@ -173,12 +173,14 @@
 						<span
 							class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 						>
-							Ajouter un commentaire
+							{{ getCapitalizedText(t('pages.animals.addComment')) }}
 						</span>
 					</p>
 					<FormTextArea
 						id="health-information"
-						placeholder="Ajouter une information de santé"
+						:placeholder="
+							getCapitalizedText(t('pages.animals.addCommentPlaceholder'))
+						"
 						:disabled="!isEditMode"
 						@update:modelValue="healthReport = $event"
 					/>
@@ -192,7 +194,7 @@
 							<span
 								class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 							>
-								Health documents
+								{{ getCapitalizedText(t('enums.documentType.healthRecords')) }}
 							</span>
 						</p>
 						<div class="ml-22">

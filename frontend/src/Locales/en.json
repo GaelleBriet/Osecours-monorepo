@@ -1,5 +1,7 @@
 {
 	"common": {
+		"yes": "yes",
+		"no": "no",
 		"next": "next",
 		"cancel": "cancel",
 		"logIn": "log in",
@@ -18,11 +20,11 @@
 		"search": "Search...",
 		"back": "back",
 		"success": "success",
-		"error": "error",
 		"notImplemented": "not implemented",
 		"close": "close",
 		"consult": "consult",
-		"error": "error"
+		"error": "error",
+		"switchLang": "change language"
 	},
 	"navigation": {
 		"home": "home",
@@ -55,6 +57,7 @@
 		"phone": "phone",
 		"selectRole": "select a role",
 		"messages": {
+			"support": "please contact the support team",
 			"required": "this field is required",
 			"email": "please enter a valid email address",
 			"min": "this field must contain at least {min} characters",
@@ -119,11 +122,20 @@
 			"coat": "coat",
 			"color": "color",
 			"size": "size",
+			"weight": "weight",
 			"ageRange": "age range",
 			"birthdate": "birthdate",
 			"details": "details",
 			"health": "health",
+			"vaccines": "vaccines",
+			"addVaccine": "add vaccine",
+			"vaccineDate": "vaccine date",
+			"friendliness" : "animal friendlyness",
+			"friendlinessKids" : "friendlyness with kids",
+			"friendlinessCats" : "friendlyness with cats",
+			"friendlinessDogs" : "friendlyness with dogs",
 			"behaviour": "behaviour",
+			"animalBehaviour": "animal behaviour",
 			"docs": "documents",
 			"addChar": "add characteristics",
 			"settingChars": "characteristics settings",
@@ -131,7 +143,12 @@
 			"settingBreeds": "breeds settings",
 			"settingColors": "colors settings",
 			"settingCoats": "coats settings",
+			"lastReports": "last reports",
+			"comment": "comments",
+			"addComment": "add a comment",
+			"addCommentPlaceholder": "add a comment...",
 			"messages": {
+				"errorGeneral": "une erreur est survenue",
 				"delete": "are you sure you want to delete this animal ?",
 				"deleteSuccess": "the animal has been successfully deleted",
 				"deleteError": "an error occurred while deleting the animal",
@@ -163,6 +180,7 @@
 			"association": "the association"
 		},
 		"shelters": {
+			"shelter": "the shelter",
 			"title": "list of shelters under the association's responsibility.",
 			"card": "refuge details",
 			"siret": "numéro de SIRET",
@@ -247,6 +265,7 @@
 			"catCount": "number of cats",
 			"dogCount": "number of dogs",
 			"childrenCount": "number of children",
+			"minZero": "minimum 0",
 			"adoptFamily": "adopt family",
 			"fosterFamily": "foster family",
 			"messages": {
@@ -255,6 +274,9 @@
 			}
 		},
 		"documents": {
+			"selectTypeDocs" : "select a type of document",
+			"selectDocs" : "select as many documents as you would like",
+			"addDoc": "Add a document",
 			"title": "list of all association's documents",
 			"titleAnimal": "list of all animal's documents",
 			"titleHealthAnimal": "list of all animal health documents",
@@ -267,7 +289,8 @@
 			"file": "choose a file",
 			"image": "choose an image",
 			"photos": "photos",
-			"card": "documents"
+			"card": "documents",
+			"addDoc": "add a document"
 		}
 	},
 	"enums": {

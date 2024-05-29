@@ -10,7 +10,7 @@
 		CategoryScale,
 		LinearScale,
 	} from 'chart.js';
-	import { ref, watchEffect } from 'vue';
+	import { ref, watch, watchEffect } from 'vue';
 
 	ChartJS.register(
 		Title,
@@ -51,6 +51,25 @@
 			},
 		},
 	});
+
+	watch(
+		() => props.title,
+		() => {
+			chartOptions.value = {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						position: 'top',
+					},
+					title: {
+						display: true,
+						text: props.title,
+					},
+				},
+			};
+		},
+	);
 
 	watchEffect(() => {
 		chartData.value = {

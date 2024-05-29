@@ -4,7 +4,6 @@ import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
-import { RouteParamValue } from 'vue-router';
 
 let currentAssociation;
 const userItem = localStorage.getItem('user');
