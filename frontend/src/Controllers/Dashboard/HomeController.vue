@@ -17,6 +17,7 @@
 
 	const associationName = userStore.user?.associationName as string;
 	const currentAssociationId = userStore.user?.associationId;
+
 	const animalsQuantity = ref(0);
 	const catsQuantity = ref(0);
 	const dogsQuantity = ref(0);

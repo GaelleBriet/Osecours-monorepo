@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Resources;
 
@@ -26,9 +26,10 @@ class AnimalResource extends JsonResource
             'color_id' => $this->color_id,
             'coat_id' => $this->coat_id,
             'sizerange_id' => $this->sizerange_id,
-            'agerange_id' => $this->agerange_id,   
+            'agerange_id' => $this->agerange_id,
             'identification' => $this->identification,
-            'vaccines' => VaccineResource::collection($this->vaccines),         
+            'vaccines' => VaccineResource::collection($this->vaccines),
+            'healthcares' => HealthcareResource::collection($this->healthcares),
             'breed' => $this->breed ? ["name"=> $this->breed->name, "id" => $this->breed->id]: null,
             'specie' => $this->specie ? ["name"=> $this->specie->name, "id" => $this->specie->id]: null,
             'gender' => $this->gender ? ["name"=> $this->gender->name, "id" => $this->gender->id]: null,

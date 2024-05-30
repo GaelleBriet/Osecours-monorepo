@@ -52,6 +52,7 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		catsColors: Color[];
 		dogsColors: Color[];
 		genders: Gender[];
+		isLoading: boolean;
 	} => ({
 		allSpecies: [],
 		species: null,
@@ -66,6 +67,7 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 		catsColors: [],
 		dogsColors: [],
 		genders: [],
+		isLoading: false,
 	}),
 	getters: {
 		getCurrentSpecies(): Species | null {
@@ -110,7 +112,9 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			}
 		},
 		async getAllSpecies(): Promise<Species[]> {
+			this.isLoading = true;
 			const species: Species[] | ErrorResponse = await getAllSpecies();
+			this.isLoading = false;
 			if ('error' in species) {
 				return [];
 			} else {
@@ -119,7 +123,9 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			}
 		},
 		async getAllBreeds(): Promise<Breed[]> {
+			this.isLoading = true;
 			const breeds: Breed[] | ErrorResponse = await getAllBreeds();
+			this.isLoading = false;
 			if ('error' in breeds) {
 				return [];
 			} else {
@@ -128,7 +134,9 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			}
 		},
 		async getAllCoats(): Promise<Coat[]> {
+			this.isLoading = true;
 			const coats: Coat[] | ErrorResponse = await getCoats();
+			this.isLoading = false;
 			if ('error' in coats) {
 				return [];
 			} else {
@@ -137,7 +145,9 @@ export const useAnimalsSettingsStore = defineStore('animalsSettings', {
 			}
 		},
 		async getAllColors(): Promise<Color[]> {
+			this.isLoading = true;
 			const colors: Color[] | ErrorResponse = await getColors();
+			this.isLoading = false;
 			if ('error' in colors) {
 				return [];
 			} else {

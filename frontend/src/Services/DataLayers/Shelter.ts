@@ -4,8 +4,6 @@ import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import { AxiosResponse } from 'axios';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
-// const API_URL: string = 'http://localhost:8000/api';
-
 export const getShelter = async () // id: number,
 : Promise<Shelter | ErrorResponse> => {
 	try {
@@ -18,8 +16,6 @@ export const getShelter = async () // id: number,
 			email: 'refugedeJade@jade.com',
 			phone: '07 551 900 438',
 		};
-		return response;
-
 		return response;
 		// const response: AxiosResponse<Shelter> = await axiosInstance.get<Shelter>(
 		// 	`${import.meta.env.VITE_SHELTERS_API_URL}/${id}`,

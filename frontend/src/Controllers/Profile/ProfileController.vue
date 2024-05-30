@@ -7,6 +7,7 @@
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+  import {User} from "@/Interfaces/User.ts";
 
 	const userStore = useUserStore();
 	const t = i18n.global.t;
@@ -18,7 +19,7 @@
 		type: 'info',
 	});
 
-	const user = ref(userStore.user);
+	const user: User = ref(userStore.user);
 
 	const onSubmit = async () => {
 		notificationConfig.value = {
@@ -47,91 +48,51 @@
 				<div class="md:flex md:flex-col md:max-w-[40em] md:mx-auto">
 					<FormText
 						:label="getCapitalizedText(t('form.name'))"
-						v-model="user.lastName"
+						:model-value="user.lastName"
 						:placeholder="getCapitalizedText(t('form.name'))"
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
 					/>
 					<FormText
 						:label="getCapitalizedText(t('form.firstName'))"
-						v-model="user.firstName"
+						:model-value="user.firstName"
 						:placeholder="getCapitalizedText(t('form.firstName'))"
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
 					/>
 					<FormText
 						:label="getCapitalizedText(t('form.email'))"
-						v-model="user.email"
+						:model-value="user.email"
 						:placeholder="getCapitalizedText(t('form.email'))"
 						:disabled="!isEditMode"
 						:validation="'email'"
 						class="min-w-[110px]"
 					/>
 					<FormPassword
+            id="user-password"
+            :name="'password'"
+						:model-value="user.password"
 						:label="getCapitalizedText(t('form.password'))"
-						v-model="user.password"
+            :confirm-label="getCapitalizedText(t('form.confirmPassword'))"
+            :validation="[['required'], ['matches', /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/]]"
 						:placeholder="getCapitalizedText(t('form.password'))"
 						:disabled="!isEditMode"
-						:validation="'password'"
-						class="min-w-[110px]"
-						id="user-password"
+            :show-confirm="true"
 					/>
 					<FormText
 						:label="getCapitalizedText(t('form.phone'))"
-						v-model="user.phoneNumber"
+						:model-value="user.phoneNumber"
 						:placeholder="getCapitalizedText(t('form.phone'))"
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
 					/>
 					<FormText
 						:label="getCapitalizedText(t('form.phone'))"
-						v-model="user.phoneNumber"
+						:model-value="user.phoneNumber"
 						:placeholder="getCapitalizedText(t('form.phone'))"
 						:disabled="!isEditMode"
 						class="min-w-[110px]"
 					/>
-
-					@todo: add address
-
-					<!--					<FormNumber-->
-					<!--						:label="getCapitalizedText(t('pages.users.catCount'))"-->
-					<!--						v-model="user.cats"-->
-					<!--						:placeholder="getCapitalizedText(t('pages.users.catCount'))"-->
-					<!--						:disabled="!isEditMode"-->
-					<!--						class="min-w-[110px]"-->
-					<!--						step="1"-->
-					<!--					/>-->
-					<!--					<FormNumber-->
-					<!--						:label="getCapitalizedText(t('pages.users.dogCount'))"-->
-					<!--						v-model="user.dogs"-->
-					<!--						:placeholder="getCapitalizedText(t('pages.users.dogCount'))"-->
-					<!--						:disabled="!isEditMode"-->
-					<!--						class="min-w-[110px]"-->
-					<!--						step="1"-->
-					<!--					/>-->
-					<!--					<FormNumber-->
-					<!--						:label="getCapitalizedText(t('pages.users.childrenCount'))"-->
-					<!--						v-model="user.children"-->
-					<!--						:placeholder="getCapitalizedText(t('pages.users.childrenCount'))"-->
-					<!--						:disabled="!isEditMode"-->
-					<!--						class="min-w-[110px]"-->
-					<!--						step="1"-->
-					<!--					/>-->
-
-					<!--					<div class="flex flex-col md:flex-row mt-5">-->
-					<!--						<FormToggle-->
-					<!--							:label="getCapitalizedText(t('pages.users.fosterFamily'))"-->
-					<!--							v-model="user.fosterFamily"-->
-					<!--							:disabled="!isEditMode"-->
-					<!--							class="min-w-[110px]"-->
-					<!--						/>-->
-					<!--						<FormToggle-->
-					<!--							:label="getCapitalizedText(t('pages.users.adoptFamily'))"-->
-					<!--							v-model="user.adoptFamily"-->
-					<!--							:disabled="!isEditMode"-->
-					<!--							class="min-w-[110px]"-->
-					<!--						/>-->
-					<!--					</div>-->
 				</div>
 				<div class="">
 					<div
@@ -188,10 +149,8 @@
 	}
 
 	.general-informations {
-		//max-height: calc(100% - 4rem);
 		display: flex;
 		flex-direction: column;
-		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
 	}
 
@@ -202,4 +161,3 @@
 		height: 100%;
 	}
 </style>
-//form { // display: flex; // flex-grow: 1; // flex-direction: column; //}

@@ -5,6 +5,7 @@
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -37,6 +38,10 @@
 				},
 			]"
 			:animals-chars="true"
+		/>
+		<LoaderComponent
+			class="mt-5"
+			v-if="animalSettingsStore.isLoading"
 		/>
 	</div>
 </template>

@@ -3,12 +3,15 @@
 		ArrowLeftStartOnRectangleIcon,
 		ChevronRightIcon,
 	} from '@heroicons/vue/24/outline';
-	import { computed, ref } from 'vue';
+	import { computed, ref, watch } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { useUserStore } from '@/Stores/UserStore.ts';
-	import i18n from '@/Services/Translations/index.ts';
+	import { AvailableLanguagesInterface } from '@/Services/Translations/index.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getFromStorage } from '@/Services/Helpers/LocalStorage.ts';
+	import { switchLanguage as switchLang } from '@/Services/Translations/index.ts';
+	import { locale } from '@/Services/Translations/index.ts';
+	import i18n from '@/Services/Translations/index.ts';
 
 	const userStore = useUserStore();
 	const router = useRouter();
@@ -36,12 +39,11 @@
 		dropdownOpen.value = !dropdownOpen.value;
 	};
 
-	const navigation = [
+	const navigation = computed(() => [
 		{
 			name: getCapitalizedText(t('navigation.dashboard')),
 			to: '/',
 			icon: 'icon-chart-bar',
-			//count: '5',
 			current: currentActiveRoute,
 		},
 		{
@@ -100,12 +102,25 @@
 			icon: 'icon-famille',
 			current: currentActiveRoute,
 		},
-	];
+	]);
 
 	const openProfile = () => {
 		router.push('/profile');
 		dropdownOpen.value = false;
 	};
+
+	const switchLanguage = () => {
+		const currentLanguage = getFromStorage(
+			'locale',
+		) as AvailableLanguagesInterface;
+		const newLocale = currentLanguage === 'fr-FR' ? 'en-GB' : 'fr-FR';
+		switchLang(newLocale);
+		dropdownOpen.value = false;
+	};
+
+	watch(locale, (newLocale) => {
+		switchLang(newLocale as AvailableLanguagesInterface);
+	});
 </script>
 <template>
 	<div
@@ -235,41 +250,62 @@
 						</div>
 
 						<!--			dropdwon menu  hidden on small screens   -->
-						<div
-							v-if="dropdownOpen"
-							class="dropdown_menu sm:block hidden absolute right-0 z-10 mt-2 w-40 origin-bottom-right rounded-md shadow-lg ring-1 ring-black ring-opacity-10 focus:outline-none"
-							tabindex="-1"
-							role="menu"
-							aria-orientation="vertical"
-							aria-labelledby="options-menu"
-						>
+						<transition name="dropdown-fade">
 							<div
-								class="py-1"
-								role="none"
+								v-if="dropdownOpen"
+								class="dropdown_menu sm:block hidden absolute right-0 z-10 mt-2 w-40 origin-bottom-right rounded-md shadow-lg ring-1 ring-black ring-opacity-10 focus:outline-none"
+								tabindex="-1"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="options-menu"
 							>
-								<a
-									href="#"
-									class="block px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
-									role="menuitem"
-									tabindex="-1"
-									id="options-menu-item-0"
-									@click="openProfile"
+								<div
+									class="py-1"
+									role="none"
 								>
-									{{ getCapitalizedText(t('common.profile')) }}
-								</a>
-								<hr class="dropdown_menu__separator my-1 border-0 h-0.5" />
-								<a
-									href="#"
-									class="block px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
-									role="menuitem"
-									tabindex="-1"
-									id="options-menu-item-2"
-									@click="logout"
-								>
-									{{ getCapitalizedText(t('logout.title')) }}
-								</a>
+									<a
+										href="#"
+										class="block px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
+										role="menuitem"
+										tabindex="-1"
+										id="options-menu-item-0"
+										@click="openProfile"
+									>
+										{{ getCapitalizedText(t('common.profile')) }}
+									</a>
+									<hr class="dropdown_menu__separator my-1 border-0 h-0.5" />
+									<a
+										href="#"
+										class="block px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
+										role="menuitem"
+										tabindex="-1"
+										id="options-menu-item-2"
+										@click="logout"
+									>
+										{{ getCapitalizedText(t('logout.title')) }}
+									</a>
+									<hr class="dropdown_menu__separator my-1 border-0 h-0.5" />
+									<a
+										href="#"
+										class="flex items-center px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
+										@click.prevent="switchLanguage"
+										>{{ getCapitalizedText(t('common.switchLang')) }}
+										<span class="ml-2">
+											<img
+												v-if="locale === 'en-GB'"
+												class="max-w-5"
+												src="@/Assets/Images/fr-FR.png"
+											/>
+											<img
+												v-if="locale === 'fr-FR'"
+												class="max-w-5"
+												src="@/Assets/Images/en-GB.png"
+											/>
+										</span>
+									</a>
+								</div>
 							</div>
-						</div>
+						</transition>
 						<!--						icons visibles on small screens     -->
 						<div
 							v-if="dropdownOpen"
@@ -293,6 +329,24 @@
 								@click="logout"
 							>
 								<ArrowLeftStartOnRectangleIcon class="h-6 w-6" />
+							</a>
+							<a
+								href="#"
+								class="block p-2 pt-0 text-gray-700 hover:bg-gray-100 hover:rounded hover:text-osecours-beige-dark sm:hidden"
+								@click.prevent="switchLanguage"
+							>
+								<span class="ml-2">
+									<img
+										v-if="locale === 'en-GB'"
+										class="max-w-5"
+										src="@/Assets/Images/fr-FR.png"
+									/>
+									<img
+										v-if="locale === 'fr-FR'"
+										class="max-w-5"
+										src="@/Assets/Images/en-GB.png"
+									/>
+								</span>
 							</a>
 						</div>
 					</li>
@@ -327,5 +381,15 @@
 	}
 	.dropdown_menu__separator {
 		background-color: var(--color-beige-light);
+	}
+
+	/* Transition Classes */
+	.dropdown-fade-enter-active,
+	.dropdown-fade-leave-active {
+		transition: opacity 0.5s;
+	}
+	.dropdown-fade-enter-from,
+	.dropdown-fade-leave-to {
+		opacity: 0;
 	}
 </style>

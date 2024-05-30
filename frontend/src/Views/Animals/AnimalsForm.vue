@@ -329,7 +329,7 @@
 					<FormSelect
 						id="animal-species"
 						:model-value="selectedSpecies"
-						:name="'animal-species'"
+						:name="getCapitalizedText(t('pages.animals.species'))"
 						:label="
 							addRequiredIndicator(
 								getCapitalizedText(t('pages.animals.species')),
