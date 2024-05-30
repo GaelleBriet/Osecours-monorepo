@@ -11,13 +11,13 @@ export interface UserTokenScope {
 export interface User {
 	id?: number | string;
 	associations?: Association[];
-	firstName?: string;
-	lastName?: string;
-	phone?: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
 	existingCatCount?: number;
 	existingChildrenCount?: number;
 	existingDogCount?: number;
-	email?: string;
+	email: string;
 	token?: string;
 	scopes?: string;
 	associationName?: string;
@@ -28,4 +28,5 @@ export interface User {
 	adoptFamily?: boolean;
 	fosterFamily?: boolean;
 	role?: string;
+	password: string;
 }

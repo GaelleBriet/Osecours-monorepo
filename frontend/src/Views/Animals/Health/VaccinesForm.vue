@@ -4,6 +4,10 @@
 	import { generateOptionsWithDefault } from '@/Services/Helpers/Enums.ts';
 	import { Vaccines } from '@/Enums/Vaccines.ts';
 	import { ref } from 'vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import { useI18n } from 'vue-i18n';
+
+	const t = useI18n().t;
 
 	const props = defineProps<{
 		editMode: boolean;
@@ -39,7 +43,7 @@
 			<span
 				class="border-b-2 border-osecours-pink border-opacity-50 text-osecours-black text-lg"
 			>
-				Ajouter un vaccin
+				{{ getCapitalizedText(t('pages.animals.addVaccine')) }}
 			</span>
 		</p>
 		<FormSelect
@@ -53,7 +57,7 @@
 		<FormDate
 			id="vaccine-date"
 			name="vaccine-date"
-			label="Date de vaccination"
+			:label="getCapitalizedText(t('pages.animals.vaccineDate'))"
 			:disabled="!props.editMode"
 			@update:modelValue="updateVaccineDate"
 		/>

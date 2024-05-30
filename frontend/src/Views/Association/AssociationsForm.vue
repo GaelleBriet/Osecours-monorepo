@@ -20,6 +20,7 @@
 	const t = i18n.global.t;
 	const isEditMode = ref(false);
 	let createdAssociation = ref<Association>({});
+	const associationToUpdate = ref<Association | null>(null);
 
 	const notificationConfig = ref({
 		show: false,
@@ -35,8 +36,7 @@
 			);
 		}
 		if (!props.isCreateMode) {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const associationToUpdate = await associationsStore.updateAssociation(
+			associationToUpdate.value = await associationsStore.updateAssociation(
 				localAssociation.value,
 			);
 			// const associationToUpdate = props.association;
@@ -48,9 +48,8 @@
 		notificationConfig.value = {
 			show: true,
 			message: !props.isCreateMode
-				? // eslint-disable-next-line no-undef
-					`${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate?.name} ${getCapitalizedText(t('common.update'))}`
-				: `${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate?.name} ${getCapitalizedText(t('common.creation'))}`,
+				? `${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate.value?.name} ${getCapitalizedText(t('common.update'))}`
+				: `${getCapitalizedText(t('pages.associations.association'))} ${associationToUpdate.value?.name} ${getCapitalizedText(t('common.creation'))}`,
 			type: 'success',
 		};
 		isEditMode.value = false;
