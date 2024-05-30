@@ -7,10 +7,6 @@
 		TransitionRoot,
 	} from '@headlessui/vue';
 
-	// const props = defineProps({
-	// 	isOpen: Boolean,
-	// });
-
 	const props = defineProps<{
 		isOpen: boolean;
 		title?: string;
@@ -106,6 +102,7 @@
 									{{ description }}
 								</p>
 							</div>
+							<slot name="beforeButtons"></slot>
 							<div class="flex flex-row gap-2 mt-5 mb-2 justify-around">
 								<button
 									v-if="confirmButton"
@@ -114,7 +111,7 @@
 									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
 									@click="onConfirm"
 								>
-									{{ 'Supprimer' }}
+									{{ 'Confimer' }}
 								</button>
 								<button
 									v-if="cancelButton"

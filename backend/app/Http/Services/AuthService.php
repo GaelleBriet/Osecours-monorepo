@@ -26,13 +26,14 @@ class AuthService
                 throw new Exception("Association not found");
             }
             $adminRoleId = Role::where("name", RoleEnum::ADMIN->value)->first()->id;
+            $presidentRoleId = Role::where("name", RoleEnum::PRESIDENT->value)->first()->id;
             $currentRoleIdList = $currentAssociations->map(function ($association) {
                 return $association->pivot["role_id"];
             });
 
             $allScopes = self::getAllScopes($currentRoleIdList);
 
-            if ($currentRoleIdList->contains($adminRoleId)) {
+            if ($currentRoleIdList->contains($adminRoleId) || $currentRoleIdList->contains($presidentRoleId)) {
                 $abilities[] = '*';
                 $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
             } else {
@@ -57,9 +58,13 @@ class AuthService
             $scope = "";
             switch (Role::find($id)->name) {
                 case "user":
-                    $scope = AccessScopeEnum::USER_ACCESS_SCOPE->value;
+                case "accountant":
+                case "adopt":
+                case "foster":
+                $scope = AccessScopeEnum::USER_ACCESS_SCOPE->value;
                     break;
                 case "admin":
+                case "president":
                     $scope = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
                     break;
                 default:

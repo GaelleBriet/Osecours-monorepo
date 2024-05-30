@@ -2,16 +2,19 @@
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import { Members } from '@/Interfaces/Members.ts';
+	import { Role } from '@/Enums/Role.ts';
+	import { Scopes } from '@/Enums/Scopes.ts';
 	import router from '@/Router';
+	import i18n from '@/Services/Translations';
 	import { onMounted, ref } from 'vue';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import i18n from '@/Services/Translations';
-	import { Role } from '@/Enums/Role.ts';
+	import { hasScope } from '@/Services/Helpers/ScopeCheck.ts';
 
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
+	const currentUser = userStore.user;
 
 	let members = ref<Members[]>([]);
 	const showModal = ref(false);
@@ -22,25 +25,36 @@
 
 	const columns = ref([
 		{
-			label: getCapitalizedText(t('pages.families.name')),
+			label: getCapitalizedText(t('pages.members.name')),
 			key: 'fullName',
 		},
 		{
-			label: getCapitalizedText(t('pages.families.role')),
+			label: getCapitalizedText(t('pages.members.role')),
 			key: 'role',
+			visibility: { sm: true },
 		},
 		{
-			label: getCapitalizedText(t('pages.families.email')),
+			label: getCapitalizedText(t('pages.members.email')),
 			key: 'email',
-			visibility: { sm: true },
+			truncate: true,
 		},
 	]);
 
 	const editItem = (item: Members) => {
 		router.push({
-			name: 'EditFamilies',
+			name: 'EditMembers',
 			params: { id: item.id },
 		});
+	};
+
+	const addItem = () => {
+		if (!hasScope(currentUser?.scopes, Scopes.GLOBAL_ACCESS)) {
+			return;
+		} else {
+			router.push({
+				name: 'AddMembers',
+			});
+		}
 	};
 
 	const openModal = (item: Members) => {
@@ -101,8 +115,11 @@
 			:title="getCapitalizedText(t('navigation.members'))"
 			:description="getCapitalizedText(t('pages.users.title'))"
 			:columns="columns"
+			:disable-add-btn="false"
+			:disable-edit-icon="true"
 			@edit="editItem"
 			@delete="openModal"
+			@add="addItem"
 		/>
 		<ModalComponent
 			:isOpen="showModal"

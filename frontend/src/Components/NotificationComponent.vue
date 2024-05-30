@@ -18,7 +18,6 @@
 			}),
 		},
 	});
-	// type: 'success' || 'error' || 'warning' || 'info',
 
 	const emit = defineEmits(['close']);
 

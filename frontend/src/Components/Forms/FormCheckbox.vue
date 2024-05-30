@@ -101,7 +101,6 @@
 		&:hover {
 			cursor: pointer;
 		}
-		//box-shadow: none;
 	}
 	.dark\:ring-offset-blue-500 {
 		--tw-ring-offset-color: white;

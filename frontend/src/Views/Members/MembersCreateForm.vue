@@ -1,30 +1,16 @@
 <script setup lang="ts">
-	import { Members } from '@/Interfaces/Members.ts';
-	import { onMounted, ref } from 'vue';
-	import { useRouter } from 'vue-router';
+	import MembersForm from '@/Views/Members/MembersForm.vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { useMembersStore } from '@/Stores/MembersStore.ts';
-	import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
 
-	const router = useRouter();
-	const membersStore = useMembersStore();
 	const t = i18n.global.t;
-	const route = router.currentRoute;
-	const currentId = route.value.params.id;
-	const currentFamily = ref<Members | null>(null);
-
-	onMounted(async () => {
-		currentFamily.value = await membersStore.getMemberById(currentId);
-	});
 </script>
 
 <template>
 	<div class="container">
 		<div class="flex flex-row justify-between">
 			<div class="text-2xl mb-1">
-				{{ getCapitalizedText(t('pages.families.card')) }}:
-				{{ currentFamily?.first_name }} {{ currentFamily?.last_name }}
+				{{ getCapitalizedText(t('pages.members.card')) }}
 			</div>
 			<button
 				id="back-btn"
@@ -35,12 +21,10 @@
 			</button>
 		</div>
 		<div class="content">
-			<template v-if="currentFamily">
-				<FamiliesForm
-					:family="currentFamily"
-					:is-edit-mode="false"
-				/>
-			</template>
+			<MembersForm
+				:is-edit-mode="true"
+				:is-create-mode="true"
+			/>
 		</div>
 	</div>
 </template>

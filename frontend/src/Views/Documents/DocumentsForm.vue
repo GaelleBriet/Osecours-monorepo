@@ -1,114 +1,107 @@
 <script lang="ts" setup>
 	import FormText from '@/Components/Forms/FormText.vue';
 	import FormFile from '@/Components/Forms/FormFile.vue';
-	import FormDate from '@/Components/Forms/FormDate.vue';
 	import FormTextArea from '@/Components/Forms/FormTextArea.vue';
 	import FormSelect from '@/Components/Forms/FormSelect.vue';
 	import Form from '@/Components/Forms/Form.vue';
 	import NotificationComponent from '@/Components/NotificationComponent.vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
-	import { onMounted, ref, computed } from 'vue';
+	import { DoctypesForSelects } from '@/Interfaces/Documents/Doctypes.ts';
+	import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import i18n from '@/Services/Translations';
-  import { Document } from '@/Interfaces/Documents/Documents.ts';
-	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
+	import { onMounted, ref, computed, watchEffect, toRefs } from 'vue';
 	import { getNode } from '@formkit/core';
+	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
+	import { defineEmits } from 'vue';
+	import { useRoute } from 'vue-router';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
 	import { fetchDataAndFormatOptions } from '@/Services/Helpers/SelectOptions.ts';
 
+	const route = useRoute();
+	const t = i18n.global.t;
 	const documentSettingsStore = useDocumentsSettingsStore();
-
 	const documentsStore = useDocumentsStore();
+
+	const emit = defineEmits(['documentSaved']);
+
 	const props = defineProps<{
 		isCreateMode?: boolean;
+		isPhotoMode?: boolean;
 		document?: Document;
 	}>();
 
-	let localDocument = ref({ ...props.document });
-	import { useRoute } from 'vue-router';
-	import { DoctypesForSelects } from '@/Interfaces/Documents/Doctypes.ts';
+	const { document: initialDocument, isCreateMode } = toRefs(props);
 
-	const route = useRoute();
-	const id = route.params.id;
-	const t = i18n.global.t;
-	const isEditMode = ref(false);
+	const localDocument = ref({ ...(initialDocument.value || {}) });
+
+	watchEffect(() => {
+		localDocument.value = { ...(initialDocument.value || {}) };
+	});
+
 	let createdDocument = ref<Document>({});
 	const newDocument = ref<Document>({});
 	const doctypes = ref<DoctypesForSelects[]>([]);
+	const id = route.params.id;
+	const isEditMode = ref(false);
 	const showFileForm = computed(() => {
 		return isEditMode.value;
 	});
-
 	const notificationConfig = ref({
 		show: false,
 		message: '',
 		type: 'info',
 	});
 
-	//extract the file extension from the MIME type
-	const getFileExtensionFromMimeType = (mimeType: string): string | null => {
-		const extensionMap: Record<string, string> = {
-			'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 1, // 'docx',
-			'application/msword': 2, //'doc',
-			'application/vnd.ms-excel': 3, //'xls',
-			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 4, //'xlsx',
-			'application/rtf': 5, // 'rtf',
-			'application/pdf': 6, // 'pdf',
-			'text/plain': 7, // 'txt',
-		};
-
-		return extensionMap[mimeType] || null;
-	};
-
 	onMounted(async () => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
 		}
-		console.log(props.isCreateMode);
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
 		doctypes.value = await fetchDataAndFormatOptions(
 			documentSettingsStore.getAllDoctypes,
 			'enums.documentType',
-			'Sélectionner une type de document',
+			`${getCapitalizedText(t('pages.documents.selectTypeDocs'))}`,
 		);
-		console.log(doctypes);
 	});
 
-	const onSubmit = async () => {
-		// on récupère le formulaire pour vérifier s'il est valide
+	const isFormValid = () => {
 		let formId = ref('');
 		let formNode = ref(null);
 		formId.value = !props.isCreateMode
 			? `edit-document${localDocument.value.id}`
 			: 'create-document';
 		formNode.value = getNode(formId.value);
-		const isFormValid = formNode.value?.context.state.valid;
+		return formNode.value?.context.state.valid;
+	};
+
+	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
 		if (!isFormValid) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Un ou plusieurs champs sont invalides',
-				message: 'Veuillez vérifier les champs',
+				title: `${getCapitalizedText(t('form.messages.warning'))}`,
+				message: `${getCapitalizedText(t('form.messages.check'))}`,
 				type: 'warning',
 			};
 			return;
 		}
+
 		// on prépare les données de l'document pour l'envoi à l'api
-		// Get MIME type of uploaded file
-		const fileInputElement = document.getElementById('documents-file');
-		const uploadedFile = (fileInputElement as HTMLInputElement).files[0];
-		const fileSize = uploadedFile.size;
-		const mimeType = uploadedFile.type;
-		console.log(fileInputElement as HTMLInputElement);
+		const formData = props.isCreateMode
+			? createdDocument.value
+			: localDocument.value;
+		const fileInput = document.getElementById('document-file');
+		const files = fileInput?.files;
+		const file = files[0];
+
+		// formData.append('filename', localDocument.value.filename);
+		// formData.append('description', localDocument.value.description);
+		formData.file = file;
 
 		const documentData = props.isCreateMode
 			? createdDocument.value
 			: localDocument.value;
 
-		documentData.size = fileSize;
-		documentData.mimetype_id = getFileExtensionFromMimeType(mimeType);
-		documentData.doctype_id = 1;
-		documentData.url = 'test';
-		console.log(documentData);
 		if (!props.isCreateMode) {
 			documentData.number = localDocument.value.identification?.number;
 		} else {
@@ -117,25 +110,25 @@
 
 		// on envoie les données à l'api
 		newDocument.value = props.isCreateMode
-			? await documentsStore.createDocument(documentData)
-			: await documentsStore.createDocumentForAnimal(id, documentData);
+			? await documentsStore.createDocumentForAnimal(id, formData)
+			: await documentsStore.updateDocument(id, formData);
 
 		// on affiche une notification en fonction du résultat de la requête
 		if (!newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Une erreur est survenue',
-				message: 'Veuillez contacter le support',
+				title: `${getCapitalizedText(t('form.messages.errorGeneral'))}`,
+				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
 				type: 'error',
 			};
 			return;
 		} else if (newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: 'Succès',
+				title: `${getCapitalizedText(t('common.success'))}`,
 				message: !props.isCreateMode
-					? `Le document ${localDocument.value?.name || ''} a bien été mis à jour`
-					: `Le document ${createdDocument.value?.name || ''} a bien été créé`,
+					? `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`
+					: `${getCapitalizedText(t('pages.animals.messages.createDocSuccess'))}`,
 				type: 'success',
 			};
 			// on réinitialise les valeurs du formulaire
@@ -145,6 +138,7 @@
 				localDocument.value = { ...newDocument.value };
 				isEditMode.value = false;
 			}
+			emit('documentSaved');
 		}
 	};
 </script>
@@ -153,13 +147,15 @@
 	<div class="documents-view bg-osecours-beige-dark bg-opacity-10">
 		<Form
 			:id="
-				!isCreateMode ? `edit-document${localDocument.id}` : 'create-document'
+				!isCreateMode
+					? `edit-document${localDocument.id ?? -1}`
+					: 'create-document'
 			"
 			:submit-label="'edit-document'"
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-1 rounded-b-lg shadow-md p-2 flex-grow"
+				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-2 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
@@ -171,9 +167,20 @@
 						class="lg:col-start-2 lg:row-start-1 lg:pb-0 pb-7"
 					>
 						<FormFile
-							id="documents-file"
-							:label="getCapitalizedText(t('pages.documents.file'))"
-							accept=".pdf,.doc,.docx,.xls,.xlsx,.rtf,.txt"
+							:id="'document-file'"
+							:model-value="
+								!isCreateMode ? localDocument.file : createdDocument.file
+							"
+							:label="
+								isPhotoMode
+									? getCapitalizedText(t('pages.documents.image'))
+									: getCapitalizedText(t('pages.documents.file'))
+							"
+							:accept="
+								isPhotoMode
+									? '.jpg,.bmp,.png'
+									: '.pdf,.doc,.docx,.jpg,.bmp,.png'
+							"
 							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
 							:multiple="true"
@@ -181,6 +188,11 @@
 							outer-class="h-full"
 							wrapper-class="h-full"
 							inner-class="h-full"
+							@update:modelValue="
+								!isCreateMode
+									? (localDocument.file = $event)
+									: (createdDocument.file = $event)
+							"
 						/>
 					</div>
 					<div>
@@ -232,7 +244,7 @@
 								:model-value="
 									!isCreateMode
 										? localDocument?.doctype_id
-										: createdDocument.doctype_id
+										: createdDocument.doctype
 								"
 								:name="'document-type'"
 								:label="getCapitalizedText(t('pages.documents.type'))"
@@ -243,33 +255,13 @@
 								@update:model-value="
 									!isCreateMode
 										? (localDocument.doctype_id = $event)
-										: (createdDocument.doctype_id = $event)
-								"
-							/>
-						</div>
-						<div class="col-start-1 lg:row-start-4">
-							<FormDate
-								id="document-date"
-								:model-value="
-									!isCreateMode
-										? localDocument?.date
-										: createdDocumlocalDocument.date
-								"
-								:name="'document-date'"
-								:label="getCapitalizedText(t('pages.documents.date'))"
-								:disabled="!isEditMode"
-								:validation="`date_before:${new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}`"
-								:validation-visibility="'blur'"
-								@update:modelValue="
-									!isCreateMode
-										? (localDocument.date = $event)
-										: (createdDocumlocalDocument.date = $event)
+										: (createdDocument.doctype = $event)
 								"
 							/>
 						</div>
 					</div>
 				</div>
-				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2 grid items-end">
+				<div class="my-1 lg:my-3 row-start-2 lg:row-start-2">
 					<div class="grid lg:grid-cols-2">
 						<div class="flex flex-row justify-end lg:col-start-2">
 							<button
