@@ -5,8 +5,15 @@ import { RouteParamValue } from 'vue-router';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
 import axiosInstance from '@/Services/DataLayers/AxiosInstance.ts';
 
+// const currentAssociation = JSON.parse(localStorage.getItem('user'));
+// const associationId = currentAssociation.associations[0].id;
+
+let associationId = null;
 const currentAssociation = JSON.parse(localStorage.getItem('user'));
-const associationId = currentAssociation.associations[0].id;
+
+if (currentAssociation && currentAssociation.associations) {
+    associationId = currentAssociation.associations[0].id;
+}
 
 export const getDocument = async (
 	id: string | RouteParamValue[],
