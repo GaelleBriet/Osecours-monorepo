@@ -26,10 +26,6 @@
 		doctypes.value = allDocTypes;
 	};
 
-	onMounted(async () => {
-		fetchDocuments();
-	});
-
 	const handleDocumentSaved = () => {
 		fetchDocuments();
 		showForm.value = false;
@@ -46,6 +42,7 @@
 			doctype_name: getDoctypeNameById(document.doctype_id)
 		}));
 	});
+
 	const editItem = (item) => {
 		router.push({
 			name: 'EditDocument',
@@ -61,6 +58,11 @@
 	const removeItem = (item) => {
 		documentsStore.deleteDocument(item.id);
 	};
+
+  onMounted(async () => {
+    await fetchDocuments();
+  });
+
 </script>
 <template>
 	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">

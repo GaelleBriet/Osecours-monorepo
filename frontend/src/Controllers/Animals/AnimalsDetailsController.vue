@@ -71,7 +71,7 @@
 				<HealthInformations :animal="currentAnimal" />
 			</template>
 			<template v-if="currentTab === 3 && currentAnimal">
-				<AnimalsDocuments :animal="currentAnimal" />
+				<AnimalsDocuments />
 			</template>
 			<template v-if="currentTab === 4 && currentAnimal">
 				<AnimalsPhotos :animal="currentAnimal" />

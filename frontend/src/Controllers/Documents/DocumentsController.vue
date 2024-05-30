@@ -1,16 +1,18 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
+	import TabsComponent from '@/Components/TabsComponent.vue';
+	import { useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { computed, onMounted, ref } from 'vue';
-	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-	import { useRouter } from 'vue-router';
-	import TabsComponent from '@/Components/TabsComponent.vue';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+  import AnimalsDocuments from "@/Views/Animals/Documents/AnimalsDocuments.vue";
 
 	const t = i18n.global.t;
 	const router = useRouter();
 	const documentsStore = useDocumentsStore();
-	//const documents = computed(() => documentsStore.documents);
+
+	const currentTab = ref(0);
 
 	const documentsTransformed = computed(() => {
 		return documentsStore.documents.map((document) => ({
@@ -18,7 +20,6 @@
 		}));
 	});
 
-	const currentTab = ref(0);
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
 	};
@@ -78,12 +79,11 @@
                         ]"
                         @edit="editItem"
                         @add="addItem"
-                        @delete="deleteItem"
                     />
                 </div>
             </template>
 			<template v-if="currentTab === 1">
-				<AnimalDocuments :animal="currentAnimal" />
+<!--				<AnimalsDocuments  />-->
 			</template>
 		</div>
 	</div>

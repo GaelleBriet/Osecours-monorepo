@@ -9,6 +9,10 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
+  const props = defineProps<{
+    animal: Animal;
+  }>();
+
 	const showForm = ref(false);
 	const documentsStore = useDocumentsStore();
 	const documents = ref<Document[]>([]);
@@ -27,18 +31,10 @@
 		documents.value = imageDocs;
 	};
 
-	onMounted(async () => {
-		fetchDocuments();
-	});
-
 	const handleDocumentSaved = () => {
 		fetchDocuments();
 		showForm.value = false;
 	};
-
-	const props = defineProps<{
-		animal: Animal;
-	}>();
 
 	const editItem = (item) => {
 		router.push({
@@ -54,6 +50,10 @@
 	const removePhoto = (item) => {
 		documentsStore.deleteDocument(item.id);
 	};
+
+  onMounted(async () => {
+    fetchDocuments();
+  });
 </script>
 
 <template>
