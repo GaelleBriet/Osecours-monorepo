@@ -7,7 +7,7 @@
 	import FormPassword from '@/Components/Forms/FormPassword.vue';
 	import { Members } from '@/Interfaces/Members.ts';
 	import { Role } from '@/Enums/Role.ts';
-	import { ref } from 'vue';
+  import { ref } from 'vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { generateOptionsWithDefault } from '@/Services/Helpers/Enums.ts';
@@ -26,7 +26,8 @@
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
 
-	let isEditMode = ref(props.isEditMode);
+	let isEditMode = ref(false);
+  let isCreateMode = ref(props.isCreateMode);
 	const currentMember = ref<Members>(
 		props.family ? props.family : ({} as Members),
 	);
@@ -285,20 +286,14 @@
 				</div>
 				<div class="px-2 md:col-start-1 md:row-start-5">
 					<FormPassword
+            v-if="isCreateMode && !isEditMode"
 						id="create-password"
 						:name="'password'"
 						:model-value="createdMember?.password"
 						:label="getCapitalizedText(t('form.password'))"
 						:confirm-label="getCapitalizedText(t('form.confirmPassword'))"
-						:disabled="!isCreateMode"
-						:validation="[
-							['required'],
-							[
-								'matches',
-								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/,
-							],
-						]"
-						:show-confirm="true"
+            :validation="isCreateMode ? [['required'], ['matches', /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/]] : ''"
+            :show-confirm="isCreateMode"
 						@update:modelValue="createdMember.password = $event"
 						@update:passwordConfirmation="confirmPassword = $event"
 					/>

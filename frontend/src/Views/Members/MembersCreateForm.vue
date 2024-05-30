@@ -22,7 +22,6 @@
 		</div>
 		<div class="content">
 			<MembersForm
-				:is-edit-mode="true"
 				:is-create-mode="true"
 			/>
 		</div>
