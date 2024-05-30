@@ -6,14 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "vite",
+    "start": "node index.js",
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
     "format": "prettier --write src/",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "cypress run",
-    "test:e2e:ui": "cypress open"
+    "test:e2e:ui": "cypress open",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@formkit/icons": "^1.6.1",
@@ -27,9 +28,11 @@
     "@tailwindcss/typography": "^0.5.11",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
+    "express": "^4.19.2",
     "floating-vue": "^5.2.2",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
+    "serve-static": "^1.15.0",
     "vue": "^3.4.21",
     "vue-chartjs": "^5.3.1",
     "vue-i18n": "^9.10.2",
