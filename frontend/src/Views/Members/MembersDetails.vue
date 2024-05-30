@@ -47,6 +47,7 @@
 				<MembersForm
 					:family="currentFamily"
 					:role="currentMemberRole"
+          :is-create-mode="false"
 				/>
 			</template>
 		</div>
