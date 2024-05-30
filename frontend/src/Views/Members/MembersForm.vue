@@ -296,6 +296,7 @@
             :show-confirm="isCreateMode"
 						@update:modelValue="createdMember.password = $event"
 						@update:passwordConfirmation="confirmPassword = $event"
+            autocomplete="new-password"
 					/>
 				</div>
 				<template v-if="!isCreateMode">
