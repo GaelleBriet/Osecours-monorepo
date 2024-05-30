@@ -9,7 +9,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { onMounted, ref, computed } from 'vue';
 	import i18n from '@/Services/Translations';
-	import { Document } from '@/Interfaces/Document.ts';
+  import { Document } from '@/Interfaces/Documents/Documents.ts';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getNode } from '@formkit/core';
 	import { useDocumentsSettingsStore } from '@/Stores/DocumentsSettingsStore.ts';
