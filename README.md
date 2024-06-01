@@ -1,3 +1,7 @@
+Lien Jira : 
+https://gaelleb.atlassian.net/jira/software/projects/OSV1/boards/1
+
+
 **Setup env**
 ```
 cp ./backend/.env.example ./backend/.env
