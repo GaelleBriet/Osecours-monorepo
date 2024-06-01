@@ -7,6 +7,7 @@ https://gaelleb.atlassian.net/jira/software/projects/OSV1/boards/1
 cp ./backend/.env.example ./backend/.env
 cd backend
 composer install
+php artisan storage:link
 
 cd frontend
 npm install
