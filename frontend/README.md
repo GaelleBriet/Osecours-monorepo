@@ -1,6 +1,7 @@
 ## Lancer le serveur de developpement
 - `docker-compose up -d` à la racine du projet
 
+
 ## Configurer prettier pour qu'il soit éxécuté à chaque sauvegarde
 ### WebStorm
 - Allez dans File > Settings (ou WebStorm > Preferences pour macOS)
@@ -12,9 +13,11 @@
 - Recherchez Editor: Format On Save et activez l'option
 - Recherchez Editor: Default Formatter et sélectionnez esbenp.prettier-vscode
 
+
 ## Scripts utiles à lancer régulièrement :
 - `npm run lint` : Lance le linter
 - `npm run format` : Formate le code
+
 
 ## Structure du projet
 - `Assets/scss` : Fichiers de styles globaux
