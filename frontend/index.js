@@ -1,7 +1,6 @@
 import express from 'express';
 import serveStatic from 'serve-static';
 import path from 'path';
-import cors from 'cors';
 
 //initialise the express package
 const app = express();
