@@ -51,7 +51,6 @@
 <style lang="scss" scoped></style>
 ```
 
-
 ## Bonnes pratiques (à remplir au fur et à mesure)
 
 ### CSS
