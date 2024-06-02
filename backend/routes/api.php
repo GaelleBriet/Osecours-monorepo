@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // header('Access-Control-Allow-Origin:  *');
 header('Access-Control-Allow-Origin: https://osecours-front-eu-851bfe93cb8c.herokuapp.com');
 header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, PATCH, DELETE');
-header('Access-Control-Allow-Headers: Accept, content-type, X-Auth-Token, Origin, Authorization');
+header('Access-Control-Allow-Headers: content-type, Accept, X-Auth-Token, Origin, Authorization');
 
 ###GENERAL ACCESS ROUTE###
 Route::middleware(['preflight', 'cors'])->group(function () {

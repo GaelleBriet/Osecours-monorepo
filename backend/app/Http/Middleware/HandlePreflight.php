@@ -19,7 +19,7 @@ class HandlePreflight
             return response()->json('OK', 200, [
                 'Access-Control-Allow-Origin' => 'https://osecours-front-eu-851bfe93cb8c.herokuapp.com',
                 'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, PATCH, DELETE',
-                'Access-Control-Allow-Headers' => 'Accept, Content-Type, X-Auth-Token, Origin, Authorization',
+                'Access-Control-Allow-Headers' => 'Content-Type, Accept, X-Auth-Token, Origin, Authorization',
             ]);
         }
         return $next($request);
