@@ -19,10 +19,8 @@ export const login = async (
 			email,
 			password,
 		});
-		console.log(data);
 		return data;
 	} catch (error) {
-		console.log(error);
 		const axiosError: AxiosError = error as AxiosError;
 		return errorResponse(axiosError);
 	}
