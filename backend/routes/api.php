@@ -16,10 +16,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineController;
 use Illuminate\Support\Facades\Route;
 
+// header('Access-Control-Allow-Origin:  *');
+// header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, PATCH, DELETE');
+// header('Access-Control-Allow-Headers: Accept, Content-Type, X-Auth-Token, Origin, Authorization');
 
 ###GENERAL ACCESS ROUTE###
-Route::post('/token/create', [AuthController::class, 'getToken']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::middleware(['cors'])->group(function () {
+    Route::post('/token/create', [AuthController::class, 'getToken']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 ###ADMIN + PRESIDENT ROUTES###
 Route::middleware(["auth:sanctum", "abilities:global_access_scope"])->group(function () {

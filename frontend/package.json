@@ -28,6 +28,7 @@
     "@tailwindcss/typography": "^0.5.11",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "floating-vue": "^5.2.2",
     "lodash": "^4.17.21",

@@ -436,6 +436,43 @@ paths:
           description: 'Token created successfully'
         '401':
           description: Unauthorized
+  /login:
+    post:
+      tags:
+        - Authentication
+      summary: 'User login'
+      operationId: 2dd578ff7aba2721293dac66833b27d1
+      requestBody:
+        description: 'User login credentials'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  example: password
+              type: object
+      responses:
+        '200':
+          description: 'Successful login'
+          content:
+            application/json:
+              schema:
+                properties:
+                  data: { $ref: '#/components/schemas/User' }
+                type: object
+        '400':
+          description: 'Invalid input'
+        '401':
+          description: Unauthorized
   /documents:
     get:
       tags:

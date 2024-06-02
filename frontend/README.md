@@ -34,6 +34,7 @@
 - `Stores/` : Stores de l'application
 - `Views/` : Pages de l'application
 
+
 ## Construction d'un fichier
 - script : `script setup lang="ts"` 
   - setup : permet d'utiliser les options de composition API
@@ -49,6 +50,7 @@
 <template></template>
 <style lang="scss" scoped></style>
 ```
+
 
 ## Bonnes pratiques (à remplir au fur et à mesure)
 ### CSS
