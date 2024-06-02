@@ -1,6 +1,6 @@
 ## Lancer le serveur de developpement
 - `docker-compose up -d` à la racine du projet
-
+  (pas utilise nous utilisons docker)
 
 ## Configurer prettier pour qu'il soit éxécuté à chaque sauvegarde
 ### WebStorm
