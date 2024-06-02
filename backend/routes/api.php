@@ -226,3 +226,7 @@ Route::middleware(["auth:sanctum", "abilities:user_access_scope"])->group(functi
          });
 
 });
+
+Route::options('/{any}', function() {
+    return response()->json('', 200);
+})->where('any', '.*');
