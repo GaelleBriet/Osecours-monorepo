@@ -8,6 +8,14 @@ const app = express();
 
 app.use(cors());
 
+app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+        res.redirect(`https://${req.header('host')}${req.url}`);
+    } else {
+        next();
+    }
+});
+
 //use the serve-static package to serve the bundled app files in the dist directory
 app.use('/', serveStatic(path.join(process.cwd(), '/dist')));
 
