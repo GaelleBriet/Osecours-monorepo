@@ -53,6 +53,7 @@
 
 
 ## Bonnes pratiques (à remplir au fur et à mesure)
+
 ### CSS
 - Éviter de surcharger le css sur les différentes vues. Si le css est global et s'applique à tous les éléments du site, préféré l'inscrire dans Assets/css/*
 ### Locales
