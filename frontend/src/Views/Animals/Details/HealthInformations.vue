@@ -13,6 +13,7 @@
 	import { useRoute } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const animalsStore = useAnimalsStore();
 	const animal = ref({ ...animalsStore.animal });
@@ -198,14 +199,15 @@
 							</span>
 						</p>
 						<div class="ml-22">
-							<button
+							<ButtonComponent
+								:size="'sm'"
 								id="add-animal-btn"
+								:label="getCapitalizedText(t('common.add'))"
 								type="button"
-								class="rounded-md px-3 py-2 text-center text-sm"
+								class="bg-osecours-beige-dark text-center rounded w-20"
 								@click="addItem"
 							>
-								{{ getCapitalizedText(t('common.add')) }}
-							</button>
+							</ButtonComponent>
 						</div>
 					</div>
 				</div>
@@ -222,25 +224,25 @@
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-4 md:items-end"
 				>
-					<button
+					<ButtonComponent
+						size="md"
 						id="edit-mode"
-						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
-						@click.prevent="onButtonClick"
-					>
-						{{
+						:label="
 							isEditMode
 								? getCapitalizedText(t('common.cancel'))
 								: getCapitalizedText(t('common.editMode'))
-						}}
-					</button>
-					<button
+						"
+						class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors"
+						@click.prevent="onButtonClick"
+					/>
+					<ButtonComponent
+						size="md"
 						id="save-changes"
-						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						:label="getCapitalizedText(t('common.register'))"
+						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors"
 						:disabled="!isEditMode"
 						@click.prevent="onSave"
-					>
-						{{ getCapitalizedText(t('common.register')) }}
-					</button>
+					/>
 				</div>
 			</div>
 		</Form>

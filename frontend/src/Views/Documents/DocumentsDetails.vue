@@ -25,12 +25,12 @@
 	};
 
 	onMounted(async () => {
-        loadDocumentData();
-    });
+		loadDocumentData();
+	});
 
-    const handleDocumentSaved = () => {
-        loadDocumentData();
-    };
+	const handleDocumentSaved = () => {
+		loadDocumentData();
+	};
 </script>
 
 <template>

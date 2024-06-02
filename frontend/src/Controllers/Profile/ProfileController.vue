@@ -7,7 +7,8 @@
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
-  import {User} from "@/Interfaces/User.ts";
+	import { User } from '@/Interfaces/User.ts';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const userStore = useUserStore();
 	const t = i18n.global.t;
@@ -69,15 +70,21 @@
 						class="min-w-[110px]"
 					/>
 					<FormPassword
-            id="user-password"
-            :name="'password'"
+						id="user-password"
+						:name="'password'"
 						:model-value="user.password"
 						:label="getCapitalizedText(t('form.password'))"
-            :confirm-label="getCapitalizedText(t('form.confirmPassword'))"
-            :validation="[['required'], ['matches', /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/]]"
+						:confirm-label="getCapitalizedText(t('form.confirmPassword'))"
+						:validation="[
+							['required'],
+							[
+								'matches',
+								/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/,
+							],
+						]"
 						:placeholder="getCapitalizedText(t('form.password'))"
 						:disabled="!isEditMode"
-            :show-confirm="true"
+						:show-confirm="true"
 					/>
 					<FormText
 						:label="getCapitalizedText(t('form.phone'))"
@@ -98,25 +105,26 @@
 					<div
 						class="flex flex-col md:flex-row items-center md:max-w-[40em] md:mx-auto"
 					>
-						<button
+						<ButtonComponent
 							id="edit-mode"
-							class="w-1/2 min-w-[110px] mb-3 md:mb-0 md:me-4 mt-4 px-4 md:mt-6 py-2 text-white lg:text-sm rounded transition-colors"
-							@click.prevent="isEditMode = !isEditMode"
-						>
-							{{
+							size="lg"
+							:label="
 								isEditMode
 									? getCapitalizedText(t('common.cancel'))
 									: getCapitalizedText(t('common.editMode'))
-							}}
-						</button>
-						<button
+							"
+							type="button"
+							class="w-1/2 min-w-[110px] mb-3 md:mb-0 md:me-4 mt-4 px-4 md:mt-6 py-2 text-white text-sm transition-colors"
+							@click.stop.prevent="isEditMode = !isEditMode"
+						/>
+						<ButtonComponent
 							id="save-changes"
-							class="w-1/2 min-w-[110px] px-4 py-2 md:mt-6 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							size="lg"
+							:label="getCapitalizedText(t('common.register'))"
 							:disabled="!isEditMode"
+							class="w-1/2 min-w-[110px] px-4 py-2 md:mt-6 text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 							@click.prevent="onSubmit"
-						>
-							{{ getCapitalizedText(t('common.register')) }}
-						</button>
+						/>
 					</div>
 				</div>
 			</div>

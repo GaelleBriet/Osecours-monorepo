@@ -35,7 +35,10 @@ const sendDocumentRequest = async (
 			}
 		}
 
-		const headers = formData.get('file') === 'undefined' ? "application/json" : "multipart/form-data";
+		const headers =
+			formData.get('file') === 'undefined'
+				? 'application/json'
+				: 'multipart/form-data';
 
 		// Make the request using Axios
 		const response: AxiosResponse = await axiosInstance[method](url, formData, {

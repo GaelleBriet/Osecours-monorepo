@@ -9,6 +9,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { getNode } from '@formkit/core';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const props = defineProps<{
 		animal: Animal;
@@ -108,25 +109,26 @@
 				<div
 					class="md:justify-end justify-end flex flex-row p-2 md:pb-4 md:col-start-2 md:row-start-3 items-end"
 				>
-					<button
+					<ButtonComponent
+						size="md"
 						id="edit-mode"
-						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover:bg-blue-600 transition-colors"
-						@click.prevent="onButtonClick"
-					>
-						{{
+						:label="
 							isEditMode
 								? getCapitalizedText(t('common.cancel'))
 								: getCapitalizedText(t('common.editMode'))
-						}}
-					</button>
-					<button
+						"
+						class="me-1.5 py-2 text-white transition-colors"
+						@click.prevent="onButtonClick"
+					/>
+					<ButtonComponent
+						size="md"
 						id="save-changes"
-						class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+						type="submit"
 						:disabled="!isEditMode"
+						:label="getCapitalizedText(t('common.register'))"
+						class="me-1.5 py-2 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 						@click.prevent="onSave"
-					>
-						{{ getCapitalizedText(t('common.register')) }}
-					</button>
+					/>
 				</div>
 			</div>
 		</Form>

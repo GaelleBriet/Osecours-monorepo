@@ -6,7 +6,6 @@
 	const props = defineProps<{
 		editMode: boolean;
 	}>();
-
 </script>
 <template>
 	<div>
