@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { User, UserTokenScope } from '@/Interfaces/User.ts';
 import { AxiosError, ErrorResponse } from '@/Interfaces/Requests.ts';
 import { errorResponse } from '@/Services/Requests/RequestsResponses.ts';
@@ -13,6 +13,9 @@ export const login = async (
 	password: string,
 ): Promise<User | ErrorResponse> => {
 	try {
+		// requête GET à /sanctum/csrf-cookie pour obtenir un cookie CSRF
+		// await axios.get(`http://localhost:8000/sanctum/csrf-cookie`);
+		// requête POST à /login pour se connecter
 		const {
 			data: { data },
 		} = await axiosInstance.post(`${import.meta.env.VITE_LOGIN_API_URL}`, {
