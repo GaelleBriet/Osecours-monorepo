@@ -1,6 +1,7 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { computed, onMounted } from 'vue';
+	import ModalComponent from '@/Components/ModalComponent.vue';
+	import { ref, computed, onMounted } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
@@ -10,6 +11,8 @@
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
 	const t = i18n.global.t;
+	const showModal = ref(false);
+	const animalToDelete = ref(null);
 
 	// On transforme les données pour les afficher dans le tableau
 	const animalsTransformed = computed(() => {
@@ -39,8 +42,14 @@
 		});
 	};
 
-	const deleteItem = (item: Animal) => {
-		animalsStore.deleteAnimal(item.id);
+	const openModal = (item: Animal) => {
+		animalToDelete.value = item;
+		showModal.value = true;
+	};
+
+	const onConfirmDelete = () => {
+		animalsStore.deleteAnimal(animalToDelete.value.id);
+		showModal.value = false;
 	};
 
 	onMounted(async () => {
@@ -70,8 +79,25 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
-			@delete="deleteItem"
+			@delete="openModal"
 		/>
+		<ModalComponent
+			v-if="showModal"
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.animals.messages.deleteAnimal'))"
+			:description="getCapitalizedText(t('pages.animals.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
 	</div>
 </template>
 

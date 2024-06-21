@@ -117,7 +117,7 @@
 		if (!newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: `${getCapitalizedText(t('form.messages.errorGeneral'))}`,
+				title: `${getCapitalizedText(t('pages.animals.messages.errorGeneral'))}`,
 				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
 				type: 'error',
 			};
