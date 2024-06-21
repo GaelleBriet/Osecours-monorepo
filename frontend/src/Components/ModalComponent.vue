@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { ref, defineProps, watch } from 'vue';
+	import { ref, defineProps, watch, computed } from 'vue';
 	import {
 		Dialog,
 		DialogPanel,
@@ -14,6 +14,11 @@
 		center?: boolean;
 		confirmButton?: boolean;
 		cancelButton?: boolean;
+		confirmButtonText?: string,
+		cancelButtonText?: string,
+		confirmButtonColor?: string,
+		cancelButtonColor?: string,
+		buttonOrder?: string,
 	}>();
 
 	const emit = defineEmits<{
@@ -35,12 +40,46 @@
 	};
 
 	const onConfirm = () => {
-		emit('confirm');
+		if (props.buttonOrder === 'confirm-cancel') {
+			emit('confirm');
+		} else {
+			emit('close');
+		}
 	};
 
 	const onClose = () => {
-		emit('close');
+		if (props.buttonOrder === 'confirm-cancel') {
+			emit('close');
+		} else {
+			emit('confirm');
+		}
 	};
+
+	const confirmButtonId = computed(() => {
+		return props.buttonOrder === 'confirm-cancel' ? 'save-changes' : 'cancel';
+	});
+
+	const cancelButtonId = computed(() => {
+		return props.buttonOrder === 'confirm-cancel' ? 'cancel' : 'save-changes';
+	});
+
+	const confirmButtonClass = computed(() => {
+		return props.buttonOrder === 'confirm-cancel' ? 'confirm' : 'cancel';
+	});
+
+	const cancelButtonClass = computed(() => {
+		return props.buttonOrder === 'confirm-cancel' ? 'cancel' : 'confirm';
+	});
+	const buttonContainerClass = computed(() => {
+		return [
+			'flex',
+			'gap-2',
+			'mt-5',
+			'mb-2',
+			'justify-around',
+			props.buttonOrder === 'confirm-cancel' ? 'flex-row' : 'flex-row-reverse'
+		];
+	});
 </script>
 
 <template>
@@ -103,24 +142,31 @@
 								</p>
 							</div>
 							<slot name="beforeButtons"></slot>
-							<div class="flex flex-row gap-2 mt-5 mb-2 justify-around">
+							<div
+								:style="{
+									'--confirm-color': confirmButtonColor,
+									'--cancel-color': cancelButtonColor,
+									'--hover-color': 'var(--color-withe)'
+								}"
+								:class="buttonContainerClass"
+							>
 								<button
 									v-if="confirmButton"
-									id="save-changes"
+									:id="confirmButtonId"
 									type="button"
-									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
+									:class="['button', confirmButtonClass]"
 									@click="onConfirm"
 								>
-									{{ 'Confimer' }}
+									{{ confirmButtonText }}
 								</button>
 								<button
 									v-if="cancelButton"
-									id="cancel"
+									:id="cancelButtonId"
 									type="button"
-									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
+									:class="['button', cancelButtonClass]"
 									@click="onClose"
 								>
-									{{ 'Annuler' }}
+									{{ cancelButtonText }}
 								</button>
 							</div>
 							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
@@ -143,32 +189,42 @@
 </template>
 <style scoped lang="postcss">
 	.dialog-color {
-		background-color: rgb(254, 241, 228);
+		background-color: rgb(252, 252, 252);
 	}
 
-	#save-changes {
-		background-color: rgba(242, 138, 128);
+	.button {
+		border-radius: 0.375rem;
+		padding: 0.25rem 0.5rem;
+		text-align: center;
+		font-size: 0.875rem;
 		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #f28a80;
-			outline: 1px solid #f28a80;
-		}
-		&:focus {
-			outline: none;
-		}
+		height: 1.75rem;
+		width: 5rem;
+	}
+	
+	.confirm {
+		background-color: var(--confirm-color);
+		color: #fff;
+	}
+	.confirm:hover {
+		background-color: var(--hover-color);
+		color: var(--confirm-color);
+		outline: 1px solid var(--confirm-color);
+	}
+	.confirm:focus {
+		outline: none;
 	}
 
-	#cancel {
-		background-color: #d99962;
+	.cancel {
+		background-color: var(--cancel-color);
 		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
-		}
-		&:focus {
-			outline: none;
-		}
+	}
+	.cancel:hover {
+		background-color: var(--hover-color);
+		color: var(--cancel-color);
+		outline: 1px solid var(--cancel-color);
+	}
+	.cancel:focus {
+		outline: none;
 	}
 </style>
