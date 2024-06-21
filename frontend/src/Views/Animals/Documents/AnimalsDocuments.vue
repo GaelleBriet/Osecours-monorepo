@@ -18,6 +18,8 @@
 	const route = useRoute();
 	const router = useRouter();
 	const showForm = ref(false);
+	const showModal = ref(false);
+	const documentToDelete = ref(null);
 
 	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
@@ -55,13 +57,23 @@
 		return false;
 	};
 
-	const removeItem = (item) => {
-		documentsStore.deleteDocument(item.id);
+	const openModal = (item: Document) => {
+		documentToDelete.value = item;
+		showModal.value = true;
 	};
 
-  onMounted(async () => {
-    await fetchDocuments();
-  });
+	const onConfirmDelete = async () => {
+		if (documentToDelete.value) {
+			await documentsStore.deleteDocument(documentToDelete.value.id);
+			await fetchDocuments();
+			showModal.value = false;
+			documentToDelete.value = null;
+		}
+	};
+
+	onMounted(async () => {
+		await fetchDocuments();
+	});
 
 </script>
 <template>
@@ -78,9 +90,26 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
-			@delete="removeItem"
+			@delete="openModal"
 			@documentSaved="handleDocumentSaved"
-		/>                
+		/>
+		<ModalComponent
+			v-if="showModal"
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.documents.messages.deleteDocument'))"
+			:description="getCapitalizedText(t('pages.documents.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
     </div>
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm

@@ -122,12 +122,18 @@
 			@add="addItem"
 		/>
 		<ModalComponent
+			v-if="showModal"
 			:isOpen="showModal"
 			:title="getCapitalizedText(t('pages.users.messages.deleteMember'))"
 			:description="getCapitalizedText(t('pages.users.messages.delete'))"
 			:center="true"
 			:confirmButton="true"
 			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
 			@close="showModal = false"
 			@confirm="onConfirmDelete"
 		>
