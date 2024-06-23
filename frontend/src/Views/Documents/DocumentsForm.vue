@@ -155,7 +155,7 @@
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-2 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
+				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-1 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"

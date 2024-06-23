@@ -45,7 +45,7 @@
 				id="tabs"
 				v-model="currentTab"
 				name="tabs"
-				class="block w-full rounded-md border-gray-300"
+				class="block w-full rounded-md border-gray-300 mb-2"
 				@change="emit('update:currentTab', currentTab)"
 			>
 				<template
