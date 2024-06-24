@@ -7,12 +7,16 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import { Shelter } from '@/Interfaces/Shelter.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 	
 	const showModal = ref(false);
 	const shelterToDelete = ref(null);
+
 	const t = i18n.global.t;
 	const router = useRouter();
 	const sheltersStore = useSheltersStore();
+
+	console.log(sheltersStore.isLoading)
 
 	const sheltersTransformed = computed(() => {
 		return sheltersStore.shelters.map((shelter) => ({
@@ -84,6 +88,10 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
+		<LoaderComponent
+			class="mt-5"
+			v-if="sheltersStore.isLoading"
+		/>
 	</div>
 </template>
 

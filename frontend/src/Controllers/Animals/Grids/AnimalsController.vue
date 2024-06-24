@@ -7,6 +7,7 @@
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const router = useRouter();
@@ -109,6 +110,10 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
+		<LoaderComponent
+			class="mt-5"
+			v-if="animalsStore.isLoading"
+		/>
 	</div>
 </template>
 

@@ -8,6 +8,7 @@
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
@@ -104,6 +105,10 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
+		<LoaderComponent
+			class="mt-5"
+			v-if="membersStore.isLoading"
+		/>
 	</div>
 </template>
 
