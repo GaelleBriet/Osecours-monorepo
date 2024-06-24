@@ -222,6 +222,7 @@
 										<div
 											v-for="association in associations"
 											:key="association.id"
+											class="py-4"
 										>
 											<FormSelect
 												:id="'association'"

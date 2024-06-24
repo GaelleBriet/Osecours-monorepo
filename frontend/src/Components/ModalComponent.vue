@@ -6,6 +6,10 @@
 		TransitionChild,
 		TransitionRoot,
 	} from '@headlessui/vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+
+	const t = i18n.global.t;
 
 	const props = defineProps<{
 		isOpen: boolean;
@@ -40,28 +44,12 @@
 	};
 
 	const onConfirm = () => {
-		if (props.buttonOrder === 'confirm-cancel') {
-			emit('confirm');
-		} else {
-			emit('close');
-		}
+		emit('confirm');
 	};
 
 	const onClose = () => {
-		if (props.buttonOrder === 'confirm-cancel') {
-			emit('close');
-		} else {
-			emit('confirm');
-		}
+		emit('close');
 	};
-
-	const confirmButtonId = computed(() => {
-		return props.buttonOrder === 'confirm-cancel' ? 'save-changes' : 'cancel';
-	});
-
-	const cancelButtonId = computed(() => {
-		return props.buttonOrder === 'confirm-cancel' ? 'cancel' : 'save-changes';
-	});
 
 	const confirmButtonClass = computed(() => {
 		return props.buttonOrder === 'confirm-cancel' ? 'confirm' : 'cancel';
@@ -74,7 +62,6 @@
 		return [
 			'flex',
 			'gap-2',
-			'mt-5',
 			'mb-2',
 			'justify-around',
 			props.buttonOrder === 'confirm-cancel' ? 'flex-row' : 'flex-row-reverse'
@@ -107,7 +94,7 @@
 				/>
 			</TransitionChild>
 
-			<div class="fixed inset-0 z-30 w-screen overflow-y-auto">
+			<div class="fixed inset-0 z-30 w-screen overflow-y-auto content-center">
 				<div
 					:class="{
 						'flex justify-center p-4 text-center sm:items-center sm:p-0': true,
@@ -125,7 +112,7 @@
 						leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 					>
 						<DialogPanel
-							class="dialog-color relative transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all mx-3 sm:my-8 sm:p-6"
+							class="dialog-color relative transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"
 						>
 							<div>
 								<p
@@ -136,7 +123,7 @@
 								</p>
 								<p
 									v-if="description"
-									class="text-gray-700"
+									class="text-gray-700 py-4"
 								>
 									{{ description }}
 								</p>
@@ -152,21 +139,21 @@
 							>
 								<button
 									v-if="confirmButton"
-									:id="confirmButtonId"
+									id="save-changes"
 									type="button"
 									:class="['button', confirmButtonClass]"
 									@click="onConfirm"
 								>
-									{{ confirmButtonText }}
+									{{ getCapitalizedText(t('common.confirm')) }}
 								</button>
 								<button
 									v-if="cancelButton"
-									:id="cancelButtonId"
+									id="cancel"
 									type="button"
 									:class="['button', cancelButtonClass]"
 									@click="onClose"
 								>
-									{{ cancelButtonText }}
+									{{ getCapitalizedText(t('common.cancel')) }}
 								</button>
 							</div>
 							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
@@ -198,8 +185,8 @@
 		text-align: center;
 		font-size: 0.875rem;
 		color: #fff;
-		height: 1.75rem;
-		width: 5rem;
+		height: 2rem;
+		width: 5.25rem;
 	}
 	
 	.confirm {
