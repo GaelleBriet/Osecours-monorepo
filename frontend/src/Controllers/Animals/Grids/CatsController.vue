@@ -6,6 +6,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const router = useRouter();
 	const animalsStore = useAnimalsStore();
@@ -71,6 +72,10 @@
 			@edit="editItem"
 			@add="addItem"
 			@delete="deleteItem"
+		/>
+		<LoaderComponent
+			class="mt-5"
+			v-if="animalsStore.isLoading"
 		/>
 	</div>
 </template>

@@ -7,6 +7,7 @@
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
   import AnimalsDocuments from "@/Views/Animals/Documents/AnimalsDocuments.vue";
+  	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const router = useRouter();
@@ -80,6 +81,10 @@
                         @edit="editItem"
                         @add="addItem"
                     />
+					<LoaderComponent
+						class="mt-5"
+						v-if="documentsStore.isLoading"
+					/>
                 </div>
             </template>
 			<template v-if="currentTab === 1">

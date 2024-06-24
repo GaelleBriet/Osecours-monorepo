@@ -5,10 +5,13 @@
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const router = useRouter();
 	const sheltersStore = useSheltersStore();
+
+	console.log(sheltersStore.isLoading)
 
 	const sheltersTransformed = computed(() => {
 		return sheltersStore.shelters.map((shelter) => ({
@@ -51,6 +54,10 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
+		/>
+		<LoaderComponent
+			class="mt-5"
+			v-if="sheltersStore.isLoading"
 		/>
 	</div>
 </template>
