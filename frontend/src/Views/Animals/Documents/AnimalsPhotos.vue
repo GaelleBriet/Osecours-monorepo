@@ -126,11 +126,6 @@
 					</button>
 				</div>
 			</div> 
-
-		<LoaderComponent
-			class="h-full"
-			v-if="documentsStore.isLoading"
-		/>   
 			<ModalComponent
 				:isOpen="showForm"
 				:docForm="true"
@@ -143,6 +138,10 @@
 				/>
 			</ModalComponent>
 		</Form>
+		<LoaderComponent
+			class="h-full"
+			v-if="documentsStore.isLoading"
+		/>   
 		<ModalComponent
 			v-if="showModal"
 			:isOpen="showModal"
