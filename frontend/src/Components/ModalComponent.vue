@@ -23,6 +23,7 @@
 		confirmButtonColor?: string,
 		cancelButtonColor?: string,
 		buttonOrder?: string,
+		docForm?: boolean,
 	}>();
 
 	const emit = defineEmits<{
@@ -31,6 +32,7 @@
 	}>();
 
 	const isOpen = ref(props.isOpen);
+	const docForm = ref(props.docForm);
 
 	watch(
 		() => props.isOpen,
@@ -65,6 +67,33 @@
 			'mb-2',
 			'justify-around',
 			props.buttonOrder === 'confirm-cancel' ? 'flex-row' : 'flex-row-reverse'
+		];
+	});
+	const dialogPanelClass = computed(() => {
+		return [
+			'dialog-color',
+			'relative',
+			'transform',
+			'overflow-hidden',
+			'rounded-lg',
+			'px-4',
+			'pb-4',
+			'pt-5',
+			'text-left',
+			'shadow-xl',
+			'transition-all',			
+			props.docForm === true ? '' :  ['md:my-0', 'sm:my-8', 'sm:w-full', 'sm:max-w-sm', 'sm:p-6']
+		];
+	});
+
+	const closeBtnClass = computed(() => {
+		return [
+			'absolute',
+			'right-0',
+			'top-0',
+			'hidden',
+			'sm:block',
+			props.docForm === true ? ['pr-2', 'pt-2'] : ['pr-4', 'pt-4']
 		];
 	});
 </script>
@@ -112,7 +141,7 @@
 						leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
 					>
 						<DialogPanel
-							class="dialog-color relative transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"
+							:class="dialogPanelClass"
 						>
 							<div>
 								<p
@@ -156,7 +185,7 @@
 									{{ getCapitalizedText(t('common.cancel')) }}
 								</button>
 							</div>
-							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+							<div :class="closeBtnClass">
 								<button
 									type="button"
 									class="rounded-md dialog-color text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
@@ -189,6 +218,16 @@
 		width: 5.25rem;
 	}
 	
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+
 	.confirm {
 		background-color: var(--confirm-color);
 		color: #fff;

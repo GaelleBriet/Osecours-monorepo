@@ -134,12 +134,12 @@
 		}
 	}
 	#save-changes {
-		background-color: #d99962;
+		background-color: rgb(199, 123, 51);
 		color: #fff;
 		&:hover {
 			background-color: var(--color-withe);
-			color: #d99962;
-			outline: 1px solid #d99962;
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
 		}
 	}
 

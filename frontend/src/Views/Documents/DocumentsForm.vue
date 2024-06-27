@@ -278,7 +278,7 @@
 							</button>
 							<button
 								id="save-changes"
-								class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+								class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 								:disabled="!isEditMode"
 								@click.prevent="onSubmit"
 							>
@@ -298,6 +298,26 @@
 		flex-direction: column;
 		//min-height: calc(100vh - 4rem);
 		min-height: 100%;
+	}
+
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
 	}
 
 	form {

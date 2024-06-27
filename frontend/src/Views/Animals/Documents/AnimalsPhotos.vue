@@ -124,18 +124,19 @@
 					>
 						<span>+</span>
 					</button>
-					<ModalComponent
-						:isOpen="showForm"
-						@close="showForm = false"
-					>
-						<DocumentsForm
-							:is-create-mode="true"
-							:is-photo-mode="true"
-							@documentSaved="handleDocumentSaved"
-						/>
-					</ModalComponent>
 				</div>
 			</div>
+			<ModalComponent
+				:isOpen="showForm"
+				:docForm="true"
+				@close="showForm = false"
+			>
+				<DocumentsForm
+					:is-create-mode="true"
+					:is-photo-mode="true"
+					@documentSaved="handleDocumentSaved"
+				/>
+			</ModalComponent>
 		</Form>
 		<ModalComponent
 			v-if="showModal"
