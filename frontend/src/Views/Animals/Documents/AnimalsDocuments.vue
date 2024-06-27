@@ -93,7 +93,7 @@
 			@delete="openModal"
 			@documentSaved="handleDocumentSaved"
 		/>
-		<ModalComponent
+		<ModalComponent			
 			v-if="showModal"
 			:isOpen="showModal"
 			:title="getCapitalizedText(t('pages.documents.messages.deleteDocument'))"
@@ -111,7 +111,7 @@
 		>
 		</ModalComponent>
     </div>
-	<ModalComponent :isOpen="showForm" @close="showForm = false">
+	<ModalComponent v-if="showForm" :isOpen="showForm" @close="showForm = false" :docForm="true">
 		<DocumentsForm
 			:is-create-mode="true"
 			:is-photo-mode="false"

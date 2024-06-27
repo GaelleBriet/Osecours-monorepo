@@ -124,6 +124,7 @@
 			</div>
 			<ModalComponent
 				:isOpen="showForm"
+				:docForm="true"
 				@close="showForm = false"
 			>
 				<DocumentsForm
