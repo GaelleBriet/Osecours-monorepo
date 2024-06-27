@@ -1,25 +1,27 @@
 <script setup lang="ts">
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
-	import { computed, onMounted } from 'vue';
+	import ModalComponent from '@/Components/ModalComponent.vue';
+	import { ref, computed, onMounted } from 'vue';
 	import { useRouter } from 'vue-router';
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import LoaderComponent from '@/Components/LoaderComponent.vue';
-
+	import { Shelter } from '@/Interfaces/Shelter.ts';
+	
+	const showModal = ref(false);
+	const shelterToDelete = ref(null);
 	const t = i18n.global.t;
 	const router = useRouter();
 	const sheltersStore = useSheltersStore();
-
-	console.log(sheltersStore.isLoading)
-
+	
 	const sheltersTransformed = computed(() => {
 		return sheltersStore.shelters.map((shelter) => ({
 			...shelter,
 		}));
 	});
 
-	const editItem = (item) => {
+	const editItem = (item: Shelter) => {
 		router.push({
 			name: 'EditShelter',
 			params: { id: item.id },
@@ -32,6 +34,16 @@
 		});
 	};
 
+	const openModal = (item: Shelter) => {
+		shelterToDelete.value = item;
+		showModal.value = true;
+	};
+
+	const onConfirmDelete = () => {
+		sheltersStore.deleteShelter(shelterToDelete.value.id);
+		showModal.value = false;
+	};
+	
 	onMounted(async () => {
 		await sheltersStore.getShelters();
 	});
@@ -55,7 +67,25 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
+			@delete="openModal"
 		/>
+		<ModalComponent
+			v-if="showModal"
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.shelters.messages.deleteShelter'))"
+			:description="getCapitalizedText(t('pages.shelters.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
 	</div>
 	<LoaderComponent
 		class="h-full"

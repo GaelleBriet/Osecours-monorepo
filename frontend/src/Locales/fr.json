@@ -7,6 +7,7 @@
 		"logIn": "connexion",
 		"register": "enregistrer",
 		"welcome": "bienvenue!",
+		"confirm": "confirmer",
 		"profile": "profil",
 		"edit": "modifier",
 		"editMode": "mode édition",
@@ -195,7 +196,11 @@
 			"settingCoats": "gestion des robes",
 			"description": "description du refuge",
 			"name": "nom du refuge",
-			"search": "Rechercher..."
+			"search": "Rechercher...",
+			"messages": {
+				"delete": "voulez-vous vraiment supprimer ce refuge ?",
+				"deleteShelter": "supprimer un refuge"
+			}
 		},
 		"families": {
 			"title": "liste des familles d'accueil et adoptantes de l'association.",
@@ -277,7 +282,7 @@
 			"selectTypeDocs" : "sélectionner une type de document",
 			"noAvailable" : "pas de document disponible",
 			"selectDocs" : "sélectionnez autant de documents que vous le souhaitez",
-			"addDoc": "Ajouter un document",
+			"addDoc": "ajouter un document",
 			"title": "liste de tous les fichiers de l'association",
 			"titleAnimal": "liste de tous les fichiers de l'animal",
 			"titleHealthAnimal": "liste de tous les fichiers de santé de l'animal",
@@ -291,7 +296,10 @@
 			"image": "choisissez un image",
 			"photos": "photos",
 			"card": "fichier",
-			"addDoc": "ajouter un document"
+			"messages": {
+				"delete": "voulez-vous vraiment supprimer cet document ?",
+				"deleteDocument": "supprimer un document"
+			}
 		}
 	},
 	"enums": {

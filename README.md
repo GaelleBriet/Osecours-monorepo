@@ -1,8 +1,15 @@
+**Lien Jira**
+https://gaelleb.atlassian.net/jira/software/projects/OSV1/boards/1
+
+**App dispo à cette adresse**
+https://www.osecours-asso.fr
+
 **Setup env**
 ```
 cp ./backend/.env.example ./backend/.env
 cd backend
 composer install
+php artisan storage:link
 
 cd frontend
 npm install

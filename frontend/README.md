@@ -1,5 +1,6 @@
 ## Lancer le serveur de developpement
 - `docker-compose up -d` à la racine du projet
+  (pas utilise nous utilisons docker)
 
 ## Configurer prettier pour qu'il soit éxécuté à chaque sauvegarde
 ### WebStorm
@@ -12,9 +13,11 @@
 - Recherchez Editor: Format On Save et activez l'option
 - Recherchez Editor: Default Formatter et sélectionnez esbenp.prettier-vscode
 
+
 ## Scripts utiles à lancer régulièrement :
 - `npm run lint` : Lance le linter
 - `npm run format` : Formate le code
+
 
 ## Structure du projet
 - `Assets/scss` : Fichiers de styles globaux
@@ -30,6 +33,7 @@
 - `Services/Translations` : Configuration de i18n
 - `Stores/` : Stores de l'application
 - `Views/` : Pages de l'application
+
 
 ## Construction d'un fichier
 - script : `script setup lang="ts"` 
@@ -48,6 +52,7 @@
 ```
 
 ## Bonnes pratiques (à remplir au fur et à mesure)
+
 ### CSS
 - Éviter de surcharger le css sur les différentes vues. Si le css est global et s'applique à tous les éléments du site, préféré l'inscrire dans Assets/css/*
 ### Locales
