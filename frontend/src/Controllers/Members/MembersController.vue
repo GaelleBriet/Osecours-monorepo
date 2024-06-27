@@ -111,6 +111,7 @@
 <template>
 	<div>
 		<DataGridComponent
+			v-if="!membersStore.isLoading"
 			:store="membersStore"
 			:model-value="members"
 			:title="getCapitalizedText(t('navigation.members'))"
@@ -133,11 +134,11 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
-		<LoaderComponent
-			class="mt-5"
-			v-if="membersStore.isLoading"
-		/>
 	</div>
+	<LoaderComponent
+		class="h-full"
+		v-if="membersStore.isLoading"
+	/>
 </template>
 
 <style scoped lang="postcss"></style>

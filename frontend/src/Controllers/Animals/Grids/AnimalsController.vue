@@ -64,6 +64,7 @@
 <template>
 	<div class="w-full p-0">
 		<DataGridComponent
+			v-if="!animalsStore.isLoading"
 			:store="animalsStore"
 			:model-value="animalsTransformed"
 			:title="getCapitalizedText(t('navigation.animals'))"
@@ -104,11 +105,11 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
-		<LoaderComponent
-			class="mt-5"
-			v-if="animalsStore.isLoading"
-		/>
 	</div>
+	<LoaderComponent
+		class="h-full"
+		v-if="animalsStore.isLoading"
+	/>
 </template>
 
 <style scoped></style>

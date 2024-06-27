@@ -275,6 +275,7 @@
 		},
 		"documents": {
 			"selectTypeDocs" : "sélectionner une type de document",
+			"noAvailable" : "pas de document disponible",
 			"selectDocs" : "sélectionnez autant de documents que vous le souhaitez",
 			"addDoc": "Ajouter un document",
 			"title": "liste de tous les fichiers de l'association",

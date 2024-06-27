@@ -8,6 +8,7 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
   const props = defineProps<{
     animal: Animal;
@@ -62,8 +63,11 @@
 			:id="`edit-animal`"
 			:submit-label="'edit-animal'"
 			:actions="false"
-		>
-			<div class="h-full">
+			>
+			<div 
+				class="h-full"
+				v-if="!documentsStore.isLoading"
+			>
 				<div
 					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-4"
 				>
@@ -116,8 +120,13 @@
 						/>
 					</ModalComponent>
 				</div>
-			</div>
+			</div> 
+
 		</Form>
+		<LoaderComponent
+			class="h-full"
+			v-if="documentsStore.isLoading"
+		/>   
 	</div>
 </template>
 <style scoped lang="postcss">

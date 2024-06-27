@@ -274,7 +274,8 @@
 			}
 		},
 		"documents": {
-			"selectTypeDocs" : "select a type of document",
+			"selectTypeDocs" : "select a type of document",			
+			"noAvailable" : "no document available",
 			"selectDocs" : "select as many documents as you would like",
 			"addDoc": "Add a document",
 			"title": "list of all association's documents",

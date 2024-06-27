@@ -24,6 +24,8 @@
 		fetchDataAndFormatOptions,
 		formatOptions,
 	} from '@/Services/Helpers/SelectOptions.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
+
 
 	const animalsStore = useAnimalsStore();
 	const animalSettingsStore = useAnimalsSettingsStore();
@@ -38,6 +40,7 @@
 	const t = i18n.global.t;
 
 	const isEditMode = ref(false);
+	const isLoading = ref(true);
 	let localAnimal = ref<Animal>({ ...props.animal });
 	let createdAnimal = ref<Animal>({});
 	const newAnimal = ref<Animal | null>(null);
@@ -165,67 +168,71 @@
 			isEditMode.value = true;
 		}
 		// on appelle les fonctions pour récupérer les données de l'api pour les passer aux selects
-		let breedsData = await fetchDataAndFormatOptions(
-			animalSettingsStore.getAllBreeds,
-			'enums.animalsBreeds',
-			'Sélectionner une race',
-		);
-
-		if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
-			breeds.value = formatOptions(
-				await animalSettingsStore.getSpecificBreeds('cat'),
+		try {
+			let breedsData = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllBreeds,
 				'enums.animalsBreeds',
+				'Sélectionner une race',
 			);
-		} else if (props.animal?.specie_id == 2 || routeParams.species == 'dog') {
-			breeds.value = formatOptions(
-				await animalSettingsStore.getSpecificBreeds('dog'),
-				'enums.animalsBreeds',
+
+			if (props.animal?.specie_id == 1 || routeParams.species == 'cat') {
+				breeds.value = formatOptions(
+					await animalSettingsStore.getSpecificBreeds('cat'),
+					'enums.animalsBreeds',
+				);
+			} else if (props.animal?.specie_id == 2 || routeParams.species == 'dog') {
+				breeds.value = formatOptions(
+					await animalSettingsStore.getSpecificBreeds('dog'),
+					'enums.animalsBreeds',
+				);
+			}
+			// Tri des races par ordre alphabétique
+			//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
+			// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
+			// La méthode sort() utilise ensuite ces valeurs renvoyées par la fonction de comparaison pour réorganiser les éléments du tableau speciesData dans l'ordre alphabétique de leur propriété label.
+			breedsData.sort((a, b) => a.label.localeCompare(b.label));
+			// Insérer la valeur par défaut au début du tableau trié
+			breedsData.unshift({ label: 'Sélectionner une race', value: null });
+			breeds.value = breedsData;
+
+			let coatsData = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllCoats,
+				'enums.animalsCoats',
+				'Sélectionner un pelage',
 			);
-		}
-		// Tri des races par ordre alphabétique
-		//  a.label.localeCompare(b.label) : Cela compare les deux valeurs de label en utilisant l'ordre alphabétique défini par la locale actuelle. Cette méthode renvoie un nombre négatif si a précède b dans l'ordre alphabétique, un nombre positif si b précède a, et zéro si les deux valeurs sont égales.
-		// La fonction de comparaison retourne donc un nombre négatif, positif ou zéro en fonction de la comparaison entre a.label et b.label.
-		// La méthode sort() utilise ensuite ces valeurs renvoyées par la fonction de comparaison pour réorganiser les éléments du tableau speciesData dans l'ordre alphabétique de leur propriété label.
-		breedsData.sort((a, b) => a.label.localeCompare(b.label));
-		// Insérer la valeur par défaut au début du tableau trié
-		breedsData.unshift({ label: 'Sélectionner une race', value: null });
-		breeds.value = breedsData;
+			coatsData.sort((a, b) => a.label.localeCompare(b.label));
+			coatsData.unshift({ label: 'Sélectionner un pelage', value: null });
+			coats.value = coatsData;
 
-		let coatsData = await fetchDataAndFormatOptions(
-			animalSettingsStore.getAllCoats,
-			'enums.animalsCoats',
-			'Sélectionner un pelage',
-		);
-		coatsData.sort((a, b) => a.label.localeCompare(b.label));
-		coatsData.unshift({ label: 'Sélectionner un pelage', value: null });
-		coats.value = coatsData;
+			let colorsData = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllColors,
+				'enums.animalsColors',
+				'Sélectionner une couleur',
+			);
+			colorsData.sort((a, b) => a.label.localeCompare(b.label));
+			colorsData.unshift({ label: 'Sélectionner une couleur', value: null });
+			colors.value = colorsData;
 
-		let colorsData = await fetchDataAndFormatOptions(
-			animalSettingsStore.getAllColors,
-			'enums.animalsColors',
-			'Sélectionner une couleur',
-		);
-		colorsData.sort((a, b) => a.label.localeCompare(b.label));
-		colorsData.unshift({ label: 'Sélectionner une couleur', value: null });
-		colors.value = colorsData;
+			let gendersData = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllGenders,
+				'enums.animalGenders',
+				'Sélectionner un genre',
+			);
+			gendersData.sort((a, b) => a.label.localeCompare(b.label));
+			gendersData.unshift({ label: 'Sélectionner un genre', value: null });
+			genders.value = gendersData;
 
-		let gendersData = await fetchDataAndFormatOptions(
-			animalSettingsStore.getAllGenders,
-			'enums.animalGenders',
-			'Sélectionner un genre',
-		);
-		gendersData.sort((a, b) => a.label.localeCompare(b.label));
-		gendersData.unshift({ label: 'Sélectionner un genre', value: null });
-		genders.value = gendersData;
-
-		let speciesData = await fetchDataAndFormatOptions(
-			animalSettingsStore.getAllSpecies,
-			'enums.animalSpecies',
-			'Sélectionner une espèce',
-		);
-		speciesData.sort((a, b) => a.label.localeCompare(b.label));
-		speciesData.unshift({ label: 'Sélectionner une espèce', value: null });
-		species.value = speciesData;
+			let speciesData = await fetchDataAndFormatOptions(
+				animalSettingsStore.getAllSpecies,
+				'enums.animalSpecies',
+				'Sélectionner une espèce',
+			);
+			speciesData.sort((a, b) => a.label.localeCompare(b.label));
+			speciesData.unshift({ label: 'Sélectionner une espèce', value: null });
+			species.value = speciesData;
+		} finally {
+        isLoading.value = false;
+      }
 	});
 
 	onMounted(() => {
@@ -269,7 +276,7 @@
 	});
 </script>
 <template>
-	<div class="general-informations">
+	<div class="general-informations h-full lg:h-full bg-osecours-beige-dark bg-opacity-10">		
 		<Form
 			ref="myForm"
 			:id="!isCreateMode ? `edit-animal${localAnimal.id}` : 'create-animal'"
@@ -277,7 +284,8 @@
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid grid-cols-1 grid-rows-none md:grid-cols-2 md:grid-rows-none gap-1 flex-grow bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
+				v-if="!isLoading"
+				class="grid grid-cols-1 grid-rows-none md:grid-cols-2 md:grid-rows-none gap-1 flex-grow rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
@@ -536,6 +544,10 @@
 				</div>
 			</div>
 		</Form>
+		<LoaderComponent
+			class="h-full"
+			v-if="isLoading"
+		/>
 	</div>
 </template>
 
