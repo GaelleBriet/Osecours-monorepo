@@ -9,6 +9,7 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const props = defineProps<{
 		animal: Animal;
@@ -77,8 +78,11 @@
 			:id="`edit-animal`"
 			:submit-label="'edit-animal'"
 			:actions="false"
-		>
-			<div class="h-full">
+			>
+			<div 
+				class="h-full"
+				v-if="!documentsStore.isLoading"
+			>
 				<div
 					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-4"
 				>
@@ -120,18 +124,18 @@
 					>
 						<span>+</span>
 					</button>
+					<ModalComponent
+						:isOpen="showForm"
+						@close="showForm = false"
+					>
+						<DocumentsForm
+							:is-create-mode="true"
+							:is-photo-mode="true"
+							@documentSaved="handleDocumentSaved"
+						/>
+					</ModalComponent>
 				</div>
 			</div>
-			<ModalComponent
-				:isOpen="showForm"
-				@close="showForm = false"
-			>
-				<DocumentsForm
-					:is-create-mode="true"
-					:is-photo-mode="true"
-					@documentSaved="handleDocumentSaved"
-				/>
-			</ModalComponent>
 		</Form>
 		<ModalComponent
 			v-if="showModal"
@@ -150,6 +154,10 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
+		<LoaderComponent
+			class="h-full"
+			v-if="documentsStore.isLoading"
+		/>   
 	</div>
 </template>
 <style scoped lang="postcss">

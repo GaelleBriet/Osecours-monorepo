@@ -79,6 +79,7 @@
 			<template v-if="currentTab === 0">
                 <div class="content bg-osecours-beige-dark bg-opacity-10 p-4">
                     <DataGridComponent
+						v-if="!documentsStore.isLoading"
                         :store="documentsStore" 
                         :model-value="documentsTransformed"
                         :description="getCapitalizedText(t('pages.documents.title'))"
@@ -114,6 +115,10 @@
 						v-if="documentsStore.isLoading"
 					/>
                 </div>
+				<LoaderComponent
+					class="h-full"
+					v-if="documentsStore.isLoading"
+				/>
             </template>
 			<template v-if="currentTab === 1">
 <!--				<AnimalsDocuments  />-->

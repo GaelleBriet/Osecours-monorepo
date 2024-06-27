@@ -78,8 +78,10 @@
 
 </script>
 <template>
-	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
+	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">        
 		<DataGridComponent
+			v-if="!documentsStore.isLoading"
+			:availability="getCapitalizedText(t('pages.documents.noAvailable'))"
 			:store="documentsStore" 
 			:model-value="documentsTransformed"
 			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
@@ -111,11 +113,11 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
-		/>    
+		/>
 		<LoaderComponent
-			class="mt-5"
+			class="h-full"
 			v-if="documentsStore.isLoading"
-		/>            
+		/>
     </div>
 	<ModalComponent :isOpen="showForm" @close="showForm = false">
 		<DocumentsForm

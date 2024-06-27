@@ -197,7 +197,7 @@
 								{{ getCapitalizedText(t('enums.documentType.healthRecords')) }}
 							</span>
 						</p>
-						<div class="ml-22">
+						<div class="ml-auto">
 							<button
 								id="add-animal-btn"
 								type="button"

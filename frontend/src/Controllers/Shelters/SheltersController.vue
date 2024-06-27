@@ -55,6 +55,7 @@
 <template>
 	<div class="w-full p-0">
 		<DataGridComponent
+			v-if="!sheltersStore.isLoading"
 			:store="sheltersStore"
 			:model-value="sheltersTransformed"
 			:title="getCapitalizedText(t('navigation.shelters'))"
@@ -71,6 +72,7 @@
 			@add="addItem"
 			@delete="openModal"
 		/>
+	</div>
 		<ModalComponent
 			v-if="showModal"
 			:isOpen="showModal"
@@ -88,11 +90,10 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
-		<LoaderComponent
-			class="mt-5"
-			v-if="sheltersStore.isLoading"
-		/>
-	</div>
+	<LoaderComponent
+		class="h-full"
+		v-if="sheltersStore.isLoading"
+	/>
 </template>
 
 <style scoped></style>
