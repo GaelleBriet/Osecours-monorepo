@@ -64,9 +64,6 @@
 			});
 		}
 	});
-
-	console.log(filteredItems.value.length ? "array with cosas" : "array vide")
-	console.log(props.modelValue)
 </script>
 
 <template>

@@ -16,8 +16,6 @@
 	const router = useRouter();
 	const sheltersStore = useSheltersStore();
 
-	console.log(sheltersStore.isLoading)
-
 	const sheltersTransformed = computed(() => {
 		return sheltersStore.shelters.map((shelter) => ({
 			...shelter,

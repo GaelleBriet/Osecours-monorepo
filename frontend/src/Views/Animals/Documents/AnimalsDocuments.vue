@@ -113,7 +113,6 @@
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
-		/>
 		<LoaderComponent
 			class="h-full"
 			v-if="documentsStore.isLoading"
