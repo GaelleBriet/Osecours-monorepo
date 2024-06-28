@@ -32,7 +32,6 @@
 	}>();
 
 	const isOpen = ref(props.isOpen);
-	const docForm = ref(props.docForm);
 
 	watch(
 		() => props.isOpen,
@@ -58,8 +57,12 @@
 	});
 
 	const cancelButtonClass = computed(() => {
-		return props.buttonOrder === 'confirm-cancel' ? 'cancel' : 'confirm';
+		return [
+
+			props.buttonOrder === 'confirm-cancel' ? 'cancel' : 'confirm'
+		];
 	});
+
 	const buttonContainerClass = computed(() => {
 		return [
 			'flex',
@@ -170,7 +173,8 @@
 									v-if="confirmButton"
 									id="save-changes"
 									type="button"
-									:class="['button', confirmButtonClass]"
+									:class="[
+										'button', confirmButtonClass]"
 									@click="onConfirm"
 								>
 									{{ getCapitalizedText(t('common.confirm')) }}
@@ -216,16 +220,6 @@
 		color: #fff;
 		height: 2rem;
 		width: 5.25rem;
-	}
-	
-	#save-changes {
-		background-color: rgb(199, 123, 51);
-		color: #fff;
-		&:hover {
-			background-color: var(--color-withe);
-			color: rgb(199, 123, 51);
-			outline: 1px solid rgb(199, 123, 51);
-		}
 	}
 
 	.confirm {
