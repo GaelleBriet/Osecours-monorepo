@@ -220,3 +220,9 @@ Route::middleware(["auth:sanctum", "abilities:user_access_scope"])->group(functi
          });
 
 });
+
+
+##TEST ROUTES##
+Route::get('/users', function () {
+    return response()->json(['message' => 'This is a test response']);
+});
