@@ -10,7 +10,7 @@ sh > ./vendor/bin/openapi app -o public/swagger/swagger.yaml
 ```
 docker exec -it -e APP_ENV=testing laravel_backend php artisan config:clear
 docker exec -it -e APP_ENV=testing laravel_backend php artisan migrate:fresh --seed --env=testing --database=testing
-docker exec -it -e APP_ENV=testing laravel_backend php artisan test
+docker exec -it -e APP_ENV=testing laravel_backend php artisan test --env=testing --database=testing
 ```
 
 ## Base de données de développement

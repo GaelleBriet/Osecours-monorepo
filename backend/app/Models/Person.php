@@ -47,11 +47,13 @@ class Person extends Model
 
     protected $table = 'persons';
 
-    public function personable() {
+    public function personable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
         return $this->morphTo();
     }
-    
-    public function addresses() {
+
+    public function addresses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->belongsToMany(Address::class, 'address_person');
     }
 }
