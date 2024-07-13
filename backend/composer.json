@@ -63,8 +63,7 @@
             "docker exec -i -e APP_ENV=testing laravel_backend php artisan migrate:fresh --seed --env=testing --database=testing"
         ],
         "test-run": [
-            "docker exec -i -e APP_ENV=testing laravel_backend php artisan test"
-        ],
+            "docker exec -i -e APP_ENV=testing -e DB_DATABASE=osecours_test laravel_backend php artisan test --env=testing"        ],
         "test-all": [
             "@test-clear-config",
             "@test-migrate",

@@ -62,7 +62,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function create($user)
+    public function create(array|User $user): User
     {
         return User::create($user);
     }

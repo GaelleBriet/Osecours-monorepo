@@ -64,7 +64,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(AuthRequest $request)
+    public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
             $request->validated();

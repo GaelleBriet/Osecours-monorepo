@@ -19,7 +19,7 @@ class BreedFactory extends Factory
     {
         return [
             'specie_id' => Specie::factory(),
-            'name' => 'Labrador Retriever',
+            'name' => $this->faker->name(),
             'description' => 'A retriever is a type of gun dog that retrieves game for a hunter. Generally gun dogs are divided into three primary types: retrievers, flushing spaniels, and pointing breeds.',
         ];
     }
