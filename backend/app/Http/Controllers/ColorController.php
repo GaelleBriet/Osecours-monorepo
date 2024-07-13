@@ -13,20 +13,20 @@ class ColorController extends Controller
     public function getAll(Request $request)
     {
         $query = Color::with(['specie']);
-        $colors = Color::all();      
+        $colors = Color::all();
 
-        if ($request->has('species')) {    
+        if ($request->has('species')) {
             $species = ucfirst($request->species);
-            $specieExist = Specie::where('name', $species)->first();      
-            if(!$specieExist){
-                throw new Exception('Specie #'. $request->species . " not found",404);
+            $specieExist = Specie::where('name', $species)->first();
+            if (! $specieExist) {
+                throw new Exception('Specie #'.$request->species.' not found', 404);
             }
             $query->whereHas('specie', function ($query) use ($species) {
-                $query->where('name', $species); 
+                $query->where('name', $species);
             });
 
             $colors = $query->get();
-        }              
+        }
 
         return $colors;
     }
@@ -42,6 +42,7 @@ class ColorController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return Color::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -54,6 +55,7 @@ class ColorController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $color->update([
             'name' => $request->name,
             'description' => $request->description,

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OpenApi\Annotations as OA;
 
@@ -12,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Gender",
  *     description="Gender model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -32,7 +32,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Gender extends Model
 {
     use HasFactory;

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
 
-            $table->string('filename',255);
+            $table->string('filename', 255);
             $table->text('description')->nullable();
             $table->integer('size');
-            $table->string('url',255);
+            $table->string('url', 255);
             $table->date('date');
             $table->foreignId('mimetype_id')->constrained();
             $table->foreignId('doctype_id')->constrained();

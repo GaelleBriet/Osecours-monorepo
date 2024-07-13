@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Identification",
  *     description="Identification model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -47,16 +48,15 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Identification extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "date",
-        "type", 
-        "number",
-        "animal_id"
+        'date',
+        'type',
+        'number',
+        'animal_id',
     ];
 
     public function animal(): BelongsTo

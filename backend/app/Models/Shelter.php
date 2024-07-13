@@ -13,6 +13,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Shelter",
  *     description="Shelter model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -65,7 +66,6 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class Shelter extends Model implements HasDocumentsInterface
 {
     use HasFactory,SoftDeletes;
@@ -78,7 +78,8 @@ class Shelter extends Model implements HasDocumentsInterface
         'siret',
     ];
 
-    public function person() {
+    public function person()
+    {
         return $this->morphOne(Person::class, 'personable');
     }
 

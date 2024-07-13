@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\Person;
-use App\Models\User;
-use App\Models\Association;
-use App\Models\Role;
 use App\Models\Animal;
+use App\Models\Association;
+use App\Models\Person;
+use App\Models\Role;
 use App\Models\Shelter;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -52,13 +52,12 @@ class UserTest extends TestCase
     {
         $fillable = [
             'first_name', 'last_name', 'phone', 'existing_cat_count',
-            'existing_children_count', 'existing_dog_count', 'email', 'password'
+            'existing_children_count', 'existing_dog_count', 'email', 'password',
         ];
 
         $user = new User;
         $this->assertEquals($fillable, $user->getFillable());
     }
-
 
     public function test_user_has_person_relation()
     {
@@ -121,44 +120,42 @@ class UserTest extends TestCase
         $this->assertTrue($user->shelters->contains($shelter));
     }
 
-//    public function test_user_belongs_to_many_associations()
-//    {
-//        $user = new User();
-//        $associations = $user->associations();
-//        $this->assertInstanceOf(BelongsToMany::class, $user->associations());
-//
-//        $this->assertEquals(Association::class, get_class($associations->getRelated()));
-//        $this->assertEquals('association_role_user', $associations->getTable());
-//        $this->assertEquals('association_role_user.association_id', $associations->getQualifiedRelatedPivotKeyName());
-//        $this->assertContains('role_id', $associations->getPivotColumns());
-//        $this->assertTrue($associations->withTimestamps);
-//    }
+    //    public function test_user_belongs_to_many_associations()
+    //    {
+    //        $user = new User();
+    //        $associations = $user->associations();
+    //        $this->assertInstanceOf(BelongsToMany::class, $user->associations());
+    //
+    //        $this->assertEquals(Association::class, get_class($associations->getRelated()));
+    //        $this->assertEquals('association_role_user', $associations->getTable());
+    //        $this->assertEquals('association_role_user.association_id', $associations->getQualifiedRelatedPivotKeyName());
+    //        $this->assertContains('role_id', $associations->getPivotColumns());
+    //        $this->assertTrue($associations->withTimestamps);
+    //    }
 
+    //    public function test_user_roles()
+    //    {
+    //        $user = new User();
+    //        $roles= $user->roles();
+    //        $this->assertInstanceOf(BelongsToMany::class, $user->roles());
+    //
+    //        $this->assertEquals('association_role_user', $roles->getTable());
+    //        $this->assertEquals('association_role_user.user_id', $roles->getQualifiedForeignPivotKeyName());
+    //        $this->assertContains('association_id', $roles->getPivotColumns());
+    //        $this->assertTrue($roles->withTimestamps);
+    //    }
 
-//    public function test_user_roles()
-//    {
-//        $user = new User();
-//        $roles= $user->roles();
-//        $this->assertInstanceOf(BelongsToMany::class, $user->roles());
-//
-//        $this->assertEquals('association_role_user', $roles->getTable());
-//        $this->assertEquals('association_role_user.user_id', $roles->getQualifiedForeignPivotKeyName());
-//        $this->assertContains('association_id', $roles->getPivotColumns());
-//        $this->assertTrue($roles->withTimestamps);
-//    }
-
-
-//    public function test_user_animals()
-//    {
-//        $user = new User();
-//        $animals = $user->animals();
-//        $this->assertInstanceOf(BelongsToMany::class, $user->animals());
-//
-//        $this->assertEquals('animal_shelter_user', $animals->getTable());
-//        $this->assertEquals('animal_shelter_user.user_id', $animals->getQualifiedForeignPivotKeyName());
-//        $this->assertContains('animal_id', $animals->getPivotColumns());
-//        $this->assertTrue($animals->withTimestamps);
-//    }
+    //    public function test_user_animals()
+    //    {
+    //        $user = new User();
+    //        $animals = $user->animals();
+    //        $this->assertInstanceOf(BelongsToMany::class, $user->animals());
+    //
+    //        $this->assertEquals('animal_shelter_user', $animals->getTable());
+    //        $this->assertEquals('animal_shelter_user.user_id', $animals->getQualifiedForeignPivotKeyName());
+    //        $this->assertContains('animal_id', $animals->getPivotColumns());
+    //        $this->assertTrue($animals->withTimestamps);
+    //    }
 
     public function test_soft_delete()
     {

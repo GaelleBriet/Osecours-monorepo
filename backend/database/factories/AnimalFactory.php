@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Animal;
-use App\Models\Specie;
 use App\Models\Breed;
+use App\Models\Specie;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalFactory extends Factory
 {
@@ -18,8 +18,6 @@ class AnimalFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
     public function definition(): array
     {

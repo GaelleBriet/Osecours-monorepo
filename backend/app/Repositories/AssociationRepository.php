@@ -6,20 +6,23 @@ use App\Contract\AssociationRepositoryInterface;
 use App\Http\Resources\AssociationResource;
 use App\Models\Association;
 
-class AssociationRepository extends BaseRepository implements AssociationRepositoryInterface{
-
+class AssociationRepository extends BaseRepository implements AssociationRepositoryInterface
+{
     public function __construct(Association $association)
     {
         parent::__construct($association);
     }
 
-    public function all(){
-        
+    public function all()
+    {
+
         $associations = Association::all();
+
         return AssociationResource::collection($associations);
     }
+
     public function create($association)
-    {    
+    {
         return Association::create($association);
     }
 
@@ -29,18 +32,23 @@ class AssociationRepository extends BaseRepository implements AssociationReposit
         if ($association) {
             $association->update($updatedDatas);
         }
+
         return $association;
     }
 
-    public function find($id){
+    public function find($id)
+    {
         $association = Association::withTrashed()
-        ->findOrFail($id);
+            ->findOrFail($id);
+
         return new AssociationResource($association);
     }
 
-    public function softDelete($id){
+    public function softDelete($id)
+    {
         $association = Association::findOrFail($id);
-        $association->delete();  
+        $association->delete();
+
         return $association;
     }
 }

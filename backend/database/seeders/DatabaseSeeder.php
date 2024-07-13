@@ -23,9 +23,9 @@ use App\Models\Specie;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\Vaccine;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,22 +37,18 @@ class DatabaseSeeder extends Seeder
         $cityCreated = City::create(['name' => 'Dijon', 'zipcode' => '21000']);
 
         $assocationsList = [
-            ['name' => "Le refuge des chimères", 'address' => '123 rue des fantaisies'],
-            ['name' => "larche de noé 2.0", 'address' => '10 place du désert'],
-            ['name' => "quatres pattes et un toit", 'address' => '1 place de la tour Eiffel']
+            ['name' => 'Le refuge des chimères', 'address' => '123 rue des fantaisies'],
+            ['name' => 'larche de noé 2.0', 'address' => '10 place du désert'],
+            ['name' => 'quatres pattes et un toit', 'address' => '1 place de la tour Eiffel'],
         ];
-
-
-
-
 
         foreach ($assocationsList as $association) {
 
-            $associationCreated =  Association::factory()->create(["name" => $association['name']]);
+            $associationCreated = Association::factory()->create(['name' => $association['name']]);
 
-            $shelterCreated = Shelter::create(["name" => $associationCreated->name , "description" => $associationCreated->description , "siret" => $associationCreated->siret]);
+            $shelterCreated = Shelter::create(['name' => $associationCreated->name, 'description' => $associationCreated->description, 'siret' => $associationCreated->siret]);
 
-            $associationCreated->shelters()->attach($shelterCreated->id,["begin_date" => Date::now()]);
+            $associationCreated->shelters()->attach($shelterCreated->id, ['begin_date' => Date::now()]);
             $personCreated = Person::create(['personable_id' => $associationCreated->id, 'personable_type' => get_class($associationCreated)]);
             $addressCreated = Address::create(['street1' => $association['address'], 'city_id' => $cityCreated->id]);
             $personCreated->addresses()->attach($addressCreated);
@@ -64,13 +60,13 @@ class DatabaseSeeder extends Seeder
                 $userCreated = User::factory()->create([
                     'first_name' => ucfirst($roleName->value),
                     'last_name' => ucfirst($roleName->value),
-                    'email' =>  $roleName->value . "-" . $emailReadyString . '@osecours.org',
+                    'email' => $roleName->value.'-'.$emailReadyString.'@osecours.org',
                 ]);
                 Person::create(['personable_id' => $userCreated->id, 'personable_type' => get_class($userCreated)]);
                 $roleCreated = Role::firstOrCreate(
-                    ["name" => $roleName->value]
+                    ['name' => $roleName->value]
                 );
-                $associationCreated->users()->attach($userCreated->id, ["role_id" => $roleCreated->id]);
+                $associationCreated->users()->attach($userCreated->id, ['role_id' => $roleCreated->id]);
             }
         }
 
@@ -337,7 +333,7 @@ class DatabaseSeeder extends Seeder
             'Wirehaired Terrier',
             'Xoloitzcuintli / Mexican Hairless',
             'Yellow Labrador Retriever',
-            'Yorkshire Terrier'
+            'Yorkshire Terrier',
         ];
 
         $catbreeds = [
@@ -392,7 +388,7 @@ class DatabaseSeeder extends Seeder
             'Sphynx / Hairless Cat',
             'Tonkinese',
             'Turkish Angora',
-            'Turkish Van'
+            'Turkish Van',
         ];
 
         $dogColors = [
@@ -455,7 +451,7 @@ class DatabaseSeeder extends Seeder
             'Tabby (Tiger Striped)',
             'Torbie',
             'Tortoiseshell',
-            'White'
+            'White',
         ];
 
         $colors = array_unique(array_merge($catColors, $dogColors));
@@ -463,9 +459,9 @@ class DatabaseSeeder extends Seeder
         foreach ($colors as $color) {
             $colorCreated = Color::factory()->create([
                 'name' => ucfirst($color),
-                'description' => ''
+                'description' => '',
             ]);
-        };
+        }
 
         $dogCoats = [
             'Hairless',
@@ -473,14 +469,14 @@ class DatabaseSeeder extends Seeder
             'Medium',
             'Long',
             'Wire',
-            'Curly'
+            'Curly',
         ];
 
         $catCoats = [
             'Hairless',
             'Short',
             'Medium',
-            'Long'
+            'Long',
         ];
 
         $coats = array_unique(array_merge($catCoats, $dogCoats));
@@ -488,9 +484,9 @@ class DatabaseSeeder extends Seeder
         foreach ($coats as $coat) {
             $coatCreated = Coat::factory()->create([
                 'name' => ucfirst($coat),
-                'description' => ''
+                'description' => '',
             ]);
-        };
+        }
 
         foreach ($species as $specie) {
             if ($specie == 'Cat') {
@@ -504,16 +500,16 @@ class DatabaseSeeder extends Seeder
                         'description' => '',
                         'specie_id' => $specieCreated->id,
                     ]);
-                };
+                }
                 foreach ($catCoats as $catcoat) {
                     $coatBounded = Coat::where('name', $catcoat)->first();
                     $specieCreated->coats()->syncWithoutDetaching($coatBounded);
-                };
+                }
                 foreach ($catColors as $catcolor) {
                     $colorBounded = Color::where('name', $catcolor)->first();
                     $specieCreated->colors()->syncWithoutDetaching($colorBounded);
                 }
-            } else if ($specie == 'Dog') {
+            } elseif ($specie == 'Dog') {
                 $specieCreated = Specie::factory()->create([
                     'name' => ucfirst($specie),
                     'description' => '',
@@ -525,11 +521,11 @@ class DatabaseSeeder extends Seeder
                         'description' => '',
                         'specie_id' => $specieCreated->id,
                     ]);
-                };
+                }
                 foreach ($dogCoats as $dogcoat) {
                     $coatBounded = Coat::where('name', $dogcoat)->first();
                     $specieCreated->coats()->syncWithoutDetaching($coatBounded);
-                };
+                }
                 foreach ($dogColors as $dogcolor) {
                     $colorBounded = Color::where('name', $dogcolor)->first();
                     $specieCreated->colors()->syncWithoutDetaching($colorBounded);
@@ -541,7 +537,7 @@ class DatabaseSeeder extends Seeder
             'Small',
             'Average',
             'Big',
-            'Molosse'
+            'Molosse',
         ];
 
         foreach ($sizeRanges as $size) {
@@ -555,7 +551,7 @@ class DatabaseSeeder extends Seeder
             'Baby',
             'Junior',
             'Adult',
-            'Senior'
+            'Senior',
         ];
 
         foreach ($ageRanges as $age) {
@@ -589,9 +585,8 @@ class DatabaseSeeder extends Seeder
             'Adoptable',
             'Hosted',
             'Adopted',
-            'Dead'
+            'Dead',
         ];
-
 
         foreach ($statuses as $status) {
             $statusCreated = Status::factory()->create([
@@ -603,7 +598,7 @@ class DatabaseSeeder extends Seeder
         $genders = [
             'Male',
             'Female',
-            'Unknown'
+            'Unknown',
         ];
 
         foreach ($genders as $gender) {
@@ -611,93 +606,93 @@ class DatabaseSeeder extends Seeder
                 'name' => ucfirst($gender),
                 'description' => '',
             ]);
-        };
+        }
 
         $firstAnimal = Animal::create([
-            "name" => "pepette",
-            "description" => "petit chat",
-            "birth_date" => "2024-04-01",
-            "cats_friendly" => true,
-            "dogs_friendly" => true,
-            "children_friendly" => true,
-            "behavioral_comment" => "adorable",
-            "sterilized" => false,
-            "sizerange_id" => 1,
-            "specie_id" => 1
+            'name' => 'pepette',
+            'description' => 'petit chat',
+            'birth_date' => '2024-04-01',
+            'cats_friendly' => true,
+            'dogs_friendly' => true,
+            'children_friendly' => true,
+            'behavioral_comment' => 'adorable',
+            'sterilized' => false,
+            'sizerange_id' => 1,
+            'specie_id' => 1,
         ]);
         $secondAnimal = Animal::create([
-            "name" => "Gurvan",
-            "description" => "Warning",
-            "birth_date" => "2024-04-01",
-            "cats_friendly" => true,
-            "dogs_friendly" => true,
-            "children_friendly" => true,
-            "behavioral_comment" => "Dangerous",
-            "sterilized" => false,
-            "sizerange_id" => 4,
-            "specie_id" => 2,
+            'name' => 'Gurvan',
+            'description' => 'Warning',
+            'birth_date' => '2024-04-01',
+            'cats_friendly' => true,
+            'dogs_friendly' => true,
+            'children_friendly' => true,
+            'behavioral_comment' => 'Dangerous',
+            'sterilized' => false,
+            'sizerange_id' => 4,
+            'specie_id' => 2,
         ]);
         $thirdAnimal = Animal::create([
-            "name" => "Biscuit",
-            "description" => "Friendly dog",
-            "birth_date" => "2023-06-15",
-            "cats_friendly" => false,
-            "dogs_friendly" => true,
-            "children_friendly" => true,
-            "behavioral_comment" => "Loves to play fetch",
-            "sterilized" => true,
-            "sizerange_id" => 3,
-            "specie_id" => 2,
-            "breed_id" => 98,
+            'name' => 'Biscuit',
+            'description' => 'Friendly dog',
+            'birth_date' => '2023-06-15',
+            'cats_friendly' => false,
+            'dogs_friendly' => true,
+            'children_friendly' => true,
+            'behavioral_comment' => 'Loves to play fetch',
+            'sterilized' => true,
+            'sizerange_id' => 3,
+            'specie_id' => 2,
+            'breed_id' => 98,
         ]);
         $fourthAnimal = Animal::create([
-            "name" => "Whiskers",
-            "description" => "Independent cat",
-            "birth_date" => "2022-01-01",
-            "cats_friendly" => true,
-            "dogs_friendly" => false,
-            "children_friendly" => false,
-            "behavioral_comment" => "Prefers quiet environments",
-            "sterilized" => true,
-            "sizerange_id" => 1,
-            "specie_id" => 1,
-            "breed_id" => 29,
+            'name' => 'Whiskers',
+            'description' => 'Independent cat',
+            'birth_date' => '2022-01-01',
+            'cats_friendly' => true,
+            'dogs_friendly' => false,
+            'children_friendly' => false,
+            'behavioral_comment' => 'Prefers quiet environments',
+            'sterilized' => true,
+            'sizerange_id' => 1,
+            'specie_id' => 1,
+            'breed_id' => 29,
         ]);
 
-        $numberChip = "555555555555555";
-        $numberChip2 = "123854769524159";
-        $numberChip3 = "123456789123456";
-        $numberTatoo = "A45B56";
+        $numberChip = '555555555555555';
+        $numberChip2 = '123854769524159';
+        $numberChip3 = '123456789123456';
+        $numberTatoo = 'A45B56';
 
         Identification::create([
-            "type" => IdentificationTypeEnum::CHIP->value,
-            "number" => $numberChip,
-            "date" => Date::now(),
-            "animal_id" => $firstAnimal->id
+            'type' => IdentificationTypeEnum::CHIP->value,
+            'number' => $numberChip,
+            'date' => Date::now(),
+            'animal_id' => $firstAnimal->id,
         ]);
         Identification::create([
-            "type" =>  IdentificationTypeEnum::TATOO->value,
-            "number" =>  $numberTatoo,
-            "date" => Date::now(),
-            "animal_id" => $secondAnimal->id
+            'type' => IdentificationTypeEnum::TATOO->value,
+            'number' => $numberTatoo,
+            'date' => Date::now(),
+            'animal_id' => $secondAnimal->id,
         ]);
         Identification::create([
-            "type" =>  IdentificationTypeEnum::CHIP->value,
-            "number" =>  $numberChip2,
-            "date" => Date::now(),
-            "animal_id" => $thirdAnimal->id
+            'type' => IdentificationTypeEnum::CHIP->value,
+            'number' => $numberChip2,
+            'date' => Date::now(),
+            'animal_id' => $thirdAnimal->id,
         ]);
         Identification::create([
-            "type" =>  IdentificationTypeEnum::CHIP->value,
-            "number" =>  $numberChip3,
-            "date" => Date::now(),
-            "animal_id" => $fourthAnimal->id
+            'type' => IdentificationTypeEnum::CHIP->value,
+            'number' => $numberChip3,
+            'date' => Date::now(),
+            'animal_id' => $fourthAnimal->id,
         ]);
 
         $healthcare = Healthcare::create([
-            "date" => Date::now(),
-            "report" => "tout va bien",
-            "animal_id" => $firstAnimal->id
+            'date' => Date::now(),
+            'report' => 'tout va bien',
+            'animal_id' => $firstAnimal->id,
         ]);
     }
 }

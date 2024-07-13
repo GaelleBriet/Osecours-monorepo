@@ -24,6 +24,7 @@ class AgeRangeController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return AgeRange::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -36,6 +37,7 @@ class AgeRangeController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $AgeRange->update([
             'name' => $request->name,
             'description' => $request->description,

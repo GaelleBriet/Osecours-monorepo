@@ -2,7 +2,6 @@
 
 namespace App\Contract;
 
-
 interface IdentificationRepositoryInterface
 {
     public function all();
@@ -10,6 +9,6 @@ interface IdentificationRepositoryInterface
     public function find($id);
 
     public function create(array $data);
-    
-    public function update($id,array $updatedDatas);
+
+    public function update($id, array $updatedDatas);
 }

@@ -15,14 +15,14 @@ class DocumentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id" => $this->id,
-            "filename" => $this->filename,
-            "description" => $this->description,
-            "size" => $this->size,
-            "url" => $this->url,
-            "date" => $this->date,
-            "mimetype" => $this->mimetype ? $this->mimetype->name : null,
-            "doctype" => $this->doctype ? $this->doctype->name : null,
+            'id' => $this->id,
+            'filename' => $this->filename,
+            'description' => $this->description,
+            'size' => $this->size,
+            'url' => $this->url,
+            'date' => $this->date,
+            'mimetype' => $this->mimetype ? $this->mimetype->name : null,
+            'doctype' => $this->doctype ? $this->doctype->name : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

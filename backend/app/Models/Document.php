@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OpenApi\Annotations as OA;
@@ -15,6 +14,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Document",
  *     description="Document model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -66,7 +66,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Document extends Model
 {
     use HasFactory,SoftDeletes;
@@ -78,7 +77,7 @@ class Document extends Model
         'url',
         'date',
         'mimetype_id',
-        'doctype_id'
+        'doctype_id',
     ];
 
     public function doctype(): BelongsTo

@@ -5,19 +5,21 @@ namespace App\Repositories;
 use App\Contract\ShelterRepositoryInterface;
 use App\Models\Shelter;
 
-class ShelterRepository extends BaseRepository implements ShelterRepositoryInterface{
-
+class ShelterRepository extends BaseRepository implements ShelterRepositoryInterface
+{
     public function __construct(Shelter $shelter)
     {
         parent::__construct($shelter);
     }
 
-    public function all(){
-        
+    public function all()
+    {
+
         return Shelter::all();
     }
+
     public function create($shelter)
-    {    
+    {
         return Shelter::create($shelter);
     }
 
@@ -27,17 +29,21 @@ class ShelterRepository extends BaseRepository implements ShelterRepositoryInter
         if ($shelter) {
             $shelter->update($updatedDatas);
         }
+
         return $shelter;
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return Shelter::withTrashed()
-        ->findOrFail($id);
+            ->findOrFail($id);
     }
 
-    public function softDelete($id){
+    public function softDelete($id)
+    {
         $shelter = Shelter::findOrFail($id);
-        $shelter->delete();  
+        $shelter->delete();
+
         return $shelter;
     }
 }

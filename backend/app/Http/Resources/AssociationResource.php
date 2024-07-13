@@ -18,7 +18,7 @@ class AssociationResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'siret' => $this->siret,
-            'rib' => chunk_split($this->rib,4," ")
+            'rib' => chunk_split($this->rib, 4, ' '),
         ];
     }
 }

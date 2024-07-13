@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use App\Models\User;
 use App\Models\Association;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -25,11 +25,10 @@ class UserRelationsStructureTest extends TestCase
         $this->assertTrue($associations->withTimestamps);
     }
 
-
     public function test_user_roles()
     {
         $user = new User();
-        $roles= $user->roles();
+        $roles = $user->roles();
         $this->assertInstanceOf(BelongsToMany::class, $user->roles());
 
         $this->assertEquals('association_role_user', $roles->getTable());
@@ -37,7 +36,6 @@ class UserRelationsStructureTest extends TestCase
         $this->assertContains('association_id', $roles->getPivotColumns());
         $this->assertTrue($roles->withTimestamps);
     }
-
 
     public function test_user_animals()
     {

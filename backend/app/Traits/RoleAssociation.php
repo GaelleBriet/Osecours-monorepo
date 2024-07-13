@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-
 trait RoleAssociation
 {
     public function verifyRoleInSpecificAssociation($roleId, $associationId): bool
@@ -13,7 +12,7 @@ trait RoleAssociation
     public function attachRoleIntoSpecificAssociation($roleId, $associationId): void
     {
         // Assurez-vous que le rôle n'est pas déjà attaché à l'utilisateur dans cette association
-        if (!$this->verifyUserRole($roleId, $associationId)) {
+        if (! $this->verifyUserRole($roleId, $associationId)) {
             $this->roles()->attach($roleId, ['association_id' => $associationId]);
         }
     }

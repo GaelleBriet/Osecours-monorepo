@@ -13,10 +13,10 @@ use Exception;
 use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
 
-
 class AnimalController extends Controller
 {
     protected AnimalService $animalService;
+
     protected ErrorService $errorService;
 
     public function __construct(AnimalService $animalService, ErrorService $eService)
@@ -31,6 +31,7 @@ class AnimalController extends Controller
      *     path="/animals/all",
      *     security={{"bearerAuth":{}}},
      *     tags={"Animals"},
+     *
      *     @OA\Response(response="200", description="get list of all animals")
      *
      * )
@@ -52,11 +53,14 @@ class AnimalController extends Controller
      *     description="Store animal informations with identification associated",
      *     operationId="createAnimal",
      *     tags={"Animals"},
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="Animal fields",
+     *
      *         @OA\JsonContent(
      *             required={"specie_id"},
+     *
      *             @OA\Property(property="name", type="string", example="Pupuce" , maxLength=100),
      *             @OA\Property(property="description", type="string", example="Really cute" ),
      *             @OA\Property(property="birth_date", type="date", example="Pupuce" , format="1995-04-01"),
@@ -76,13 +80,16 @@ class AnimalController extends Controller
      *             @OA\Property(property="number", type="string", example="152A5P6", maxLength=15 ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Animal created successfully",
+     *
      *            @OA\JsonContent(
      *             ref="#/components/schemas/Animal"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad request"
@@ -110,22 +117,27 @@ class AnimalController extends Controller
      *     description="Return informations for an animal with specific id",
      *     operationId="getAnimalById",
      *     tags={"Animals"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="animal Id to fetch",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Animal fetched successfully",
+     *
      *         @OA\JsonContent(
      *             ref="#/components/schemas/Animal"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Animal not found"
@@ -152,19 +164,24 @@ class AnimalController extends Controller
      *     summary="Update an animal",
      *     operationId="updateAnimalById",
      *     tags={"Animals"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="animal Id to update",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="Animal fields",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="name", type="string", example="Pupuce" , maxLength=100),
      *             @OA\Property(property="description", type="string", example="Really cute" ),
      *             @OA\Property(property="birth_date", type="date", example="Pupuce" , format="1995-04-01"),
@@ -184,6 +201,7 @@ class AnimalController extends Controller
      *             @OA\Property(property="number", type="string", example="152A5P6", maxLength=15 ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Animal created successfully"
@@ -202,9 +220,10 @@ class AnimalController extends Controller
     {
         try {
             if (is_null(Animal::find($id))) {
-                throw new AnimalNotFoundException("Animal #" . $id . " not found");
+                throw new AnimalNotFoundException('Animal #'.$id.' not found');
             }
             $animal = $this->animalService->update($id, $request->validated());
+
             return new AnimalResource($animal);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
@@ -219,22 +238,27 @@ class AnimalController extends Controller
      *     description="Make a soft delete for an animal with specific id",
      *     operationId="deleteAnimalById",
      *     tags={"Animals"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID de l'animal à récupérer",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Animal récupéré avec succès",
+     *
      *         @OA\JsonContent(
      *             ref="#/components/schemas/Animal"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Animal non trouvé"
@@ -249,9 +273,10 @@ class AnimalController extends Controller
     {
         try {
             $deleteAnimal = $this->animalService->softDelete($id);
+
             return response()->json([
                 'message' => 'L\'animal a été supprimé avec succès.',
-                'animal' => $deleteAnimal
+                'animal' => $deleteAnimal,
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);

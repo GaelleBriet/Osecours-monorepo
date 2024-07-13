@@ -1,6 +1,6 @@
-<?php 
-namespace App\Contract;
+<?php
 
+namespace App\Contract;
 
 interface HasDocumentsInterface
 {

@@ -12,7 +12,7 @@ interface UserRepositoryInterface
 
     public function findByEmailAndAssociation($email, $associationId);
 
-    public function findByAssociationAndUser($associationId,User $user);
+    public function findByAssociationAndUser($associationId, User $user);
 
     public function findByRoleAndAssociation($role, $currentAssociationId);
 

@@ -10,6 +10,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Address",
  *     description="Address model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -31,12 +32,11 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(
  *         property="city_id",
  *         type="integer",
-  *         description="ID of the city",
+ *         description="ID of the city",
  *         example=1
  *     ),
  * )
  */
-
 class Address extends Model
 {
     use HasFactory;
@@ -46,7 +46,8 @@ class Address extends Model
         'street2',
     ];
 
-    public function cities() {
+    public function cities()
+    {
         return $this->belongsTo(City::class);
     }
 }

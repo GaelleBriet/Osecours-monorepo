@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Status",
  *     description="Status model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -43,7 +44,6 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class Status extends Model
 {
     use HasFactory;
@@ -53,7 +53,8 @@ class Status extends Model
         'description',
     ];
 
-    public function animals(): BelongsToMany    {
+    public function animals(): BelongsToMany
+    {
         return $this->belongsToMany(Animal::class);
     }
 }

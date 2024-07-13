@@ -10,6 +10,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Person",
  *     description="Person model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -40,7 +41,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Person extends Model
 {
     use HasFactory;

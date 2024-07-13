@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\DocumentService;
 use App\Http\Resources\DocumentResource;
+use App\Http\Services\DocumentService;
 use App\Http\Services\ErrorService;
 use App\Models\Animal;
 use App\Models\Document;
 use App\Models\Healthcare;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 
 class DocumentController extends Controller
 {
     protected DocumentService $documentService;
-    protected ErrorService $errorService;
 
+    protected ErrorService $errorService;
 
     public function __construct(DocumentService $documentService, ErrorService $eService)
     {
@@ -31,11 +30,14 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Get all documents",
      *     description="Returns all documents",
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful fetch",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Document")
      *         )
      *     )
@@ -53,25 +55,30 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Get a specific document",
      *     description="Returns a single document by ID",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Document ID",
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Document")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Document not found"
      *     )
      * )
      */
-    public function show(String $id)
+    public function show(string $id)
     {
         return $this->documentService->findDocument($id);
     }
@@ -83,19 +90,25 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Add a document to an animal",
      *     description="Creates a new document associated with an animal",
+     *
      *     @OA\Parameter(
      *         name="animalId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Animal ID"
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *          @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
      *                 required={"filename", "file"},
+     *
      *                 @OA\Property(
      *                     property="filename",
      *                     type="string",
@@ -116,11 +129,14 @@ class DocumentController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Document created",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Document")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid input"
@@ -132,8 +148,9 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048',
         ]);
+
         return $this->documentService->createDocumentForAnimal($request, $animal);
     }
 
@@ -144,18 +161,23 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with an animal",
      *     description="Fetches a list of documents associated with a specific animal",
+     *
      *     @OA\Parameter(
      *         name="animalId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Animal ID"
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Document")
      *         )
      *     )
@@ -173,18 +195,23 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with a healthcare provider",
      *     description="Fetches a list of documents associated with a specific healthcare provider",
+     *
      *     @OA\Parameter(
      *         name="healthcareId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Healthcare ID"
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Document")
      *         )
      *     )
@@ -202,18 +229,23 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Retrieve all documents associated with a shelter",
      *     description="Fetches a list of documents associated with a specific shelter",
+     *
      *     @OA\Parameter(
      *         name="shelterId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Shelter ID"
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Document")
      *         )
      *     )
@@ -231,19 +263,25 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Add a document to a healthcare provider",
      *     description="Creates a new document associated with a healthcare provider",
+     *
      *     @OA\Parameter(
      *         name="healthcareId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Healthcare ID"
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *          @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
      *                 required={"filename", "file"},
+     *
      *                 @OA\Property(
      *                     property="filename",
      *                     type="string",
@@ -264,11 +302,14 @@ class DocumentController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Document created",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Document")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid input"
@@ -280,8 +321,9 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048',
         ]);
+
         return $this->documentService->createDocumentForHealthCare($request, $healthcare);
     }
 
@@ -292,19 +334,25 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Add a document to a shelter",
      *     description="Creates a new document associated with a shelter",
+     *
      *     @OA\Parameter(
      *         name="shelterId",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Shelter ID"
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *          @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
      *                 required={"filename", "file"},
+     *
      *                 @OA\Property(
      *                     property="filename",
      *                     type="string",
@@ -325,11 +373,14 @@ class DocumentController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Document created",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Document")
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Invalid input"
@@ -341,11 +392,11 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png|max:2048',
         ]);
+
         return $this->documentService->createDocumentForShelter($request, $shelter);
     }
-
 
     /**
      * @OA\Put(
@@ -354,19 +405,25 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Update a document",
      *     description="Updates an existing document",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Document ID"
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *            @OA\MediaType(
      *             mediaType="multipart/form-data",
+     *
      *             @OA\Schema(
      *                 required={"filename", "file"},
+     *
      *                 @OA\Property(
      *                     property="filename",
      *                     type="string",
@@ -387,11 +444,14 @@ class DocumentController extends Controller
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Document updated",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Document")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Document not found"
@@ -400,7 +460,7 @@ class DocumentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
         $request->validate([
             'filename' => 'required|max:255',
             'description' => 'nullable|string',
@@ -411,7 +471,7 @@ class DocumentController extends Controller
 
         $updatedDocument = $this->documentService->updateDocument($id, $request->all());
 
-        if (!$updatedDocument) {
+        if (! $updatedDocument) {
             return response()->json(['message' => 'Document not found or update failed'], 404);
         }
 
@@ -425,20 +485,26 @@ class DocumentController extends Controller
      *     tags={"Documents"},
      *     summary="Delete a document",
      *     description="Deletes a specific document",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer"),
      *         description="Document ID"
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Document deleted",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string", example="Document deleted successfully.")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Document not found"
@@ -449,9 +515,10 @@ class DocumentController extends Controller
     {
         try {
             $deleteDocument = $this->documentService->softDeleteDocument($id);
+
             return response()->json([
                 'message' => 'Le document a été supprimé avec succès.',
-                'document' => $deleteDocument
+                'document' => $deleteDocument,
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);

@@ -7,11 +7,11 @@ use App\Http\Services\AssociationService;
 use App\Http\Services\ErrorService;
 use App\Models\Association;
 use Exception;
-use Illuminate\Http\Request;
 
 class AssociationController extends Controller
 {
     protected AssociationService $associationService;
+
     protected ErrorService $errorService;
 
     public function __construct(AssociationService $associationService, ErrorService $errorService)
@@ -21,8 +21,7 @@ class AssociationController extends Controller
 
     }
 
-
-        /**
+    /**
      * @OA\Get(
      *     path="/associations",
      *   security={{"bearerAuth":{}}},
@@ -30,11 +29,14 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Get all associations",
      *     description="Returns a list of all associations",
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="array",
+     *
      *             @OA\Items(ref="#/components/schemas/Association")
      *         )
      *     )
@@ -57,14 +59,18 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Create a new association",
      *     description="Stores a new association in the database",
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="Data for the new association",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Association")
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Association created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Association")
      *     )
      * )
@@ -86,18 +92,23 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Get an association by ID",
      *     description="Returns a single association",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         description="ID of the association to return",
      *         required=true,
      *         in="path",
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Association")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Association not found"
@@ -121,23 +132,30 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Update an existing association",
      *     description="Updates data of a specified association",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         description="ID of the association to update",
      *         required=true,
      *         in="path",
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="Data to update the association",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Association")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Association updated successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Association")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Association not found"
@@ -166,21 +184,27 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Delete an association",
      *     description="Soft deletes a specified association from the database",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         description="ID of the association to delete",
      *         required=true,
      *         in="path",
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Association deleted successfully",
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="message", type="string"),
      *             @OA\Property(property="association", ref="#/components/schemas/Association")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Association not found"
@@ -191,9 +215,10 @@ class AssociationController extends Controller
     {
         try {
             $deleteAssociation = $this->associationService->softDelete($id);
+
             return response()->json([
                 'message' => 'L\'association a été supprimée avec succès.',
-                'association' => $deleteAssociation
+                'association' => $deleteAssociation,
             ]);
 
         } catch (Exception $e) {
@@ -208,18 +233,23 @@ class AssociationController extends Controller
      *     tags={"Associations"},
      *     summary="Get members of an association",
      *     description="Returns a list of association members",
+     *
      *     @OA\Parameter(
      *         name="id",
      *         description="ID of the association",
      *         required=true,
      *         in="path",
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Not found"
@@ -229,11 +259,12 @@ class AssociationController extends Controller
     public function getMembers($id)
     {
         $association = Association::find($id);
-        if (!$association) {
+        if (! $association) {
             return response()->json(['message' => 'Association not found'], 404);
         }
 
         $members = $association->users;
+
         return response()->json($members);
     }
 }

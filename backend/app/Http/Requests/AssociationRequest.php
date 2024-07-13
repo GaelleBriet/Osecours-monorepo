@@ -25,7 +25,7 @@ class AssociationRequest extends FormRequest
             'name' => 'string|max:100|required',
             'description' => 'string|nullable',
             'siret' => 'max:14|min:14|string',
-            'rib' => 'nullable|string|max:34'
+            'rib' => 'nullable|string|max:34',
         ];
     }
 }
