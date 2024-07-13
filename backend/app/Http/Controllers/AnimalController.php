@@ -8,6 +8,7 @@ use App\Http\Requests\AnimalUpdateRequest;
 use App\Http\Resources\AnimalResource;
 use App\Http\Services\AnimalService;
 use App\Http\Services\ErrorService;
+use App\Repositories\AnimalRepository;
 use App\Models\Animal;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,11 +20,15 @@ class AnimalController extends Controller
 
     protected ErrorService $errorService;
 
-    public function __construct(AnimalService $animalService, ErrorService $eService)
+    protected AnimalRepository $animalRepository;
+
+    public function __construct(AnimalService $animalService, ErrorService $eService, AnimalRepository $animalRepository)
     {
         $this->animalService = $animalService;
 
         $this->errorService = $eService;
+
+        $this->animalRepository = $animalRepository;
     }
 
     /**
@@ -148,7 +153,7 @@ class AnimalController extends Controller
      *     )
      * )
      */
-    public function show(string $id)
+    public function show(string $id): AnimalResource|\Illuminate\Http\JsonResponse
     {
         try {
             return $this->animalService->getById($id);
@@ -216,10 +221,10 @@ class AnimalController extends Controller
      *     )
      * )
      */
-    public function update(AnimalUpdateRequest $request, string $id)
+    public function update(AnimalUpdateRequest $request, string $id): AnimalResource|\Illuminate\Http\JsonResponse
     {
         try {
-            if (is_null(Animal::find($id))) {
+            if (is_null($this->animalRepository->find($id))) {
                 throw new AnimalNotFoundException('Animal #'.$id.' not found');
             }
             $animal = $this->animalService->update($id, $request->validated());
@@ -269,7 +274,7 @@ class AnimalController extends Controller
      *     )
      * )
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\JsonResponse
     {
         try {
             $deleteAnimal = $this->animalService->softDelete($id);

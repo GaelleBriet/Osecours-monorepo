@@ -35,7 +35,7 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
         return $animal;
     }
 
-    public function find($id)
+    public function find($id): AnimalResource
     {
         $animal = Animal::with(['specie', 'gender', 'color', 'coat', 'SizeRange', 'AgeRange', 'identification'])
             ->withTrashed()

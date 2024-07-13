@@ -9,7 +9,8 @@ use App\Models\Animal;
 use App\Models\Document;
 use App\Models\Healthcare;
 use App\Models\Shelter;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;use Exception;
+
 
 class DocumentController extends Controller
 {
