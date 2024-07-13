@@ -17,7 +17,8 @@ class SpecieFactory extends Factory
     public function definition(): array
     {
         return [
-            //
-        ];
+            'name' => $this->faker->name(),
+            'description' => 'A domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, non-retractile claws, and a barking, howling, or whining voice.',
+            ];
     }
 }
