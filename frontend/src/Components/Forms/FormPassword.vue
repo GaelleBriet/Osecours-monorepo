@@ -14,14 +14,14 @@
 		labelClass?: string;
 		name?: string;
 		prefixIcon?: string;
-    validation: string | [rule: string, ...args: any[]][] | undefined;
+		validation: string | [rule: string, ...args: any[]][] | undefined;
 		disabled?: boolean;
 		confirmationLabel?: string;
 		validationVisibility?: string;
 		validationMessages?: object;
 		classes?: object;
 		showConfirm?: boolean;
-    placeholder?: string;
+		placeholder?: string;
 	}>();
 
 	const emit = defineEmits<{
@@ -93,7 +93,7 @@
 		:validation-messages="validationMessages"
 		:validation-visibility="validationVisibility"
 		:disabled="disabled"
-    :placeholder="placeholder"
+		:placeholder="placeholder"
 		suffix-icon="eyeClosed"
 		@suffix-icon-click="handleIconClick"
 		suffix-icon-class="hover:text-osecours-beige-dark"

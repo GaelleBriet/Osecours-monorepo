@@ -4,6 +4,7 @@
 	import { computed } from 'vue';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const t = i18n.global.t;
 
@@ -37,6 +38,19 @@
 				return 'text-gray-400';
 		}
 	});
+
+	const iconClass = computed(() => {
+		switch (props.config.type) {
+			case 'success':
+				return 'text-green-400 icon-check';
+			case 'error':
+				return 'text-red-400 icon-triangle-exclamation-solid';
+			case 'warning':
+				return 'text-yellow-400 icon-triangle-exclamation-solid';
+			default:
+				return 'text-gray-400 icon-info-1';
+		}
+	});
 </script>
 <template>
 	<div
@@ -60,11 +74,7 @@
 					<div class="p-4">
 						<div class="flex items-start">
 							<div class="flex-shrink-0">
-								<CheckCircleIcon
-									class="h-6 w-6"
-									:class="textClass"
-									aria-hidden="true"
-								/>
+								<span :class="iconClass"></span>
 							</div>
 							<div class="ml-3 w-0 flex-1 pt-0.5">
 								<p
@@ -78,19 +88,13 @@
 								</p>
 							</div>
 							<div class="ml-4 flex flex-shrink-0">
-								<button
+								<ButtonComponent
+									id="close-notification"
+									size="xs"
 									type="button"
 									@click="hideNotification"
-									class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-								>
-									<span class="sr-only">{{
-										getCapitalizedText(t('common.close'))
-									}}</span>
-									<XMarkIcon
-										class="h-5 w-5"
-										aria-hidden="true"
-									/>
-								</button>
+									><span class="icon-cancel"></span
+								></ButtonComponent>
 							</div>
 						</div>
 					</div>

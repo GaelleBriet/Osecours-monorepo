@@ -10,7 +10,7 @@ import {
 	getDocumentsByShelter,
 	getDocumentsByAnimal,
 	updateDocument,
-	deleteDocument
+	deleteDocument,
 } from '@/Services/DataLayers/Document.ts';
 import { ErrorResponse } from '@/Interfaces/Requests.ts';
 import { RouteParamValue } from 'vue-router';
@@ -29,7 +29,9 @@ export const useDocumentsStore = defineStore('documents', {
 		},
 	},
 	actions: {
-		async getDocument(id: string | RouteParamValue[]): Promise<Document | null> {
+		async getDocument(
+			id: string | RouteParamValue[],
+		): Promise<Document | null> {
 			const document: Document | ErrorResponse = await getDocument(id);
 			if ('error' in document) {
 				return null;
@@ -129,10 +131,12 @@ export const useDocumentsStore = defineStore('documents', {
 		},
 		async updateDocument(
 			id: string,
-			document: Document
+			document: Document,
 		): Promise<Document | null> {
-			const updatedDocument: Document | ErrorResponse =
-				await updateDocument(id, document);
+			const updatedDocument: Document | ErrorResponse = await updateDocument(
+				id,
+				document,
+			);
 			if ('error' in updatedDocument) {
 				return null;
 			} else {
@@ -141,7 +145,8 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async deleteDocument(id: string): Promise<boolean> {
-			const documentToDelete: Document | ErrorResponse = await deleteDocument(id);
+			const documentToDelete: Document | ErrorResponse =
+				await deleteDocument(id);
 			if ('error' in documentToDelete) {
 				return false;
 			} else {

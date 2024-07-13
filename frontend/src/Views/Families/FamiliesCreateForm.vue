@@ -2,6 +2,7 @@
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import FamiliesForm from '@/Views/Families/FamiliesForm.vue';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const t = i18n.global.t;
 </script>
@@ -12,13 +13,20 @@
 			<div class="text-2xl mb-1">
 				{{ getCapitalizedText(t('pages.families.card')) }}
 			</div>
-			<button
+			<!--			<button-->
+			<!--				id="back-btn"-->
+			<!--				class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"-->
+			<!--				@click="$router.go(-1)"-->
+			<!--			>-->
+			<!--				{{ getCapitalizedText(t('common.back')) }}-->
+			<!--			</button>-->
+			<!--				class="bg-osecours-beige-dark rounded transition-colors duration-200 ease-in-out text-center justify-center items-center"-->
+			<ButtonComponent
 				id="back-btn"
-				class="me-1.5 px-4 py-2 text-white lg:text-sm rounded transition-colors duration-200 ease-in-out"
-				@click="$router.go(-1)"
-			>
-				{{ getCapitalizedText(t('common.back')) }}
-			</button>
+				size="sm"
+				:label="getCapitalizedText(t('common.back'))"
+				@click="() => $router.go(-1)"
+			/>
 		</div>
 		<div class="content">
 			<FamiliesForm

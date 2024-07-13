@@ -6,6 +6,7 @@
 		TransitionChild,
 		TransitionRoot,
 	} from '@headlessui/vue';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 
 	const props = defineProps<{
 		isOpen: boolean;
@@ -27,18 +28,26 @@
 		() => props.isOpen,
 		(newValue) => {
 			isOpen.value = newValue;
+			console.log('isOpen', isOpen.value);
 		},
 	);
 
 	const closeModal = () => {
 		isOpen.value = false;
+		emit('close');
 	};
 
 	const onConfirm = () => {
 		emit('confirm');
 	};
 
+	const onCancel = () => {
+		isOpen.value = false;
+		emit('close');
+	};
+
 	const onClose = () => {
+		isOpen.value = false;
 		emit('close');
 	};
 </script>
@@ -104,34 +113,28 @@
 							</div>
 							<slot name="beforeButtons"></slot>
 							<div class="flex flex-row gap-2 mt-5 mb-2 justify-around">
-								<button
+								<ButtonComponent
 									v-if="confirmButton"
 									id="save-changes"
-									type="button"
-									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
+									size="sm"
+									label="Confimer"
 									@click="onConfirm"
-								>
-									{{ 'Confimer' }}
-								</button>
-								<button
+								/>
+								<ButtonComponent
 									v-if="cancelButton"
 									id="cancel"
-									type="button"
-									class="rounded-md px-2 py-1 text-center text-sm text-white h-7 w-20"
-									@click="onClose"
-								>
-									{{ 'Annuler' }}
-								</button>
+									size="sm"
+									label="Annuler"
+									@click="onCancel"
+								/>
 							</div>
 							<div class="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-								<button
+								<ButtonComponent
 									type="button"
-									class="rounded-md dialog-color text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-									@click="closeModal"
-								>
-									<span class="sr-only">Close</span>
-									&times;
-								</button>
+									@click="onClose"
+									size="xs"
+									><span class="icon-cancel"></span>
+								</ButtonComponent>
 							</div>
 							<slot></slot>
 						</DialogPanel>

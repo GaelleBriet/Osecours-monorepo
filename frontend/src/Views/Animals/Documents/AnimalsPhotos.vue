@@ -9,9 +9,9 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
-  const props = defineProps<{
-    animal: Animal;
-  }>();
+	const props = defineProps<{
+		animal: Animal;
+	}>();
 
 	const showForm = ref(false);
 	const documentsStore = useDocumentsStore();
@@ -51,9 +51,9 @@
 		documentsStore.deleteDocument(item.id);
 	};
 
-  onMounted(async () => {
-    fetchDocuments();
-  });
+	onMounted(async () => {
+		fetchDocuments();
+	});
 </script>
 
 <template>

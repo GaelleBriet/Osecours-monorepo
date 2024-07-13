@@ -21,9 +21,7 @@
 			</button>
 		</div>
 		<div class="content">
-			<MembersForm
-				:is-create-mode="true"
-			/>
+			<MembersForm :is-create-mode="true" />
 		</div>
 	</div>
 </template>

@@ -4,6 +4,7 @@
 
 	const t = i18n.global.t;
 	import { ref, computed } from 'vue';
+	import ButtonComponent from '@/Components/ButtonComponent.vue';
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
@@ -114,14 +115,15 @@
 					v-if="!disableAddBtn"
 					class="mt-4 ml-22"
 				>
-					<button
+					<ButtonComponent
 						id="add-animal-btn"
+						size="md"
+						:label="getCapitalizedText(t('common.add'))"
+						class="bg-osecours-beige-dark rounded"
 						type="button"
-						class="rounded-md px-3 py-2 text-center text-sm"
 						@click="addItem"
 					>
-						{{ getCapitalizedText(t('common.add')) }}
-					</button>
+					</ButtonComponent>
 				</div>
 			</div>
 		</div>
@@ -129,15 +131,15 @@
 			v-else
 			class="relative flex justify-end -top-8 z-0"
 		>
-			<button
+			<ButtonComponent
 				v-tooltip="getCapitalizedText(t('common.notImplemented'))"
 				id="add-btn"
+				size="md"
+				:label="getCapitalizedText(t('pages.animals.addChar'))"
 				type="button"
-				class="rounded-md px-3 py-2 text-center text-sm"
 				@click="addItem"
 			>
-				{{ getCapitalizedText(t('pages.animals.addChar')) }}
-			</button>
+			</ButtonComponent>
 		</div>
 
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">

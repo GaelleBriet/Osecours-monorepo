@@ -20,7 +20,9 @@
 	const showForm = ref(false);
 
 	const fetchDocuments = async () => {
-		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
+		const docsByAnimal = await documentsStore.getDocumentsByAnimal(
+			route.params.id,
+		);
 		const allDocTypes = await doctypesStore.getAllDoctypes();
 		documents.value = docsByAnimal;
 		doctypes.value = allDocTypes;
@@ -39,7 +41,7 @@
 	const documentsTransformed = computed(() => {
 		return documents.value.map((document) => ({
 			...document,
-			doctype_name: getDoctypeNameById(document.doctype_id)
+			doctype_name: getDoctypeNameById(document.doctype_id),
 		}));
 	});
 
@@ -59,20 +61,22 @@
 		documentsStore.deleteDocument(item.id);
 	};
 
-  onMounted(async () => {
-    await fetchDocuments();
-  });
-
+	onMounted(async () => {
+		await fetchDocuments();
+	});
 </script>
 <template>
 	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
 		<DataGridComponent
-			:store="documentsStore" 
+			:store="documentsStore"
 			:model-value="documentsTransformed"
 			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
 			:columns="[
 				{ label: getCapitalizedText(t('common.name')), key: 'filename' },
-				{ label: getCapitalizedText(t('pages.documents.type')), key: 'doctype_name' },
+				{
+					label: getCapitalizedText(t('pages.documents.type')),
+					key: 'doctype_name',
+				},
 				{ label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
 				{ label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
 			]"
@@ -80,9 +84,12 @@
 			@add="addItem"
 			@delete="removeItem"
 			@documentSaved="handleDocumentSaved"
-		/>                
-    </div>
-	<ModalComponent :isOpen="showForm" @close="showForm = false">
+		/>
+	</div>
+	<ModalComponent
+		:isOpen="showForm"
+		@close="showForm = false"
+	>
 		<DocumentsForm
 			:is-create-mode="true"
 			:is-photo-mode="false"
