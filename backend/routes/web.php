@@ -6,6 +6,6 @@ Route::get('/api/docs', function () {
     return view('swagger.index');
 });
 
-//Route::get('/', function () {
-//    return 'Hello World!';
-//});
+Route::get('/', function () {
+    return 'Hello World!';
+});

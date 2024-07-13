@@ -49,8 +49,22 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "test": [
-            "docker exec -i laravel_backend bash -c \"cd /var/www/html && vendor/bin/phpunit\""
+        "test-clear-config": [
+            "docker exec -i -e APP_ENV=testing laravel_backend php artisan config:clear"
+        ],
+        "test-migrate": [
+            "docker exec -i -e APP_ENV=testing laravel_backend php artisan migrate:fresh --seed --env=testing --database=testing"
+        ],
+        "test-run": [
+            "docker exec -i -e APP_ENV=testing laravel_backend php artisan test"
+        ],
+        "test-all": [
+            "@test-clear-config",
+            "@test-migrate",
+            "@test-run"
+        ],
+        "test:phpunit": [
+            "docker exec -i laravel_backend bash -c \"cd /var/www/html && php artisan config:clear && vendor/bin/phpunit --colors=always\""
         ],
         "test-coverage": [
             "docker exec -i laravel_backend bash -c \"cd /var/www/html && vendor/bin/phpunit --coverage-text\""
