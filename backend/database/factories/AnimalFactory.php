@@ -35,10 +35,10 @@ class AnimalFactory extends Factory
             'deceased' => $this->faker->boolean(),
             'specie_id' => Specie::factory(),
             'breed_id' => Breed::factory(),
-//            'gender_id' => 1,
-//            'color_id' => 1,
-//            'coat_id' => 1,
-//            'sizerange_id' => 1,
+            //            'gender_id' => 1,
+            //            'color_id' => 1,
+            //            'coat_id' => 1,
+            //            'sizerange_id' => 1,
             'agerange_id' => AgeRange::factory(),
         ];
     }

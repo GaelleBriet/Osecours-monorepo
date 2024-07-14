@@ -10,7 +10,7 @@ interface AgeRangeRepositoryInterface
 
     public function find($id);
 
-    public function create(Array $ageRange);
+    public function create(array $ageRange);
 
     public function update(AgeRange $ageRange);
 

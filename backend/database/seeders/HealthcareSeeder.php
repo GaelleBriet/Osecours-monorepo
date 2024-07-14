@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Animal;
 use App\Models\Healthcare;
-use App\Models\Identification;
-use Illuminate\Database\Seeder;
 
 class HealthcareSeeder extends BaseSeeder
 {

@@ -3,14 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\AgeRange;
+use App\Models\Animal;
 use App\Models\Breed;
 use App\Models\Coat;
 use App\Models\Color;
 use App\Models\Gender;
 use App\Models\SizeRange;
 use App\Models\Specie;
-use Illuminate\Database\Seeder;
-use App\Models\Animal;
 
 class AnimalsSeeder extends BaseSeeder
 {
@@ -33,24 +32,24 @@ class AnimalsSeeder extends BaseSeeder
 
         $catColors = Color::whereIn('name', $catColorNames)
             ->whereHas('species', function ($query) use ($catSpecie) {
-            $query->where('species.id', $catSpecie->id);
-        })
+                $query->where('species.id', $catSpecie->id);
+            })
             ->pluck('id')->toArray();
         $dogColors = Color::whereIn('name', $dogColorNames)
             ->whereHas('species', function ($query) use ($dogSpecie) {
-            $query->where('species.id', $dogSpecie->id);
-        })
+                $query->where('species.id', $dogSpecie->id);
+            })
             ->pluck('id')->toArray();
 
         $catCoats = Coat::whereIn('name', $catCoatNames)
             ->whereHas('species', function ($query) use ($catSpecie) {
-            $query->where('species.id', $catSpecie->id);
-        })
+                $query->where('species.id', $catSpecie->id);
+            })
             ->pluck('id')->toArray();
         $dogCoats = Coat::whereIn('name', $dogCoatNames)
             ->whereHas('species', function ($query) use ($dogSpecie) {
-            $query->where('species.id', $dogSpecie->id);
-        })
+                $query->where('species.id', $dogSpecie->id);
+            })
             ->pluck('id')->toArray();
 
         $catSizeRanges = SizeRange::whereNotIn('name', ['Molosse'])->pluck('id')->toArray();

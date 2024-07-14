@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SizeRange;
-use Illuminate\Database\Seeder;
 
 class SizeRangesSeeder extends BaseSeeder
 {

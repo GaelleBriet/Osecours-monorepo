@@ -15,6 +15,7 @@ class AgeRangeFactory extends Factory
         'adulte',
         'sénior',
     ];
+
     /**
      * Define the model's default state.
      *

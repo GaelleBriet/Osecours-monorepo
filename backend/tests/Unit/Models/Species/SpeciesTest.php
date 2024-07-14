@@ -24,7 +24,7 @@ class SpeciesTest extends TestCase
             [
                 'name' => 'Dog',
                 'description' => 'A domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice.',
-            ]
+            ],
         ];
 
         foreach ($speciesData as $data) {

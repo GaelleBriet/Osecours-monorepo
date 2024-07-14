@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Vaccine;
-use Illuminate\Database\Seeder;
 
 class VaccinesSeeder extends BaseSeeder
 {

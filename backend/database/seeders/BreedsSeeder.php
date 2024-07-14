@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Database\Seeders;
 
 use App\Models\Breed;
 use App\Models\Specie;
-use Illuminate\Database\Seeder;
 
 class BreedsSeeder extends BaseSeeder
 {

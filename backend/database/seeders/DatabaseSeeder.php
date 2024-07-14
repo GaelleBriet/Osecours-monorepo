@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             GendersSeeder::class,
             AnimalsSeeder::class,
             IdentificationSeeder::class,
-            HealthcareSeeder::class
+            HealthcareSeeder::class,
         ]);
     }
 }
@@ -478,21 +478,21 @@ class DatabaseSeeder extends Seeder
 //            ]);
 //        }
 
-        $dogCoats = [
-            'Hairless',
-            'Short',
-            'Medium',
-            'Long',
-            'Wire',
-            'Curly',
-        ];
+$dogCoats = [
+    'Hairless',
+    'Short',
+    'Medium',
+    'Long',
+    'Wire',
+    'Curly',
+];
 
-        $catCoats = [
-            'Hairless',
-            'Short',
-            'Medium',
-            'Long',
-        ];
+$catCoats = [
+    'Hairless',
+    'Short',
+    'Medium',
+    'Long',
+];
 
 //        $coats = array_unique(array_merge($catCoats, $dogCoats));
 //

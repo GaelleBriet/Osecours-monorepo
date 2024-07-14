@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Coat;
 use App\Models\Specie;
-use Illuminate\Database\Seeder;
 
 class CoatsSeeder extends BaseSeeder
 {

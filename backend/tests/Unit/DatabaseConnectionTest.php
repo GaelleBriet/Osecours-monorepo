@@ -17,7 +17,7 @@ class DatabaseConnectionTest extends TestCase
         $this->assertEquals(1, $result[0]->test);
 
         // Vérifier le nom de la base de données actuelle
-        $dbName = DB::select("SELECT current_database() as db_name")[0]->db_name;
+        $dbName = DB::select('SELECT current_database() as db_name')[0]->db_name;
         $this->assertEquals('osecours_test', $dbName);
     }
 }

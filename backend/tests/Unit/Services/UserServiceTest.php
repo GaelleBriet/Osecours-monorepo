@@ -1,12 +1,13 @@
 <?php
+
 namespace Tests\Unit\Services;
 
 use App\Http\Services\UserService;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
-use Tests\TestCase;
 use Mockery;
+use Tests\TestCase;
 
 class UserServiceTest extends TestCase
 {

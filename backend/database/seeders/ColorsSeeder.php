@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Color;
 use App\Models\Specie;
-use Illuminate\Database\Seeder;
 
 class ColorsSeeder extends BaseSeeder
 {
@@ -20,7 +19,7 @@ class ColorsSeeder extends BaseSeeder
         // synWithoutDetaching => ajoute la relation sans supprimer les relations existantes
         foreach ($dog_colors as $color) {
             $colorModel = Color::firstOrCreate([
-                'name' => $color
+                'name' => $color,
             ], [
                 'description' => $this->faker->sentence(5),
             ]);
@@ -29,7 +28,7 @@ class ColorsSeeder extends BaseSeeder
 
         foreach ($cat_colors as $color) {
             $colorModel = Color::firstOrCreate([
-                'name' => $color
+                'name' => $color,
             ], [
                 'description' => $this->faker->sentence(5),
             ]);

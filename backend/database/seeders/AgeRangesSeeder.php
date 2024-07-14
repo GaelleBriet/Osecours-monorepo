@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\AgeRange;
-use Illuminate\Database\Seeder;
 
 class AgeRangesSeeder extends BaseSeeder
 {

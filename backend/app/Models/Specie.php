@@ -60,9 +60,10 @@ class Specie extends Model
 
         if (app()->environment() === 'testing') {
             static::creating(function ($species) {
-                if (!in_array($species->name, ['Cat', 'Dog'])) {
+                if (! in_array($species->name, ['Cat', 'Dog'])) {
                     return false;
                 }
+
                 return true;
             });
         }
