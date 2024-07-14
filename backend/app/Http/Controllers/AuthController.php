@@ -64,10 +64,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * @param AuthRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {

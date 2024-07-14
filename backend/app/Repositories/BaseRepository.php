@@ -13,7 +13,7 @@ abstract class BaseRepository
         $this->model = $model;
     }
 
-    public function all(): \Illuminate\Database\Eloquent\Collection
+    public function all(): mixed
     {
         return $this->model->all();
     }

@@ -10,10 +10,7 @@ use Illuminate\Http\Request;
 
 class BreedController extends Controller
 {
-
     /**
-     * @param Request $request
-     * @return Collection|array
      * @throws Exception
      */
     public function getAll(Request $request): Collection|array
@@ -37,19 +34,11 @@ class BreedController extends Controller
         return $breeds;
     }
 
-    /**
-     * @param Breed $breed
-     * @return Breed
-     */
     public function show(Breed $breed): Breed
     {
         return $breed;
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
     public function create(Request $request): mixed
     {
         $request->validate([
@@ -63,11 +52,6 @@ class BreedController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param Breed   $breed
-     * @return bool
-     */
     public function update(Request $request, Breed $breed): bool
     {
         $request->validate([
@@ -81,11 +65,6 @@ class BreedController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param Breed   $breed
-     * @return bool|null
-     */
     public function delete(Request $request, Breed $breed): ?bool
     {
         return $breed->delete();

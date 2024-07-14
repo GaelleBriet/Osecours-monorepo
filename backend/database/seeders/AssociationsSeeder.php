@@ -10,13 +10,14 @@ use App\Models\Person;
 use App\Models\Role;
 use App\Models\Shelter;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AssociationsSeeder extends BaseSeeder
 {
     public function run(): void
     {
-        $assocations = json_decode(file_get_contents(database_path('data/associations.json')), true);
+        $associations = json_decode(file_get_contents(database_path('data/associations.json')), true);
         $shelters = json_decode(file_get_contents(database_path('data/shelters.json')), true);
         $addresses = json_decode(file_get_contents(database_path('data/address.json')), true);
         $cities = json_decode(file_get_contents(database_path('data/cities.json')), true);
@@ -28,7 +29,7 @@ class AssociationsSeeder extends BaseSeeder
             ]);
         }
 
-        foreach ($assocations as $index => $association) {
+        foreach ($associations as $index => $association) {
 
             $associationCreated = Association::factory()->create([
                 'name' => $association['name'],
@@ -69,12 +70,52 @@ class AssociationsSeeder extends BaseSeeder
             }
             $associationCreated->person()->save($personCreated);
 
+            // Création d'utilisateurs pour jeux de tests manuels
+            $faker = \Faker\Factory::create();
+            $predefinedUsers = [
+                'admin' => [$faker->firstName(), ucfirst('admin')],
+                'user' => [$faker->firstName(), ucfirst('user')],
+                'accountant' => [$faker->firstName(), ucfirst('accountant')],
+                'president' => [$faker->firstName(), ucfirst('president')],
+                'adopt' => [$faker->firstName(), ucfirst('adopt')],
+                'other' => [$faker->firstName(), ucfirst('other')],
+                'foster' => [$faker->firstName(), ucfirst('foster')],
+            ];
+            foreach ($predefinedUsers as $role => $names) {
+                $userCreated = User::firstOrCreate(
+                    ['email' => $role.'@osecours-asso.fr'],
+                    [
+                        'first_name' => $names[0],
+                        'last_name' => $names[1],
+                        'email_verified_at' => now(),
+                        'password' => Hash::make('P@ssword_1'),
+                        'remember_token' => Str::random(10),
+                        'phone' => $this->faker->numerify('##########'),
+                        'existing_cat_count' => $this->faker->numberBetween(0, 5),
+                        'existing_dog_count' => $this->faker->numberBetween(0, 5),
+                        'existing_children_count' => $this->faker->numberBetween(0, 5),
+                    ]
+                );
+
+                Person::firstOrCreate([
+                    'personable_id' => $userCreated->id,
+                    'personable_type' => get_class($userCreated),
+                ]);
+
+                $roleCreated = Role::firstOrCreate(['name' => $role]);
+                $associationCreated->users()->syncWithoutDetaching([$userCreated->id => ['role_id' => $roleCreated->id]]);
+            }
+
+            // Création d'utilisateurs aléatoires
             foreach (RoleEnum::cases() as $roleName) {
-                $emailReadyString = Str::slug($association['name']);
+                $faker = \Faker\Factory::create();
+                $firstName = $faker->firstName();
+                $lastName = $faker->lastName();
+
                 $userCreated = User::factory()->create([
-                    'first_name' => ucfirst($roleName->value),
-                    'last_name' => ucfirst($roleName->value),
-                    'email' => $roleName->value.'-'.$emailReadyString.'@osecours.org',
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'email' => strtolower($firstName).'.'.strtolower($lastName).'@osecours-asso.fr',
                 ]);
                 Person::create([
                     'personable_id' => $userCreated->id,

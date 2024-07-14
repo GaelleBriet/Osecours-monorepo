@@ -21,7 +21,7 @@ class AnimalService
         $this->identifications = $identificationRepository;
     }
 
-    public function getAll()
+    public function getAll(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return $this->animals->all();
     }

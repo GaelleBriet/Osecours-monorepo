@@ -82,6 +82,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 return $role->pivot->role_id;
             }
         }
+
         return null;
     }
 }

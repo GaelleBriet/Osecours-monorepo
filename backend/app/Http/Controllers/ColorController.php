@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-
     public function getAll(Request $request): \Illuminate\Database\Eloquent\Collection|array
     {
         $query = Color::with(['species']);

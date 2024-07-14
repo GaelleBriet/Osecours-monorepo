@@ -13,7 +13,7 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
         parent::__construct($animal);
     }
 
-    public function all(): \Illuminate\Database\Eloquent\Collection
+    public function all(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $animals = Animal::with(['identification'])->get();
 
