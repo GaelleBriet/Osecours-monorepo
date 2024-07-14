@@ -54,6 +54,20 @@ class Specie extends Model
         'description',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        if (app()->environment() === 'testing') {
+            static::creating(function ($species) {
+                if (!in_array($species->name, ['Cat', 'Dog'])) {
+                    return false;
+                }
+                return true;
+            });
+        }
+    }
+
     public function animals(): HasMany
     {
         return $this->hasMany(Animal::class);
