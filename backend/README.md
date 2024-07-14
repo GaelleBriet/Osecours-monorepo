@@ -18,6 +18,9 @@ docker exec -it -e APP_ENV=testing laravel_backend php artisan test --env=testin
 docker exec -it laravel_backend bash
 php artisan migrate:fresh --seed
 ```
+composer test-run -- tests/Unit/Models/Species/SpeciesTest.php
+
+
 
 ## Se connecter au container postgres
 
