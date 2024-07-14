@@ -12,22 +12,22 @@ class IdentificationRepository extends BaseRepository implements IdentificationR
         parent::__construct($identification);
     }
 
-    public function all()
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
         return Identification::all();
     }
 
-    public function find($id)
+    public function find($id): mixed
     {
         return Identification::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $data): mixed
     {
         return Identification::create($data);
     }
 
-    public function update($id, $updatedDatas)
+    public function update($id, $updatedDatas): mixed
     {
         $currentIdentitification = Identification::findOrFail($id);
         $currentIdentitification->update($updatedDatas);

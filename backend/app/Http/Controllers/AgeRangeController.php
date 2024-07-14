@@ -10,22 +10,36 @@ class AgeRangeController extends Controller
 {
     protected AgeRangeRepositoryInterface $ageRangeRepository;
 
+    /**
+     * @param AgeRangeRepositoryInterface $ageRangeRepository
+     */
     public function __construct(AgeRangeRepositoryInterface $ageRangeRepository)
     {
         $this->ageRangeRepository = $ageRangeRepository;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function getAll(): \Illuminate\Database\Eloquent\Collection
     {
         return AgeRange::all();
     }
 
+    /**
+     * @param AgeRange $AgeRange
+     * @return AgeRange
+     */
     public function show(AgeRange $AgeRange): AgeRange
     {
         return $AgeRange;
     }
 
-    public function create(Request $request)
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function create(Request $request): mixed
     {
         $request->validate([
             'name' => 'required|max:255',
@@ -38,6 +52,11 @@ class AgeRangeController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param AgeRange $AgeRange
+     * @return bool
+     */
     public function update(Request $request, AgeRange $AgeRange): bool
     {
         $request->validate([
@@ -51,6 +70,10 @@ class AgeRangeController extends Controller
         ]);
     }
 
+    /**
+     * @param AgeRange $AgeRange
+     * @return bool|null
+     */
     public function delete(AgeRange $AgeRange): ?bool
     {
         return $AgeRange->delete();

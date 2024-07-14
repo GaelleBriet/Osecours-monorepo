@@ -8,9 +8,22 @@ use App\Models\User;
 
 interface RoleRepositoryInterface
 {
-    public function all();
+    /**
+     * @return mixed
+     */
+    public function all(): mixed;
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id);
 
-    public function attachRoleOnUser(Role $role, User $user, Association $association);
+    /**
+     * @param Role $role
+     * @param User $user
+     * @param Association $association
+     * @return mixed
+     */
+    public function attachRoleOnUser(Role $role, User $user, Association $association): mixed;
 }

@@ -6,23 +6,66 @@ use App\Models\User;
 
 interface UserRepositoryInterface
 {
-    public function all();
+    /**
+     * @return mixed
+     */
+    public function all(): mixed;
 
-    public function find($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id): mixed;
 
-    public function findByEmailAndAssociation($email, $associationId);
+    /**
+     * @param $email
+     * @param $associationId
+     * @return mixed
+     */
+    public function findByEmailAndAssociation($email, $associationId): mixed;
 
-    public function findByAssociationAndUser($associationId, User $user);
+    /**
+     * @param $associationId
+     * @param User $user
+     * @return mixed
+     */
+    public function findByAssociationAndUser($associationId, User $user): mixed;
 
-    public function findByRoleAndAssociation($role, $currentAssociationId);
+    /**
+     * @param $role
+     * @param $currentAssociationId
+     * @return mixed
+     */
+    public function findByRoleAndAssociation($role, $currentAssociationId): mixed;
 
-    public function findByRole(string $role);
+    /**
+     * @param string $role
+     * @return mixed
+     */
+    public function findByRole(string $role): mixed;
 
-    public function getAllAssociationsFromUser(User $user);
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getAllAssociationsFromUser(User $user): mixed;
 
-    public function softDelete($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function softDelete($id): mixed;
 
-    public function create(User $user);
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function create(User $user): mixed;
 
-    public function getUserRole($userId, $associationId);
+    /**
+     * @param $userId
+     * @param $associationId
+     * @return mixed
+     */
+    public function getUserRole($userId, $associationId): mixed;
 }

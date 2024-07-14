@@ -16,4 +16,9 @@ trait RoleAssociation
             $this->roles()->attach($roleId, ['association_id' => $associationId]);
         }
     }
+
+    public function verifyUserRole($roleId, $associationId): bool
+    {
+        return $this->roles()->where('role_id', $roleId)->where('association_id', $associationId)->exists();
+    }
 }

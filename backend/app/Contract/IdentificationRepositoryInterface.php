@@ -4,11 +4,27 @@ namespace App\Contract;
 
 interface IdentificationRepositoryInterface
 {
-    public function all();
+    /**
+     * @return mixed
+     */
+    public function all(): mixed;
 
-    public function find($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id): mixed;
 
-    public function create(array $data);
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function create(array $data): mixed;
 
-    public function update($id, array $updatedDatas);
+    /**
+     * @param $id
+     * @param array $updatedDatas
+     * @return mixed
+     */
+    public function update($id, array $updatedDatas): mixed;
 }

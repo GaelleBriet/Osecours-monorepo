@@ -78,12 +78,12 @@ class Shelter extends Model implements HasDocumentsInterface
         'siret',
     ];
 
-    public function person()
+    public function person(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
         return $this->morphOne(Person::class, 'personable');
     }
 
-    public function associations()
+    public function associations(): BelongsToMany
     {
         return $this->belongsToMany(Association::class, 'association_shelter')
             ->withPivot('begin_date')
@@ -91,14 +91,14 @@ class Shelter extends Model implements HasDocumentsInterface
             ->withTimestamps();
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'animal_shelter_user')
             ->withPivot('user_id')
             ->withTimestamps();
     }
 
-    public function animals()
+    public function animals(): BelongsToMany
     {
         return $this->belongsToMany(Animal::class, 'animal_shelter_user')
             ->withPivot('animal_id')
@@ -110,7 +110,7 @@ class Shelter extends Model implements HasDocumentsInterface
         return $this->belongsToMany(Document::class);
     }
 
-    public function getDocuments()
+    public function getDocuments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->belongsToMany(Document::class)->get();
     }

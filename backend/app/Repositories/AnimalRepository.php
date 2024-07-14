@@ -13,19 +13,19 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
         parent::__construct($animal);
     }
 
-    public function all()
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
         $animals = Animal::with(['identification'])->get();
 
         return AnimalResource::collection($animals);
     }
 
-    public function create($animal)
+    public function create($animal): mixed
     {
         return Animal::create($animal);
     }
 
-    public function update($id, $updatedDatas)
+    public function update($id, $updatedDatas): mixed
     {
         $animal = Animal::find($id);
         if ($animal) {
@@ -44,7 +44,7 @@ class AnimalRepository extends BaseRepository implements AnimalRepositoryInterfa
         return new AnimalResource($animal);
     }
 
-    public function softDelete($id)
+    public function softDelete($id): mixed
     {
         $animal = Animal::findOrFail($id);
         $animal->delete();

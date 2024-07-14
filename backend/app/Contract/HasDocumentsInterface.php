@@ -4,5 +4,8 @@ namespace App\Contract;
 
 interface HasDocumentsInterface
 {
-    public function getDocuments();
+    /**
+     * @return mixed
+     */
+    public function getDocuments(): mixed;
 }

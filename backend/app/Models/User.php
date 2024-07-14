@@ -123,19 +123,19 @@ class User extends Authenticatable
         ];
     }
 
-    public function person()
+    public function person(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
         return $this->morphOne(Person::class, 'personable');
     }
 
-    public function associations()
+    public function associations(): BelongsToMany
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
             ->withPivot('role_id')
             ->withTimestamps();
     }
 
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'association_role_user')
             ->withPivot('association_id')
@@ -149,21 +149,21 @@ class User extends Authenticatable
     //        ->withTimestamps();
     //    }
 
-    public function animals()
+    public function animals(): BelongsToMany
     {
         return $this->belongsToMany(Animal::class, 'animal_shelter_user')
             ->withPivot('animal_id')
             ->withTimestamps();
     }
 
-    public function shelters()
+    public function shelters(): BelongsToMany
     {
         return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
             ->withPivot('shelter_id')
             ->withTimestamps();
     }
 
-    public function association_role_user()
+    public function association_role_user(): BelongsToMany
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
             ->withPivot('role_id')

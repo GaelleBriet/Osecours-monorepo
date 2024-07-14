@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
 {
-    protected $model;
+    protected Model $model;
 
     public function __construct(Model $model)
     {
         $this->model = $model;
     }
 
-    public function all()
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->model->all();
     }

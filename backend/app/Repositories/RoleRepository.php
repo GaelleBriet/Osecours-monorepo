@@ -14,7 +14,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
         parent::__construct($role);
     }
 
-    public function attachRoleOnUser(Role $role, User $user, Association $association)
+    public function attachRoleOnUser(Role $role, User $user, Association $association): null
     {
         return $user->roles()->attach($role->id, ['association_id' => $association->id]);
     }

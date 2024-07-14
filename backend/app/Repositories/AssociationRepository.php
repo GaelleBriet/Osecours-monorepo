@@ -13,7 +13,7 @@ class AssociationRepository extends BaseRepository implements AssociationReposit
         parent::__construct($association);
     }
 
-    public function all()
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
 
         $associations = Association::all();
@@ -21,12 +21,12 @@ class AssociationRepository extends BaseRepository implements AssociationReposit
         return AssociationResource::collection($associations);
     }
 
-    public function create($association)
+    public function create($association): mixed
     {
         return Association::create($association);
     }
 
-    public function update($id, $updatedDatas)
+    public function update($id, $updatedDatas): mixed
     {
         $association = Association::find($id);
         if ($association) {
@@ -36,7 +36,7 @@ class AssociationRepository extends BaseRepository implements AssociationReposit
         return $association;
     }
 
-    public function find($id)
+    public function find($id): mixed
     {
         $association = Association::withTrashed()
             ->findOrFail($id);
@@ -44,7 +44,7 @@ class AssociationRepository extends BaseRepository implements AssociationReposit
         return new AssociationResource($association);
     }
 
-    public function softDelete($id)
+    public function softDelete($id): mixed
     {
         $association = Association::findOrFail($id);
         $association->delete();

@@ -15,17 +15,17 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         parent::__construct($doc);
     }
 
-    public function findDocument($id)
+    public function findDocument($id): mixed
     {
         return Document::findOrFail($id);
     }
 
-    public function getAllDocuments(HasDocumentsInterface $model)
+    public function getAllDocuments(HasDocumentsInterface $model): mixed
     {
         return $model->getDocuments();
     }
 
-    public function createDocument($array)
+    public function createDocument($array): mixed
     {
 
         Mimetype::firstOrCreate([
@@ -50,7 +50,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
 
     }
 
-    public function softDeleteDocument($id)
+    public function softDeleteDocument($id): mixed
     {
         $document = Document::findOrFail($id);
         $document->delete();
@@ -58,7 +58,7 @@ class DocumentRepository extends BaseRepository implements DocumentRepositoryInt
         return $document;
     }
 
-    public function updateDocument($id, $updateDatas)
+    public function updateDocument($id, $updateDatas): mixed
     {
         $document = Document::find($id);
         if ($document) {

@@ -9,7 +9,7 @@ use Exception;
 
 class AuthController extends Controller
 {
-    protected $errorService;
+    protected ErrorService $errorService;
 
     public function __construct(ErrorService $eService)
     {
@@ -45,7 +45,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function getToken(AuthRequest $request)
+    public function getToken(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
 
         try {
@@ -64,6 +64,10 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @param AuthRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {

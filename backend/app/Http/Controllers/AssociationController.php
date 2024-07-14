@@ -256,7 +256,7 @@ class AssociationController extends Controller
      *     )
      * )
      */
-    public function getMembers($id)
+    public function getMembers($id): \Illuminate\Http\JsonResponse
     {
         $association = Association::find($id);
         if (! $association) {

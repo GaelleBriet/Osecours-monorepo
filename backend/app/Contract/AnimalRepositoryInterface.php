@@ -4,13 +4,33 @@ namespace App\Contract;
 
 interface AnimalRepositoryInterface
 {
-    public function all();
+    /**
+     * @return mixed
+     */
+    public function all(): mixed;
 
-    public function find($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id): mixed;
 
-    public function create($animal);
+    /**
+     * @param $animal
+     * @return mixed
+     */
+    public function create($animal): mixed;
 
-    public function update($id, $updatedDatas);
+    /**
+     * @param $id
+     * @param $updatedDatas
+     * @return mixed
+     */
+    public function update($id, $updatedDatas): mixed;
 
-    public function softDelete($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function softDelete($id): mixed;
 }

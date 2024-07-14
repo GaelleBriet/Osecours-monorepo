@@ -6,13 +6,32 @@ use App\Models\AgeRange;
 
 interface AgeRangeRepositoryInterface
 {
-    public function all();
+    /**
+     * @return mixed
+     */
+    public function all(): mixed;
 
-    public function find($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id): mixed;
 
-    public function create(array $ageRange);
+    /**
+     * @param array $ageRange
+     * @return mixed
+     */
+    public function create(array $ageRange): mixed;
 
-    public function update(AgeRange $ageRange);
+    /**
+     * @param AgeRange $ageRange
+     * @return mixed
+     */
+    public function update(AgeRange $ageRange): mixed;
 
-    public function delete($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id): mixed;
 }

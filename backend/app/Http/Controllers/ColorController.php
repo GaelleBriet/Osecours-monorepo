@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-    //
-    public function getAll(Request $request)
+
+    public function getAll(Request $request): \Illuminate\Database\Eloquent\Collection|array
     {
-        $query = Color::with(['specie']);
+        $query = Color::with(['species']);
         $colors = Color::all();
 
         if ($request->has('species')) {
@@ -21,7 +21,7 @@ class ColorController extends Controller
             if (! $specieExist) {
                 throw new Exception('Specie #'.$request->species.' not found', 404);
             }
-            $query->whereHas('specie', function ($query) use ($species) {
+            $query->whereHas('species', function ($query) use ($species) {
                 $query->where('name', $species);
             });
 

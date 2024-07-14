@@ -216,7 +216,7 @@ class Animal extends Model implements HasDocumentsInterface
         return $this->belongsToMany(Document::class);
     }
 
-    public function getDocuments()
+    public function getDocuments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->belongsToMany(Document::class)->get();
     }

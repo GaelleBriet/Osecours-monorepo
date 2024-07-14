@@ -12,7 +12,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         parent::__construct($user);
     }
 
-    public function findByEmailAndAssociation($email, $associationId)
+    public function findByEmailAndAssociation($email, $associationId): mixed
     {
         return User::where('email', $email)
             ->whereHas('associations', function ($query) use ($associationId) {
@@ -20,7 +20,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             })->first();
     }
 
-    public function findByAssociationAndUser($associationId, User $user)
+    public function findByAssociationAndUser($associationId, User $user): mixed
     {
         return $user->whereHas('associations', function ($query) use ($associationId) {
             $query->where('associations.id', $associationId);
@@ -28,7 +28,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             ->first();
     }
 
-    public function findByRoleAndAssociation($role, $currentAssociationId)
+    public function findByRoleAndAssociation($role, $currentAssociationId): mixed
     {
         return $users = User::whereHas('roles', function ($query) use ($role) {
             $query->where('roles.name', $role);
@@ -37,24 +37,24 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         })->get();
     }
 
-    public function findByRole(string $role)
+    public function findByRole(string $role): mixed
     {
         return User::whereHas('roles', function ($query) use ($role) {
             $query->where('name', $role);
         })->get();
     }
 
-    public function find($id)
+    public function find($id): mixed
     {
         return User::with('associations')->findOrFail($id);
     }
 
-    public function getAllAssociationsFromUser(User $user)
+    public function getAllAssociationsFromUser(User $user): mixed
     {
         return $user->associations;
     }
 
-    public function softDelete($id)
+    public function softDelete($id): mixed
     {
         $user = User::findOrFail($id);
         $user->delete();
@@ -67,7 +67,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return User::create($user);
     }
 
-    public function getUserRole($userId, $associationId)
+    public function getUserRole($userId, $associationId): mixed
     {
 
         $user = User::find($userId);
@@ -82,5 +82,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                 return $role->pivot->role_id;
             }
         }
+        return null;
     }
 }

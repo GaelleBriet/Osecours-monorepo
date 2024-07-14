@@ -83,7 +83,7 @@ class Healthcare extends Model implements HasDocumentsInterface
         return $this->belongsTo(Document::class);
     }
 
-    public function getDocuments()
+    public function getDocuments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->belongsTo(Document::class)->get();
     }

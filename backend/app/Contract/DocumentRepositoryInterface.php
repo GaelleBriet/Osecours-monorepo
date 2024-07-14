@@ -6,13 +6,34 @@ use App\Models\Document;
 
 interface DocumentRepositoryInterface
 {
-    public function createDocument(array $array);
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public function createDocument(array $array): mixed;
 
-    public function findDocument(string $id);
+    /**
+     * @param string $id
+     * @return mixed
+     */
+    public function findDocument(string $id): mixed;
 
-    public function softDeleteDocument($id);
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function softDeleteDocument($id): mixed;
 
-    public function updateDocument($id, Document $newDocu);
+    /**
+     * @param $id
+     * @param Document $newDocu
+     * @return mixed
+     */
+    public function updateDocument($id, Document $newDocu): mixed;
 
-    public function getAllDocuments(HasDocumentsInterface $model);
+    /**
+     * @param HasDocumentsInterface $model
+     * @return mixed
+     */
+    public function getAllDocuments(HasDocumentsInterface $model): mixed;
 }
