@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Felix",
+        "description": "Felix is a very good cat",
+        "birth_date": "2015-01-01",
+        "cats_friendly":true,
+        "dogs_friendly":true,
+        "children_friendly":true,
+        "age": 9,
+        "behavioral_comment": "Felix is a very good cat, he is very friendly and loves to play with children",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Mittens",
+        "description": "Mittens is a very good cat",
+        "birth_date": "2021-07-27",
+        "cats_friendly":false,
+        "dogs_friendly":false,
+        "children_friendly":false,
+        "age": 3,
+        "behavioral_comment": "Mittens is a very good cat, he is very friendly and loves to play with children",
+        "sterilized": true,
+        "deceased": false
+    }
+]

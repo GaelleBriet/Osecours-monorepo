@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Milo",
+        "description": "Milo is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "birth_date": "2019-02-27",
+        "cats_friendly": true,
+        "dogs_friendly": true,
+        "children_friendly": true,
+        "age": 5,
+        "behavioral_comment": "Milo is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Buddy",
+        "description": "Buddy is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "birth_date": "2022-08-15",
+        "cats_friendly": true,
+        "dogs_friendly": true,
+        "children_friendly": true,
+        "age": 2,
+        "behavioral_comment": "Buddy is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Max",
+        "description": "Max is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "birth_date": "2020-01-01",
+        "cats_friendly": true,
+        "dogs_friendly": false,
+        "children_friendly": true,
+        "age": 4,
+        "behavioral_comment": "Max is a very sweet and loving dog. He is very friendly and loves to play with other dogs. He is very good with children and loves to be around people. He is very well behaved and is house trained. He is up to date on all of his shots and is neutered. He is a very happy dog and would make a great addition to any family.",
+        "sterilized": false,
+        "deceased": false
+    }
+]
