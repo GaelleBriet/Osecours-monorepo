@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Specie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\City>
  */
-class SpecieFactory extends Factory
+class CityFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +18,8 @@ class SpecieFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement(['Cat', 'Dog']),
-            'description' => $this->faker->sentence(5),
+            'name' => $this->faker->city(),
+            'zipcode' => $this->faker->postcode(),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Specie;
+use App\Models\Specie as Species;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +18,7 @@ class BreedFactory extends Factory
     public function definition(): array
     {
         return [
-            'specie_id' => Specie::factory(),
+            'specie_id' => Species::factory(),
             'name' => $this->faker->name(),
             'description' => 'A retriever is a type of gun dog that retrieves game for a hunter. Generally gun dogs are divided into three primary types: retrievers, flushing spaniels, and pointing breeds.',
         ];

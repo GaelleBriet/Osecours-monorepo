@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AgeRangeFactory extends Factory
 {
+    protected $ageRanges = [
+        'bébé',
+        'jeune',
+        'adulte',
+        'sénior',
+    ];
     /**
      * Define the model's default state.
      *
@@ -16,8 +22,11 @@ class AgeRangeFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->randomElement($this->ageRanges);
+
         return [
-            //
+            'name' => $name,
+            'description' => $this->faker->sentence(10),
         ];
     }
 }
