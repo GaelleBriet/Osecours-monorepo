@@ -7,6 +7,7 @@
 		"logIn": "log in",
 		"register": "register",
 		"welcome": "welcome!",
+		"confirm": "confirm",
 		"profile": "profile",
 		"edit": "edit",
 		"editMode": "edit mode",
@@ -149,7 +150,7 @@
 			"addCommentPlaceholder": "add a comment...",
 			"messages": {
 				"errorGeneral": "une erreur est survenue",
-				"delete": "are you sure you want to delete this animal ?",
+				"delete": "are you sure you want to delete this animal?",
 				"deleteSuccess": "the animal has been successfully deleted",
 				"deleteError": "an error occurred while deleting the animal",
 				"updateSuccess": "the animal has been successfully updated",
@@ -158,7 +159,7 @@
 				"createError": "an error occurred while creating the animal",
 				"uploadSuccess": "the document has been successfully uploaded",
 				"uploadError": "an error occurred while uploading the document",
-				"deleteDoc": "are you sure you want to delete this document ?",
+				"deleteDoc": "are you sure you want to delete this document?",
 				"deleteDocSuccess": "the document has been successfully deleted",
 				"deleteDocError": "an error occurred while deleting the document",
 				"updateDocSuccess": "the document has been successfully updated",
@@ -195,7 +196,11 @@
 			"settingCoats": "coats settings",
 			"description": "shelter's description",
 			"name": "shelter's name",
-			"search": "Search..."
+			"search": "Search...",
+			"messages": {
+				"delete": "are you sure you want to delete this shelter?",
+				"deleteShelter": "delete document"
+			}
 		},
 		"families": {
 			"title": "list of families",
@@ -212,7 +217,7 @@
 			"animalsNumber": "number of animals",
 			"role": "role",
 			"messages": {
-				"delete": "are you sure you want to delete this family ?",
+				"delete": "are you sure you want to delete this family?",
 				"deleteFamily": "delete family",
 				"deleteSuccess": "the family has been successfully deleted",
 				"deleteError": "an error occurred while deleting the family",
@@ -237,7 +242,7 @@
 			"animalsNumber": "number of animals",
 			"role": "role",
 			"messages": {
-				"delete": "are you sure you want to delete this member ?",
+				"delete": "are you sure you want to delete this member?",
 				"deleteFamily": "delete member",
 				"deleteSuccess": "the member has been successfully deleted",
 				"deleteError": "an error occurred while deleting the member",
@@ -269,14 +274,14 @@
 			"adoptFamily": "adopt family",
 			"fosterFamily": "foster family",
 			"messages": {
-				"delete": "are you sure you want to delete this user ?",
+				"delete": "are you sure you want to delete this user?",
 				"deleteMember": "delete user"
 			}
 		},
 		"documents": {
-			"selectTypeDocs" : "select a type of document",
+			"selectTypeDocs" : "select a type of document",			
+			"noAvailable" : "no document available",
 			"selectDocs" : "select as many documents as you would like",
-			"addDoc": "Add a document",
 			"title": "list of all association's documents",
 			"titleAnimal": "list of all animal's documents",
 			"titleHealthAnimal": "list of all animal health documents",
@@ -290,7 +295,11 @@
 			"image": "choose an image",
 			"photos": "photos",
 			"card": "documents",
-			"addDoc": "add a document"
+			"addDoc": "add a document",
+			"messages": {
+				"delete": "are you sure you want to delete this document?",
+				"deleteDocument": "delete document"
+			}
 		}
 	},
 	"enums": {

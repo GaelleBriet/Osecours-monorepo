@@ -48,6 +48,12 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "test": [
+            "docker exec -i laravel_backend bash -c \"cd /var/www/html && vendor/bin/phpunit\""
+        ],
+        "test-coverage": [
+            "docker exec -i laravel_backend bash -c \"cd /var/www/html && vendor/bin/phpunit --coverage-text\""
         ]
     },
     "extra": {
