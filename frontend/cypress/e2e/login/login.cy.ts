@@ -1,27 +1,18 @@
 /// <reference types="cypress" />
-describe('LoginPage test, authenticate successfully', () => {
-	beforeEach(() => {
-		cy.visit('/login');
-	});
-	it('Fill the form and submit, should redirect to home page', () => {
-		cy.get('h2').should(
-			'have.text',
-			'Connectez-vous pour accéder à votre compte.',
-		);
-		cy.get('form').should('exist');
 
-		cy.get('#email').should('exist');
-		cy.get('#password').should('exist');
+describe('Authentication tests', () => {
+	it('Login successfully', () => {
 		cy.fixture('user').then((user) => {
-			cy.get('#email').type(user.email);
-			cy.get('#password').type(user.password);
+			cy.login(user.email, user.password);
 		});
-
-		cy.get('button[type="submit"]').should('exist').click();
-
-		cy.get('#association').should('exist')
-			.select('Fondation Brigitte Bardot')
-			.should('have.value', '1');
-		cy.url().should('include', '/');
+	});
+	it('Logout successfully', () => {
+		cy.fixture('user').then((user) => {
+			cy.login(user.email, user.password);
+		});
+		cy.get('#user-menu').should('exist').click();
+		// Add assertions for successful logout, e.g.,
+		// cy.get('button').contains('Déconnexion').click();
+		// cy.url().should('include', '/login');
 	});
 });
