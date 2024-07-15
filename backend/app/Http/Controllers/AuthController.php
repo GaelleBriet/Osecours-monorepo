@@ -16,6 +16,8 @@ class AuthController extends Controller
         $this->errorService = $eService;
     }
 
+     /**
+
     /**
      * @OA\Post(
      *     path="/token/create",
@@ -64,6 +66,37 @@ class AuthController extends Controller
         }
     }
 
+/**
+ * @OA\Post(
+ *     path="/login",
+ *     summary="User login",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="User login credentials",
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+ *             @OA\Property(property="password", type="string", example="password")
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful login",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="data", type="object", ref="#/components/schemas/User")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=400,
+ *         description="Invalid input"
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized"
+ *     )
+ * )
+ */
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {

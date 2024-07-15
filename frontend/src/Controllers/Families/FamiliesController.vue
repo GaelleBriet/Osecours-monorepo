@@ -8,6 +8,7 @@
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const membersStore = useMembersStore();
 	const userStore = useUserStore();
@@ -79,6 +80,7 @@
 <template>
 	<div>
 		<DataGridComponent
+			v-if="!membersStore.isLoading"
 			:store="membersStore"
 			:model-value="members"
 			:title="getCapitalizedText(t('navigation.families'))"
@@ -95,11 +97,20 @@
 			:center="true"
 			:confirmButton="true"
 			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
 			@close="showModal = false"
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
 	</div>
+	<LoaderComponent
+		class="h-full"
+		v-if="membersStore.isLoading"
+	/>
 </template>
 
 <style scoped lang="postcss"></style>

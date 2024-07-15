@@ -296,6 +296,7 @@
             :show-confirm="isCreateMode"
 						@update:modelValue="createdMember.password = $event"
 						@update:passwordConfirmation="confirmPassword = $event"
+            autocomplete="new-password"
 					/>
 				</div>
 				<template v-if="!isCreateMode">
@@ -356,6 +357,16 @@
 		min-height: 100%;
 	}
 
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+	
 	form {
 		display: flex;
 		flex-grow: 1;

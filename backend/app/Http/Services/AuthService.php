@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
+
+    /**
+     * @param $credentials
+     * @param $currentAssociationId
+     * @return array
+     * @throws UnauthorizedException
+     */
     public static function getTokenForSpecificAssociation($credentials, $currentAssociationId)
     {
 
@@ -51,6 +58,10 @@ class AuthService
         }
     }
 
+    /**
+     * @param Collection $roleList
+     * @return Collection
+     */
     private static function getAllScopes(Collection $roleList)
     {
         return $roleList->map(function ($id) {

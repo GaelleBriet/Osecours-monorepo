@@ -90,7 +90,9 @@
 						<span>+</span>
 					</button>
 					<ModalComponent
+						v-if="showForm"
 						:isOpen="showForm"
+						:docForm="true"
 						@close="showForm = false"
 					>
 						<SheltersPhotoForm :shelter="shelter" />

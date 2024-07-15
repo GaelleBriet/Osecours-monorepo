@@ -7,6 +7,7 @@
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { Animal } from '@/Interfaces/Animals/Animal.ts';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const router = useRouter();
@@ -63,6 +64,7 @@
 <template>
 	<div class="w-full p-0">
 		<DataGridComponent
+			v-if="!animalsStore.isLoading"
 			:store="animalsStore"
 			:model-value="animalsTransformed"
 			:title="getCapitalizedText(t('navigation.animals'))"
@@ -93,17 +95,27 @@
 			@delete="openModal"
 		/>
 		<ModalComponent
+			v-if="showModal"
 			:isOpen="showModal"
 			:title="getCapitalizedText(t('pages.animals.messages.deleteAnimal'))"
 			:description="getCapitalizedText(t('pages.animals.messages.delete'))"
 			:center="true"
 			:confirmButton="true"
 			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
 			@close="showModal = false"
 			@confirm="onConfirmDelete"
 		>
 		</ModalComponent>
 	</div>
+	<LoaderComponent
+		class="h-full"
+		v-if="animalsStore.isLoading"
+	/>
 </template>
 
 <style scoped></style>

@@ -8,16 +8,21 @@
 	import { useRoute, useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
+	import i18n from '@/Services/Translations';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
-  const props = defineProps<{
-    animal: Animal;
-  }>();
+	const props = defineProps<{
+		animal: Animal;
+	}>();
 
+  	const t = i18n.global.t;
 	const showForm = ref(false);
 	const documentsStore = useDocumentsStore();
 	const documents = ref<Document[]>([]);
 	const route = useRoute();
 	const router = useRouter();
+	const showModal = ref(false);
+	const documentToDelete = ref<Document | null>(null);
 
 	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(
@@ -47,13 +52,24 @@
 		showForm.value = true;
 	};
 
-	const removePhoto = (item) => {
-		documentsStore.deleteDocument(item.id);
+	const openModal = (event, item: Document) => {
+		event.preventDefault()
+		documentToDelete.value = item;
+		showModal.value = true;
 	};
 
-  onMounted(async () => {
-    fetchDocuments();
-  });
+	const onConfirmDelete = async () => {
+		if (documentToDelete.value) {
+			await documentsStore.deleteDocument(documentToDelete.value.id);
+			await fetchDocuments();
+			showModal.value = false;
+			documentToDelete.value = null;
+		}
+	};
+
+	onMounted(async () => {
+		await fetchDocuments();
+	});
 </script>
 
 <template>
@@ -62,8 +78,11 @@
 			:id="`edit-animal`"
 			:submit-label="'edit-animal'"
 			:actions="false"
-		>
-			<div class="h-full">
+			>
+			<div 
+				class="h-full"
+				v-if="!documentsStore.isLoading"
+			>
 				<div
 					class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 p-2 md:p-4"
 				>
@@ -86,7 +105,7 @@
 						</a>
 						<button
 							class="absolute top-1 right-1 bg-osecours-pink text-osecours-white hover:bg-white hover:text-osecours-pink rounded-full p-1 w-5 h-5 flex items-center justify-center"
-							@click="removePhoto(photo)"
+							@click="openModal($event, photo)"
 						>
 							&times;
 							<!-- Symbole de multiplication utilisé pour l'icône de suppression -->
@@ -105,19 +124,41 @@
 					>
 						<span>+</span>
 					</button>
-					<ModalComponent
-						:isOpen="showForm"
-						@close="showForm = false"
-					>
-						<DocumentsForm
-							:is-create-mode="true"
-							:is-photo-mode="true"
-							@documentSaved="handleDocumentSaved"
-						/>
-					</ModalComponent>
 				</div>
 			</div>
+			<ModalComponent
+				:isOpen="showForm"
+				:docForm="true"
+				@close="showForm = false"
+			>
+				<DocumentsForm
+					:is-create-mode="true"
+					:is-photo-mode="true"
+					@documentSaved="handleDocumentSaved"
+				/>
+			</ModalComponent>
 		</Form>
+		<ModalComponent
+			v-if="showModal"
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.documents.messages.deleteDocument'))"
+			:description="getCapitalizedText(t('pages.documents.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
+		<LoaderComponent
+			class="h-full"
+			v-if="documentsStore.isLoading"
+		/>   
 	</div>
 </template>
 <style scoped lang="postcss">

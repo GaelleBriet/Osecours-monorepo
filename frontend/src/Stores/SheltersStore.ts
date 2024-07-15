@@ -12,9 +12,11 @@ export const useSheltersStore = defineStore('shelters', {
 	state: (): {
 		shelters: Shelter[];
 		shelter: Shelter | null;
+		isLoading: boolean;
 	} => ({
 		shelters: [],
 		shelter: null,
+		isLoading: false,
 	}),
 	getters: {
 		getCurrentShelter(): Shelter | null {
@@ -35,7 +37,9 @@ export const useSheltersStore = defineStore('shelters', {
 			}
 		},
 		async getShelters(): Promise<Shelter[]> {
+			this.isLoading = true;
 			const shelters: Shelter[] | ErrorResponse = await getShelters();
+			this.isLoading = false;
 			if ('error' in shelters) {
 				return [];
 			} else {

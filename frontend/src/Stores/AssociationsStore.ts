@@ -12,9 +12,11 @@ export const useAssociationsStore = defineStore('associations', {
 	state: (): {
 		associations: Association[];
 		association: Association | null;
+		isLoading: boolean;
 	} => ({
 		associations: [],
 		association: null,
+		isLoading: false,
 	}),
 	actions: {
 		async getAssociation(id: number): Promise<Association | null> {
@@ -27,8 +29,10 @@ export const useAssociationsStore = defineStore('associations', {
 			}
 		},
 		async getAssociations(): Promise<Association[]> {
+			this.isLoading = true;
 			const associations: Association[] | ErrorResponse =
 				await getAssociations();
+			this.isLoading = false;
 			if ('error' in associations) {
 				return [];
 			} else {
