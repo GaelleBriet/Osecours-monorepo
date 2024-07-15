@@ -9,6 +9,7 @@
 		modelValue: object[];
 		title?: string;
 		description?: string;
+		availability?: string;
 		columns: {
 			label: string;
 			key: string | ((item: object) => string);
@@ -49,17 +50,17 @@
 	const filteredItems = computed(() => {
 		const query = searchQuery.value.toLowerCase().trim();
 		if (!query) {
-			return props.modelValue;
+			return props.modelValue || [];
 		} else {
-			return props.modelValue.filter((item) => {
-				for (const key in item) {
-					if (Object.hasOwnProperty.call(item, key)) {
-						if (item[key]?.toString().toLowerCase().includes(query)) {
-							return true;
-						}
-					}
+			return (props.modelValue || []).filter((item) => {
+			for (const key in item) {
+				if (Object.hasOwnProperty.call(item, key)) {
+				if (item[key]?.toString().toLowerCase().includes(query)) {
+					return true;
 				}
-				return false;
+				}
+			}
+			return false;
 			});
 		}
 	});
@@ -76,11 +77,14 @@
 					{{ props.title }}
 				</h1>
 				<p class="mt-2 text-sm text-gray-700">
-					{{ props.description }}
+					{{ props.modelValue?.length ? props.description : props.availability }}
 				</p>
 			</div>
 			<div class="flex justify-between">
-				<div class="mt-4 flex sm:mr-12">
+				<div 
+					v-if="props.modelValue.length"
+					class="mt-4 flex sm:mr-12"
+				>
 					<input
 						v-model="searchQuery"
 						type="text"
@@ -142,7 +146,10 @@
 
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
 			<!-- view cards for smartphones -->
-			<div class="custonmXs:hidden">
+			<div 
+				v-if="props.modelValue.length"
+				class="custonmXs:hidden"
+			>
 				<div
 					v-for="item in filteredItems"
 					:key="item.id"
@@ -184,7 +191,10 @@
 				</div>
 			</div>
 			<!-- vue table for large screens -->
-			<div class="hidden custonmXs:block overflow-x-auto">
+			<div
+				v-if="props.modelValue.length"
+				class="hidden custonmXs:block overflow-x-auto"
+			>
 				<table class="min-w-full divide-y divide-gray-300">
 					<thead class="bg-gray-50">
 						<tr>

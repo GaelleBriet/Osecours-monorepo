@@ -18,11 +18,13 @@ export const useAnimalsStore = defineStore('animals', {
 		animal: Animal | null;
 		dogs: Animal[];
 		cats: Animal[];
+		isLoading: boolean;
 	} => ({
 		animals: [],
 		dogs: [],
 		cats: [],
 		animal: null,
+		isLoading: false,
 	}),
 	getters: {
 		getCurrentAnimal(): Animal | null {
@@ -49,7 +51,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async getAnimals(): Promise<Animal[]> {
+			this.isLoading = true;
 			const animals: Animal[] | ErrorResponse = await getAnimals();
+			this.isLoading = false;
 			if ('error' in animals) {
 				return [];
 			} else {
@@ -58,7 +62,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async getDogs(): Promise<Animal[]> {
+			this.isLoading = true;
 			const animals: Animal[] | ErrorResponse = await getAnimals();
+			this.isLoading = false;
 			if ('error' in animals) {
 				return [];
 			} else {
@@ -71,7 +77,9 @@ export const useAnimalsStore = defineStore('animals', {
 			}
 		},
 		async getCats(): Promise<Animal[]> {
+			this.isLoading = true;
 			const animals: Animal[] | ErrorResponse = await getAnimals();
+			this.isLoading = false;
 			if ('error' in animals) {
 				return [];
 			} else {

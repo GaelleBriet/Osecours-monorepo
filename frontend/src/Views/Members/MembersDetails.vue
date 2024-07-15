@@ -29,7 +29,7 @@
 
 <template>
 	<div class="container">
-		<div class="flex flex-row justify-between">
+		<div class="flex flex-row justify-between mb-2">
 			<div class="text-2xl mb-1">
 				{{ getCapitalizedText(t('pages.members.card')) }}:
 				{{ currentFamily?.first_name }} {{ currentFamily?.last_name }}

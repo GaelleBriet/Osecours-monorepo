@@ -9,6 +9,7 @@
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
 	import ModalComponent from '@/Components/ModalComponent.vue';
+	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const documentsStore = useDocumentsStore();
@@ -18,6 +19,8 @@
 	const route = useRoute();
 	const router = useRouter();
 	const showForm = ref(false);
+	const showModal = ref(false);
+	const documentToDelete = ref(null);
 
 	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
@@ -55,18 +58,30 @@
 		return false;
 	};
 
-	const removeItem = (item) => {
-		documentsStore.deleteDocument(item.id);
+	const openModal = (item: Document) => {
+		documentToDelete.value = item;
+		showModal.value = true;
 	};
 
-  onMounted(async () => {
-    await fetchDocuments();
-  });
+	const onConfirmDelete = async () => {
+		if (documentToDelete.value) {
+			await documentsStore.deleteDocument(documentToDelete.value.id);
+			await fetchDocuments();
+			showModal.value = false;
+			documentToDelete.value = null;
+		}
+	};
+
+	onMounted(async () => {
+		await fetchDocuments();
+	});
 
 </script>
 <template>
-	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">
+	<div class="container bg-osecours-beige-dark bg-opacity-10 h-full">        
 		<DataGridComponent
+			v-if="!documentsStore.isLoading"
+			:availability="getCapitalizedText(t('pages.documents.noAvailable'))"
 			:store="documentsStore" 
 			:model-value="documentsTransformed"
 			:description="getCapitalizedText(t('pages.documents.titleAnimal'))"
@@ -78,11 +93,32 @@
 			]"
 			@edit="editItem"
 			@add="addItem"
-			@delete="removeItem"
+			@delete="openModal"
 			@documentSaved="handleDocumentSaved"
-		/>                
+		/>
+		<ModalComponent			
+			v-if="showModal"
+			:isOpen="showModal"
+			:title="getCapitalizedText(t('pages.documents.messages.deleteDocument'))"
+			:description="getCapitalizedText(t('pages.documents.messages.delete'))"
+			:center="true"
+			:confirmButton="true"
+			:cancelButton="true"
+			:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+			:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+			confirmButtonColor="rgb(151,166,166)"
+			cancelButtonColor="rgb(242,138,128)"
+			buttonOrder="confirm-cancel"
+			@close="showModal = false"
+			@confirm="onConfirmDelete"
+		>
+		</ModalComponent>
+		<LoaderComponent
+			class="h-full"
+			v-if="documentsStore.isLoading"
+		/>
     </div>
-	<ModalComponent :isOpen="showForm" @close="showForm = false">
+	<ModalComponent v-if="showForm" :isOpen="showForm" @close="showForm = false" :docForm="true">
 		<DocumentsForm
 			:is-create-mode="true"
 			:is-photo-mode="false"

@@ -202,11 +202,17 @@
 							</div>
 
 							<ModalComponent
+								v-if="showModal"
 								:is-open="showModal"
 								:title="getCapitalizedText(t('login.selectAssociation'))"
 								:center="true"
 								:confirmButton="true"
 								:cancelButton="true"
+								:confirmButtonText="getCapitalizedText(t('common.confirm'))"
+								:cancelButtonText="getCapitalizedText(t('common.cancel'))"
+								confirmButtonColor="rgb(151,166,166)"
+								cancelButtonColor="rgb(217,153,98)"
+								buttonOrder="cancel-confirm"
 								@close="showModal = false"
 								@confirm="onAssociationChange"
 							>
@@ -216,6 +222,7 @@
 										<div
 											v-for="association in associations"
 											:key="association.id"
+											class="py-4"
 										>
 											<FormSelect
 												:id="'association'"

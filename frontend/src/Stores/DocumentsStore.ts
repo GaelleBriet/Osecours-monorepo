@@ -19,9 +19,11 @@ export const useDocumentsStore = defineStore('documents', {
 	state: (): {
 		documents: Document[];
 		document: Document | null;
+		isLoading: boolean;
 	} => ({
 		documents: [],
 		document: null,
+		isLoading: false,
 	}),
 	getters: {
 		getCurrentDocument(): Document | null {
@@ -39,8 +41,10 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async getDocumentsByHealthcare(id: number): Promise<Document[]> {
+			this.isLoading = true;
 			const documents: Document[] | ErrorResponse =
 				await getDocumentsByHealthcare(id);
+			this.isLoading = false;
 			if ('error' in documents) {
 				return [];
 			} else {
@@ -59,8 +63,10 @@ export const useDocumentsStore = defineStore('documents', {
 		// 	}
 		// },
 		async getDocumentsByShelter(id: number): Promise<Document[]> {
+			this.isLoading = true;
 			const documents: Document[] | ErrorResponse =
 				await getDocumentsByShelter(id);
+			this.isLoading = false;
 			if ('error' in documents) {
 				return [];
 			} else {
@@ -69,8 +75,10 @@ export const useDocumentsStore = defineStore('documents', {
 			}
 		},
 		async getDocumentsByAnimal(id: number): Promise<Document[]> {
+			this.isLoading = true;
 			const documents: Document[] | ErrorResponse =
 				await getDocumentsByAnimal(id);
+			this.isLoading = false;
 			if ('error' in documents) {
 				return [];
 			} else {
