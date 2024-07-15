@@ -109,7 +109,7 @@ class AuthController extends Controller
             return response()->json([
                 'error' => 'Unauthorized',
                 'message' => $e->getMessage(),
-                'statusCode' => $e->getCode()
+                'status' => $e->getCode()
             ], $e->getCode());
         } catch (Exception $e) {
             return response()->json([
