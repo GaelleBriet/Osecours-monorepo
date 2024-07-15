@@ -53,7 +53,6 @@ services:
       - "5432:5432"
     volumes:
       - osecours-postgres:/var/lib/postgresql/data
-      - ./init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
     networks:
       - osecours
 
