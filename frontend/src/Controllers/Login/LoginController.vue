@@ -218,12 +218,7 @@
 							>
 								<template v-slot:beforeButtons>
 									<!-- Association select input -->
-									<div v-if="associations.length > 0">
-										<div
-											v-for="association in associations"
-											:key="association.id"
-											class="py-4"
-										>
+									<div v-if="associations.length > 0" class="py-4">
 											<FormSelect
 												:id="'association'"
 												:name="'selectAssociation'"
@@ -234,7 +229,6 @@
 												"
 												@update:model-value="handleAssociationChange"
 											/>
-										</div>
 									</div>
 								</template>
 							</ModalComponent>
