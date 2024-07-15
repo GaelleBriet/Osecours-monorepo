@@ -22,5 +22,6 @@ describe('Authentication tests', () => {
 		cy.get('#password').should('exist').type('Azerty1*');
 		cy.get('button[type="submit"]').should('exist').click();
 		cy.get('#alert-component').should('exist').contains('Identifiants incorrects. Veuillez réessayer');
+		cy.url().should('include', '/login');
 	});
 });
