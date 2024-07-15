@@ -11,8 +11,7 @@ describe('Authentication tests', () => {
 			cy.login(user.email, user.password);
 		});
 		cy.get('#user-menu').should('exist').click();
-		// Add assertions for successful logout, e.g.,
-		// cy.get('button').contains('Déconnexion').click();
-		// cy.url().should('include', '/login');
+		cy.get('#options-menu-item-2').should('exist').click();
+		cy.url().should('include', '/login');
 	});
 });
