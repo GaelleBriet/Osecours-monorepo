@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\AuthRequest;
 use App\Http\Services\AuthService;
 use App\Http\Services\ErrorService;
@@ -104,8 +105,18 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
 
             return response()->json(['data' => AuthService::connectUser($credentials)], 200);
+        } catch (UnauthorizedException $e) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => $e->getMessage(),
+                'statusCode' => $e->getCode()
+            ], $e->getCode());
         } catch (Exception $e) {
-            return $this->errorService->handle($e);
+            return response()->json([
+                'error' => 'Server Error',
+                'message' => 'An unexpected error occurred',
+                'status' => 500
+            ], 500);
         }
     }
 }

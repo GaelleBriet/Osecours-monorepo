@@ -106,11 +106,13 @@ class AuthService
         }
     }
 
+    /**
+     * @throws UnauthorizedException
+     */
     public static function connectUser($credentials)
     {
 
         if (Auth::attempt($credentials)) {
-
             $user = Auth::user();
 
             return [
@@ -122,8 +124,7 @@ class AuthService
                     ];
                 })->unique('id'),
             ];
-        } else {
-            throw new UnauthorizedException('Unauthorized');
         }
+        throw new UnauthorizedException('Invalid credentials');
     }
 }
