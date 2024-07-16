@@ -113,11 +113,6 @@ class AuthController extends Controller
 //            ], $e->getCode());
         } catch (Exception $e) {
             return $this->errorService->handle($e);
-//            return response()->json([
-//                'error' => 'Server Error',
-//                'message' => 'An unexpected error occurred',
-//                'status' => 500
-//            ], 500);
         }
     }
 }

@@ -108,21 +108,26 @@ class AssociationsSeeder extends BaseSeeder
 
             // Création d'utilisateurs aléatoires
             foreach (RoleEnum::cases() as $roleName) {
-                $faker = \Faker\Factory::create();
-                $firstName = $faker->firstName();
-                $lastName = $faker->lastName();
+                $numberOfUsers = in_array($roleName->value, ['admin', 'accountant', 'president']) ? 1 : 5;
 
-                $userCreated = User::factory()->create([
-                    'first_name' => $firstName,
-                    'last_name' => $lastName,
-                    'email' => strtolower($firstName).'.'.strtolower($lastName).'@osecours-asso.fr',
-                ]);
-                Person::create([
-                    'personable_id' => $userCreated->id,
-                    'personable_type' => get_class($userCreated),
-                ]);
-                $roleCreated = Role::firstOrCreate(['name' => $roleName->value]);
-                $associationCreated->users()->attach($userCreated->id, ['role_id' => $roleCreated->id]);
+                for ($i = 0; $i < $numberOfUsers; $i++) {
+                    $faker = \Faker\Factory::create();
+                    $firstName = $faker->firstName();
+                    $lastName = $faker->lastName() .'-'. $roleName->value;
+
+                    $userCreated = User::factory()->create([
+                        'first_name' => $firstName,
+                        'last_name' => $lastName,
+                        'email' => strtolower($firstName).'.'.strtolower($lastName).'@osecours-asso.fr',
+                    ]);
+                    Person::create([
+                        'personable_id' => $userCreated->id,
+                        'personable_type' => get_class($userCreated),
+                    ]);
+                    $roleCreated = Role::firstOrCreate(['name' => $roleName->value]);
+                    $associationCreated->users()->attach($userCreated->id, ['role_id' => $roleCreated->id]);
+                }
+
             }
         }
     }
