@@ -1,7 +1,7 @@
 ## Mettre en place sa base de données de tests
 
 - copier le fichier .env.testing.example en .env.testing
-- se connecter au conteneur (sail : user , laravel : db)
+- se connecter au conteneur (sail : ton user , laravel : db)
 - créer la bdd de test
 - donner les droits à sail
 - jouer les migrations et seeders
