@@ -103,20 +103,21 @@ class AuthController extends Controller
         try {
             $request->validated();
             $credentials = $request->only('email', 'password');
-
             return response()->json(['data' => AuthService::connectUser($credentials)], 200);
         } catch (UnauthorizedException $e) {
-            return response()->json([
-                'error' => 'Unauthorized',
-                'message' => $e->getMessage(),
-                'status' => $e->getCode()
-            ], $e->getCode());
+            return $this->errorService->handle($e);
+//            return response()->json([
+//                'error' => 'Unauthorized',
+//                'message' => $e->getMessage(),
+//                'status' => $e->getCode()
+//            ], $e->getCode());
         } catch (Exception $e) {
-            return response()->json([
-                'error' => 'Server Error',
-                'message' => 'An unexpected error occurred',
-                'status' => 500
-            ], 500);
+            return $this->errorService->handle($e);
+//            return response()->json([
+//                'error' => 'Server Error',
+//                'message' => 'An unexpected error occurred',
+//                'status' => 500
+//            ], 500);
         }
     }
 }

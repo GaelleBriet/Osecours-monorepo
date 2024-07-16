@@ -109,12 +109,10 @@ class AuthService
     /**
      * @throws UnauthorizedException
      */
-    public static function connectUser($credentials)
+    public static function connectUser($credentials): array
     {
-
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
             return [
                 'status' => UserStatus::CONNECTED->value,
                 'associations' => $user->associations->map(function ($association) {

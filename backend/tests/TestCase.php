@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Config;
 
 abstract class TestCase extends BaseTestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
 
     protected function setUp(): void
     {
