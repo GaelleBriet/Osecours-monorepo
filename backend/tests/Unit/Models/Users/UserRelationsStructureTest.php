@@ -5,13 +5,14 @@ namespace Tests\Unit\Models\Users;
 use App\Models\Association;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserRelationsStructureTest extends TestCase
 {
 //    use RefreshDatabase;
-
+    use DatabaseTransactions;
     public function test_user_belongs_to_many_associations()
     {
         $user = new User();

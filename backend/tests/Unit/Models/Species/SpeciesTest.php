@@ -7,12 +7,14 @@ use App\Models\Breed;
 use App\Models\Color;
 use App\Models\Specie as Species;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SpeciesTest extends TestCase
 {
     //use RefreshDatabase;
+    use DatabaseTransactions;
 
 //    public function test_can_create_cat_and_dog_species()
 //    {

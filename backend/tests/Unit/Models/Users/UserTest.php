@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Shelter;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -17,6 +18,7 @@ use Tests\TestCase;
 class UserTest extends TestCase
 {
 //    use RefreshDatabase;
+    use DatabaseTransactions;
 
 //    public function test_can_create_user()
 //    {

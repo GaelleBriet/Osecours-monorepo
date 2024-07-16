@@ -103,7 +103,10 @@ class AuthController extends Controller
         try {
             $request->validated();
             $credentials = $request->only('email', 'password');
-            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
+
+//            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
+            $authService = new AuthService();
+            return response()->json(['data' => $authService->connectUser($credentials)], 200);
         } catch (UnauthorizedException $e) {
             return $this->errorService->handle($e);
 //            return response()->json([
