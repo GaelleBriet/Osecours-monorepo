@@ -6,6 +6,10 @@ use App\Models\AgeRange;
 use App\Models\Animal;
 use App\Models\Breed;
 use App\Models\Specie;
+use App\Models\Gender;
+use App\Models\Color;
+use App\Models\Coat;
+use App\Models\SizeRange;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AnimalFactory extends Factory
@@ -35,10 +39,10 @@ class AnimalFactory extends Factory
             'deceased' => $this->faker->boolean(),
             'specie_id' => Specie::factory(),
             'breed_id' => Breed::factory(),
-            //            'gender_id' => 1,
-            //            'color_id' => 1,
-            //            'coat_id' => 1,
-            //            'sizerange_id' => 1,
+            'gender_id' => Gender::factory(),
+            'color_id' => Color::factory(),
+            'coat_id' => Coat::factory(),
+            'sizerange_id' => SizeRange::factory(),
             'agerange_id' => AgeRange::factory(),
         ];
     }
