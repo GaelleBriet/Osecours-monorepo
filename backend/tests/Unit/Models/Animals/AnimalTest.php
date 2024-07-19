@@ -18,7 +18,18 @@ class AnimalTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    public function it_has_fillable_attributes()
+    {
+        $fillable = [
+            'name', 'description', 'birth_date', 'cats_friendly', 'dogs_friendly',
+            'children_friendly', 'age', 'behavioral_comment', 'sterilized', 'deceased',
+            'specie_id', 'breed_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id',
+        ];
+
+        $animal = new Animal;
+        $this->assertEquals($fillable, $animal->getFillable());
+    }
+
     public function it_belongs_to_a_gender()
     {
         $gender = Gender::factory()->create();
@@ -28,7 +39,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($gender->id, $animal->gender->id);
     }
 
-    /** @test */
     public function it_belongs_to_a_breed()
     {
         $breed = Breed::factory()->create();
@@ -38,7 +48,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($breed->id, $animal->breed->id);
     }
 
-    /** @test */
     public function it_belongs_to_a_specie()
     {
         $specie = Specie::factory()->create();
@@ -48,7 +57,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($specie->id, $animal->specie->id);
     }
 
-    /** @test */
     public function it_belongs_to_a_coat()
     {
         $coat = Coat::factory()->create();
@@ -58,7 +66,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($coat->id, $animal->coat->id);
     }
 
-    /** @test */
     public function it_belongs_to_a_color()
     {
         $color = Color::factory()->create();
@@ -68,7 +75,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($color->id, $animal->color->id);
     }
 
-    /** @test */
     public function it_belongs_to_a_size_range()
     {
         $sizeRange = SizeRange::factory()->create();
@@ -78,7 +84,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($sizeRange->id, $animal->sizeRange->id);
     }
 
-    /** @test */
     public function it_belongs_to_an_age_range()
     {
         $ageRange = AgeRange::factory()->create();
@@ -88,7 +93,6 @@ class AnimalTest extends TestCase
         $this->assertEquals($ageRange->id, $animal->ageRange->id);
     }
 
-    /** @test */
     public function it_can_retrieve_documents()
     {
         $animal = Animal::factory()->create();
@@ -99,7 +103,6 @@ class AnimalTest extends TestCase
         $this->assertEquals(1, $animal->documents->count());
     }
 
-    /** @test */
     public function it_can_get_specie_name()
     {
         $specie = Specie::factory()->create(['name' => 'Canine']);
@@ -108,7 +111,6 @@ class AnimalTest extends TestCase
         $this->assertEquals('Canine', $animal->specie_name);
     }
 
-    /** @test */
     public function it_can_get_gender_name()
     {
         $gender = Gender::factory()->create(['name' => 'Male']);
