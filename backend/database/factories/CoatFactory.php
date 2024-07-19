@@ -17,7 +17,7 @@ class CoatFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word,
+            'name' => $this->faker->unique()->word . $this->faker->numberBetween(1, 100) . $this->faker->randomElement(['*', '/', '-', '+']),
             'description' => $this->faker->sentence,
         ];
     }
