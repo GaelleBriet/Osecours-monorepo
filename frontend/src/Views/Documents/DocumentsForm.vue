@@ -118,7 +118,7 @@
 			notificationConfig.value = {
 				show: true,
 				title: `${getCapitalizedText(t('pages.animals.messages.errorGeneral'))}`,
-				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
+				message: `${getCapitalizedText(t('pages.animals.messages.updateDocError'))}`,
 				type: 'error',
 			};
 			return;
