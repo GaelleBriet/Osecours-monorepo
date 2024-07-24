@@ -132,7 +132,7 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png,pdf,doc,docx|max:2048'
         ]);
         return $this->documentService->createDocumentForAnimal($request, $animal);
     }
@@ -280,7 +280,7 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png,pdf,doc,docx|max:2048'
         ]);
         return $this->documentService->createDocumentForHealthCare($request, $healthcare);
     }
@@ -341,7 +341,7 @@ class DocumentController extends Controller
         $validated = $request->validate([
             'filename' => 'required|max:255',
             'description' => '',
-            'file' => 'required|file|mimes:jpg,bmp,png|max:2048'
+            'file' => 'required|file|mimes:jpg,bmp,png,pdf,doc,docx|max:2048'
         ]);
         return $this->documentService->createDocumentForShelter($request, $shelter);
     }
