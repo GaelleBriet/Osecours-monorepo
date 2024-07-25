@@ -21,6 +21,7 @@
 	const showForm = ref(false);
 	const showModal = ref(false);
 	const documentToDelete = ref(null);
+	const isDocument = true;
 
 	const fetchDocuments = async () => {
 		const docsByAnimal = await documentsStore.getDocumentsByAnimal(route.params.id);
@@ -117,6 +118,7 @@
 				{ label: getCapitalizedText(t('pages.animals.size')), key: 'size' },
 				{ label: getCapitalizedText(t('pages.documents.date')), key: 'date' },
 			]"
+			:isDocument="isDocument"
 			@edit="editItem"
 			@add="addItem"
 			@delete="openModal"

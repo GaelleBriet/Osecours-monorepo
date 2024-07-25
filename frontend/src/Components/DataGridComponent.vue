@@ -23,7 +23,10 @@
 		animalsChars?: boolean;
 		disableAddBtn?: boolean;
 		disableEditIcon?: boolean;
+		isDocument?: boolean;
 	}>();
+
+	console.log(props);
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;
@@ -239,11 +242,20 @@
 									]"
 									v-tooltip="column.truncate ? item[column.key] : ''"
 								>
-									{{
-										typeof column.key === 'function'
-											? column.key(item)
-											: item[column.key]
-									}}
+									<template v-if="column.key === 'filename'">
+										<a :href="item['url']" target="_blank" class="text-blue-500 underline">
+											{{
+												item[column.key]
+											}}
+										</a>
+									</template>
+									<template v-else>
+										{{
+											typeof column.key === 'function'
+												? column.key(item)
+												: item[column.key]
+										}}
+									</template>
 								</td>
 							</template>
 							<td
