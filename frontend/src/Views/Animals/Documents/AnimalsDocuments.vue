@@ -40,10 +40,36 @@
 	};
 
 	const documentsTransformed = computed(() => {
-		return documents.value.map((document) => ({
-			...document,
-			doctype_name: getDoctypeNameById(document.doctype_id)
-		}));
+		return documents.value.map((document) => {
+			if (!document || !document.filename) {
+				return {
+					...document,
+					doctype_name: 'Unknown Type',
+					filename: 'Unknown Filename',
+					size: 'Unknown Size'
+				};
+			}
+			let modifiedFilename = document.filename.split('__')[0];
+			let modifiedDoctype = getDoctypeNameById(document.doctype_id);
+
+			// Determine the size to display MB or KB
+			let sizeInMB = document.size / (1024 * 1024);
+			let sizeFormatted;
+
+			if (sizeInMB >= 1) {
+				sizeFormatted = sizeInMB.toFixed(2) + ' MB';
+			} else {
+				let sizeInKB = document.size / 1024;
+				sizeFormatted = sizeInKB.toFixed(2) + ' KB';
+			}
+			
+			return {
+				...document,
+				doctype_name: getCapitalizedText(t(`enums.documentType.${modifiedDoctype}`)),
+				filename: getCapitalizedText(modifiedFilename),
+				size: sizeFormatted
+			};
+		});
 	});
 
 	const editItem = (item) => {
