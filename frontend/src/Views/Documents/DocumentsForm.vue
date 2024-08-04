@@ -98,16 +98,6 @@
 		// formData.append('description', localDocument.value.description);
 		formData.file = file;
 
-		const documentData = props.isCreateMode
-			? createdDocument.value
-			: localDocument.value;
-
-		if (!props.isCreateMode) {
-			documentData.number = localDocument.value.identification?.number;
-		} else {
-			documentData.number = createdDocument.value.identification;
-		}
-
 		// on envoie les données à l'api
 		newDocument.value = props.isCreateMode
 			? await documentsStore.createDocumentForAnimal(id, formData)

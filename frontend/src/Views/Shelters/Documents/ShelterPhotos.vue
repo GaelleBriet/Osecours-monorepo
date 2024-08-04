@@ -4,11 +4,14 @@
 	import Form from '@/Components/Forms/Form.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import SheltersPhotoForm from '@/Views/Shelters/Documents/SheltersPhotoForm.vue';
+	import i18n from '@/Services/Translations';
+	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 
 	const props = defineProps<{
 		shelter: Shelter;
 	}>();
 
+	const t = i18n.global.t;
 	const showForm = ref(false);
 	let localShelter = ref({ ...props.shelter });
 
@@ -44,8 +47,8 @@
 	]);
 
 	const addPhoto = () => {
-		showForm.value = true;
-		return false;
+		// showForm.value = true;
+		// return false;
 	};
 	const removePhoto = () => {
 		// @todo  Logique pour supprimer une photo
@@ -83,6 +86,7 @@
 						</button>
 					</div>
 					<button
+						v-tooltip="getCapitalizedText(t('common.notImplemented'))"
 						type="button"
 						class="w-full h-28 bg-gray-200 rounded-lg shadow-md flex justify-center items-center"
 						@click="addPhoto()"
