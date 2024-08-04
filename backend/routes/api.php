@@ -89,7 +89,7 @@ Route::middleware(['auth:sanctum', 'abilities:global_access_scope'])->group(func
 
     Route::controller(ShelterController::class)->group(function () {
         Route::get('/shelters/all', 'getAll');
-        Route::post('/shelters', 'create');
+        Route::post('/shelters', 'store');
         Route::get('/shelters/{id}', 'show');
         Route::put('/shelters/{id}', 'update');
         Route::delete('/shelters/{id}', 'delete');
@@ -168,9 +168,10 @@ Route::middleware(['auth:sanctum', 'abilities:user_access_scope'])->group(functi
 
     Route::controller(ShelterController::class)->group(function () {
         Route::get('/shelters/all', 'getAll');
-        Route::post('/shelters', 'create');
+        Route::post('/shelters', 'store');
         Route::get('/shelters/{id}', 'show');
         Route::put('/shelters/{id}', 'update');
+        Route::delete('/shelters/{id}', 'destroy');
     });
 
     Route::controller(AssociationController::class)->group(function () {

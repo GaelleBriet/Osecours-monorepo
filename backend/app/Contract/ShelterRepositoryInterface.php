@@ -8,7 +8,7 @@ interface ShelterRepositoryInterface
 
     public function find($id): mixed;
 
-    public function create($animal): mixed;
+    public function create($shelter): mixed;
 
     public function update($id, $updatedDatas): mixed;
 
