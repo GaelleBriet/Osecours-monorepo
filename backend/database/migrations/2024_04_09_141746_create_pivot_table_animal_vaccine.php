@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('animal_vaccine', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vaccine_id')->constrained();
-            $table->foreignId('animal_id')->constrained();
+            $table->foreignId('vaccine_id')->constrained()->onDelete('cascade');
+            $table->foreignId('animal_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animal_id');
+        Schema::dropIfExists('animal_vaccine');
     }
 };
