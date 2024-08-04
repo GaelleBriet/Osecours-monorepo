@@ -8,7 +8,10 @@
 	import { onMounted, ref } from 'vue';
 	import { Shelter } from '@/Interfaces/Shelter.ts';
 	import { useSheltersStore } from '@/Stores/SheltersStore.ts';
+	import { getNode } from '@formkit/core';
+	import { useRoute } from 'vue-router';
 
+	const route = useRoute();
 	const sheltersStore = useSheltersStore();
 
 	const props = defineProps<{
@@ -20,33 +23,85 @@
 	const isEditMode = ref(false);
 	let localShelter = ref({ ...props.shelter });
 	let createdShelter = ref<Shelter>({});
+	const newShelter = ref<Shelter>({});
+	const id = route.params.id;
 
 	const notificationConfig = ref({
 		show: false,
+		title: '',
 		message: '',
 		type: 'info',
 	});
 
+	const isFormValid = () => {
+		let formId = ref('');
+		let formNode = ref(null);
+		formId.value = !props.isCreateMode
+			? `edit-shelter${localShelter.value.id}`
+			: 'create-shelter';
+		formNode.value = getNode(formId.value);
+		return formNode.value?.context.state.valid;
+	};
+
 	const onSubmit = async () => {
+		// si le formulaire n'est pas valide, on affiche une notification
+		if (!isFormValid()) {
+			notificationConfig.value = {
+				show: true,
+				title: `${getCapitalizedText(t('form.messages.warning'))}`,
+				message: `${getCapitalizedText(t('form.messages.check'))}`,
+				type: 'warning',
+			};
+			return;
+		}
+
+		const formData = props.isCreateMode
+			? createdShelter.value
+			: localShelter.value;
+
+		console.log(formData);
+		
 		if (props.isCreateMode) {
-			await sheltersStore.createShelter(createdShelter.value);
+			newShelter.value = await sheltersStore.createShelter(createdShelter.value);
 		}
 		if (!props.isCreateMode) {
-			await sheltersStore.updateShelter(localShelter.value);
-			// const shelterToUpdate = props.shelter;
+			newShelter.value = await sheltersStore.updateShelter(localShelter.value);
 		}
+
+		// newShelter.value = props.isCreateMode
+		// 	? await sheltersStore.createShelter(id, formData)
+		// 	: await sheltersStore.updateShelter(id, formData);
+
 		// Si l'api à bien répondu, on affiche la notification
 		// et on stop le mode edition
 		//@todo: adapter le message suivant la réponse de l'api
-		notificationConfig.value = {
-			show: true,
-			message: !props.isCreateMode
-				? `${getCapitalizedText(t('pages.shelters.shelter'))} ${localShelter.value?.name} ${getCapitalizedText(t('common.update'))}`
-				: `${getCapitalizedText(t('pages.shelters.shelter'))} ${createdShelter.value?.name} ${getCapitalizedText(t('common.creation'))}`,
-			type: 'success',
-		};
-		isEditMode.value = false;
+		if (!newShelter.value) {
+			notificationConfig.value = {
+				show: true,
+				title: `${getCapitalizedText(t('pages.animals.messages.errorGeneral'))}`,
+				message: `${getCapitalizedText(t('pages.shelters.messages.updateShelterError'))}`,
+				type: 'error',
+			};
+			return;
+		} else if (newShelter.value) {
+			notificationConfig.value = {
+				show: true,
+				title: `${getCapitalizedText(t('common.success'))}`,
+				message: !props.isCreateMode
+					? `${getCapitalizedText(t('pages.shelters.shelter'))} ${localShelter.value?.name} ${getCapitalizedText(t('common.update'))}`
+					: `${getCapitalizedText(t('pages.shelters.shelter'))} ${createdShelter.value?.name} ${getCapitalizedText(t('common.creation'))}`,
+				type: 'success',
+			};
+			// on réinitialise les valeurs du formulaire
+			if (props.isCreateMode) {
+				createdShelter.value = {};
+			} else {
+				localShelter.value = { ...newShelter.value };
+				isEditMode.value = false;
+			}
+		}
 	};
+
 	onMounted(() => {
 		if (props.isCreateMode) {
 			isEditMode.value = true;
@@ -76,8 +131,9 @@
 							:model-value="!isCreateMode ? shelter.name : createdShelter.name"
 							:label="getCapitalizedText(t('common.name'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
-							:placeholder="getCapitalizedText(t('form.email'))"
+							:placeholder="getCapitalizedText(t('form.name'))"
 							:disabled="!isEditMode"
+							:validation="'contains_alpha_spaces|length:0,100'"
 							@update:model-value="
 								!isCreateMode
 									? (localShelter.name = $event)
@@ -96,6 +152,8 @@
 							:label="getCapitalizedText(t('pages.shelters.siret'))"
 							class="w-full border border-gray-300 rounded shadow-sm"
 							:placeholder="'123456123456789'"
+							:validation="[['matches', /^[0-9]{14}$/]]"
+							:validation-visibility="'blur'"
 							:disabled="!isEditMode"
 							@update:model-value="
 								!isCreateMode
