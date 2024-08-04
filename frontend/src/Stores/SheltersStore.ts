@@ -6,15 +6,18 @@ import {
 	getShelter,
 	getShelters,
 	updateShelter,
+	deleteShelter,
 } from '@/Services/DataLayers/Shelter.ts';
 
 export const useSheltersStore = defineStore('shelters', {
 	state: (): {
 		shelters: Shelter[];
 		shelter: Shelter | null;
+		isLoading: boolean;
 	} => ({
 		shelters: [],
 		shelter: null,
+		isLoading: false,
 	}),
 	getters: {
 		getCurrentShelter(): Shelter | null {
@@ -35,7 +38,9 @@ export const useSheltersStore = defineStore('shelters', {
 			}
 		},
 		async getShelters(): Promise<Shelter[]> {
+			this.isLoading = true;
 			const shelters: Shelter[] | ErrorResponse = await getShelters();
+			this.isLoading = false;
 			if ('error' in shelters) {
 				return [];
 			} else {
@@ -60,6 +65,17 @@ export const useSheltersStore = defineStore('shelters', {
 			} else {
 				this.shelters.push(updatedShelter);
 				return updatedShelter;
+			}
+		},
+		async deleteShelter(id: string | undefined): Promise<boolean> {
+			const shelterToDelete: Shelter | ErrorResponse = await deleteShelter(id);
+			if ('error' in shelterToDelete) {
+				return false;
+			} else {
+				this.shelters = this.shelters.filter(
+					(shelter: Shelter) => shelter.id !== Number(id),
+				);
+				return true;
 			}
 		},
 	},

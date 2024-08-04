@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Mimetype",
  *     description="Mimetype model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -25,7 +26,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Mimetype extends Model
 {
     use HasFactory;

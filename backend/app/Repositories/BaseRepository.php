@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository
 {
-    protected $model;
+    protected Model $model;
 
     public function __construct(Model $model)
     {
         $this->model = $model;
     }
 
-    public function all()
+    public function all(): mixed
     {
         return $this->model->all();
     }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Specie;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class SpecieController extends Controller
 {
@@ -25,6 +24,7 @@ class SpecieController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return Specie::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -37,6 +37,7 @@ class SpecieController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $specie->update([
             'name' => $request->name,
             'description' => $request->description,

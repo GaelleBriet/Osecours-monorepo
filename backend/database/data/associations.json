@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Fondation Brigitte Bardot",
+        "description": "La Fondation Brigitte Bardot est une fondation reconnue d'utilité publique qui a pour mission de protéger les animaux. Elle a été créée en 1986 par Brigitte Bardot.",
+        "siret": "31843127600014",
+        "rib": "30002005500000154530Z89"
+    },
+    {
+        "name": "Fondation 30 Millions d'Amis",
+        "description": "La Fondation 30 Millions d'Amis est une fondation reconnue d'utilité publique qui a pour mission de protéger les animaux. Elle a été créée en 1976 par Jean-Pierre Hutin.",
+        "siret": "77568859977011",
+        "rib": "30002115500000154530Z89"
+    },
+    {
+        "name": "Société Protectrice des Animaux",
+        "description": "La SPA est reconnue d'utilité publique et a pour mission de protéger les animaux. Elle a été créée en 1845 par Étienne Pariset.",
+        "siret": "43568859977011",
+        "rib": "30002115500048154530Z89"
+    }
+]

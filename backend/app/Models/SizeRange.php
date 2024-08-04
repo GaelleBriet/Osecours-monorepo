@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="SizeRange",
  *     description="SizeRange model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -43,12 +44,11 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class SizeRange extends Model
 {
     use HasFactory;
 
-    protected $table = "size_ranges";
+    protected $table = 'size_ranges';
 
     protected $fillable = [
         'name',

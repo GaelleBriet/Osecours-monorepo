@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('associations', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->text("description")->nullable();
-            $table->string("siret",14)->unique();
-            $table->string("rib",34)->unique()->nullable();
-//            $table->bigInteger('person_id');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('siret', 14)->unique();
+            $table->string('rib', 34)->unique()->nullable();
+            //            $table->bigInteger('person_id');
             $table->timestamps();
         });
     }

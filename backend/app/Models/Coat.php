@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OpenApi\Annotations as OA;
@@ -13,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Coat",
  *     description="Coat model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -33,7 +33,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Coat extends Model
 {
     use HasFactory;

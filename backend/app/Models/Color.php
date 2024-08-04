@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OpenApi\Annotations as OA;
@@ -13,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Color",
  *     description="Color model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -39,7 +39,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Color extends Model
 {
     use HasFactory;
@@ -53,7 +52,7 @@ class Color extends Model
     {
         return $this->hasMany(Animal::class);
     }
-    
+
     public function species(): BelongsToMany
     {
         return $this->belongsToMany(Specie::class);

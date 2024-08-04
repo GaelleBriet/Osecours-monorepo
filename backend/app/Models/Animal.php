@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use OpenApi\Annotations as OA;
 
 /**
@@ -19,6 +18,7 @@ use OpenApi\Annotations as OA;
  *     type="object",
  *     title="Animal",
  *     description="Animal model representing the detailed information of an animal in the system",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -136,12 +136,13 @@ use OpenApi\Annotations as OA;
  *         format="int64",
  *         description="Foreign key identifier for the age range to which the animal belongs",
  *         example=6
- *     )    
+ *     )
  * )
  */
 class Animal extends Model implements HasDocumentsInterface
 {
     use HasFactory, SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -150,7 +151,7 @@ class Animal extends Model implements HasDocumentsInterface
     protected $fillable = [
         'name', 'description', 'birth_date', 'cats_friendly', 'dogs_friendly',
         'children_friendly', 'age', 'behavioral_comment', 'sterilized', 'deceased',
-        'specie_id', 'breed_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id'
+        'specie_id', 'breed_id', 'gender_id', 'color_id', 'coat_id', 'sizerange_id', 'agerange_id',
     ];
 
     public function gender(): BelongsTo
@@ -180,17 +181,17 @@ class Animal extends Model implements HasDocumentsInterface
 
     public function SizeRange(): BelongsTo
     {
-        return $this->belongsTo(SizeRange::class, "sizerange_id");
+        return $this->belongsTo(SizeRange::class, 'sizerange_id');
     }
 
     public function AgeRange(): BelongsTo
     {
-        return $this->belongsTo(AgeRange::class);
+        return $this->belongsTo(AgeRange::class, 'agerange_id');
     }
 
     public function vaccines(): BelongsToMany
     {
-        return $this->belongsToMany(Vaccine::class,"animal_vaccine");
+        return $this->belongsToMany(Vaccine::class, 'animal_vaccine');
     }
 
     public function healthcares(): HasMany
@@ -215,7 +216,7 @@ class Animal extends Model implements HasDocumentsInterface
         return $this->belongsToMany(Document::class);
     }
 
-    public function getDocuments()
+    public function getDocuments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->belongsToMany(Document::class)->get();
     }
@@ -238,7 +239,6 @@ class Animal extends Model implements HasDocumentsInterface
     {
         return $this->belongsToMany(Status::class);
     }
-
 
     public function getSpecieNameAttribute()
     {

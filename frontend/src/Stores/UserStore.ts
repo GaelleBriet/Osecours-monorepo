@@ -57,7 +57,7 @@ export const useUserStore = defineStore({
 					email: email,
 					associationName: associationName ? associationName : '',
 					associationId: associationId ? associationId : '',
-				};
+				} as User;
 				setToStorage('token', this.user.token);
 				setToStorage('user', this.user);
 				setToStorage('userLoggedIn', true);

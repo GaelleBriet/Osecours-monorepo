@@ -232,6 +232,7 @@
 					</li>
 					<li class="relative -mx-3 mt-auto">
 						<div
+              id="user-menu"
 							v-tooltip="userEmail"
 							href="#"
 							class="flex items-center gap-x-4 px-2 py-3 leading-6 text-osecours-black hover:bg-osecours-white rounded-md cursor-pointer"

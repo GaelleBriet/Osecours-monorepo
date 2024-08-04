@@ -18,6 +18,8 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
+        "nunomaduro/larastan": "^2.9",
+        "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.4"
     },
@@ -34,6 +36,12 @@
         }
     },
     "scripts": {
+        "pint": [
+            "./vendor/bin/pint"
+        ],
+        "phpstan": [
+            "./vendor/bin/phpstan analyse -l 1 app tests"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -48,6 +56,26 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "test-clear-config": [
+            "docker exec -i -e APP_ENV=testing laravel_backend php artisan config:clear"
+        ],
+        "test-migrate": [
+            "docker exec -i -e APP_ENV=testing laravel_backend php artisan migrate:fresh --seed --env=testing --database=testing"
+        ],
+        "test-run": [
+            "docker exec -i -e APP_ENV=testing -e DB_DATABASE=osecours_test laravel_backend php artisan test --env=testing"
+        ],
+        "test-all": [
+            "@test-clear-config",
+            "@test-migrate",
+            "@test-run"
+        ],
+        "test:phpunit": [
+            "docker exec -i laravel_backend bash -c \"cd /var/www/html && php artisan config:clear && vendor/bin/phpunit --colors=always\""
+        ],
+        "test-coverage": [
+            "docker exec -i laravel_backend bash -c \"cd /var/www/html && vendor/bin/phpunit --coverage-text\""
         ]
     },
     "extra": {

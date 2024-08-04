@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\RoleEnum;
+use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\AuthRequest;
 use App\Http\Services\AuthService;
 use App\Http\Services\ErrorService;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    protected $errorService;
+    protected ErrorService $errorService;
 
     public function __construct(ErrorService $eService)
     {
@@ -20,20 +18,26 @@ class AuthController extends Controller
     }
 
      /**
+
+    /**
      * @OA\Post(
      *     path="/token/create",
      *     summary="Get token",
      *     tags={"Authentication"},
+     *
      *     @OA\RequestBody(
      *         required=true,
      *         description="create token for specific association",
+     *
      *         @OA\JsonContent(
      *             required={"email","password"},
+     *
      *             @OA\Property(property="email", type="string", example="admin-lerefugedeschimeres@osecours.org", format="email" ),
      *             @OA\Property(property="password", type="string", example="P@ssword_1" ),
      *             @OA\Property(property="association_id", type="integer", example=1 ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Token created successfully"
@@ -44,7 +48,7 @@ class AuthController extends Controller
      *     )
      * )
      */
-    public function getToken(AuthRequest $request)
+    public function getToken(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
 
         try {
@@ -53,10 +57,11 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
             $currentAssociationId = $request->get('association_id');
 
-            if (!$currentAssociationId) {
-                return response()->json(["data" => AuthService::getTokenWithoutAssociation($credentials)], 201);
+            if (! $currentAssociationId) {
+                return response()->json(['data' => AuthService::getTokenWithoutAssociation($credentials)], 201);
             }
-            return response()->json(["data" => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
+
+            return response()->json(['data' => AuthService::getTokenForSpecificAssociation($credentials, $currentAssociationId)], 201);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }
@@ -93,12 +98,19 @@ class AuthController extends Controller
  *     )
  * )
  */
-    public function login(AuthRequest $request)
+    public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
             $request->validated();
             $credentials = $request->only('email', 'password');
-            return response()->json(["data" => AuthService::connectUser($credentials)], 200);
+            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
+        } catch (UnauthorizedException $e) {
+            return $this->errorService->handle($e);
+//            return response()->json([
+//                'error' => 'Unauthorized',
+//                'message' => $e->getMessage(),
+//                'status' => $e->getCode()
+//            ], $e->getCode());
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }

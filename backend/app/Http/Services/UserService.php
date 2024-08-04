@@ -3,26 +3,29 @@
 namespace App\Http\Services;
 
 use App\Contract\UserRepositoryInterface;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserService {
-
+class UserService
+{
     protected UserRepositoryInterface $userRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository) {
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 
-    public function getById($id){
+    public function getById($id)
+    {
         return $this->userRepository->find($id);
     }
 
-    public function softDelete($id){
+    public function softDelete($id)
+    {
         return $this->userRepository->softDelete($id);
     }
 
-    public function create($validatedData){
+    public function create($validatedData)
+    {
         // Création de l'utilisateur
         $user = [
             'first_name' => $validatedData['first_name'],
@@ -35,6 +38,6 @@ class UserService {
             'password' => Hash::make($validatedData['password']), // hacher le mot de passe
         ];
 
-       return $this->userRepository->create($user);
+        return $this->userRepository->create($user);
     }
 }

@@ -4,64 +4,67 @@ namespace App\Repositories;
 
 use App\Contract\DocumentRepositoryInterface;
 use App\Contract\HasDocumentsInterface;
-use App\Models\Animal;
 use App\Models\Doctype;
 use App\Models\Document;
-use App\Models\Healthcare;
 use App\Models\Mimetype as Mimetype;
-use Illuminate\Support\Facades\Storage;
 
-class DocumentRepository extends BaseRepository implements  DocumentRepositoryInterface
+class DocumentRepository extends BaseRepository implements DocumentRepositoryInterface
 {
     public function __construct(Document $doc)
     {
         parent::__construct($doc);
     }
 
-    public function findDocument($id){
+    public function findDocument($id): mixed
+    {
         return Document::findOrFail($id);
     }
 
-    public function getAllDocuments(HasDocumentsInterface $model){
+    public function getAllDocuments(HasDocumentsInterface $model): mixed
+    {
         return $model->getDocuments();
     }
 
-    public function createDocument($array){
-        
+    public function createDocument($array): mixed
+    {
+
         Mimetype::firstOrCreate([
-            'name' =>  $array['mimeType']
+            'name' => $array['mimeType'],
         ]);
         DocType::firstOrCreate([
             'name' => $array['docType'],
-            'description' => ''
+            'description' => '',
         ]);
 
         $newDoc = Document::create([
             'filename' => $array['filename'],
             'description' => $array['description'],
-            'size' => $array['size'] ,
+            'size' => $array['size'],
             'url' => $array['url'],
             'date' => $array['date'],
             'mimetype_id' => 1,
-            'doctype_id' => $array['docType']
+            'doctype_id' => $array['docType'],
         ]);
+
         return $newDoc;
 
     }
 
-    public function softDeleteDocument($id){
+    public function softDeleteDocument($id): mixed
+    {
         $document = Document::findOrFail($id);
-        $document->delete();  
+        $document->delete();
+
         return $document;
     }
 
-    public function updateDocument($id, $updateDatas){
+    public function updateDocument($id, $updateDatas): mixed
+    {
         $document = Document::find($id);
-        if($document){
-            $document->update($updateDatas);            
+        if ($document) {
+            $document->update($updateDatas);
         }
+
         return $document;
     }
-
- 
 }

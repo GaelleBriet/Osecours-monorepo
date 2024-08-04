@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Contract\UserRepositoryInterface;
+use App\Contract\ShelterRepositoryInterface;
+use App\Repositories\ShelterRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ShelterRepositoryInterface::class, ShelterRepository::class);
     }
 
     /**
@@ -23,6 +28,15 @@ class AppServiceProvider extends ServiceProvider
     {
         if($this->app->environment('production')) {
             \URL::forceScheme('https');
+        }
+        if (config('app.debug')) {
+            DB::listen(function ($query) {
+                Log::info(
+                    $query->sql,
+                    $query->bindings,
+                    $query->time
+                );
+            });
         }
     }
 }

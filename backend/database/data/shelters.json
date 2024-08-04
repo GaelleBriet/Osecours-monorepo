@@ -1,0 +1,37 @@
+[
+    {
+        "name": "SPA Vauclusienne",
+        "siret": "12345678901234",
+        "description": "La SPA Vauclusienne est une association de protection des animaux située à Avignon. Elle recueille des animaux abandonnés et leur trouve des familles d'accueil.",
+        "email": "spa-vauclusienne@mail.fr",
+        "phone": "0490123456"
+    },
+    {
+        "name": "Refuge Saint-Roch",
+        "siret": "123442789234",
+        "description": "Le refuge Saint-Roch est une association de protection des animaux située à Carpentras. Elle recueille des animaux abandonnés et leur trouve des familles d'accueil.",
+        "email": "saint-roch@mail.com",
+        "phone": "0490463456"
+    },
+    {
+        "name": "Refuge de l'Arbois",
+        "siret": "12345678487234",
+        "description": "Le refuge de l'Arbois est une association de protection des animaux située à Aix-en-Provence. Elle recueille des animaux abandonnés et leur trouve des familles d'accueil.",
+        "email": "refuge_arbois@mail.fr",
+        "phone": "0490173456"
+    },
+    {
+        "name": "SPA - Refuge d'Aix-en-Provence",
+        "siret": "12345365901234",
+        "description": "La SPA - Refuge d'Aix-en-Provence est une association de protection des animaux située à Aix-en-Provence. Elle recueille des animaux abandonnés et leur trouve des familles d'accueil.",
+        "email": "spa-aix@mail.fr",
+        "phone": "0490127756"
+    },
+    {
+        "name": "SPA - Refuge de Vallérargues",
+        "siret": "12345678944234",
+        "description": "La SPA - Refuge de Vallérargues est une association de protection des animaux située à Vallérargues. Elle recueille des animaux abandonnés et leur trouve des familles d'accueil.",
+        "email": "spa-vallerargues.fr",
+        "phone": "0490565456"
+    }
+]
