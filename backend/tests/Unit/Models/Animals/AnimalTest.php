@@ -18,7 +18,7 @@ class AnimalTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function it_has_fillable_attributes()
+    public function test_it_has_fillable_attributes()
     {
         $fillable = [
             'name', 'description', 'birth_date', 'cats_friendly', 'dogs_friendly',
@@ -30,7 +30,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($fillable, $animal->getFillable());
     }
 
-    public function it_belongs_to_a_gender()
+    public function test_it_belongs_to_a_gender()
     {
         $gender = Gender::factory()->create();
         $animal = Animal::factory()->create(['gender_id' => $gender->id]);
@@ -39,7 +39,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($gender->id, $animal->gender->id);
     }
 
-    public function it_belongs_to_a_breed()
+    public function test_it_belongs_to_a_breed()
     {
         $breed = Breed::factory()->create();
         $animal = Animal::factory()->create(['breed_id' => $breed->id]);
@@ -48,7 +48,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($breed->id, $animal->breed->id);
     }
 
-    public function it_belongs_to_a_specie()
+    public function test_it_belongs_to_a_specie()
     {
         $specie = Specie::factory()->create();
         $animal = Animal::factory()->create(['specie_id' => $specie->id]);
@@ -57,7 +57,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($specie->id, $animal->specie->id);
     }
 
-    public function it_belongs_to_a_coat()
+    public function test_it_belongs_to_a_coat()
     {
         $coat = Coat::factory()->create();
         $animal = Animal::factory()->create(['coat_id' => $coat->id]);
@@ -66,7 +66,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($coat->id, $animal->coat->id);
     }
 
-    public function it_belongs_to_a_color()
+    public function test_it_belongs_to_a_color()
     {
         $color = Color::factory()->create();
         $animal = Animal::factory()->create(['color_id' => $color->id]);
@@ -75,7 +75,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($color->id, $animal->color->id);
     }
 
-    public function it_belongs_to_a_size_range()
+    public function test_it_belongs_to_a_size_range()
     {
         $sizeRange = SizeRange::factory()->create();
         $animal = Animal::factory()->create(['sizerange_id' => $sizeRange->id]);
@@ -84,7 +84,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($sizeRange->id, $animal->sizeRange->id);
     }
 
-    public function it_belongs_to_an_age_range()
+    public function test_it_belongs_to_an_age_range()
     {
         $ageRange = AgeRange::factory()->create();
         $animal = Animal::factory()->create(['agerange_id' => $ageRange->id]);
@@ -93,7 +93,7 @@ class AnimalTest extends TestCase
         $this->assertEquals($ageRange->id, $animal->ageRange->id);
     }
 
-    public function it_can_retrieve_documents()
+    public function test_it_can_retrieve_documents()
     {
         $animal = Animal::factory()->create();
         $document = Document::factory()->create();
@@ -103,7 +103,7 @@ class AnimalTest extends TestCase
         $this->assertEquals(1, $animal->documents->count());
     }
 
-    public function it_can_get_specie_name()
+    public function test_it_can_get_specie_name()
     {
         $specie = Specie::factory()->create(['name' => 'Canine']);
         $animal = Animal::factory()->create(['specie_id' => $specie->id]);
@@ -111,7 +111,7 @@ class AnimalTest extends TestCase
         $this->assertEquals('Canine', $animal->specie_name);
     }
 
-    public function it_can_get_gender_name()
+    public function test_it_can_get_gender_name()
     {
         $gender = Gender::factory()->create(['name' => 'Male']);
         $animal = Animal::factory()->create(['gender_id' => $gender->id]);
