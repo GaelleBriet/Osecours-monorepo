@@ -76,7 +76,7 @@
 
 	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
+		if (!isFormValid()) {
 			notificationConfig.value = {
 				show: true,
 				title: `${getCapitalizedText(t('form.messages.warning'))}`,
@@ -176,6 +176,8 @@
 									? getCapitalizedText(t('pages.documents.image'))
 									: getCapitalizedText(t('pages.documents.file'))
 							"
+							:validation="
+								!isCreateMode ? '' : 'required'"
 							:accept="
 								isPhotoMode
 									? '.jpg,.bmp,.png'
