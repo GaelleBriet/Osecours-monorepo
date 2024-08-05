@@ -180,8 +180,12 @@
 								isPhotoMode
 									? '.jpg,.bmp,.png'
 									: '.pdf,.doc,.docx,.jpg,.bmp,.png'
+							"							
+							:help="
+								isPhotoMode
+									? getCapitalizedText(t('pages.documents.helpPhotos'))
+									: getCapitalizedText(t('pages.documents.help'))
 							"
-							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
 							:multiple="true"
 							no-files-icon="fileDoc"
