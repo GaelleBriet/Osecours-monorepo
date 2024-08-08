@@ -46,7 +46,7 @@ class AuthServiceTest extends TestCase
 
         $authService = new AuthService();
         $result = $authService->connectUser(['email' => $email, 'password' => $password]);
-
+//        dump($result);
         $result['associations'] = $result['associations']->toArray();
         $this->assertEquals([
             'status' => UserStatus::CONNECTED->value,
@@ -91,7 +91,7 @@ class AuthServiceTest extends TestCase
         $request->validateResolved();
 
         $response = $this->authController->login($request);
-
+//        dump($response->getContent());
         // Vérifiez que la réponse est une instance de JsonResponse avec un code de statut 401
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(401, $response->getStatusCode());

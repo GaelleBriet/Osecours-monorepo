@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enum\UserStatus;
-use App\Http\Services\AuthService;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -24,14 +22,13 @@ class LoginTest extends TestCase
             'password' => bcrypt('P@ssword_1'),
         ]);
 
-        // Simulez une demande de connexion
+        // Simulerune demande de connexion
         $response = $this->postJson('http://localhost:8000/api/login', [
             'email' => 'admin@osecours-asso.fr',
             'password' => 'P@ssword_1',
         ]);
 
-        //dd($response);
-        // Vérifiez que la réponse est correcte
+        // Vérifier la réponse
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [
@@ -45,15 +42,15 @@ class LoginTest extends TestCase
         ]);
     }
 
-//    public function test_login_with_invalid_credentials()
-//    {
-//        // Simulez une demande de connexion avec des identifiants invalides
-//        $response = $this->postJson('http://localhost:8000/api/login', [
-//            'email' => 'admin@osecours-asso.fr',
-//            'password' => 'Wrong_password1',
-//        ]);
-//
-//        // Vérifiez que la réponse est une erreur 401
-//        $response->assertStatus(401);
-//    }
+    public function test_login_with_invalid_credentials()
+    {
+        // Simuler une demande de connexion avec des identifiants invalides
+        $response = $this->postJson('http://localhost:8000/api/login', [
+            'email' => 'admin@osecours-asso.fr',
+            'password' => 'Wrong_password1',
+        ]);
+
+        // Vérifier que la réponse est une erreur 401
+        $response->assertStatus(401);
+    }
 }
