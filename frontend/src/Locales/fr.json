@@ -79,8 +79,8 @@
 		"forgotPassword": "mot de passe oublié ?",
 		"signIn": "se connecter",
 		"error": "identifiants incorrects. Veuillez réessayer",
-		"selectAssociation": "sélectionnez votre association"
-	},
+		"selectAssociation": "sélectionnez votre association",
+		"identificationChanged": "les nouveaux identifiants de test sont les suivants, Email : {email}, Mot de passe : {password}"	},
 	"register": {
 		"title": "enregistrement",
 		"description": "créez un compte pour commencer."
