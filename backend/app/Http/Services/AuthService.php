@@ -41,7 +41,8 @@ class AuthService
 //                FROM associations
 //                INNER JOIN association_role_user ON associations.id = association_role_user.association_id
 //                WHERE association_role_user.user_id = :user_id;
-            $currentAssociation = $associations->where('id', $currentAssociationId);
+
+            $currentAssociation = $associations->where('association_id', $currentAssociationId);
             if (!$currentAssociation->count() > 0) {
                 throw new Exception('Association not found');
             }
@@ -179,9 +180,10 @@ class AuthService
             // INNER JOIN association_role_user ON associations.id = association_role_user.association_id
             // WHERE association_role_user.user_id = :user_id;
 
+// var_dump($associations);
             $mappedAssociations = $associations->map(function ($association) {
                 return [
-                    'id' => $association->id,
+                    'id' => $association->association_id,
                     'name' => $association->name,
                 ];
             });

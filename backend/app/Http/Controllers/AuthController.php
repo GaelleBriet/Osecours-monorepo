@@ -18,8 +18,6 @@ class AuthController extends Controller
     }
 
      /**
-
-    /**
      * @OA\Post(
      *     path="/token/create",
      *     summary="Get token",
