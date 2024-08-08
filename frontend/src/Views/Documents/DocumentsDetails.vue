@@ -12,6 +12,7 @@
 	const documentsStore = useDocumentsStore();
 	const documentId = route.params.id;
 	const currentDocument = ref<Document | null>(null);
+  const currentTab = ref(0);
 
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;

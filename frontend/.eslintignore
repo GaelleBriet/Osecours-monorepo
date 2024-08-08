@@ -1,1 +1,4 @@
 /formkit.theme.ts
+/frontend/cypress/**/*.ts
+/frontend/cypress/*.d.ts
+/frontend/cypress/

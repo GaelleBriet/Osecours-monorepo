@@ -2,14 +2,13 @@
 	import DataGridComponent from '@/Components/DataGridComponent.vue';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import TabsComponent from '@/Components/TabsComponent.vue';
+  import LoaderComponent from '@/Components/LoaderComponent.vue';
 	import { useRouter } from 'vue-router';
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { computed, onMounted, ref } from 'vue';
 	import i18n from '@/Services/Translations';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
 	import { Document } from '@/Interfaces/Documents/Documents.ts';
-	import AnimalsDocuments from "@/Views/Animals/Documents/AnimalsDocuments.vue";
-  	import LoaderComponent from '@/Components/LoaderComponent.vue';
 
 	const t = i18n.global.t;
 	const router = useRouter();
