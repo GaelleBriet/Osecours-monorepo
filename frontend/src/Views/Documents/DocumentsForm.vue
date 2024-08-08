@@ -76,7 +76,7 @@
 
 	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
+		if (!isFormValid()) {
 			notificationConfig.value = {
 				show: true,
 				title: `${getCapitalizedText(t('form.messages.warning'))}`,
@@ -118,7 +118,7 @@
 			notificationConfig.value = {
 				show: true,
 				title: `${getCapitalizedText(t('pages.animals.messages.errorGeneral'))}`,
-				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
+				message: `${getCapitalizedText(t('pages.animals.messages.updateDocError'))}`,
 				type: 'error',
 			};
 			return;
@@ -176,12 +176,18 @@
 									? getCapitalizedText(t('pages.documents.image'))
 									: getCapitalizedText(t('pages.documents.file'))
 							"
+							:validation="
+								!isCreateMode ? '' : 'required'"
 							:accept="
 								isPhotoMode
 									? '.jpg,.bmp,.png'
 									: '.pdf,.doc,.docx,.jpg,.bmp,.png'
+							"							
+							:help="
+								isPhotoMode
+									? getCapitalizedText(t('pages.documents.helpPhotos'))
+									: getCapitalizedText(t('pages.documents.help'))
 							"
-							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
 							:multiple="true"
 							no-files-icon="fileDoc"
