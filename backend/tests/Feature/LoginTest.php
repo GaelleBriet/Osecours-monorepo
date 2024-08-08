@@ -38,7 +38,7 @@ class LoginTest extends TestCase
                     ['id' => 31, 'name' => 'Fondation 30 Millions d\'Amis'],
                     ['id' => 61, 'name' => 'Société Protectrice des Animaux'],
                 ],
-            ]
+            ],
         ]);
     }
 

@@ -17,38 +17,38 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-//    use RefreshDatabase;
+    //    use RefreshDatabase;
     use DatabaseTransactions;
 
-//    public function test_can_create_user()
-//    {
-//        $userData = [
-//            'first_name' => 'John',
-//            'last_name' => 'Doe',
-//            'phone' => '123456789',
-//            'existing_cat_count' => 2,
-//            'existing_children_count' => 1,
-//            'existing_dog_count' => 0,
-//            'email' => 'john@example.com',
-//            'password' => Hash::make('password123'),
-//        ];
-//
-//        $user = new User($userData);
-//        $user->save();
-//
-//        $this->assertInstanceOf(User::class, $user);
-//        $this->assertEquals($userData['first_name'], $user->first_name);
-//        $this->assertEquals($userData['last_name'], $user->last_name);
-//        $this->assertEquals($userData['email'], $user->email);
-//        $this->assertTrue(Hash::check('password123', $user->password));
-//
-//        // Verify that the user was actually saved to the database
-//        $this->assertDatabaseHas('users', [
-//            'email' => 'john@example.com',
-//            'first_name' => 'John',
-//            'last_name' => 'Doe',
-//        ]);
-//    }
+    //    public function test_can_create_user()
+    //    {
+    //        $userData = [
+    //            'first_name' => 'John',
+    //            'last_name' => 'Doe',
+    //            'phone' => '123456789',
+    //            'existing_cat_count' => 2,
+    //            'existing_children_count' => 1,
+    //            'existing_dog_count' => 0,
+    //            'email' => 'john@example.com',
+    //            'password' => Hash::make('password123'),
+    //        ];
+    //
+    //        $user = new User($userData);
+    //        $user->save();
+    //
+    //        $this->assertInstanceOf(User::class, $user);
+    //        $this->assertEquals($userData['first_name'], $user->first_name);
+    //        $this->assertEquals($userData['last_name'], $user->last_name);
+    //        $this->assertEquals($userData['email'], $user->email);
+    //        $this->assertTrue(Hash::check('password123', $user->password));
+    //
+    //        // Verify that the user was actually saved to the database
+    //        $this->assertDatabaseHas('users', [
+    //            'email' => 'john@example.com',
+    //            'first_name' => 'John',
+    //            'last_name' => 'Doe',
+    //        ]);
+    //    }
 
     public function test_fillable_attributes()
     {

@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UnauthorizedException extends Exception
@@ -18,7 +17,7 @@ class UnauthorizedException extends Exception
         return response()->json([
             'error' => 'Unauthorized',
             'message' => $this->getMessage(),
-            'status' => $this->getCode()
+            'status' => $this->getCode(),
         ], $this->getCode());
     }
 }

@@ -23,17 +23,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if($this->app->environment('production')) {
+        if ($this->app->environment('production')) {
             \URL::forceScheme('https');
         }
-//        if (config('app.debug')) {
-//            DB::listen(function ($query) {
-//                Log::info(
-//                    $query->sql,
-//                    $query->bindings,
-//                    $query->time
-//                );
-//            });
-//        }
+        //        if (config('app.debug')) {
+        //            DB::listen(function ($query) {
+        //                Log::info(
+        //                    $query->sql,
+        //                    $query->bindings,
+        //                    $query->time
+        //                );
+        //            });
+        //        }
     }
 }

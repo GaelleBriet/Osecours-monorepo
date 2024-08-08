@@ -11,15 +11,12 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\NewAccessToken;
 
 class AuthService
 {
-
     /**
-     * @param $credentials
-     * @param $currentAssociationId
      * @return array
+     *
      * @throws UnauthorizedException
      */
     public static function getTokenForSpecificAssociation($credentials, $currentAssociationId)
@@ -28,28 +25,28 @@ class AuthService
         $db = app('db');
         // je récupère l'utilisateur en tant qu'instance du modèle user,
         // pour pouvoir appeler createToken définie dans le trait HasApiTokens
-//        $user = $db->table('users')
-//            ->where('email', $credentials['email'])
-//            ->first();
+        //        $user = $db->table('users')
+        //            ->where('email', $credentials['email'])
+        //            ->first();
         $user = \App\Models\User::where('email', $credentials['email'])->first();
         if ($user && Hash::check($credentials['password'], $user->password)) {
             $associations = $db->table('associations')
                 ->join('association_role_user', 'associations.id', '=', 'association_role_user.association_id')
                 ->where('association_role_user.user_id', $user->id)
                 ->get();
-//            SELECT associations.*
-//                FROM associations
-//                INNER JOIN association_role_user ON associations.id = association_role_user.association_id
-//                WHERE association_role_user.user_id = :user_id;
+            //            SELECT associations.*
+            //                FROM associations
+            //                INNER JOIN association_role_user ON associations.id = association_role_user.association_id
+            //                WHERE association_role_user.user_id = :user_id;
 
             $currentAssociation = $associations->where('association_id', $currentAssociationId);
-            if (!$currentAssociation->count() > 0) {
+            if (! $currentAssociation->count() > 0) {
                 throw new Exception('Association not found');
             }
 
             $adminRoleId = $db->table('roles')->where('name', RoleEnum::ADMIN->value)->first()->id;
             $presidentRoleId = $db->table('roles')->where('name', RoleEnum::PRESIDENT->value)->first()->id;
-            $currentRoleIdList = $currentAssociation->map(function($association) {
+            $currentRoleIdList = $currentAssociation->map(function ($association) {
                 return $association->role_id;
             });
 
@@ -74,43 +71,42 @@ class AuthService
             throw new UnauthorizedException('Unauthorized');
         }
 
-//        if (Auth::attempt($credentials)) {
-//            $user = Auth::user();
-//            $abilities = [];
-//            $associations = collect($user->associations);
-//            $currentAssociations = $associations->where('id', $currentAssociationId);
-//            if (! $currentAssociations->count() > 0) {
-//                throw new Exception('Association not found');
-//            }
-//            $adminRoleId = Role::where('name', RoleEnum::ADMIN->value)->first()->id;
-//            $presidentRoleId = Role::where('name', RoleEnum::PRESIDENT->value)->first()->id;
-//            $currentRoleIdList = $currentAssociations->map(function ($association) {
-//                return $association->pivot['role_id'];
-//            });
-//
-//            $allScopes = self::getAllScopes($currentRoleIdList);
-//
-//            if ($currentRoleIdList->contains($adminRoleId) || $currentRoleIdList->contains($presidentRoleId)) {
-//                $abilities[] = '*';
-//                $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
-//            } else {
-//                $status = $allScopes->join(',');
-//                $abilities = $allScopes->toArray();
-//            }
-//
-//            $token = $user->createToken(env('APP_NAME'), $abilities)->plainTextToken;
-//
-//            return [
-//                'token' => $token,
-//                'scopes' => $status,
-//            ];
-//        } else {
-//            throw new UnauthorizedException('Unauthorized');
-//        }
+        //        if (Auth::attempt($credentials)) {
+        //            $user = Auth::user();
+        //            $abilities = [];
+        //            $associations = collect($user->associations);
+        //            $currentAssociations = $associations->where('id', $currentAssociationId);
+        //            if (! $currentAssociations->count() > 0) {
+        //                throw new Exception('Association not found');
+        //            }
+        //            $adminRoleId = Role::where('name', RoleEnum::ADMIN->value)->first()->id;
+        //            $presidentRoleId = Role::where('name', RoleEnum::PRESIDENT->value)->first()->id;
+        //            $currentRoleIdList = $currentAssociations->map(function ($association) {
+        //                return $association->pivot['role_id'];
+        //            });
+        //
+        //            $allScopes = self::getAllScopes($currentRoleIdList);
+        //
+        //            if ($currentRoleIdList->contains($adminRoleId) || $currentRoleIdList->contains($presidentRoleId)) {
+        //                $abilities[] = '*';
+        //                $status = AccessScopeEnum::GLOBAL_ACCESS_SCOPE->value;
+        //            } else {
+        //                $status = $allScopes->join(',');
+        //                $abilities = $allScopes->toArray();
+        //            }
+        //
+        //            $token = $user->createToken(env('APP_NAME'), $abilities)->plainTextToken;
+        //
+        //            return [
+        //                'token' => $token,
+        //                'scopes' => $status,
+        //            ];
+        //        } else {
+        //            throw new UnauthorizedException('Unauthorized');
+        //        }
     }
 
     /**
-     * @param Collection $roleList
      * @return Collection
      */
     private static function getAllScopes(Collection $roleList)
@@ -167,7 +163,7 @@ class AuthService
         $user = $db->table('users')
             ->where('email', $credentials['email'])
             ->first();
-            // SELECT * FROM users WHERE email = :email;
+        // SELECT * FROM users WHERE email = :email;
 
         if ($user && Hash::check($credentials['password'], $user->password)) {
             $associations = $db->table('associations')
@@ -180,7 +176,7 @@ class AuthService
             // INNER JOIN association_role_user ON associations.id = association_role_user.association_id
             // WHERE association_role_user.user_id = :user_id;
 
-// var_dump($associations);
+            // var_dump($associations);
             $mappedAssociations = $associations->map(function ($association) {
                 return [
                     'id' => $association->association_id,
@@ -197,18 +193,18 @@ class AuthService
         throw new UnauthorizedException('Invalid credentials');
     }
 
-//        if (Auth::attempt($credentials)) {
-//            $user = Auth::user();
-//            return [
-//                'status' => UserStatus::CONNECTED->value,
-//                'associations' => $user->associations->map(function ($association) {
-//                    return [
-//                        'id' => $association->id,
-//                        'name' => $association->name,
-//                    ];
-//                })->unique('id'),
-//            ];
-//        }
-//        throw new UnauthorizedException('Invalid credentials');
-//    }
+    //        if (Auth::attempt($credentials)) {
+    //            $user = Auth::user();
+    //            return [
+    //                'status' => UserStatus::CONNECTED->value,
+    //                'associations' => $user->associations->map(function ($association) {
+    //                    return [
+    //                        'id' => $association->id,
+    //                        'name' => $association->name,
+    //                    ];
+    //                })->unique('id'),
+    //            ];
+    //        }
+    //        throw new UnauthorizedException('Invalid credentials');
+    //    }
 }

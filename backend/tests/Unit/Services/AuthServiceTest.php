@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Services;
 
+use App\Enum\UserStatus;
 use App\Exceptions\UnauthorizedException;
 use App\Http\Controllers\AuthController;
 use App\Http\Requests\AuthRequest;
 use App\Http\Services\AuthService;
 use App\Http\Services\ErrorService;
-use App\Enum\UserStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class AuthServiceTest extends TestCase
@@ -19,11 +18,17 @@ class AuthServiceTest extends TestCase
     use DatabaseTransactions;
 
     protected $authController;
+
     protected $errorServiceMock;
+
     protected $authServiceMock;
+
     protected $authFacade;
+
     protected $auth;
+
     protected $authService;
+
     protected $errorService;
 
     public function setUp(): void
@@ -46,7 +51,7 @@ class AuthServiceTest extends TestCase
 
         $authService = new AuthService();
         $result = $authService->connectUser(['email' => $email, 'password' => $password]);
-//        dump($result);
+        //        dump($result);
         $result['associations'] = $result['associations']->toArray();
         $this->assertEquals([
             'status' => UserStatus::CONNECTED->value,
@@ -91,7 +96,7 @@ class AuthServiceTest extends TestCase
         $request->validateResolved();
 
         $response = $this->authController->login($request);
-//        dump($response->getContent());
+        //        dump($response->getContent());
         // Vérifiez que la réponse est une instance de JsonResponse avec un code de statut 401
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(401, $response->getStatusCode());

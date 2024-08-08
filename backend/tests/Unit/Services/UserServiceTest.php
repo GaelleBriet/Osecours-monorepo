@@ -63,5 +63,4 @@ class UserServiceTest extends TestCase
         // Appeler la méthode tearDown de la classe parent pour effectuer le nettoyage standard
         parent::tearDown();
     }
-
 }

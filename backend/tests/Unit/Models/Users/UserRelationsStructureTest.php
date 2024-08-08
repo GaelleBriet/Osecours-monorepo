@@ -11,8 +11,9 @@ use Tests\TestCase;
 
 class UserRelationsStructureTest extends TestCase
 {
-//    use RefreshDatabase;
+    //    use RefreshDatabase;
     use DatabaseTransactions;
+
     public function test_user_belongs_to_many_associations()
     {
         $user = new User();

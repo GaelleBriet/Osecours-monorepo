@@ -113,7 +113,7 @@ class AssociationsSeeder extends BaseSeeder
                 for ($i = 0; $i < $numberOfUsers; $i++) {
                     $faker = \Faker\Factory::create();
                     $firstName = $faker->firstName();
-                    $lastName = $faker->lastName() .'-'. $roleName->value;
+                    $lastName = $faker->lastName().'-'.$roleName->value;
 
                     $userCreated = User::factory()->create([
                         'first_name' => $firstName,

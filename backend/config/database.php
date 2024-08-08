@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Str;
 
-$url = parse_url(getenv("DATABASE_URL"));
+$url = parse_url(getenv('DATABASE_URL'));
 
-$host = $url["host"] ?? null;
-$port = $url["port"] ?? null;
-$user = $url["user"] ?? null;
-$pass = $url["pass"] ?? null;
-$path = isset($url["path"]) ? substr($url["path"], 1) : null;
+$host = $url['host'] ?? null;
+$port = $url['port'] ?? null;
+$user = $url['user'] ?? null;
+$pass = $url['pass'] ?? null;
+$path = isset($url['path']) ? substr($url['path'], 1) : null;
 
 return [
 

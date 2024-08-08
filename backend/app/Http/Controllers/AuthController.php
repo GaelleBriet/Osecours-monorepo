@@ -17,7 +17,7 @@ class AuthController extends Controller
         $this->errorService = $eService;
     }
 
-     /**
+    /**
      * @OA\Post(
      *     path="/token/create",
      *     summary="Get token",
@@ -65,53 +65,61 @@ class AuthController extends Controller
         }
     }
 
-/**
- * @OA\Post(
- *     path="/login",
- *     summary="User login",
- *     tags={"Authentication"},
- *     @OA\RequestBody(
- *         required=true,
- *         description="User login credentials",
- *         @OA\JsonContent(
- *             required={"email","password"},
- *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
- *             @OA\Property(property="password", type="string", example="password")
- *         ),
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Successful login",
- *         @OA\JsonContent(
- *             @OA\Property(property="data", type="object", ref="#/components/schemas/User")
- *         )
- *     ),
- *     @OA\Response(
- *         response=400,
- *         description="Invalid input"
- *     ),
- *     @OA\Response(
- *         response=401,
- *         description="Unauthorized"
- *     )
- * )
- */
+    /**
+     * @OA\Post(
+     *     path="/login",
+     *     summary="User login",
+     *     tags={"Authentication"},
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *         description="User login credentials",
+     *
+     *         @OA\JsonContent(
+     *             required={"email","password"},
+     *
+     *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+     *             @OA\Property(property="password", type="string", example="password")
+     *         ),
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful login",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="data", type="object", ref="#/components/schemas/User")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid input"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
             $request->validated();
             $credentials = $request->only('email', 'password');
 
-//            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
+            //            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
             $authService = new AuthService();
+
             return response()->json(['data' => $authService->connectUser($credentials)], 200);
         } catch (UnauthorizedException $e) {
             return $this->errorService->handle($e);
-//            return response()->json([
-//                'error' => 'Unauthorized',
-//                'message' => $e->getMessage(),
-//                'status' => $e->getCode()
-//            ], $e->getCode());
+            //            return response()->json([
+            //                'error' => 'Unauthorized',
+            //                'message' => $e->getMessage(),
+            //                'status' => $e->getCode()
+            //            ], $e->getCode());
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }

@@ -16,46 +16,46 @@ class SpeciesTest extends TestCase
     //use RefreshDatabase;
     use DatabaseTransactions;
 
-//    public function test_can_create_cat_and_dog_species()
-//    {
-//        $speciesData = [
-//            [
-//                'name' => 'Cat',
-//                'description' => 'A small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.',
-//            ],
-//            [
-//                'name' => 'Dog',
-//                'description' => 'A domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice.',
-//            ],
-//        ];
-//
-//        foreach ($speciesData as $data) {
-//            $species = new Species($data);
-//            $species->save();
-//
-//            $this->assertInstanceOf(Species::class, $species);
-//            $this->assertEquals($data['name'], $species->name);
-//            $this->assertEquals($data['description'], $species->description);
-//
-//            $this->assertDatabaseHas('species', $data);
-//        }
-//
-//        $this->assertEquals(2, Species::count());
-//
-//        $this->assertTrue(Species::where('name', 'Cat')->exists());
-//        $this->assertTrue(Species::where('name', 'Dog')->exists());
-//
-//        // Try to create a third species
-//        $extraSpecies = new Species([
-//            'name' => 'Bird',
-//            'description' => 'A warm-blooded egg-laying vertebrate animal distinguished by the possession of feathers, wings, a beak, and typically by being able to fly.',
-//        ]);
-//        $extraSpecies->save();
-//
-//        // Verify that the third species was not added
-//        $this->assertEquals(2, Species::count());
-//        $this->assertFalse(Species::where('name', 'Bird')->exists());
-//    }
+    //    public function test_can_create_cat_and_dog_species()
+    //    {
+    //        $speciesData = [
+    //            [
+    //                'name' => 'Cat',
+    //                'description' => 'A small domesticated carnivorous mammal with soft fur, a short snout, and retractile claws. It is widely kept as a pet or for catching mice, and many breeds have been developed.',
+    //            ],
+    //            [
+    //                'name' => 'Dog',
+    //                'description' => 'A domesticated carnivorous mammal that typically has a long snout, an acute sense of smell, and a barking, howling, or whining voice.',
+    //            ],
+    //        ];
+    //
+    //        foreach ($speciesData as $data) {
+    //            $species = new Species($data);
+    //            $species->save();
+    //
+    //            $this->assertInstanceOf(Species::class, $species);
+    //            $this->assertEquals($data['name'], $species->name);
+    //            $this->assertEquals($data['description'], $species->description);
+    //
+    //            $this->assertDatabaseHas('species', $data);
+    //        }
+    //
+    //        $this->assertEquals(2, Species::count());
+    //
+    //        $this->assertTrue(Species::where('name', 'Cat')->exists());
+    //        $this->assertTrue(Species::where('name', 'Dog')->exists());
+    //
+    //        // Try to create a third species
+    //        $extraSpecies = new Species([
+    //            'name' => 'Bird',
+    //            'description' => 'A warm-blooded egg-laying vertebrate animal distinguished by the possession of feathers, wings, a beak, and typically by being able to fly.',
+    //        ]);
+    //        $extraSpecies->save();
+    //
+    //        // Verify that the third species was not added
+    //        $this->assertEquals(2, Species::count());
+    //        $this->assertFalse(Species::where('name', 'Bird')->exists());
+    //    }
 
     public function test_fillable_attributes()
     {

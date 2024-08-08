@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware(['preflight', 'cors'])->group(function () {
 // });
 
-###GENERAL ACCESS ROUTE###
-    Route::post('/token/create', [AuthController::class, 'getToken']);
-    Route::post('/login', [AuthController::class, 'login']);
+//##GENERAL ACCESS ROUTE###
+Route::post('/token/create', [AuthController::class, 'getToken']);
+Route::post('/login', [AuthController::class, 'login']);
 
 //##ADMIN + PRESIDENT ROUTES###
 Route::middleware(['auth:sanctum', 'abilities:global_access_scope'])->group(function () {
@@ -135,9 +135,9 @@ Route::middleware(['auth:sanctum', 'abilities:global_access_scope'])->group(func
     });
     //      Route::post('documents/store/animals/{animal}', [DocumentController::class, 'addDocumentForAnimal']);
 
-//     Route::get('/test', function () {
-//        return response()->json(['message' => 'Test route works']);
-//    });
+    //     Route::get('/test', function () {
+    //        return response()->json(['message' => 'Test route works']);
+    //    });
 
 });
 
