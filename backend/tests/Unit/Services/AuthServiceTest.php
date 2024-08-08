@@ -42,7 +42,7 @@ class AuthServiceTest extends TestCase
     {
         $email = 'admin@osecours-asso.fr';
         $password = 'P@ssword_1';
-        $user = User::first('email', $email);
+        $user = User::where('email', $email)->first();
 
         $request = new AuthRequest();
         $request->setContainer(app());
