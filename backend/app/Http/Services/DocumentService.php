@@ -11,6 +11,8 @@ use App\Models\Shelter;
 use App\Repositories\DocumentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DocumentService
 {
@@ -87,14 +89,14 @@ class DocumentService
         return $this->documentRepo->getAllDocuments($shelter);
     }
 
-    public function getDocumentData(Request $request)
-    {
-        $uniqFilename = $request->filename.uniqid('__');
+    public function getDocumentData(Request $request){
+        $uniqFilename = $request->filename .  uniqid("__");
+        $nameSlugged = Str::slug($uniqFilename, '-');
 
         $file = $request->file('file');
-        $path = $file->storeAs('public/files', $uniqFilename.'.'.$file->getClientOriginalExtension());
+        $path = $file->storeAs('public/files', $nameSlugged . "." . $file->getClientOriginalExtension());
         $imagesMimeType = ['jpeg,jpg,bmp,png,image.pdf'];
-        $url = env('APP_DEBUG') ? env('APP_URL').':'.env('APP_PORT').'/storage/files/'.$uniqFilename.'.'.$file->getClientOriginalExtension() : env('APP_URL');
+        $url = env('APP_DEBUG') ? env('APP_URL') . ":" . env('APP_PORT') . '/storage/files/' . $nameSlugged . "." . $file->getClientOriginalExtension() : env('APP_URL');
 
         return [
             'date' => Date::now(),

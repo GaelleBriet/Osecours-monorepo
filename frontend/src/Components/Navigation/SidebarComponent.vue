@@ -90,12 +90,12 @@
 				},
 			],
 		},
-		{
-			name: getCapitalizedText(t('navigation.documents')),
-			to: '/documents',
-			icon: 'icon-fiche',
-			current: currentActiveRoute,
-		},
+		// {
+		// 	name: getCapitalizedText(t('navigation.documents')),
+		// 	to: '/documents',
+		// 	icon: 'icon-fiche',
+		// 	current: currentActiveRoute,
+		// },
 		{
 			name: getCapitalizedText(t('navigation.families')),
 			to: '/families',
