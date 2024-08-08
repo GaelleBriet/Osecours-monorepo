@@ -35,8 +35,8 @@ class LoginTest extends TestCase
                 'status' => UserStatus::CONNECTED->value,
                 'associations' => [
                     ['id' => 1, 'name' => 'Fondation Brigitte Bardot'],
-                    ['id' => 31, 'name' => 'Fondation 30 Millions d\'Amis'],
-                    ['id' => 61, 'name' => 'Société Protectrice des Animaux'],
+                    ['id' => 2, 'name' => 'Fondation 30 Millions d\'Amis'],
+                    ['id' => 3, 'name' => 'Société Protectrice des Animaux'],
                 ],
             ],
         ]);
