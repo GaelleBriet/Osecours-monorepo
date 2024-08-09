@@ -20,6 +20,9 @@
 
 	onMounted(async () => {
 		currentFamily.value = await membersStore.getMemberById(currentId);
+    console.log('family id',currentFamily.value?.id)
+    console.log('asso id', Number(currentAssociation?.associationId));
+
 		currentMemberRole.value = await membersStore.getMemberRole(
 			currentFamily.value?.id as number,
 			Number(currentAssociation?.associationId),
