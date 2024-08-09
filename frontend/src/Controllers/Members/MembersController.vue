@@ -6,7 +6,7 @@
 	import { Scopes } from '@/Enums/Scopes.ts';
 	import router from '@/Router';
 	import i18n from '@/Services/Translations';
-	import { onMounted, ref } from 'vue';
+  import {onMounted, ref, watch} from 'vue';
 	import { useUserStore } from '@/Stores/UserStore.ts';
 	import { useMembersStore } from '@/Stores/MembersStore.ts';
 	import { getCapitalizedText } from '@/Services/Helpers/TextFormat.ts';
