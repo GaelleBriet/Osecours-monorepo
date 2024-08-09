@@ -19,7 +19,6 @@
 		family?: Members;
 		role?: number | undefined;
 		isCreateMode?: boolean;
-		isEditMode?: boolean;
 	}>();
 
 	const t = i18n.global.t;

@@ -218,7 +218,7 @@
 							>
 								<template v-slot:beforeButtons>
 									<!-- Association select input -->
-									<div v-if="associations.length > 0">
+									<div v-if="associations.length > 0" class="py-4">
 											<FormSelect
 												:id="'association'"
 												:name="'selectAssociation'"

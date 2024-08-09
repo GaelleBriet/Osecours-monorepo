@@ -15,10 +15,10 @@ class AssociationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'siret' => $this->siret,
-            'rib' => chunk_split($this->rib,4," ")
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'siret' => $this->resource->siret,
+            'rib' => chunk_split($this->resource->rib, 4, ' '),
         ];
     }
 }

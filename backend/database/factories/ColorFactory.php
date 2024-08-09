@@ -17,7 +17,8 @@ class ColorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->colorName(),
+            'description' => 'A color is a type of gun dog that retrieves game for a hunter. Generally gun dogs are divided into three primary types: retrievers, flushing spaniels, and pointing breeds.',
         ];
     }
 }

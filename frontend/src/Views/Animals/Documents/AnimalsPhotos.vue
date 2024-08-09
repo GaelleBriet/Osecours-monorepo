@@ -15,7 +15,7 @@
 		animal: Animal;
 	}>();
 
-  	const t = i18n.global.t;
+  const t = i18n.global.t;
 	const showForm = ref(false);
 	const documentsStore = useDocumentsStore();
 	const documents = ref<Document[]>([]);

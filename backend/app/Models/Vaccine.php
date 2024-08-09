@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
  *     title="Vaccine",
  *     description="Vaccine model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -45,7 +44,6 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class Vaccine extends Model
 {
     use HasFactory;
@@ -57,7 +55,7 @@ class Vaccine extends Model
 
     public function animals(): BelongsToMany
     {
-        return $this->belongsToMany(Animal::class,"animal_vaccine");
+        return $this->belongsToMany(Animal::class, 'animal_vaccine');
     }
 
     public function species(): BelongsToMany

@@ -10,6 +10,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="City",
  *     description="City model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -30,7 +31,6 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class City extends Model
 {
     use HasFactory;
@@ -40,7 +40,8 @@ class City extends Model
         'zipcode',
     ];
 
-    public function addresses() {
+    public function addresses()
+    {
         return $this->hasMany(Address::class);
     }
 }

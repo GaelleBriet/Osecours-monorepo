@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contract\UserRepositoryInterface;
-use App\Models\User;
-use App\Models\Role;
-use App\Models\Association;
 use App\Http\Services\ErrorService;
-use App\Http\Services\UserService;
 use App\Http\Services\RoleService;
+use App\Http\Services\UserService;
+use App\Models\Association;
+use App\Models\Role;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +17,11 @@ use OpenApi\Annotations as OA;
 class UserController extends Controller
 {
     protected $users;
+
     protected UserService $userService;
+
     protected ErrorService $errorService;
+
     protected RoleService $roleService;
 
     public function __construct(UserRepositoryInterface $userRepository, UserService $userService, ErrorService $errorService, RoleService $roleService)
@@ -33,9 +36,9 @@ class UserController extends Controller
     {
 
         try {
-            return response()->json(["data" => $this->users->all()],200);
+            return response()->json(['data' => $this->users->all()], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage(), 500]);
+            return response()->json(['error' => $e->getMessage(), 500]);
         }
     }
 
@@ -43,10 +46,11 @@ class UserController extends Controller
     {
 
         try {
-            $associationId = $request->get("association_id");
-            return response()->json(["data" => $this->users->findByAssociationAndUser($associationId, Auth::user())],200);
+            $associationId = $request->get('association_id');
+
+            return response()->json(['data' => $this->users->findByAssociationAndUser($associationId, Auth::user())], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage(), 500]);
+            return response()->json(['error' => $e->getMessage(), 500]);
         }
     }
 
@@ -56,24 +60,29 @@ class UserController extends Controller
      *     summary="Get list of users by role & association",
      *     security={{"bearerAuth":{}}},
      *     tags={"Users"},
-      *     @OA\Parameter(
-      *         name="role",
-      *         in="query",
-      *         description="The role of the user",
-      *         required=true,
-      *         @OA\Schema(
-      *             type="string"
-      *         )
-      *     ),
-      *     @OA\Parameter(
-      *         name="currentAssociationId",
-      *         in="query",
-      *         description="The ID of the current association",
-      *         required=true,
-      *         @OA\Schema(
-      *             type="integer"
-      *         )
-      *     ),
+     *
+     *     @OA\Parameter(
+     *         name="role",
+     *         in="query",
+     *         description="The role of the user",
+     *         required=true,
+     *
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *
+     *     @OA\Parameter(
+     *         name="currentAssociationId",
+     *         in="query",
+     *         description="The ID of the current association",
+     *         required=true,
+     *
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *
      *     @OA\Response(response="200", description="get users by role & association")
      *
      * )
@@ -81,18 +90,18 @@ class UserController extends Controller
     public function getAllUsersByRoleAndAssociation(Request $request)
     {
         try {
-            $role = $request->get("role");
+            $role = $request->get('role');
             $currentAssociationId = $request->get('currentAssociationId');
 
-            if (!$role || !$currentAssociationId) {
-                return response()->json(["error" => "Role and currentAssociationId parameters are required"], 400);
+            if (! $role || ! $currentAssociationId) {
+                return response()->json(['error' => 'Role and currentAssociationId parameters are required'], 400);
             }
 
             $users = $this->users->findByRoleAndAssociation($role, $currentAssociationId);
 
-           return response()->json(["data" => $users], 200);
+            return response()->json(['data' => $users], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
@@ -104,22 +113,27 @@ class UserController extends Controller
      *     description="Return informations for an user with specific id",
      *     operationId="getUserById",
      *     tags={"Users"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="user Id to fetch",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User fetched successfully",
+     *
      *         @OA\JsonContent(
      *             ref="#/components/schemas/User"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="User not found"
@@ -147,22 +161,27 @@ class UserController extends Controller
      *     description="Make a soft delete for an user with specific id",
      *     operationId="deleteUserById",
      *     tags={"Users"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID de l'utilisateur à supprimer",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="string"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User supprimé avec succès",
+     *
      *         @OA\JsonContent(
      *             ref="#/components/schemas/User"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="User non trouvé"
@@ -177,9 +196,10 @@ class UserController extends Controller
     {
         try {
             $deletedUser = $this->userService->softDelete($id);
+
             return response()->json([
                 'message' => 'User deleted successfully',
-                'data' => $deletedUser
+                'data' => $deletedUser,
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
@@ -191,11 +211,14 @@ class UserController extends Controller
      *     path="/users",
      *     summary="Create a new user",
      *     tags={"Users"},
+     *
      *     @OA\RequestBody(
      *         description="User data",
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="first_name",
      *                 type="string",
@@ -258,11 +281,14 @@ class UserController extends Controller
      *             ),
      *         ),
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="User created successfully",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="message",
      *                 type="string",
@@ -275,6 +301,7 @@ class UserController extends Controller
      *             ),
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=400,
      *         description="Bad request"
@@ -297,7 +324,7 @@ class UserController extends Controller
                 'existing_children_count' => 'required',
                 'existing_dog_count' => 'required',
                 'email' => 'required|email|unique:users',
-                'password' => ['required','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/'],
+                'password' => ['required', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/'],
                 'role_id' => 'required|exists:roles,id', // on s'assure que le rôle existe
                 'association_id' => 'required|exists:associations,id', // on s'assure que l'association existe
             ]);
@@ -312,9 +339,10 @@ class UserController extends Controller
                 // Attacher le rôle à l'utilisateur
                 $this->roleService->attachRoleOnUser($roleToAttach, $user, $boundedAssociation);
             }
+
             return response()->json([
                 'message' => 'User ans role created successfully',
-                'data' => $user
+                'data' => $user,
             ]);
         } catch (Exception $e) {
             return $this->errorService->handle($e);
@@ -327,35 +355,43 @@ class UserController extends Controller
      *     summary="Get the role of a user for a specific association",
      *     security={{"bearerAuth":{}}},
      *     tags={"Users"},
+     *
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the user",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Parameter(
      *         name="association_id",
      *         in="query",
      *         description="ID of the association",
      *         required=true,
+     *
      *         @OA\Schema(
      *             type="integer"
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Role of the user for the specific association",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(
      *                 property="data",
      *                 ref="#/components/schemas/Role"
      *             )
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=500,
      *         description="Server error"
@@ -365,13 +401,14 @@ class UserController extends Controller
     public function getUserRole(Request $request)
     {
         try {
-            $userId = $request->route("id");
-            $associationId = $request->get("association_id");
+            $userId = $request->route('id');
+            $associationId = $request->get('association_id');
 
             $role = $this->users->getUserRole($userId, $associationId);
-            return response()->json(["role_id" => $role],200);
+
+            return response()->json(['role_id' => $role], 200);
         } catch (Exception $e) {
-            return response()->json(["error" => $e->getMessage(), 500]);
+            return response()->json(['error' => $e->getMessage(), 500]);
         }
     }
 }

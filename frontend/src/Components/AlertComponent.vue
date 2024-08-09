@@ -30,6 +30,7 @@
 </script>
 <template>
 	<div
+    id="alert-component"
 		class="border-l-4 p-4"
 		:class="{
 			'border-yellow-400 bg-yellow-50': props.warning,

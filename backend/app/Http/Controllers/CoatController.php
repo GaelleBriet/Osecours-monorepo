@@ -24,6 +24,7 @@ class CoatController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return Coat::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -36,6 +37,7 @@ class CoatController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $coat->update([
             'name' => $request->name,
             'description' => $request->description,

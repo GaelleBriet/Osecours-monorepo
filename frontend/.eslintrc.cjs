@@ -9,6 +9,12 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:vue/vue3-essential"
     ],
+    "ignorePatterns": [
+        "formkit.theme.ts",
+        "cypress/**/*.ts",
+        "cypress/*.d.ts",
+        "cypress/"
+    ],
     "overrides": [
         {
             "env": {

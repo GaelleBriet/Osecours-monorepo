@@ -299,10 +299,10 @@
 </template>
 <style scoped lang="postcss">
 	.documents-view {
-		//max-height: calc(100% - 4rem);
+		/*max-height: calc(100% - 4rem);*/
 		display: flex;
 		flex-direction: column;
-		//min-height: calc(100vh - 4rem);
+		/*min-height: calc(100vh - 4rem);*/
 		min-height: 100%;
 	}
 

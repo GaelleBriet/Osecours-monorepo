@@ -17,7 +17,8 @@ class SpecieFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->randomElement(['Cat', 'Dog']),
+            'description' => $this->faker->sentence(5),
         ];
     }
 }

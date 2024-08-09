@@ -14,7 +14,7 @@
 		labelClass?: string;
 		name?: string;
 		prefixIcon?: string;
-    validation: string | [rule: string, ...args: any[]][] | undefined;
+    validation: string | [rule: string, ...args: never[]][] | undefined;
 		disabled?: boolean;
 		confirmationLabel?: string;
 		validationVisibility?: string;

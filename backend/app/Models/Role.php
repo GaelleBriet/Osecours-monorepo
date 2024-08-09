@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
  *     title="Role",
  *     description="Role model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -37,14 +37,13 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class Role extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "id",
-        "name"
+        'id',
+        'name',
     ];
 
     public function users()

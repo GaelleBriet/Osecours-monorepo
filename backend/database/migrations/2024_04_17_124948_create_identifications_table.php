@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('identifications', function (Blueprint $table) {
             $table->id();
-            $table->date("date");
-            $table->enum("type", collect(IdentificationTypeEnum::cases())->map(function($case) {
+            $table->date('date');
+            $table->enum('type', collect(IdentificationTypeEnum::cases())->map(function ($case) {
                 return $case->value;
-            })->toArray() )->nullable();
-            $table->string("number", 15)->unique()->nullable();
-            $table->foreignId("animal_id")->constrained('animals');
+            })->toArray())->nullable();
+            $table->string('number', 15)->unique()->nullable();
+            $table->foreignId('animal_id')->constrained('animals');
             $table->timestamps();
         });
     }

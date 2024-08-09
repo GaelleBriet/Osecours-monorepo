@@ -10,6 +10,7 @@
 	import i18n from '@/Services/Translations';
 	import ModalComponent from '@/Components/ModalComponent.vue';
 	import LoaderComponent from '@/Components/LoaderComponent.vue';
+  import {Doctypes} from "@/Interfaces/Documents/Doctypes.ts";
 
 	const t = i18n.global.t;
 	const documentsStore = useDocumentsStore();
@@ -156,10 +157,10 @@
 </template>
 <style scoped lang="postcss">
 	.animal-documents {
-		//max-height: calc(100% - 4rem);
+		/*max-height: calc(100% - 4rem);*/
 		display: flex;
 		flex-direction: column;
-		//min-height: calc(100vh - 4rem);
+		/*min-height: calc(100vh - 4rem);*/
 		min-height: 100%;
 	}
 

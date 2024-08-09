@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Specie",
  *     description="Specie model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -44,7 +45,6 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class Specie extends Model
 {
     use HasFactory;
@@ -53,6 +53,21 @@ class Specie extends Model
         'name',
         'description',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        if (app()->environment() === 'testing') {
+            static::creating(function ($species) {
+                if (! in_array($species->name, ['Cat', 'Dog'])) {
+                    return false;
+                }
+
+                return true;
+            });
+        }
+    }
 
     public function animals(): HasMany
     {

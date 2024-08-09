@@ -79,8 +79,8 @@
 		"forgotPassword": "forgot your password?",
 		"signIn": "sign in",
 		"error": "Invalid credentials. Please try again.",
-		"selectAssociation": "select your organization"
-	},
+		"selectAssociation": "select your organization",
+		"identificationChanged": "your identification has been changed, Email : {email}, Mot de passe : {password}"	},
 	"register": {
 		"title": "register",
 		"description": "create an account to get started."

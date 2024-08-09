@@ -1,9 +1,10 @@
 <script setup lang="ts">
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import { ref, computed } from 'vue';
 
 	const t = i18n.global.t;
-	import { ref, computed } from 'vue';
+
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
@@ -25,8 +26,6 @@
 		disableEditIcon?: boolean;
 		isDocument?: boolean;
 	}>();
-
-	console.log(props);
 
 	const emit = defineEmits<{
 		(event: 'edit', item: object): void;

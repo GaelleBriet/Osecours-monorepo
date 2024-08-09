@@ -24,6 +24,7 @@ class SizeRangeController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return SizeRange::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -36,6 +37,7 @@ class SizeRangeController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $SizeRange->update([
             'name' => $request->name,
             'description' => $request->description,
