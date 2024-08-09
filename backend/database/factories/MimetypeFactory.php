@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SizeRange>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mimetype>
  */
-class SizeRangeFactory extends Factory
+class MimetypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class SizeRangeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word,
-            'description' => $this->faker->sentence,
+            'name' => $this->faker->unique()->mimeType,
         ];
     }
 }

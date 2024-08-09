@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coat>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Doctype>
  */
-class CoatFactory extends Factory
+class DoctypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class CoatFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word . $this->faker->numberBetween(1, 100) . $this->faker->randomElement(['*', '/', '-', '+']),
+            'name' => $this->faker->unique()->word,
             'description' => $this->faker->sentence,
         ];
     }
