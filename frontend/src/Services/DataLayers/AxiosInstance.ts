@@ -8,6 +8,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(config) => {
+
 		// Récupérer le token du stockage local
 		const token = localStorage.getItem('token');
 

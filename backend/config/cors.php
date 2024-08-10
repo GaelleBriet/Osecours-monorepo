@@ -17,9 +17,9 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'], // Specify paths where CORS should be applied
 
-    'allowed_methods' => ['*'], // HTTP methods allowed
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // HTTP methods allowed
 
-    'allowed_origins' => ['*'], // Allowed origins
+    'allowed_origins' => ['http://localhost:5173'], // Allowed origins
 
     'allowed_origins_patterns' => [], // Patterns for matching origins
 
@@ -27,7 +27,7 @@ return [
 
     'exposed_headers' => [], // Headers exposed in responses 'Authorization', 'X-Custom-Header'
 
-    'max_age' => 0, // Max age for the preflight request (in seconds)
+    'max_age' => 86400, // Max age for the preflight request (in seconds)
 
     'supports_credentials' => true, // Whether credentials are supported
 

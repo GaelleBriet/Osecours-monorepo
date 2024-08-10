@@ -15,17 +15,20 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $response = $next($request);
 
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, PATCH, DELETE');
-        $response->headers->set('Access-Control-Allow-Headers', 'content-type, Accept, X-Auth-Token, Origin, Authorization, Cookie');
+        if ($request->isMethod('OPTIONS')) {
+            $response = response('', 200);
+        } else {
+            $response = $next($request);
+        }
 
-//         if ($request->getMethod() === 'OPTIONS') {
-//         dd($request);
-//             $response->setStatusCode(204);
-//             $response->headers->set('Access-Control-Max-Age', config('cors.max_age'));
-//         }
+        $response->headers->set('Access-Control-Allow-Origin', config('cors.allowed_origins')[0]);
+        $response->headers->set('Access-Control-Allow-Methods', implode(',', config('cors.allowed_methods')));
+        $response->headers->set('Access-Control-Allow-Headers', implode(',', config('cors.allowed_headers')));
+        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        $response->headers->set('Access-Control-Max-Age', config('cors.max_age'));
+//         $response->headers->set('Access-Control-Allow-Headers', 'content-type, Accept, X-Auth-Token, Origin, Authorization, Cookie');
+
 
         return $response;
     }

@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 // header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, PATCH, DELETE');
 // header('Access-Control-Allow-Headers: content-type, Accept, X-Auth-Token, Origin, Authorization');
 
-Route::middleware(['preflight', 'cors'])->group(function () {
+Route::middleware(['cors', 'preflight' ])->group(function () {
+    Route::options('/{any}', function() {
+        return response()->json('', 204);
+    })->where('any', '.*');
     //##GENERAL ACCESS ROUTE###
     Route::post('/token/create', [AuthController::class, 'getToken']);
     Route::post('/login', [AuthController::class, 'login']);
