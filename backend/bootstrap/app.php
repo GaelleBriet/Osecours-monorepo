@@ -23,6 +23,18 @@ return Application::configure(basePath: dirname(__DIR__))
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
         ]);
+        $middleware->append([
+            CorsMiddleware::class,
+            HandlePreflight::class,
+        ]);
+//          $middleware->use([CorsMiddleware::class]);
+//         ->withCors(function (Cors $cors) {
+//             $cors->paths(['api/*', 'sanctum/csrf-cookie']);
+//             $cors->allowedMethods(['*']);
+//             $cors->allowedOrigins(['*']);
+//             $cors->allowedHeaders(['*']);
+//             $cors->supportsCredentials(true);
+//         });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

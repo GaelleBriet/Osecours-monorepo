@@ -196,7 +196,7 @@
 							<div class="mt-2">
 								<FormSubmitButton
 									type="submit"
-									@click="onSubmit"
+
 									:label="getCapitalizedText(t('login.signIn'))"
 								></FormSubmitButton>
 							</div>

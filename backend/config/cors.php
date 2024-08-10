@@ -15,20 +15,20 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'], // Specify paths where CORS should be applied
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['*'], // HTTP methods allowed
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['*'], // Allowed origins
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [], // Patterns for matching origins
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['*'], // Headers allowed in requests 'Content-Type', 'X-Requested-With'
 
-    'exposed_headers' => [],
+    'exposed_headers' => [], // Headers exposed in responses 'Authorization', 'X-Custom-Header'
 
-    'max_age' => 0,
+    'max_age' => 0, // Max age for the preflight request (in seconds)
 
-    'supports_credentials' => true,
+    'supports_credentials' => true, // Whether credentials are supported
 
 ];
