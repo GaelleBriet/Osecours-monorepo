@@ -15,25 +15,15 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        if ($request->isMethod('OPTIONS')) {
-            $response = response('', 200);
-        } else {
-            $response = $next($request);
-        }
-
-    Log::info('CORS headers', [
-        'origin' => $request->header('Origin'),
-        'access-control-allow-origin' => $response->headers->get('Access-Control-Allow-Origin'),
-    ]);
-
-        $response->headers->set('Access-Control-Allow-Origin', config('cors.allowed_origins')[0]);
-        $response->headers->set('Access-Control-Allow-Methods', implode(',', config('cors.allowed_methods')));
-        $response->headers->set('Access-Control-Allow-Headers', implode(',', config('cors.allowed_headers')));
+        $response->headers->set('Access-Control-Allow-Origin', 'https://www.osecours-asso.fr');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Headers', 'content-type, Accept, X-Auth-Token, Origin, Authorization, Cookie');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('Access-Control-Max-Age', config('cors.max_age'));
 //         $response->headers->set('Access-Control-Allow-Headers', 'content-type, Accept, X-Auth-Token, Origin, Authorization, Cookie');
-
+        if ($request->isMethod('OPTIONS')) {
+            $response = response('', 200);
+        }
 
         return $response;
     }

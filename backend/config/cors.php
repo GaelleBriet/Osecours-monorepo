@@ -23,11 +23,6 @@ return [
 
     'allowed_origins' => [
         'https://www.osecours-asso.fr',
-        'https://osecours-front-eu-851bfe93cb8c.herokuapp.com',
-        'https://my-cors-app-93d3e802d505.herokuapp.com',
-        'https://my-cors-app-93d3e802d505.herokuapp.com/https://osecours-front-eu-851bfe93cb8c.herokuapp.com',
-        'https://my-cors-app-93d3e802d505.herokuapp.com/https://osecours-api-eu-fb28aa2da721.herokuapp.com',
-        'https://my-cors-app-93d3e802d505.herokuapp.com/https://osecours-api-eu-fb28aa2da721.herokuapp.com/api'
     ],
 
     'allowed_origins_patterns' => [], // Patterns for matching origins
