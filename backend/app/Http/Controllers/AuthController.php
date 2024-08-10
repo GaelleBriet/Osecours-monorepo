@@ -112,7 +112,9 @@ class AuthController extends Controller
             //            return response()->json(['data' => AuthService::connectUser($credentials)], 200);
             $authService = new AuthService();
 
-            return response()->json(['data' => $authService->connectUser($credentials)], 200);
+            //return response()->json(['data' => $authService->connectUser($credentials)], 200);
+            $response = response()->json(['data' => $authService->connectUser($credentials)], 200);
+            return $this->addCorsHeaders($response);
         } catch (UnauthorizedException $e) {
             return $this->errorService->handle($e);
             //            return response()->json([
@@ -123,5 +125,13 @@ class AuthController extends Controller
         } catch (Exception $e) {
             return $this->errorService->handle($e);
         }
+    }
+
+    private function addCorsHeaders($response)
+    {
+        return $response->header('Access-Control-Allow-Origin', 'https://www.osecours-asso.fr')
+                        ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                        ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+                        ->header('Access-Control-Allow-Credentials', 'true');
     }
 }
