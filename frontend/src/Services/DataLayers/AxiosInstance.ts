@@ -35,6 +35,9 @@ axiosInstance.interceptors.request.use(
 	},
 );
 axiosInstance.defaults.headers['Content-Type'] = 'application/json';
+axiosInstance.defaults.headers['Accept'] = 'application/json';
+axiosInstance.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
+axiosInstance.defaults.headers['Access-Control-Allow-Origin'] = 'https://www.osecours-asso.fr';
 
 // // Fonction pour récupérer la valeur d'un cookie
 // function getCookie(name) {
