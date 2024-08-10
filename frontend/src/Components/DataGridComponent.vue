@@ -1,14 +1,16 @@
 <script setup lang="ts">
 	import { getCapitalizedText } from '../Services/Helpers/TextFormat.ts';
 	import i18n from '@/Services/Translations';
+	import { ref, computed } from 'vue';
 
 	const t = i18n.global.t;
-	import { ref, computed } from 'vue';
+
 	const props = defineProps<{
 		store: object;
 		modelValue: object[];
 		title?: string;
 		description?: string;
+		availability?: string;
 		columns: {
 			label: string;
 			key: string | ((item: object) => string);
@@ -22,6 +24,7 @@
 		animalsChars?: boolean;
 		disableAddBtn?: boolean;
 		disableEditIcon?: boolean;
+		isDocument?: boolean;
 	}>();
 
 	const emit = defineEmits<{
@@ -49,17 +52,17 @@
 	const filteredItems = computed(() => {
 		const query = searchQuery.value.toLowerCase().trim();
 		if (!query) {
-			return props.modelValue;
+			return props.modelValue || [];
 		} else {
-			return props.modelValue.filter((item) => {
-				for (const key in item) {
-					if (Object.hasOwnProperty.call(item, key)) {
-						if (item[key]?.toString().toLowerCase().includes(query)) {
-							return true;
-						}
-					}
+			return (props.modelValue || []).filter((item) => {
+			for (const key in item) {
+				if (Object.hasOwnProperty.call(item, key)) {
+				if (item[key]?.toString().toLowerCase().includes(query)) {
+					return true;
 				}
-				return false;
+				}
+			}
+			return false;
 			});
 		}
 	});
@@ -76,11 +79,14 @@
 					{{ props.title }}
 				</h1>
 				<p class="mt-2 text-sm text-gray-700">
-					{{ props.description }}
+					{{ props.modelValue?.length ? props.description : props.availability }}
 				</p>
 			</div>
 			<div class="flex justify-between">
-				<div class="mt-4 flex sm:mr-12">
+				<div 
+					v-if="props.modelValue.length"
+					class="mt-4 flex sm:mr-12"
+				>
 					<input
 						v-model="searchQuery"
 						type="text"
@@ -142,7 +148,10 @@
 
 		<div class="-mx-4 mt-8 sm:-mx-0 overflow-hidden">
 			<!-- view cards for smartphones -->
-			<div class="custonmXs:hidden">
+			<div 
+				v-if="props.modelValue.length"
+				class="custonmXs:hidden"
+			>
 				<div
 					v-for="item in filteredItems"
 					:key="item.id"
@@ -184,7 +193,10 @@
 				</div>
 			</div>
 			<!-- vue table for large screens -->
-			<div class="hidden custonmXs:block overflow-x-auto">
+			<div
+				v-if="props.modelValue.length"
+				class="hidden custonmXs:block overflow-x-auto"
+			>
 				<table class="min-w-full divide-y divide-gray-300">
 					<thead class="bg-gray-50">
 						<tr>
@@ -229,11 +241,20 @@
 									]"
 									v-tooltip="column.truncate ? item[column.key] : ''"
 								>
-									{{
-										typeof column.key === 'function'
-											? column.key(item)
-											: item[column.key]
-									}}
+									<template v-if="column.key === 'filename'">
+										<a :href="item['url']" target="_blank" class="text-blue-500 underline">
+											{{
+												item[column.key]
+											}}
+										</a>
+									</template>
+									<template v-else>
+										{{
+											typeof column.key === 'function'
+												? column.key(item)
+												: item[column.key]
+										}}
+									</template>
 								</td>
 							</template>
 							<td

@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Doctype",
  *     description="Document Type model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -31,7 +32,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Doctype extends Model
 {
     use HasFactory;

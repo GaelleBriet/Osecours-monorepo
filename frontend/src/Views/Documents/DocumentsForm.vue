@@ -76,7 +76,7 @@
 
 	const onSubmit = async () => {
 		// si le formulaire n'est pas valide, on affiche une notification
-		if (!isFormValid) {
+		if (!isFormValid()) {
 			notificationConfig.value = {
 				show: true,
 				title: `${getCapitalizedText(t('form.messages.warning'))}`,
@@ -117,8 +117,8 @@
 		if (!newDocument.value) {
 			notificationConfig.value = {
 				show: true,
-				title: `${getCapitalizedText(t('form.messages.errorGeneral'))}`,
-				message: `${getCapitalizedText(t('pages.animals.messages.updateDocSuccess'))}`,
+				title: `${getCapitalizedText(t('pages.animals.messages.errorGeneral'))}`,
+				message: `${getCapitalizedText(t('pages.animals.messages.updateDocError'))}`,
 				type: 'error',
 			};
 			return;
@@ -155,7 +155,7 @@
 			:actions="false"
 		>
 			<div
-				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-2 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
+				class="h-full lg:h-full grid lg:grid:cols-2 lg:grid-rows-1 bg-osecours-beige-dark bg-opacity-10 rounded-b-lg shadow-md p-2"
 			>
 				<NotificationComponent
 					:config="notificationConfig"
@@ -176,12 +176,18 @@
 									? getCapitalizedText(t('pages.documents.image'))
 									: getCapitalizedText(t('pages.documents.file'))
 							"
+							:validation="
+								!isCreateMode ? '' : 'required'"
 							:accept="
 								isPhotoMode
 									? '.jpg,.bmp,.png'
 									: '.pdf,.doc,.docx,.jpg,.bmp,.png'
+							"							
+							:help="
+								isPhotoMode
+									? getCapitalizedText(t('pages.documents.helpPhotos'))
+									: getCapitalizedText(t('pages.documents.help'))
 							"
-							:help="getCapitalizedText(t('pages.documents.help'))"
 							file-item-icon="fileDoc"
 							:multiple="true"
 							no-files-icon="fileDoc"
@@ -278,7 +284,7 @@
 							</button>
 							<button
 								id="save-changes"
-								class="w-1/2 me-1.5 px-4 py-2 bg-green-500 text-white lg:text-sm rounded hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+								class="w-1/2 me-1.5 px-4 py-2 text-white lg:text-sm rounded hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
 								:disabled="!isEditMode"
 								@click.prevent="onSubmit"
 							>
@@ -293,11 +299,31 @@
 </template>
 <style scoped lang="postcss">
 	.documents-view {
-		//max-height: calc(100% - 4rem);
+		/*max-height: calc(100% - 4rem);*/
 		display: flex;
 		flex-direction: column;
-		//min-height: calc(100vh - 4rem);
+		/*min-height: calc(100vh - 4rem);*/
 		min-height: 100%;
+	}
+
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
 	}
 
 	form {

@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Paris",
+        "zipcode": "75000"
+    },
+    {
+        "name": "Marseille",
+        "zipcode": "13000"
+    },
+    {
+        "name": "Lyon",
+        "zipcode": "69000"
+    },
+    {
+        "name": "Toulouse",
+        "zipcode": "31000"
+    },
+    {
+        "name": "Nice",
+        "zipcode": "06000"
+    },
+    {
+        "name": "Nantes",
+        "zipcode": "44000"
+    },
+    {
+        "name": "Strasbourg",
+        "zipcode": "67000"
+    },
+    {
+        "name": "Montpellier",
+        "zipcode": "34000"
+    },
+    {
+        "name": "Bordeaux",
+        "zipcode": "33000"
+    },
+    {
+        "name": "Lille",
+        "zipcode": "59000"
+    }
+]

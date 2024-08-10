@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('animal_shelter_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("animal_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("shelter_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
+            $table->foreignId('animal_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('shelter_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

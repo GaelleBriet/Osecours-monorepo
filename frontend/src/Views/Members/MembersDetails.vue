@@ -20,6 +20,9 @@
 
 	onMounted(async () => {
 		currentFamily.value = await membersStore.getMemberById(currentId);
+    console.log('family id',currentFamily.value?.id)
+    console.log('asso id', Number(currentAssociation?.associationId));
+
 		currentMemberRole.value = await membersStore.getMemberRole(
 			currentFamily.value?.id as number,
 			Number(currentAssociation?.associationId),
@@ -29,7 +32,7 @@
 
 <template>
 	<div class="container">
-		<div class="flex flex-row justify-between">
+		<div class="flex flex-row justify-between mb-2">
 			<div class="text-2xl mb-1">
 				{{ getCapitalizedText(t('pages.members.card')) }}:
 				{{ currentFamily?.first_name }} {{ currentFamily?.last_name }}

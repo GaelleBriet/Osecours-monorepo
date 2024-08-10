@@ -26,7 +26,7 @@ class ShelterRequest extends FormRequest
             'description' => 'string|nullable',
             'email' => 'email|nullable',
             'phone' => 'nullable|max:10|min:10|string',
-            'siret' => 'nullable|max:14|min:14|string'
+            'siret' => 'nullable|max:14|min:14|string',
         ];
     }
 }

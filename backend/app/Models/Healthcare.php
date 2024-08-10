@@ -6,7 +6,6 @@ use App\Contract\HasDocumentsInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use OpenApi\Annotations as OA;
 
@@ -14,6 +13,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Healthcare",
  *     description="Healthcare model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -60,18 +60,17 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Healthcare extends Model implements HasDocumentsInterface
 {
     use HasFactory;
 
     protected $fillable = [
-        "date",
-        "report",
-        "weight",
-        "size",
-        "animal_id",
-        "document_id"
+        'date',
+        'report',
+        'weight',
+        'size',
+        'animal_id',
+        'document_id',
     ];
 
     public function animal(): HasOne
@@ -84,7 +83,7 @@ class Healthcare extends Model implements HasDocumentsInterface
         return $this->belongsTo(Document::class);
     }
 
-    public function getDocuments()
+    public function getDocuments(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->belongsTo(Document::class)->get();
     }

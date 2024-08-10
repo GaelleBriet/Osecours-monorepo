@@ -28,6 +28,7 @@
 <template>
 	<div class="w-full p-0 relative -top-[68px]">
 		<DataGridComponent
+			v-if="!animalSettingsStore.isLoading"
 			:store="animalSettingsStore"
 			:model-value="species"
 			:columns="[
@@ -40,7 +41,7 @@
 			:animals-chars="true"
 		/>
 		<LoaderComponent
-			class="mt-5"
+			class="h-screen"
 			v-if="animalSettingsStore.isLoading"
 		/>
 	</div>

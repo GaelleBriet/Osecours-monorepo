@@ -33,6 +33,8 @@
 				return 'text-red-400';
 			case 'warning':
 				return 'text-yellow-400';
+      case 'info':
+        return 'text-blue-400';
 			default:
 				return 'text-gray-400';
 		}

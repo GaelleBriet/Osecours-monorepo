@@ -9,7 +9,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node"],
+    "types": ["node", "cypress"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -25,7 +25,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*", "src/locales/*.json", "src/services/**/*"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*", "src/locales/*.json", "src/services/**/*", "cypress/**/*.ts",
+    "cypress.d.ts"],
   "exclude": ["src/**/__tests__/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

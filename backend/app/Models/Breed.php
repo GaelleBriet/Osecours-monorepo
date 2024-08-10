@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Breed",
  *     description="Breed model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -38,7 +39,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Breed extends Model
 {
     use HasFactory;

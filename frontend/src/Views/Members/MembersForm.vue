@@ -19,7 +19,6 @@
 		family?: Members;
 		role?: number | undefined;
 		isCreateMode?: boolean;
-		isEditMode?: boolean;
 	}>();
 
 	const t = i18n.global.t;
@@ -357,6 +356,16 @@
 		min-height: 100%;
 	}
 
+	#save-changes {
+		background-color: rgb(199, 123, 51);
+		color: #fff;
+		&:hover {
+			background-color: var(--color-withe);
+			color: rgb(199, 123, 51);
+			outline: 1px solid rgb(199, 123, 51);
+		}
+	}
+	
 	form {
 		display: flex;
 		flex-grow: 1;

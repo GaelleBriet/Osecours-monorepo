@@ -17,6 +17,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="User",
  *     description="User model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -79,10 +80,9 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, RoleAssociation, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, RoleAssociation, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -123,49 +123,50 @@ class User extends Authenticatable
         ];
     }
 
-    public function person() {
+    public function person(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
         return $this->morphOne(Person::class, 'personable');
     }
 
-    public function associations()
+    public function associations(): BelongsToMany
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
-                    ->withPivot('role_id')
-                    ->withTimestamps();
+            ->withPivot('role_id')
+            ->withTimestamps();
     }
 
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'association_role_user')
-                    ->withPivot('association_id')
-                    ->withTimestamps();
+            ->withPivot('association_id')
+            ->withTimestamps();
     }
 
-    public function animals1(): BelongsToMany
-    {
-        return $this->belongsToMany(Animal::class, 'animal_user')
-        ->withPivot('comment')
-        ->withTimestamps();
-    }
+    //    public function animals1(): BelongsToMany
+    //    {
+    //        return $this->belongsToMany(Animal::class, 'animal_user')
+    //        ->withPivot('comment')
+    //        ->withTimestamps();
+    //    }
 
-    public function animals()
+    public function animals(): BelongsToMany
     {
         return $this->belongsToMany(Animal::class, 'animal_shelter_user')
             ->withPivot('animal_id')
             ->withTimestamps();
     }
 
-    public function shelters()
+    public function shelters(): BelongsToMany
     {
         return $this->belongsToMany(Shelter::class, 'animal_shelter_user')
             ->withPivot('shelter_id')
             ->withTimestamps();
     }
 
-    public function association_role_user()
+    public function association_role_user(): BelongsToMany
     {
         return $this->belongsToMany(Association::class, 'association_role_user')
-                    ->withPivot('role_id')
-                    ->withTimestamps();
+            ->withPivot('role_id')
+            ->withTimestamps();
     }
 }

@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Age Range",
  *     description="Age Range model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -31,13 +32,12 @@ use OpenApi\Annotations as OA;
  *     ),
  * )
  */
-
 class AgeRange extends Model
 {
     use HasFactory;
 
-    protected $table = "age_ranges";
-    
+    protected $table = 'age_ranges';
+
     protected $fillable = [
         'name',
         'description',

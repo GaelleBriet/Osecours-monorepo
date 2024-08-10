@@ -11,6 +11,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Association",
  *     description="Association model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -46,7 +47,6 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Association extends Model
 {
     use HasFactory,SoftDeletes;
@@ -55,7 +55,7 @@ class Association extends Model
         'name',
         'description',
         'siret',
-        'rib'
+        'rib',
     ];
 
     public function person()

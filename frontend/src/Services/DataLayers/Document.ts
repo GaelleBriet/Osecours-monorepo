@@ -31,7 +31,7 @@ const sendDocumentRequest = async (
 		// Append all fields from the document to the FormData object
 		for (const key in document) {
 			if (Object.prototype.hasOwnProperty.call(document, key)) {
-				formData.append(key, (document as any)[key]);
+				formData.append(key, (document as never)[key]);
 			}
 		}
 

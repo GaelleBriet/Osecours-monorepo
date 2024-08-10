@@ -12,6 +12,7 @@
 	const documentsStore = useDocumentsStore();
 	const documentId = route.params.id;
 	const currentDocument = ref<Document | null>(null);
+  const currentTab = ref(0);
 
 	const updateCurrentTab = (index) => {
 		currentTab.value = index;
@@ -35,7 +36,7 @@
 
 <template>
 	<div class="container">
-		<div class="flex flex-row justify-between">
+		<div class="flex flex-row justify-between mb-2">
 			<div class="text-2xl mb-1">
 				{{ getCapitalizedText(t('pages.documents.card')) }}:
 				{{ currentDocument?.filename }}

@@ -25,11 +25,13 @@ export const useMembersStore = defineStore({
 		member: Members | null;
 		adoptFamiliesCount: number;
 		fosterFamiliesCount: number;
+		isLoading: boolean;
 	} => ({
 		members: [],
 		member: null,
 		adoptFamiliesCount: 0,
 		fosterFamiliesCount: 0,
+		isLoading: false,
 	}),
 	getters: {
 		membersQuantity(): number {
@@ -47,8 +49,10 @@ export const useMembersStore = defineStore({
 	},
 	actions: {
 		async getMembers(associationId: string): Promise<Members[]> {
+			this.isLoading = true;
 			const members: Members[] | ErrorResponse =
 				await getMembers(associationId);
+			this.isLoading = false;
 			if ('error' in members) {
 				return [];
 			} else {
@@ -69,10 +73,12 @@ export const useMembersStore = defineStore({
 			familyType: 'adopt' | 'foster',
 			currentAssociationId: string,
 		): Promise<Members[]> {
+			this.isLoading = true;
 			const families: Members[] | ErrorResponse = await getMembersByFamilyType(
 				familyType,
 				currentAssociationId,
 			);
+			this.isLoading = false;
 
 			if ('error' in families) {
 				return [];
@@ -102,8 +108,10 @@ export const useMembersStore = defineStore({
 			}
 		},
 		async getAllFamilies(associationId: string): Promise<Members[]> {
+			this.isLoading = true;
 			const families: Members[] | ErrorResponse =
 				await getMembers(associationId);
+			this.isLoading = false;
 
 			if ('error' in families) {
 				return [];

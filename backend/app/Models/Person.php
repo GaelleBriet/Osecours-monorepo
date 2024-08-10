@@ -10,6 +10,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="Person",
  *     description="Person model",
+ *
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -40,18 +41,19 @@ use OpenApi\Annotations as OA;
  *     )
  * )
  */
-
 class Person extends Model
 {
     use HasFactory;
 
     protected $table = 'persons';
 
-    public function personable() {
+    public function personable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
         return $this->morphTo();
     }
-    
-    public function addresses() {
+
+    public function addresses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
         return $this->belongsToMany(Address::class, 'address_person');
     }
 }

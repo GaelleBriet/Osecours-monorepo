@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Felix",
+        "description": "Felix is a very good cat",
+        "birth_date": "2015-01-01",
+        "cats_friendly":true,
+        "dogs_friendly":true,
+        "children_friendly":true,
+        "age": 9,
+        "behavioral_comment": "Felix is a very good cat, he is very friendly and loves to play with children",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Mittens",
+        "description": "Mittens is a very good cat",
+        "birth_date": "2021-07-27",
+        "cats_friendly":false,
+        "dogs_friendly":false,
+        "children_friendly":false,
+        "age": 3,
+        "behavioral_comment": "Mittens is a very good cat, he is very friendly and loves to play with children",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Snowball",
+        "description": "Snowball is a playful cat",
+        "birth_date": "2018-05-15",
+        "cats_friendly":true,
+        "dogs_friendly":false,
+        "children_friendly":true,
+        "age": 5,
+        "behavioral_comment": "Snowball loves to play with toys and is very friendly with children",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Whiskers",
+        "description": "Whiskers is a calm and friendly cat",
+        "birth_date": "2017-03-20",
+        "cats_friendly":true,
+        "dogs_friendly":true,
+        "children_friendly":true,
+        "age": 6,
+        "behavioral_comment": "Whiskers is very calm and loves to be petted",
+        "sterilized": true,
+        "deceased": false
+    },
+    {
+        "name": "Shadow",
+        "description": "Shadow is a shy but friendly cat",
+        "birth_date": "2019-10-30",
+        "cats_friendly":true,
+        "dogs_friendly":false,
+        "children_friendly":true,
+        "age": 4,
+        "behavioral_comment": "Shadow is a bit shy at first but becomes very friendly once she gets to know you",
+        "sterilized": true,
+        "deceased": false
+    }
+]

@@ -9,24 +9,23 @@ use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-    //
-    public function getAll(Request $request)
+    public function getAll(Request $request): \Illuminate\Database\Eloquent\Collection|array
     {
-        $query = Color::with(['specie']);
-        $colors = Color::all();      
+        $query = Color::with(['species']);
+        $colors = Color::all();
 
-        if ($request->has('species')) {    
+        if ($request->has('species')) {
             $species = ucfirst($request->species);
-            $specieExist = Specie::where('name', $species)->first();      
-            if(!$specieExist){
-                throw new Exception('Specie #'. $request->species . " not found",404);
+            $specieExist = Specie::where('name', $species)->first();
+            if (! $specieExist) {
+                throw new Exception('Specie #'.$request->species.' not found', 404);
             }
-            $query->whereHas('specie', function ($query) use ($species) {
-                $query->where('name', $species); 
+            $query->whereHas('species', function ($query) use ($species) {
+                $query->where('name', $species);
             });
 
             $colors = $query->get();
-        }              
+        }
 
         return $colors;
     }
@@ -42,6 +41,7 @@ class ColorController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return Color::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -54,6 +54,7 @@ class ColorController extends Controller
             'name' => 'required|max:255',
             'description' => '',
         ]);
+
         return $color->update([
             'name' => $request->name,
             'description' => $request->description,
