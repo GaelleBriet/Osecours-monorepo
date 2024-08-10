@@ -22,6 +22,11 @@ class CorsMiddleware
             $response = $next($request);
         }
 
+    Log::info('CORS headers', [
+        'origin' => $request->header('Origin'),
+        'access-control-allow-origin' => $response->headers->get('Access-Control-Allow-Origin'),
+    ]);
+
         $response->headers->set('Access-Control-Allow-Origin', config('cors.allowed_origins')[0]);
         $response->headers->set('Access-Control-Allow-Methods', implode(',', config('cors.allowed_methods')));
         $response->headers->set('Access-Control-Allow-Headers', implode(',', config('cors.allowed_headers')));
