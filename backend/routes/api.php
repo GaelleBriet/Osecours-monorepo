@@ -25,6 +25,7 @@ Route::middleware(['cors', 'preflight' ])->group(function () {
     Route::options('/{any}', function() {
         return response()->json('', 204);
     })->where('any', '.*');
+
     //##GENERAL ACCESS ROUTE###
     Route::post('/token/create', [AuthController::class, 'getToken']);
     Route::post('/login', [AuthController::class, 'login']);

@@ -15,6 +15,7 @@ export const login = async (
 	try {
 		// requête GET à /sanctum/csrf-cookie pour obtenir un cookie CSRF
 		// await axios.get(`http://localhost:8000/sanctum/csrf-cookie`);
+
 		// requête POST à /login pour se connecter
 		const {
 			data: { data },
