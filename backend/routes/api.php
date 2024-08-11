@@ -16,15 +16,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineController;
 use Illuminate\Support\Facades\Route;
 
-// header('Access-Control-Allow-Origin:  *');
-// header('Access-Control-Allow-Origin: https://osecours-front-eu-851bfe93cb8c.herokuapp.com');
-// header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, PATCH, DELETE');
-// header('Access-Control-Allow-Headers: content-type, Accept, X-Auth-Token, Origin, Authorization');
-
 Route::middleware(['cors', 'preflight' ])->group(function () {
     Route::options('/{any}', function() {
         return response()->json('', 204);
     })->where('any', '.*');
+
     //##GENERAL ACCESS ROUTE###
     Route::post('/token/create', [AuthController::class, 'getToken']);
     Route::post('/login', [AuthController::class, 'login']);

@@ -27,7 +27,6 @@ return Application::configure(basePath: dirname(__DIR__))
             CorsMiddleware::class,
             HandlePreflight::class,
         ]);
-//          $middleware->use([CorsMiddleware::class]);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
