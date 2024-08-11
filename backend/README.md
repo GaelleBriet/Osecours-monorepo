@@ -21,7 +21,8 @@ docker exec -it -e APP_ENV=testing laravel_backend php artisan migrate:fresh --s
 ## Update Swagger documentation
 ```
 sh > cd backend
-sh > ./vendor/bin/openapi app -o public/swagger/swagger.yaml
+sh > php artisan l5-swagger:generate 
+sh > ~~./vendor/bin/openapi app -o public/swagger/swagger.yaml~~
 ```
 
 ## Commandes diverses base de données de développement
