@@ -16,12 +16,10 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $response = $next($request);
 
         // Récupérer l'origine de la requête
         $origin = $request->headers->get('origin');
-
         // Vérifier si l'origine est dans la liste des origines autorisées
         if (in_array($origin, config('cors.allowed_origins'))) {
             $response->headers->set('Access-Control-Allow-Origin', $origin);
