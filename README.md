@@ -6,11 +6,9 @@ Ce projet, toujours en évolution, à été réalisé en fin de cycle Concepteur
 
                                         
 ## App dispo en démo
-[Démo O'secours](https://osecours-front-eu-851bfe93cb8c.herokuapp.com/login)
+[Démo O'secours](https://www.osecours-asso.fr/login)
 
-Dans l'attente de la mise en place sur le nouveau serveur cette adresse est indisponible ~~https://www.osecours-asso.fr~~
-
-N'hésitez pas à me contacter pour avoir les identifiants de test
+N'hésitez pas à me contacter pour avoir les identifiants de test, ils ont changé :)
 
 
 
