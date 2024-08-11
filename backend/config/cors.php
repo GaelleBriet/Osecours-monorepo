@@ -19,11 +19,7 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // HTTP methods allowed
 
-    //'allowed_origins' => ['http://localhost:5173'], // Allowed origins
-
-    'allowed_origins' => [
-        'https://www.osecours-asso.fr',
-    ],
+    'allowed_origins' => ['https://osecours-asso.fr', 'https://www.osecours-asso.fr', '109.176.198.68', 'http://localhost:8000', 'http://localhost:5173'], // Allowed origins
 
     'allowed_origins_patterns' => [], // Patterns for matching origins
 
