@@ -6,7 +6,7 @@ Ce projet, toujours en évolution, à été réalisé en fin de cycle Concepteur
 
                                         
 ## App dispo en démo
-[Démo O'secours](https://www.osecours-asso.fr/login)
+[Démo O'secours](https://osecours-asso.fr/login)
 
 [Swagger](https://osecours-asso.fr:8000/api/docs#/)
 
