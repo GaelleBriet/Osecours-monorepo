@@ -14,7 +14,12 @@
 	import { useDocumentsStore } from '@/Stores/DocumentsStore.ts';
 	import { useAnimalsStore } from '@/Stores/AnimalsStore.ts';
 
+  const route = useRoute();
+  const documentsStore = useDocumentsStore();
 	const animalsStore = useAnimalsStore();
+
+  const t = i18n.global.t;
+
 	const animal = ref({ ...animalsStore.animal });
 	const animalVaccines = ref(animal.value.vaccines);
 	const animalHealth = ref(animal.value.healthcares);
@@ -25,9 +30,6 @@
 	});
 	const currentAnimalId = ref(animalsStore.animal.id);
 	const documents = ref<Document[]>([]);
-	const route = useRoute();
-	const documentsStore = useDocumentsStore();
-	const t = i18n.global.t;
 	const isEditMode = ref(false);
 	const showForm = ref(false);
 
