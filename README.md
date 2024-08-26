@@ -4,6 +4,8 @@
 
 Ce projet, toujours en évolution, à été réalisé en fin de cycle Concepteur Développeur d'Applications.
 
+![Capture d’écran du 2024-08-26 21-54-52](https://github.com/user-attachments/assets/501a8d3e-63e9-459f-b4b3-37e226e3b2c4)
+
                                         
 ## App dispo en démo
 [Démo O'secours](https://osecours-asso.fr/login)
