@@ -9,7 +9,7 @@ class ShelterService
 {
     protected ShelterRepositoryInterface $shelter;
 
-    public function __construct(ShelterRepository $shelterRepo)
+    public function __construct(ShelterRepositoryInterface $shelterRepo)
     {
         $this->shelter = $shelterRepo;
     }

@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Contract\ShelterRepositoryInterface;
+use App\Http\Resources\ShelterResource;
 use App\Models\Shelter;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ShelterRepository extends BaseRepository implements ShelterRepositoryInterface
 {
@@ -12,10 +14,10 @@ class ShelterRepository extends BaseRepository implements ShelterRepositoryInter
         parent::__construct($shelter);
     }
 
-    public function all(): \Illuminate\Database\Eloquent\Collection
+    public function all(): AnonymousResourceCollection
     {
-
-        return Shelter::all();
+        $shelters = Shelter::all();
+        return ShelterResource::collection($shelters);
     }
 
     public function create($shelter): mixed
@@ -35,8 +37,8 @@ class ShelterRepository extends BaseRepository implements ShelterRepositoryInter
 
     public function find($id): mixed
     {
-        return Shelter::withTrashed()
-            ->findOrFail($id);
+        $shelter = Shelter::withTrashed()->findOrFail($id);
+        return new ShelterResource($shelter);
     }
 
     public function softDelete($id): mixed

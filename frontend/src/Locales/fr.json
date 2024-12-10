@@ -199,7 +199,8 @@
 			"search": "Rechercher...",
 			"messages": {
 				"delete": "voulez-vous vraiment supprimer ce refuge ?",
-				"deleteShelter": "supprimer un refuge"
+				"deleteShelter": "supprimer un refuge",
+				"updateShelterError": "an error occurred while updating the shelter"
 			}
 		},
 		"families": {
