@@ -17,7 +17,8 @@ class GenderFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->randomElement(['Male', 'Female', 'Other']),
+            'description' => $this->faker->sentence,
         ];
     }
 }
